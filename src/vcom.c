@@ -131,7 +131,7 @@ void vcom_Init(void (*TxCb)(void))
   HAL_NVIC_SetPriority(UARTX_IRQn, IRQ_PRIORITY_USARTX, 0);
   HAL_NVIC_EnableIRQ(UARTX_IRQn);
 
-  LPUART_InitStruct.BaudRate = 9600;
+  LPUART_InitStruct.BaudRate = 115200;
   LPUART_InitStruct.DataWidth = LL_LPUART_DATAWIDTH_8B;
   LPUART_InitStruct.StopBits = LL_LPUART_STOPBITS_1;
   LPUART_InitStruct.Parity = LL_LPUART_PARITY_NONE;

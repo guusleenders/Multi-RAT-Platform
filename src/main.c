@@ -67,6 +67,7 @@
 #define USER_BUTTON_ALT_GPIO_PORT                   GPIOA
 //#define STDBY_ON
 #define DEBUG	
+#define SEND_DELAY																	30000
 
 // --------------------------- SIGFOX DEFINITIONS ------------------------------
 #define PAC_LEN 8
@@ -101,6 +102,7 @@ uint8_t err_id;
 
 // ---------------------------- GENERAL FUNCTIONS ---------------------------------
 static void sendTest(void);
+static void onTimerEvent(void *context);
 
 // --------------------------- SIGFOX FUNCTIONS --------------------------------
 static sfx_error_t st_sigfox_open( st_sfx_rc_t SgfxRc ); // Open the sigfox library; @param The Region configuration
@@ -124,6 +126,10 @@ static void sendLoRaWAN(void);													// LoRa endNode send request
 //static void LoraStartTx(TxEventType_t EventType);			// Start the tx process
 //static void OnTxTimerEvent(void *context);						// TX timer callback function
 static void LoraMacProcessNotify(void);									// TX timer callback function
+
+// -------------------------- GENERAL VARIABLES ---------------------------------
+static TimerEvent_t TxTimer;
+bool sendTestHappened = false; 
 
 // ---------------------------- LORA VARIABLES ---------------------------------
 static uint8_t AppDataBuff[LORAWAN_APP_DATA_BUFF_SIZE]; // User application data
@@ -170,7 +176,7 @@ int main( void ){
   SystemClock_Config(); // Configure the system clock  
   DBG_Init();   				// Configure the debug mode
   HW_Init();						// Configure the hardware
-  HW_EEPROM_Init(); 		// Initialise Eeprom factory SEting at device Birth
+  HW_EEPROM_Init(); 		// Initialise Eeprom factory Setting at device Birth
 
   BSP_LED_Init(LED_BLUE);
   BSP_LED_Init(LED_GREEN);
@@ -205,18 +211,25 @@ int main( void ){
 	PRINTF("lora init done");
 	#endif
 	
-	LORA_Join();
+	//LORA_Join();
 	#ifdef DEBUG
 	PRINTF("lora join done");
 	#endif
 	
-
+	// Set low power mode: stop mode (timers on)
 	LPM_SetOffMode(LPM_APPLI_Id, LPM_Disable);
-  user_button_init( );										// Initialise user button
-  SCH_RegTask( SEND_TASK, sendTest );		// Record send data task
+	LPM_SetStopMode(LPM_APPLI_Id, LPM_Enable);
 	
-
-
+	SCH_RegTask( SEND_TASK, sendTest );		  // Record send data task
+	
+	// Init button 
+  user_button_init( );										// Initialise user button
+  
+	// Set timers for every 30 seconds (defined by SEND_DELAY in ms)
+	TimerInit(&TxTimer, onTimerEvent);
+	TimerSetValue(&TxTimer,  SEND_DELAY);
+	TimerStart(&TxTimer);
+	
   /* main loop*/
   while( 1 ){
     SCH_Run( ); 
@@ -240,7 +253,7 @@ void SCH_Idle( void ){
 
 static void sendTest(void){
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, NULL ); // Disable irq to forbidd user to press button while transmitting
-	
+
 	#ifdef DEBUG
 	PRINTF("1. SIGFOX \n");
 	#endif
@@ -255,9 +268,15 @@ static void sendTest(void){
 	
 }
 
+static void onTimerEvent(void *context){
+	TimerStart(&TxTimer);
+	send_data_request(); 
+}
+
 // -------------------------------- SIGFOX FUNCTIONS -------------------------------------
 static void sendSigfox( void ){
-   uint8_t ul_msg[12] = {0x00, 0x01, 0x02, 0x03,0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10, 0x11}; 
+	PRINTF(" | in sendSigfox | ");
+  uint8_t ul_msg[12] = {0x00, 0x01, 0x02, 0x03,0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10, 0x11}; 
   uint8_t dl_msg[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
   uint32_t  ul_size =0;
   uint32_t nbTxRepeatFlag=1;
@@ -265,7 +284,7 @@ static void sendSigfox( void ){
   uint16_t pressure = 0;
   int16_t temperature = 0;
   uint16_t humidity = 0;
-  uint32_t batteryLevel= HW_GetBatteryLevel( );                       // in mV
+  uint32_t batteryLevel=0;// HW_GetBatteryLevel( );                       // in mV
 
 
   ul_msg[ul_size++] = (uint8_t) ((batteryLevel*100)/3300);
