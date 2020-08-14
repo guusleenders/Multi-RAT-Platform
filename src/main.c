@@ -150,7 +150,8 @@ static LoRaMainCallback_t LoRaMainCallbacks = { LORA_GetBatteryLevel,
                                               };
 LoraFlagStatus LoraMacProcessRequest = LORA_RESET;
 LoraFlagStatus AppProcessRequest = LORA_RESET;
-
+bool isConnectedLoRaWAN = false;
+																							
 static uint8_t AppLedStateOn = RESET; 		// Specifies the state of the application LED
 
 //static TimerEvent_t TxTimer;
@@ -393,6 +394,8 @@ static void LORA_HasJoined(void){
   PRINTF("JOINED\n\r");
 	#endif
   LORA_RequestClass(LORAWAN_DEFAULT_CLASS);
+	isConnectedLoRaWAN = true;
+	//BSP_LED_On(LED_GREEN);
 }
 
 static void sendLoRaWAN(void){

@@ -1013,6 +1013,7 @@ static void ProcessRadioRxDone( void )
     switch( macHdr.Bits.MType )
     {
         case FRAME_TYPE_JOIN_ACCEPT:
+						PRINTF("FRAME_TYPE_JOIN_ACCEPT");
             macMsgJoinAccept.Buffer = payload;
             macMsgJoinAccept.BufSize = size;
 
@@ -1087,9 +1088,11 @@ static void ProcessRadioRxDone( void )
             }
             break;
         case FRAME_TYPE_DATA_CONFIRMED_DOWN:
+						PRINTF("FRAME_TYPE_DATA_CONFIRMED_DOWN");
             MacCtx.McpsIndication.McpsIndication = MCPS_CONFIRMED;
             // Intentional fall through
         case FRAME_TYPE_DATA_UNCONFIRMED_DOWN:
+						PRINTF("FRAME_TYPE_DATA_UNCONFIRMED_DOWN");
             // Check if the received payload size is valid
             getPhy.UplinkDwellTime = MacCtx.NvmCtx->MacParams.DownlinkDwellTime;
             getPhy.Datarate = MacCtx.McpsIndication.RxDatarate;
@@ -1210,6 +1213,7 @@ static void ProcessRadioRxDone( void )
 
             MacCtx.McpsConfirm.Status = LORAMAC_EVENT_INFO_STATUS_OK;
             MacCtx.McpsConfirm.AckReceived = macMsgData.FHDR.FCtrl.Bits.Ack;
+						PRINTF("\r\n Confirm: %02X",MacCtx.McpsConfirm.AckReceived); 
 
             // Reset ADR ACK Counter only, when RX1 or RX2 slot
             if( ( MacCtx.McpsIndication.RxSlot == RX_SLOT_WIN_1 ) ||
@@ -1232,10 +1236,12 @@ static void ProcessRadioRxDone( void )
                     {
                         MacCtx.NvmCtx->LastRxMic = macMsgData.MIC;
                     }
+										PRINTF("confirmed");
                     MacCtx.McpsIndication.McpsIndication = MCPS_CONFIRMED;
                 }
                 else
                 {
+										PRINTF("unconfirmed");
                     MacCtx.NvmCtx->SrvAckRequested = false;
                     MacCtx.McpsIndication.McpsIndication = MCPS_UNCONFIRMED;
                 }
@@ -1314,6 +1320,7 @@ static void ProcessRadioRxDone( void )
 
             break;
         case FRAME_TYPE_PROPRIETARY:
+						PRINTF("FRAME_TYPE_PROPRIETARY");
             memcpy1( MacCtx.RxPayload, &payload[pktHeaderLen], size - pktHeaderLen );
 
             MacCtx.McpsIndication.McpsIndication = MCPS_PROPRIETARY;
@@ -1324,6 +1331,7 @@ static void ProcessRadioRxDone( void )
             MacCtx.MacFlags.Bits.McpsInd = 1;
             break;
         default:
+						PRINTF("default");
             MacCtx.McpsIndication.Status = LORAMAC_EVENT_INFO_STATUS_ERROR;
             PrepareRxDoneAbort( );
             break;
@@ -3214,7 +3222,7 @@ LoRaMacStatus_t LoRaMacInitialization( LoRaMacPrimitives_t* primitives, LoRaMacC
     MacCtx.NvmCtx = &NvmMacCtx;
 
     // Set non zero variables to its default value
-    MacCtx.AckTimeoutRetriesCounter = 1;
+    MacCtx.AckTimeoutRetriesCounter = 0;
     MacCtx.AckTimeoutRetries = 1;
     MacCtx.NvmCtx->Region = region;
     MacCtx.NvmCtx->DeviceClass = CLASS_A;
@@ -3405,7 +3413,7 @@ LoRaMacStatus_t LoRaMacInitialization( LoRaMacPrimitives_t* primitives, LoRaMacC
 }
 
 void LoRaMacInitializationReset(void){
-		// Initialize Radio driver
+		// Initialize Radio driver (homemade)
 		PRINTF(" | LoRaMacInitializationTest | ");
 	
 		TimerInit( &MacCtx.TxDelayedTimer, OnTxDelayedTimerEvent );
