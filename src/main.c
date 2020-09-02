@@ -61,6 +61,8 @@
 #include "vcom.h"
 #include "version.h"
 
+#include "ltc2941.h"
+#include "sgfx_sx1276_driver.h"
 
 // -------------------------- GENERAL DEFINITIONS ------------------------------
 #define USER_BUTTON_ALT_PIN                         GPIO_PIN_0
@@ -183,6 +185,20 @@ int main( void ){
   BSP_LED_Init(LED_GREEN);
   BSP_LED_Init(LED_RED2);
 
+		
+	LTC2941_Init();
+	uint8_t test = LTC2941_GetStatus();
+	PRINTF("LTC2641: %d||", test);
+	uint8_t test1 = LTC2941_GetControl();
+	PRINTF("%d||", test1);
+	
+	LTC2941_SetPrescaler(PRESCALAR_M_1);
+	LTC2941_SetAlertConfig(ALERT_DISABLED);
+	LTC2941_SetBatteryAlert(VBAT_ALERT_OFF);
+	LTC2941_SetAccumulatedCharge(0);
+	
+	test1 = LTC2941_GetControl();
+	PRINTF("%d||", test1);
   #ifdef DEBUG
 	PRINTF("wakeup1");
 	#endif
@@ -200,8 +216,10 @@ int main( void ){
 
   SIGFOX_API_get_device_id(dev_id);
   SIGFOX_API_get_initial_pac(dev_pac);
-	
+	SGFX_SX1276_setPower(14); // power between 10 and 20dBm
+  
 	#ifdef DEBUG
+	PRINTF("%d dBm\r\n",SGFX_SX1276_getPower( ) );
   PRINTF("devId=") ; for(int i =0; i<ID_LEN; i++) {PRINTF("%02X",dev_id[ID_LEN-1-i]);} PRINTF("\n\r");
   PRINTF("devPac="); for(int i =0; i<PAC_LEN; i++) {PRINTF("%02X",dev_pac[i]);} PRINTF("\n\r");
 	#endif
@@ -254,7 +272,8 @@ void SCH_Idle( void ){
 
 static void sendTest(void){
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, NULL ); // Disable irq to forbidd user to press button while transmitting
-
+	uint16_t test3 = LTC2941_GetAccumulatedCharge();
+	PRINTF("||%d||",test3);
 	#ifdef DEBUG
 	PRINTF("1. SIGFOX \n");
 	#endif
@@ -264,7 +283,8 @@ static void sendTest(void){
 	#endif
 	LoRaMacInitializationReset();
 	sendLoRaWAN();
-	
+	uint16_t test4 = LTC2941_GetAccumulatedCharge();
+	PRINTF("||%d||",test4);
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, send_data_request_from_irq ); // Enable user to press button after transmittion
 	
 }
@@ -305,6 +325,8 @@ static void sendSigfox( void ){
   }
   BSP_LED_On( LED_BLUE );
 	
+
+
 	// -- Send frame on Sigfox network
   SIGFOX_API_send_frame(ul_msg, ul_size, dl_msg, nbTxRepeatFlag, SFX_FALSE);
   

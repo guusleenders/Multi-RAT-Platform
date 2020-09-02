@@ -65,7 +65,6 @@ static I2C_HandleTypeDef I2C_EXPBD_Handle;
  * @}
  */
 
-/* Link function for sensor peripheral */
 uint8_t Sensor_IO_Write( void *handle, uint8_t WriteAddr, uint8_t *pBuffer, uint16_t nBytesToWrite );
 uint8_t Sensor_IO_Read( void *handle, uint8_t ReadAddr, uint8_t *pBuffer, uint16_t nBytesToRead );
 

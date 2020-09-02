@@ -70,6 +70,9 @@ extern "C" {
 #include "temperature.h"
 #include "pressure.h"
 
+/* Link function for sensor peripheral */ /* Moved this from x_nucleo_iks01a2.c */
+
+
 /** @addtogroup BSP BSP
  * @{
  */

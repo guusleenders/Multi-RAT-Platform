@@ -1032,6 +1032,11 @@
               <FileType>4</FileType>
               <FilePath>..\Common\cwmx1zzabz\Radio_Sigfox_Driver\SgfxSTModemSx1276V123_CM0_Keil_O3.lib</FilePath>
             </File>
+            <File>
+              <FileName>ltc2941.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\ltc2941.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

@@ -2635,7 +2635,7 @@ static void ResetMacParameters( void )
 
     MacCtx.ChannelsNbTransCounter = 0;
     MacCtx.AckTimeoutRetries = 1;
-    MacCtx.AckTimeoutRetriesCounter = 1;
+    MacCtx.AckTimeoutRetriesCounter = 0; // Changed to 0 (was 1)
     MacCtx.AckTimeoutRetry = false;
 
     MacCtx.NvmCtx->MaxDCycle = 0;
@@ -4719,7 +4719,7 @@ LoRaMacStatus_t LoRaMacMcpsRequest( McpsReq_t* mcpsRequest )
     MacCtx.McpsConfirm.Status = LORAMAC_EVENT_INFO_STATUS_ERROR;
 
     // AckTimeoutRetriesCounter must be reset every time a new request (unconfirmed or confirmed) is performed.
-    MacCtx.AckTimeoutRetriesCounter = 1;
+    MacCtx.AckTimeoutRetriesCounter = 0; // Changed to 0, was 1
 
     switch( mcpsRequest->Type )
     {
