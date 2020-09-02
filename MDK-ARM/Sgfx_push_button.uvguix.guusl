@@ -3606,9 +3606,9 @@
       <ActiveTab>0</ActiveTab>
       <Doc>
         <Name>..\src\main.c</Name>
-        <ColumnNumber>38</ColumnNumber>
-        <TopLine>198</TopLine>
-        <CurrentLine>218</CurrentLine>
+        <ColumnNumber>4</ColumnNumber>
+        <TopLine>244</TopLine>
+        <CurrentLine>293</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
@@ -4038,9 +4038,9 @@
       </Doc>
       <Doc>
         <Name>..\src\ltc2941.c</Name>
-        <ColumnNumber>33</ColumnNumber>
-        <TopLine>25</TopLine>
-        <CurrentLine>48</CurrentLine>
+        <ColumnNumber>21</ColumnNumber>
+        <TopLine>19</TopLine>
+        <CurrentLine>19</CurrentLine>
         <Folding>0</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
@@ -4056,9 +4056,9 @@
       </Doc>
       <Doc>
         <Name>..\inc\ltc2941.h</Name>
-        <ColumnNumber>0</ColumnNumber>
-        <TopLine>46</TopLine>
-        <CurrentLine>91</CurrentLine>
+        <ColumnNumber>23</ColumnNumber>
+        <TopLine>6</TopLine>
+        <CurrentLine>65</CurrentLine>
         <Folding>0</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>

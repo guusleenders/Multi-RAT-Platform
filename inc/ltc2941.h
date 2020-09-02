@@ -49,6 +49,7 @@ extern "C" {
 
 #define LTC2941_BATTERY_MAX         5570 // mAh
 
+#define RSENSE					0.1
 typedef enum {
     VBAT_ALERT_OFF = 0,
     VBAT_2_8_V = 1,
@@ -89,9 +90,14 @@ void LTC2941_SetShutdown(bool enable);
 uint16_t LTC2941_GetAccumulatedCharge( void );
 void LTC2941_SetAccumulatedCharge(uint16_t charge);
 
+float LTC2941_GetmAh( void );
+float LTC2941_GetCoulomb( void );
+float LTC2941_GetJoule( void );
+
 LTC2941_Error_et LTC2941_ReadReg( uint8_t addr, uint8_t RegAddr, uint16_t NumByteToRead, uint8_t *Data );
 LTC2941_Error_et LTC2941_WriteReg( uint8_t addr, uint8_t RegAddr, uint16_t NumByteToWrite, uint8_t *Data );
 LTC2941_Error_et LTC2941_UpdateReg(uint8_t addr, uint8_t reg, uint8_t mask, uint8_t shift, uint8_t val);
+
 
 static void I2C_MspInit( void );
 static void I2C_Error( uint8_t Addr );

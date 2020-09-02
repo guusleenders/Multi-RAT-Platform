@@ -2,6 +2,8 @@
 
 const float LTC2941_CHARGE_LSB = 0.085;
 const uint8_t prescalarTable[8] = {1, 2, 4, 8, 16, 32, 64, 128};
+uint8_t prescalar = 0;
+
 
 void LTC2941_Init( void ){
 	I2C_Init();
@@ -24,7 +26,7 @@ void LTC2941_SetBatteryAlert(LTC2941_VBAT_ALERT voltage) {
 }
 
 void LTC2941_SetPrescaler(LTC2941_PRESCALAR prescale) {
-    uint8_t prescalar = prescalarTable[prescale];
+    prescalar = prescalarTable[prescale];
 
     LTC2941_UpdateReg(LINEAR_LTC2941_ADDRESS, LTC2941_CONTROL_REG, LTC2941_PRESCALAR_MASK, MEASURE_PRESCALAR_POS, prescale);
 }
@@ -51,7 +53,25 @@ void LTC2941_SetAccumulatedCharge(uint16_t charge){
 	data[1] = charge & 0x00ff;
 	LTC2941_WriteReg(LINEAR_LTC2941_ADDRESS, LTC2941_ACCUM_CHARGE_MSB_REG, 1, &data[0]);
 	LTC2941_WriteReg(LINEAR_LTC2941_ADDRESS, LTC2941_ACCUM_CHARGE_LSB_REG, 1, &data[1]);
-	;
+}
+
+float LTC2941_GetCoulomb( void ) {
+	return LTC2941_GetmAh() *3.6f;
+}
+
+float LTC2941_GetJoule( void ) {
+	return LTC2941_GetCoulomb() *3.3f; // E = C * U
+}
+
+float LTC2941_GetmAh( void ) {
+    uint16_t data = 0;
+    float coulomb = 0;
+
+    data = LTC2941_GetAccumulatedCharge();
+
+    coulomb = (float)(data * LTC2941_CHARGE_LSB * prescalar * 0.05) / (RSENSE * 128);
+
+    return coulomb;
 }
 
 LTC2941_Error_et LTC2941_ReadReg( uint8_t addr, uint8_t RegAddr, uint16_t NumByteToRead, uint8_t *Data ){

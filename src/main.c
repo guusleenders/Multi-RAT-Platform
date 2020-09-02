@@ -196,6 +196,7 @@ int main( void ){
 	LTC2941_SetAlertConfig(ALERT_DISABLED);
 	LTC2941_SetBatteryAlert(VBAT_ALERT_OFF);
 	LTC2941_SetAccumulatedCharge(0);
+	LTC2941_SetShutdown(1);
 	
 	test1 = LTC2941_GetControl();
 	PRINTF("%d||", test1);
@@ -272,19 +273,26 @@ void SCH_Idle( void ){
 
 static void sendTest(void){
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, NULL ); // Disable irq to forbidd user to press button while transmitting
-	uint16_t test3 = LTC2941_GetAccumulatedCharge();
-	PRINTF("||%d||",test3);
+	LTC2941_SetShutdown(0);
+	
+	uint16_t energy = LTC2941_GetmAh()*10000;
+	
 	#ifdef DEBUG
 	PRINTF("1. SIGFOX \n");
 	#endif
 	sendSigfox();
+	
+	energy = LTC2941_GetmAh()*10000 - energy;
+	uint16_t uwh = (uint16_t) (energy *3.3f);
+	PRINTF("\r\n||Sigfox Energy used: %d uAh/10 (%d uWh/10)||\r\n",energy,uwh);
+	
 	#ifdef DEBUG
 	PRINTF("2. LORAWAN \n");
 	#endif
-	LoRaMacInitializationReset();
-	sendLoRaWAN();
-	uint16_t test4 = LTC2941_GetAccumulatedCharge();
-	PRINTF("||%d||",test4);
+	//LoRaMacInitializationReset();
+	//sendLoRaWAN();
+	
+	LTC2941_SetShutdown(1);
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, send_data_request_from_irq ); // Enable user to press button after transmittion
 	
 }
