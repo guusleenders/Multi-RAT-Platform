@@ -477,6 +477,7 @@ void LORA_Init (LoRaMainCallback_t *callbacks, LoRaParam_t* LoRaParam )
   LoRaMacPrimitives.MacMlmeConfirm = MlmeConfirm;
   LoRaMacPrimitives.MacMlmeIndication = MlmeIndication;
   LoRaMacCallbacks.GetBatteryLevel = LoRaMainCallbacks->BoardGetBatteryLevel;
+	LoRaMacCallbacks.LORA_Done = LoRaMainCallbacks->LORA_Done;
   LoRaMacCallbacks.GetTemperatureLevel = LoRaMainCallbacks->BoardGetTemperatureLevel;
   LoRaMacCallbacks.MacProcessNotify = LoRaMainCallbacks->MacProcessNotify;
 #if defined( REGION_AS923 )

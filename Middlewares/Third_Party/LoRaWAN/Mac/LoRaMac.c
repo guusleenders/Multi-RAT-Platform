@@ -1229,6 +1229,9 @@ static void ProcessRadioRxDone( void )
             }
             else
             {
+								// ADD CALLBACK HERE
+								MacCtx.MacCallbacks->LORA_Done();
+							
                 if( macHdr.Bits.MType == FRAME_TYPE_DATA_CONFIRMED_DOWN )
                 {
                     MacCtx.NvmCtx->SrvAckRequested = true;
@@ -1344,6 +1347,7 @@ static void ProcessRadioRxDone( void )
         {
             OnAckTimeoutTimerEvent( NULL );
         }
+				
     }
     else
     {

@@ -124,6 +124,7 @@ static void LORA_ConfirmClass(DeviceClass_t Class);			// Callback when LoRa endN
 static void LORA_TxNeeded(void);												// Callback when server needs endNode to send a frame
 static uint8_t LORA_GetBatteryLevel(void);							// Callback to get the battery level in % of full charge (254 full charge, 0 no charge)
 static void sendLoRaWAN(void);													// LoRa endNode send request
+static void LORA_Done(void);	
 
 //static void LoraStartTx(TxEventType_t EventType);			// Start the tx process
 //static void OnTxTimerEvent(void *context);						// TX timer callback function
@@ -132,7 +133,7 @@ static void LoraMacProcessNotify(void);									// TX timer callback function
 // -------------------------- GENERAL VARIABLES ---------------------------------
 static TimerEvent_t TxTimer;
 bool sendTestHappened = false; 
-
+static uint16_t energy = 0;
 // ---------------------------- LORA VARIABLES ---------------------------------
 static uint8_t AppDataBuff[LORAWAN_APP_DATA_BUFF_SIZE]; // User application data
 
@@ -148,7 +149,8 @@ static LoRaMainCallback_t LoRaMainCallbacks = { LORA_GetBatteryLevel,
                                                 LORA_HasJoined,
                                                 LORA_ConfirmClass,
                                                 LORA_TxNeeded,
-                                                LoraMacProcessNotify
+                                                LoraMacProcessNotify,
+																								LORA_Done
                                               };
 LoraFlagStatus LoraMacProcessRequest = LORA_RESET;
 LoraFlagStatus AppProcessRequest = LORA_RESET;
@@ -168,6 +170,7 @@ static  LoRaParam_t LoRaParamInit = {LORAWAN_ADR_STATE,
                                      LORAWAN_PUBLIC_NETWORK
                                     };
 
+																		
 // -------------------------------- MAIN ---------------------------------------
 int main( void ){
   sfx_error_t error;
@@ -275,7 +278,7 @@ static void sendTest(void){
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, NULL ); // Disable irq to forbidd user to press button while transmitting
 	LTC2941_SetShutdown(0);
 	
-	uint16_t energy = LTC2941_GetmAh()*10000;
+	energy = LTC2941_GetmAh()*10000;
 	
 	#ifdef DEBUG
 	PRINTF("1. SIGFOX \n");
@@ -284,15 +287,17 @@ static void sendTest(void){
 	
 	energy = LTC2941_GetmAh()*10000 - energy;
 	uint16_t uwh = (uint16_t) (energy *3.3f);
-	PRINTF("\r\n||Sigfox Energy used: %d uAh/10 (%d uWh/10)||\r\n",energy,uwh);
+	PRINTF("\r\n||Sigfox energy used: %d uAh/10 (%d uWh/10)||\r\n",energy,uwh);
 	
 	#ifdef DEBUG
 	PRINTF("2. LORAWAN \n");
 	#endif
-	//LoRaMacInitializationReset();
-	//sendLoRaWAN();
 	
-	LTC2941_SetShutdown(1);
+	energy = LTC2941_GetmAh()*10000;
+	LoRaMacInitializationReset();
+	sendLoRaWAN();
+	
+	
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, send_data_request_from_irq ); // Enable user to press button after transmittion
 	
 }
@@ -426,6 +431,12 @@ static void LORA_HasJoined(void){
   LORA_RequestClass(LORAWAN_DEFAULT_CLASS);
 	isConnectedLoRaWAN = true;
 	//BSP_LED_On(LED_GREEN);
+	
+	energy = LTC2941_GetmAh()*10000 - energy;
+	uint16_t uwh = (uint16_t) (energy *3.3f);
+	PRINTF("\r\n||LoRa join energy used: %d uAh/10 (%d uWh/10)||\r\n",energy,uwh);
+	LTC2941_SetShutdown(1);
+	
 }
 
 static void sendLoRaWAN(void){
@@ -683,6 +694,13 @@ static void LORA_TxNeeded(void){
   AppData.Port = LORAWAN_APP_PORT;
 
   LORA_send(&AppData, LORAWAN_UNCONFIRMED_MSG);
+}
+
+static void LORA_Done(void){
+  energy = LTC2941_GetmAh()*10000 - energy;
+	uint16_t uwh = (uint16_t) (energy *3.3f);
+	PRINTF("\r\n||LoRa energy used: %d uAh/10 (%d uWh/10)||\r\n",energy,uwh);
+	LTC2941_SetShutdown(1);
 }
 
 

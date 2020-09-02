@@ -2392,6 +2392,8 @@ typedef struct sLoRaMacCallback
      *\warning  Runs in a IRQ context. Should only change variables state.
      */
     void ( *MacProcessNotify )( void );
+		// Self added, will be called when all is said and done
+		void ( *LORA_Done )( void );
 }LoRaMacCallback_t;
 
 
