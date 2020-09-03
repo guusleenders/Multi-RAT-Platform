@@ -1732,7 +1732,7 @@
       <GroupNumber>17</GroupNumber>
       <FileNumber>88</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\src\mlm32l0xx_hal_msp.c</PathWithFileName>

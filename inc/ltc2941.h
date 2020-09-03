@@ -49,7 +49,7 @@ extern "C" {
 
 #define LTC2941_BATTERY_MAX         5570 // mAh
 
-#define RSENSE					0.1
+#define RSENSE					0.101189 // Calibrated; nominal value: 0.1
 typedef enum {
     VBAT_ALERT_OFF = 0,
     VBAT_2_8_V = 1,

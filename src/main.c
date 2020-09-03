@@ -64,6 +64,8 @@
 #include "ltc2941.h"
 #include "sgfx_sx1276_driver.h"
 
+#include "stm32l0xx_hal.h"
+
 // -------------------------- GENERAL DEFINITIONS ------------------------------
 #define USER_BUTTON_ALT_PIN                         GPIO_PIN_0
 #define USER_BUTTON_ALT_GPIO_PORT                   GPIOA
@@ -187,8 +189,7 @@ int main( void ){
   BSP_LED_Init(LED_BLUE);
   BSP_LED_Init(LED_GREEN);
   BSP_LED_Init(LED_RED2);
-
-		
+	
 	LTC2941_Init();
 	uint8_t test = LTC2941_GetStatus();
 	PRINTF("LTC2641: %d||", test);
