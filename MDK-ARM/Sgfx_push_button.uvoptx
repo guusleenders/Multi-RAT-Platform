@@ -488,7 +488,7 @@
         <Bp>
           <Number>21</Number>
           <Type>0</Type>
-          <LineNumber>446</LineNumber>
+          <LineNumber>320</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -504,7 +504,7 @@
         <Bp>
           <Number>22</Number>
           <Type>0</Type>
-          <LineNumber>448</LineNumber>
+          <LineNumber>322</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -520,7 +520,7 @@
         <Bp>
           <Number>23</Number>
           <Type>0</Type>
-          <LineNumber>453</LineNumber>
+          <LineNumber>327</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -536,7 +536,7 @@
         <Bp>
           <Number>24</Number>
           <Type>0</Type>
-          <LineNumber>457</LineNumber>
+          <LineNumber>331</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -552,7 +552,7 @@
         <Bp>
           <Number>25</Number>
           <Type>0</Type>
-          <LineNumber>470</LineNumber>
+          <LineNumber>344</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -568,7 +568,7 @@
         <Bp>
           <Number>26</Number>
           <Type>0</Type>
-          <LineNumber>475</LineNumber>
+          <LineNumber>349</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -1984,11 +1984,23 @@
       <GroupNumber>17</GroupNumber>
       <FileNumber>101</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\src\ltc2941.c</PathWithFileName>
       <FilenameWithoutPath>ltc2941.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>17</GroupNumber>
+      <FileNumber>102</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\src\bg96.c</PathWithFileName>
+      <FilenameWithoutPath>bg96.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

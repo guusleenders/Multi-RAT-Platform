@@ -64,9 +64,8 @@
 #include "ltc2941.h"
 #include "sgfx_sx1276_driver.h"
 
-#include "stm32l0xx_hal.h"
-#include "stm32l0xx_hal_uart.h"
-#include "stm32l0xx_hal_gpio.h"
+#include "bg96.h"
+
 
 // -------------------------- GENERAL DEFINITIONS ------------------------------
 #define USER_BUTTON_ALT_PIN                         GPIO_PIN_0
@@ -175,10 +174,7 @@ static  LoRaParam_t LoRaParamInit = {LORAWAN_ADR_STATE,
                                     };
 
 
-#define BG96_POWERKEY_PORT GPIOB
-#define BG96_POWERKEY_PIN GPIO_PIN_13														
-#define BG96_RESETKEY_PORT GPIOA
-#define BG96_RESETKEY_PIN GPIO_PIN_8	
+
 																		
 // -------------------------------- MAIN ---------------------------------------
 int main( void ){
@@ -197,63 +193,8 @@ int main( void ){
   BSP_LED_Init(LED_GREEN);
   BSP_LED_Init(LED_RED2);
 	
-	// --- Init Serial stuff ---
-	__USART1_CLK_ENABLE();
-	
-	GPIO_InitTypeDef GPIO_InitStructure;
-
-  GPIO_InitStructure.Pin = GPIO_PIN_9;
-  GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStructure.Alternate = GPIO_AF4_USART1;
-  GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
-  GPIO_InitStructure.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
-
-	GPIO_InitStructure.Pin = GPIO_PIN_10;
-  GPIO_InitStructure.Mode = GPIO_MODE_AF_OD;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
-	
-	UART_HandleTypeDef s_UARTHandle;		
-	s_UARTHandle.Instance  = USART1;
-  s_UARTHandle.Init.BaudRate = 9600;
-  s_UARTHandle.Init.WordLength = UART_WORDLENGTH_8B;
-  s_UARTHandle.Init.StopBits = UART_STOPBITS_1;
-  s_UARTHandle.Init.Parity = UART_PARITY_NONE;
-  s_UARTHandle.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  s_UARTHandle.Init.Mode = UART_MODE_TX_RX;
-	
-	HAL_UART_Init(&s_UARTHandle);
-	
-	// --- Init GPIO for power pins ---
-	
-	// Power pin
-	GPIO_InitTypeDef  GPIO_InitStruct;
-	GPIO_InitStruct.Pin = BG96_POWERKEY_PIN;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  HAL_GPIO_Init(BG96_POWERKEY_PORT, &GPIO_InitStruct);
-	
-	// Reset
-	GPIO_InitStruct.Pin = BG96_RESETKEY_PIN;
-	HAL_GPIO_Init(BG96_RESETKEY_PORT, &GPIO_InitStruct);
-	
-  HAL_Delay(10);
-  HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_SET); 
-  HAL_Delay(500);
-  HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_RESET); 
-  
-  HAL_Delay(10);
-  HAL_GPIO_WritePin(BG96_RESETKEY_PORT, BG96_RESETKEY_PIN, GPIO_PIN_SET); 
-  HAL_Delay(500);
-  HAL_GPIO_WritePin(BG96_RESETKEY_PORT, BG96_RESETKEY_PIN, GPIO_PIN_RESET); 
-	
-	uint8_t buffer[5] = {'A','T','E','1','\r'};
-	uint8_t receiveBuffer[50];
-	HAL_UART_Transmit(&s_UARTHandle, buffer, sizeof(buffer), HAL_MAX_DELAY);
-	HAL_UART_Receive(&s_UARTHandle, receiveBuffer, sizeof(receiveBuffer), HAL_MAX_DELAY);
-	
-	PRINTF("%s", buffer);
+	BG96_Init();
+	BG96_PowerOn();
 	
 	while(true){}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////

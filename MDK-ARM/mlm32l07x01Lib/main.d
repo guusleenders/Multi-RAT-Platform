@@ -82,3 +82,4 @@
 .\mlm32l07x01lib\main.o: ..\inc\version.h
 .\mlm32l07x01lib\main.o: ..\inc\ltc2941.h
 .\mlm32l07x01lib\main.o: ..\Common\cwmx1zzabz\Radio_Sigfox_Driver\sgfx_sx1276_driver.h
+.\mlm32l07x01lib\main.o: ..\inc\bg96.h
