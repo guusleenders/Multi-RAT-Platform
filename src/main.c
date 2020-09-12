@@ -187,6 +187,7 @@ int main( void ){
   SystemClock_Config(); // Configure the system clock  
   DBG_Init();   				// Configure the debug mode
   HW_Init();						// Configure the hardware
+	vcom2_Init( NULL );
   HW_EEPROM_Init(); 		// Initialise Eeprom factory Setting at device Birth
 	
   BSP_LED_Init(LED_BLUE);
@@ -196,7 +197,8 @@ int main( void ){
 	PRINTF("test");
 	
 	BG96_Init();
-	BG96_PowerOn();
+	
+	BG96_Send("BG96 test");
 	
 	while(true){}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -140,8 +140,8 @@ void HW_Init( void )
     /* configure the timer 2*/
     HW_TIM2_Init();
     
-		TraceInit(); // added from lorawan
-    vcom2_Init( NULL );
+		//TraceInit(); // added from lorawan
+    
 
     BSP_sensor_Init( );
 
@@ -162,7 +162,7 @@ void HW_DeInit( void )
   
   SX1276IoDeInit( );
   
-  vcom_DeInit( );
+  vcom2_DeInit( );
    
   McuInitialized = false;
 }

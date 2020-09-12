@@ -84,3 +84,8 @@
 .\mlm32l07x01lib\main.o: ..\inc\ltc2941.h
 .\mlm32l07x01lib\main.o: ..\Common\cwmx1zzabz\Radio_Sigfox_Driver\sgfx_sx1276_driver.h
 .\mlm32l07x01lib\main.o: ..\inc\bg96.h
+.\mlm32l07x01lib\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\mlm32l07x01lib\main.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_ll_lpuart.h
+.\mlm32l07x01lib\main.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_ll_rcc.h
+.\mlm32l07x01lib\main.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_ll_dma.h
+.\mlm32l07x01lib\main.o: ..\inc\tiny_vsnprintf.h
