@@ -50,3 +50,4 @@
 .\mlm32l07x01lib\loramacparser.o: ..\Middlewares\Utilities\trace.h
 .\mlm32l07x01lib\loramacparser.o: ..\inc\utilities_conf.h
 .\mlm32l07x01lib\loramacparser.o: ..\inc\vcom.h
+.\mlm32l07x01lib\loramacparser.o: ..\inc\vcom2.h

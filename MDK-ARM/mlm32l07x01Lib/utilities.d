@@ -47,6 +47,7 @@
 .\mlm32l07x01lib\utilities.o: ..\Middlewares\Utilities\trace.h
 .\mlm32l07x01lib\utilities.o: ..\inc\utilities_conf.h
 .\mlm32l07x01lib\utilities.o: ..\inc\vcom.h
+.\mlm32l07x01lib\utilities.o: ..\inc\vcom2.h
 .\mlm32l07x01lib\utilities.o: ..\inc\hw.h
 .\mlm32l07x01lib\utilities.o: ..\Middlewares\Utilities\utils_common.h
 .\mlm32l07x01lib\utilities.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

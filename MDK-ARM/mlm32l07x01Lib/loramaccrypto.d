@@ -48,6 +48,7 @@
 .\mlm32l07x01lib\loramaccrypto.o: ..\Middlewares\Utilities\trace.h
 .\mlm32l07x01lib\loramaccrypto.o: ..\inc\utilities_conf.h
 .\mlm32l07x01lib\loramaccrypto.o: ..\inc\vcom.h
+.\mlm32l07x01lib\loramaccrypto.o: ..\inc\vcom2.h
 .\mlm32l07x01lib\loramaccrypto.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\secure-element.h
 .\mlm32l07x01lib\loramaccrypto.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\LoRaMacCrypto.h
 .\mlm32l07x01lib\loramaccrypto.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\LoRaMacTypes.h

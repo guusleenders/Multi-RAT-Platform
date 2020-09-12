@@ -46,3 +46,4 @@
 .\mlm32l07x01lib\bg96.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\mlm32l07x01lib\bg96.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_ll_bus.h
 .\mlm32l07x01lib\bg96.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_ll_spi.h
+.\mlm32l07x01lib\bg96.o: ..\inc\vcom2.h

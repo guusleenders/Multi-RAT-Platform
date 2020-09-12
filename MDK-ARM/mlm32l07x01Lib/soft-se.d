@@ -50,6 +50,7 @@
 .\mlm32l07x01lib\soft-se.o: ..\Middlewares\Utilities\trace.h
 .\mlm32l07x01lib\soft-se.o: ..\inc\utilities_conf.h
 .\mlm32l07x01lib\soft-se.o: ..\inc\vcom.h
+.\mlm32l07x01lib\soft-se.o: ..\inc\vcom2.h
 .\mlm32l07x01lib\soft-se.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\LoRaMacTypes.h
 .\mlm32l07x01lib\soft-se.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\timer.h
 .\mlm32l07x01lib\soft-se.o: ..\Middlewares\Utilities\timeServer.h

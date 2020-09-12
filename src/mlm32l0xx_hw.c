@@ -141,7 +141,7 @@ void HW_Init( void )
     HW_TIM2_Init();
     
 		TraceInit(); // added from lorawan
-    vcom_Init( NULL );
+    vcom2_Init( NULL );
 
     BSP_sensor_Init( );
 

@@ -53,7 +53,7 @@
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-
+#define DEBUG
 void DBG_Init(void)
 {
 #ifdef DEBUG

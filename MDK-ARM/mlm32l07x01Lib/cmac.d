@@ -49,3 +49,4 @@
 .\mlm32l07x01lib\cmac.o: ..\Middlewares\Utilities\trace.h
 .\mlm32l07x01lib\cmac.o: ..\inc\utilities_conf.h
 .\mlm32l07x01lib\cmac.o: ..\inc\vcom.h
+.\mlm32l07x01lib\cmac.o: ..\inc\vcom2.h

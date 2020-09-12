@@ -48,6 +48,7 @@
 .\mlm32l07x01lib\loramacclassb.o: ..\Middlewares\Utilities\trace.h
 .\mlm32l07x01lib\loramacclassb.o: ..\inc\utilities_conf.h
 .\mlm32l07x01lib\loramacclassb.o: ..\inc\vcom.h
+.\mlm32l07x01lib\loramacclassb.o: ..\inc\vcom2.h
 .\mlm32l07x01lib\loramacclassb.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\secure-element.h
 .\mlm32l07x01lib\loramacclassb.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\LoRaMacCrypto.h
 .\mlm32l07x01lib\loramacclassb.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

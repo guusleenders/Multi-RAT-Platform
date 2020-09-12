@@ -51,6 +51,7 @@
 .\mlm32l07x01lib\loramacconfirmqueue.o: ..\Middlewares\Utilities\trace.h
 .\mlm32l07x01lib\loramacconfirmqueue.o: ..\inc\utilities_conf.h
 .\mlm32l07x01lib\loramacconfirmqueue.o: ..\inc\vcom.h
+.\mlm32l07x01lib\loramacconfirmqueue.o: ..\inc\vcom2.h
 .\mlm32l07x01lib\loramacconfirmqueue.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\LoRaMac.h
 .\mlm32l07x01lib\loramacconfirmqueue.o: ..\Middlewares\Utilities\systime.h
 .\mlm32l07x01lib\loramacconfirmqueue.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h

@@ -50,6 +50,7 @@
 .\mlm32l07x01lib\regioncommon.o: ..\Middlewares\Utilities\trace.h
 .\mlm32l07x01lib\regioncommon.o: ..\inc\utilities_conf.h
 .\mlm32l07x01lib\regioncommon.o: ..\inc\vcom.h
+.\mlm32l07x01lib\regioncommon.o: ..\inc\vcom2.h
 .\mlm32l07x01lib\regioncommon.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\region\RegionCommon.h
 .\mlm32l07x01lib\regioncommon.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\LoRaMacTypes.h
 .\mlm32l07x01lib\regioncommon.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\timer.h

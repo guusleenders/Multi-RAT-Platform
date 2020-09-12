@@ -47,6 +47,7 @@
 .\mlm32l07x01lib\loramac.o: ..\Middlewares\Utilities\trace.h
 .\mlm32l07x01lib\loramac.o: ..\inc\utilities_conf.h
 .\mlm32l07x01lib\loramac.o: ..\inc\vcom.h
+.\mlm32l07x01lib\loramac.o: ..\inc\vcom2.h
 .\mlm32l07x01lib\loramac.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\region/Region.h
 .\mlm32l07x01lib\loramac.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\mlm32l07x01lib\loramac.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\LoRaMac.h

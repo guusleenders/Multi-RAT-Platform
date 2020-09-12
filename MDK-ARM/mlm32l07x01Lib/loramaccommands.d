@@ -47,6 +47,7 @@
 .\mlm32l07x01lib\loramaccommands.o: ..\Middlewares\Utilities\trace.h
 .\mlm32l07x01lib\loramaccommands.o: ..\inc\utilities_conf.h
 .\mlm32l07x01lib\loramaccommands.o: ..\inc\vcom.h
+.\mlm32l07x01lib\loramaccommands.o: ..\inc\vcom2.h
 .\mlm32l07x01lib\loramaccommands.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\LoRaMacCommands.h
 .\mlm32l07x01lib\loramaccommands.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\mlm32l07x01lib\loramaccommands.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\LoRaMacTypes.h

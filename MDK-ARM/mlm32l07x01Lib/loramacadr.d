@@ -49,6 +49,7 @@
 .\mlm32l07x01lib\loramacadr.o: ..\Middlewares\Utilities\trace.h
 .\mlm32l07x01lib\loramacadr.o: ..\inc\utilities_conf.h
 .\mlm32l07x01lib\loramacadr.o: ..\inc\vcom.h
+.\mlm32l07x01lib\loramacadr.o: ..\inc\vcom2.h
 .\mlm32l07x01lib\loramacadr.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\LoRaMac.h
 .\mlm32l07x01lib\loramacadr.o: ..\Middlewares\Third_Party\LoRaWAN\Mac\timer.h
 .\mlm32l07x01lib\loramacadr.o: ..\Middlewares\Utilities\timeServer.h

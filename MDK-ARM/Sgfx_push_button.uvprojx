@@ -1042,6 +1042,11 @@
               <FileType>1</FileType>
               <FilePath>..\src\bg96.c</FilePath>
             </File>
+            <File>
+              <FileName>vcom2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\vcom2.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

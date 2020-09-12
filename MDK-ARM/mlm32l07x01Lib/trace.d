@@ -49,6 +49,7 @@
 .\mlm32l07x01lib\trace.o: ..\Middlewares\Utilities\trace.h
 .\mlm32l07x01lib\trace.o: ..\inc\utilities_conf.h
 .\mlm32l07x01lib\trace.o: ..\inc\vcom.h
+.\mlm32l07x01lib\trace.o: ..\inc\vcom2.h
 .\mlm32l07x01lib\trace.o: ..\Middlewares\Utilities\queue.h
 .\mlm32l07x01lib\trace.o: ..\Middlewares\Utilities\low_power_manager.h
 .\mlm32l07x01lib\trace.o: ..\inc\debug.h

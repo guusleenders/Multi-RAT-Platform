@@ -50,6 +50,7 @@
 .\mlm32l07x01lib\bsp.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_ll_bus.h
 .\mlm32l07x01lib\bsp.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_ll_spi.h
 .\mlm32l07x01lib\bsp.o: ..\inc\vcom.h
+.\mlm32l07x01lib\bsp.o: ..\inc\vcom2.h
 .\mlm32l07x01lib\bsp.o: ..\Middlewares\Utilities\utilities.h
 .\mlm32l07x01lib\bsp.o: ..\Middlewares\Utilities\trace.h
 .\mlm32l07x01lib\bsp.o: ..\inc\utilities_conf.h

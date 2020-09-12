@@ -53,6 +53,7 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "hw_conf.h"
+#include "vcom2.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
@@ -159,7 +160,7 @@ void vcom_Dma_IRQHandler( void );
 
 /* Exported macros -----------------------------------------------------------*/
 #if 1
-#define PRINTF(...)     vcom_Send(__VA_ARGS__)
+#define PRINTF(...)     vcom2_Send(__VA_ARGS__)
 #else
 #define PRINTF(...)
 #endif

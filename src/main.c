@@ -58,7 +58,7 @@
 #include "lora.h"
 #include "bsp.h"
 #include "timeServer.h"
-#include "vcom.h"
+#include "vcom2.h"
 #include "version.h"
 
 #include "ltc2941.h"
@@ -172,7 +172,7 @@ static  LoRaParam_t LoRaParamInit = {LORAWAN_ADR_STATE,
                                      LORAWAN_DEFAULT_DATA_RATE,
                                      LORAWAN_PUBLIC_NETWORK
                                     };
-
+#define DEBUG
 
 
 																		
@@ -188,10 +188,12 @@ int main( void ){
   DBG_Init();   				// Configure the debug mode
   HW_Init();						// Configure the hardware
   HW_EEPROM_Init(); 		// Initialise Eeprom factory Setting at device Birth
-
+	
   BSP_LED_Init(LED_BLUE);
   BSP_LED_Init(LED_GREEN);
   BSP_LED_Init(LED_RED2);
+	
+	PRINTF("test");
 	
 	BG96_Init();
 	BG96_PowerOn();

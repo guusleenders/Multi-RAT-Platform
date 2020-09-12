@@ -48,5 +48,6 @@
 .\mlm32l07x01lib\systime.o: ..\Middlewares\Utilities\trace.h
 .\mlm32l07x01lib\systime.o: ..\inc\utilities_conf.h
 .\mlm32l07x01lib\systime.o: ..\inc\vcom.h
+.\mlm32l07x01lib\systime.o: ..\inc\vcom2.h
 .\mlm32l07x01lib\systime.o: ..\Middlewares\Utilities\systime.h
 .\mlm32l07x01lib\systime.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h

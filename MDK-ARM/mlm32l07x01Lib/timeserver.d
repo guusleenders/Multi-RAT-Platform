@@ -51,6 +51,7 @@
 .\mlm32l07x01lib\timeserver.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_ll_bus.h
 .\mlm32l07x01lib\timeserver.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_ll_spi.h
 .\mlm32l07x01lib\timeserver.o: ..\inc\vcom.h
+.\mlm32l07x01lib\timeserver.o: ..\inc\vcom2.h
 .\mlm32l07x01lib\timeserver.o: ..\Middlewares\Utilities\utilities.h
 .\mlm32l07x01lib\timeserver.o: ..\Middlewares\Utilities\trace.h
 .\mlm32l07x01lib\timeserver.o: ..\inc\utilities_conf.h
