@@ -10,6 +10,11 @@
 
 static UART_HandleTypeDef BG96_UARTHandle;
 
+static void BG96_Receive(char rx); //Takes one character that has been received and save it in uart_context.buffRx
+static void BG96_PrintDMA(void); // prepare DMA print
+static void BG96_StartDMA(char* buf, uint16_t buffLen); //Starts DMA transfer into UART
+
+
 typedef struct {
   char buff[BUFSIZE_TX];   /* buffer to transmit */
   __IO int iw;             /* 1st free index in BuffTx */
@@ -78,7 +83,19 @@ void BG96_Init( void ){
   while (LL_LPUART_IsActiveFlag_TEACK(UARTX) == RESET);
   while (LL_LPUART_IsActiveFlag_REACK(UARTX) == RESET);
 	
+	// --- Receive init ---
+	/* enable RXNE */
+  LL_LPUART_EnableIT_RXNE(UARTX);
+  /* WakeUp from stop mode on start bit detection*/
+  LL_LPUART_SetWKUPType(UARTX, LL_LPUART_WAKEUP_ON_STARTBIT);
+
+  LL_LPUART_EnableIT_WKUP(UARTX);
+  /* Enable the UART Parity Error Interrupt */
+  LL_LPUART_EnableIT_PE(UARTX);
+  /* Enable the UART Error Interrupt: (Frame error, noise error, overrun error) */
+  LL_LPUART_EnableIT_ERROR(UARTX);
 	
+	SCH_RegTask( VCOM_TASK, BG96_ReceiveToBuffer );
 	
 	// --- Init GPIO for power pins ---
 	// Power pin
@@ -161,6 +178,97 @@ void BG96_Send( const char *format, ... ){
   va_end(args);
 }
 
+FlagStatus BG96_IsNewCharReceived(void){
+  FlagStatus status;
+  
+  BACKUP_PRIMASK();
+  DISABLE_IRQ();
+  
+  status = ((uart_context.rx.iw == uart_context.rx.ir) ? RESET : SET);
+  
+  RESTORE_PRIMASK();
+  return status;
+}
+
+void BG96_IRQHandler(void){
+  if ( LL_LPUART_IsActiveFlag_TC(UARTX) && (LL_LPUART_IsEnabledIT_TC(UARTX) != RESET) ){/*tx*/
+    /*last uart char has just been sent out to terminal*/
+    LL_LPUART_ClearFlag_TC(UARTX);
+    /*enable lowpower since finished*/
+    LPM_SetStopMode(LPM_UART_TX_Id, LPM_Enable);
+  }
+  /*rx*/
+  {
+    __IO int rx_ready = 0;
+    char rx = AT_ERROR_RX_CHAR;
+    
+    /* UART Wake Up interrupt occured ------------------------------------------*/
+    if (LL_LPUART_IsActiveFlag_WKUP(UARTX) && (LL_LPUART_IsEnabledIT_WKUP(UARTX) != RESET)){
+      LL_LPUART_ClearFlag_WKUP(UARTX);
+
+      /* forbid stop mode */
+      LPM_SetStopMode(LPM_UART_RX_Id, LPM_Disable);
+    }
+
+    if (LL_LPUART_IsActiveFlag_RXNE(UARTX) && (LL_LPUART_IsEnabledIT_RXNE(UARTX) != RESET)){
+      /* no need to clear the RXNE flag because it is auto cleared by reading the data*/
+      rx = LL_LPUART_ReceiveData8(UARTX);
+      rx_ready = 1;
+      
+      /* allow stop mode*/
+      LPM_SetStopMode(LPM_UART_RX_Id, LPM_Enable);
+    }
+
+    if (LL_LPUART_IsActiveFlag_PE(UARTX) || LL_LPUART_IsActiveFlag_FE(UARTX) || LL_LPUART_IsActiveFlag_ORE(UARTX) || LL_LPUART_IsActiveFlag_NE(UARTX)){
+      DBG_PRINTF("Error when receiving\n\r");
+      /* clear error IT */
+      LL_LPUART_ClearFlag_PE(UARTX);
+      LL_LPUART_ClearFlag_FE(UARTX);
+      LL_LPUART_ClearFlag_ORE(UARTX);
+      LL_LPUART_ClearFlag_NE(UARTX);
+      
+      rx = AT_ERROR_RX_CHAR;
+      
+      rx_ready = 1;
+    }
+    
+    if (rx_ready == 1){
+      BG96_Receive(rx);
+    }
+  }
+}
+
+static void BG96_Receive(char rx){
+  int next_free;
+
+  /** no need to clear the RXNE flag because it is auto cleared by reading the data*/
+  uart_context.rx.buff[uart_context.rx.iw] = rx;
+  next_free = (uart_context.rx.iw + 1) % sizeof(uart_context.rx.buff);
+  if (next_free != uart_context.rx.iw){
+    /* this is ok to read as there is no buffer overflow in input */
+    uart_context.rx.iw = next_free;
+  }
+  else{
+    /* force the end of a command in case of overflow so that we can process it */
+    uart_context.rx.buff[uart_context.rx.iw] = '\r';
+    DBG_PRINTF("uart_context.buffRx buffer overflow %d\r\n");
+  }
+  SCH_SetTask(VCOM_TASK);
+}
+
+uint8_t BG96_GetNewChar(void){
+  uint8_t NewChar;
+
+  BACKUP_PRIMASK();
+  DISABLE_IRQ();
+
+  NewChar = uart_context.rx.buff[uart_context.rx.ir];
+  uart_context.rx.ir = (uart_context.rx.ir + 1) % sizeof(uart_context.rx.buff);
+
+  RESTORE_PRIMASK();
+  return NewChar;
+}
+
 void BG96_Dma_IRQHandler( void ){
   if (LL_DMA_IsActiveFlag_TC7(DMA1) ){
     /*clear interrupt and flag*/
@@ -188,15 +296,13 @@ static void BG96_PrintDMA(void){
   /*shall not go in stop mode while printing*/
   LPM_SetStopMode(LPM_UART_TX_Id, LPM_Disable);
 
-  if (write_idx > read_idx)
-  {
+  if (write_idx > read_idx){
     /*contiguous buffer[ir..iw]*/
     uart_context.tx.dmabuffSize= write_idx - read_idx;
 
     BG96_StartDMA( &uart_context.tx.buff[read_idx], uart_context.tx.dmabuffSize);
   }
-  else
-  {
+  else{
     /*[ir:BUFSIZE_TX-1] and [0:iw]. */
      uart_context.tx.dmabuffSize= BUFSIZE_TX-read_idx;
      /*only [ir:BUFSIZE_TX-1] sent, rest will be sent in dma  handler*/
@@ -235,9 +341,6 @@ static void BG96_StartDMA(char* buf, uint16_t buffLen){
   LL_LPUART_EnableIT_TC(UARTX);
 }
 
-
-//TODO! Receive
-
 void BG96_PowerOn( void ){
 	HAL_Delay(10);
   HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_SET); 
@@ -258,6 +361,57 @@ void BG96_PowerOn( void ){
 	PRINTF("%s", receiveBuffer);
 }
 
-void BG96_SendATCommand( char *buffer){
+#define REPLY_SIZE 20
+
+void BG96_ReceiveToBuffer( void ){
+	LED_On(LED_BLUE) ;
+	static char command[REPLY_SIZE];
+  static unsigned i = 0;
+  unsigned cmd_size = 0;
+
+  /* Process all commands */
+  while (BG96_IsNewCharReceived() == SET){
+		
+    command[i] = BG96_GetNewChar();
+
+		#if 0 /* echo On    */
+    PRINTF("%c", command[i]);
+		#endif
+
+    if (command[i] == AT_ERROR_RX_CHAR){
+      memset(command, '\0', i);
+      i = 0;
+      //com_error(AT_RX_ERROR);
+      break;
+    }
+    else{
+			if ((command[i] == '\r') || (command[i] == '\n')){
+				if (i != 0){
+					command[i] = '\0';
+					/* need to put static i=0 to avoid realtime issue when CR+LF is used by hyperterminal */
+					cmd_size = i; 
+					i = 0;
+					BG96_ParseResult(command);
+					
+					memset(command, '\0', cmd_size);
+
+				}
+			}
+			else if (i == (REPLY_SIZE - 1)){
+				memset(command, '\0', i);
+				i = 0;
+				//com_error(AT_TEST_PARAM_OVERFLOW);
+			}
+			else{
+				i++;
+			}
+		}
+  }
+}
+
+void BG96_ParseResult( char *buffer ){
+	PRINTF("Result: %s", buffer);
+}
+void BG96_SendATCommand( char *buffer ){
 	HAL_UART_Transmit(&BG96_UARTHandle, (uint8_t *) buffer, sizeof(buffer), HAL_MAX_DELAY);
 }

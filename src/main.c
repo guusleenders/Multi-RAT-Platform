@@ -194,13 +194,15 @@ int main( void ){
   BSP_LED_Init(LED_GREEN);
   BSP_LED_Init(LED_RED2);
 	
-	PRINTF("test");
+	LPM_SetOffMode(LPM_APPLI_Id, LPM_Disable);
+	
+	PRINTF("Started");
 	
 	BG96_Init();
 	
 	BG96_Send("BG96 test");
 	
-	while(true){}
+	while(true){SCH_Run( ); }
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	LTC2941_Init();
 	uint8_t test = LTC2941_GetStatus();

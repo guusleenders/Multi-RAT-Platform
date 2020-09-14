@@ -129,7 +129,7 @@ void vcom2_Send( const char *format, ... ){
   freebuff = BUFSIZE_TX - ((BUFSIZE_TX+uart_context.tx.iw-uart_context.tx.ir)%BUFSIZE_TX);
 	
 	
-	HAL_UART_Transmit(&UartHandle, (uint8_t *) tempBuff, sizeof(freebuff), HAL_MAX_DELAY);
+	HAL_UART_Transmit(&UartHandle, (uint8_t *) tempBuff, len, HAL_MAX_DELAY);
   
   va_end(args);
 }

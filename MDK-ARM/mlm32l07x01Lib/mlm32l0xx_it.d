@@ -67,3 +67,11 @@
 .\mlm32l07x01lib\mlm32l0xx_it.o: ..\inc\hw_msp.h
 .\mlm32l07x01lib\mlm32l0xx_it.o: ..\inc\mlm32l0xx_it.h
 .\mlm32l07x01lib\mlm32l0xx_it.o: ..\Common\cwmx1zzabz\Radio_Sigfox_Driver\st_lowlevel.h
+.\mlm32l07x01lib\mlm32l0xx_it.o: ..\inc\bg96.h
+.\mlm32l07x01lib\mlm32l0xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\mlm32l07x01lib\mlm32l0xx_it.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_ll_lpuart.h
+.\mlm32l07x01lib\mlm32l0xx_it.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_ll_rcc.h
+.\mlm32l07x01lib\mlm32l0xx_it.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_ll_dma.h
+.\mlm32l07x01lib\mlm32l0xx_it.o: ..\Middlewares\Utilities\low_power_manager.h
+.\mlm32l07x01lib\mlm32l0xx_it.o: ..\inc\tiny_vsnprintf.h
+.\mlm32l07x01lib\mlm32l0xx_it.o: ..\Middlewares\Utilities\scheduler.h

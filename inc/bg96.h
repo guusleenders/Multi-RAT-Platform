@@ -14,6 +14,7 @@
 #include "stm32l0xx_ll_dma.h"
 #include "low_power_manager.h"
 #include "tiny_vsnprintf.h"
+#include "scheduler.h"
 
 #include "vcom.h"
 
@@ -33,15 +34,25 @@ extern "C" {
 #define BG96_RESETKEY_PORT GPIOA
 #define BG96_RESETKEY_PIN GPIO_PIN_8	
 
+// Inits
 void BG96_Init( void );
 void BG96_PowerOn( void );
 
+// Serial functions
 void BG96_Send( const char *format, ... );
 void BG96_Dma_IRQHandler( void );
 static void BG96_PrintDMA( void );
 static void BG96_StartDMA(char* buf, uint16_t buffLen);
-	
+void BG96_IRQHandler(void);
+FlagStatus BG96_IsNewCharReceived(void);
+uint8_t BG96_GetNewChar(void);
+void BG96_ReceiveToBuffer( void );
+void BG96_ParseResult( char *buffer );
+
+// AT functions
 void BG96_SendATCommand( char *buffer );
+
+
 
 #ifdef __cplusplus
 }

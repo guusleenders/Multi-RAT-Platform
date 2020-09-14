@@ -48,6 +48,7 @@
 #include "hw.h"
 #include "mlm32l0xx_it.h"
 #include "st_lowlevel.h"
+#include "bg96.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -240,12 +241,12 @@ void EXTI4_15_IRQHandler( void )
 
 void UARTX_IRQHandler(void)
 {
-  vcom_IRQHandler();
+  BG96_IRQHandler(); //IRQ handler for BG96
 }
 
 void DMA1_Channel4_5_6_7_IRQHandler(void)
 {
-  vcom_Dma_IRQHandler();
+  BG96_Dma_IRQHandler(); //IRQ handler for BG96 (DMA)
 }
 
 /* Private functions ---------------------------------------------------------*/
