@@ -73,3 +73,4 @@
 .\mlm32l07x01lib\bg96.o: ..\Middlewares\Utilities\low_power_manager.h
 .\mlm32l07x01lib\bg96.o: ..\inc\tiny_vsnprintf.h
 .\mlm32l07x01lib\bg96.o: ..\Middlewares\Utilities\scheduler.h
+.\mlm32l07x01lib\bg96.o: ..\inc\util.h

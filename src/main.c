@@ -172,9 +172,6 @@ static  LoRaParam_t LoRaParamInit = {LORAWAN_ADR_STATE,
                                      LORAWAN_DEFAULT_DATA_RATE,
                                      LORAWAN_PUBLIC_NETWORK
                                     };
-#define DEBUG
-
-
 																		
 // -------------------------------- MAIN ---------------------------------------
 int main( void ){
@@ -199,9 +196,13 @@ int main( void ){
 	PRINTF("Started");
 	
 	BG96_Init();
+	BG96_PowerOn();
 	
-	BG96_Send("BG96 test");
+	char totalReplyBuffer[20];
+	BG96_SendATCommandGetReply("AT\r\n", totalReplyBuffer, 1000);
+	PRINTF_LN("buffer: %s", totalReplyBuffer);
 	
+	PRINTF("DONE\r\n");	
 	while(true){SCH_Run( ); }
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	LTC2941_Init();

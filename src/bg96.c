@@ -352,53 +352,52 @@ void BG96_PowerOn( void ){
   HAL_Delay(500);
   HAL_GPIO_WritePin(BG96_RESETKEY_PORT, BG96_RESETKEY_PIN, GPIO_PIN_RESET); 
 	
-	char buffer[5] = {'A','T','E','1','\r'};
-	uint8_t receiveBuffer[50];
-	BG96_SendATCommand(buffer);
-	//HAL_UART_Transmit(&BG96_UARTHandle, buffer, sizeof(buffer), HAL_MAX_DELAY);
-	HAL_UART_Receive(&BG96_UARTHandle, receiveBuffer, sizeof(receiveBuffer), HAL_MAX_DELAY);
-	
-	PRINTF("%s", receiveBuffer);
+	BG96_SendATCommandCheckReply("","RDY", 10000);
+	BG96_SendATCommandCheckReply("AT\r\n","OK", 1000);
+	BG96_SendATCommandCheckReply("ATE0\r\n","OK", 1000);
 }
 
-#define REPLY_SIZE 20
+#define REPLY_SIZE 50
 
+static bool totalReplyBufferDone = false;
+static bool waitingForReply = false;
+static char totalReplyBuffer[REPLY_SIZE];
 void BG96_ReceiveToBuffer( void ){
-	LED_On(LED_BLUE) ;
-	static char command[REPLY_SIZE];
+  static char replyBuffer[REPLY_SIZE];
   static unsigned i = 0;
   unsigned cmd_size = 0;
 
   /* Process all commands */
   while (BG96_IsNewCharReceived() == SET){
 		
-    command[i] = BG96_GetNewChar();
+    replyBuffer[i] = BG96_GetNewChar();
 
 		#if 0 /* echo On    */
     PRINTF("%c", command[i]);
 		#endif
 
-    if (command[i] == AT_ERROR_RX_CHAR){
-      memset(command, '\0', i);
+    if (replyBuffer[i] == AT_ERROR_RX_CHAR){
+      memset(replyBuffer, '\0', i);
       i = 0;
       //com_error(AT_RX_ERROR);
       break;
     }
     else{
-			if ((command[i] == '\r') || (command[i] == '\n')){
+			if ((replyBuffer[i] == '\r') || (replyBuffer[i] == '\n')){
 				if (i != 0){
-					command[i] = '\0';
+					replyBuffer[i] = '\0';
 					/* need to put static i=0 to avoid realtime issue when CR+LF is used by hyperterminal */
 					cmd_size = i; 
 					i = 0;
-					BG96_ParseResult(command);
+					if(waitingForReply)
+							BG96_ParseResult(replyBuffer);
 					
-					memset(command, '\0', cmd_size);
+					memset(replyBuffer, '\0', cmd_size);
 
 				}
 			}
 			else if (i == (REPLY_SIZE - 1)){
-				memset(command, '\0', i);
+				memset(replyBuffer, '\0', i);
 				i = 0;
 				//com_error(AT_TEST_PARAM_OVERFLOW);
 			}
@@ -410,8 +409,54 @@ void BG96_ReceiveToBuffer( void ){
 }
 
 void BG96_ParseResult( char *buffer ){
-	PRINTF("Result: %s", buffer);
+	totalReplyBufferDone = true;
+	memcpy(totalReplyBuffer, buffer, REPLY_SIZE);
 }
+
 void BG96_SendATCommand( char *buffer ){
-	HAL_UART_Transmit(&BG96_UARTHandle, (uint8_t *) buffer, sizeof(buffer), HAL_MAX_DELAY);
+	if(strlen(buffer)>0)
+		BG96_Send(buffer);
 }
+
+BG96_Status_t BG96_SendATCommandCheckReply( char *buffer , char *replyBuffer, uint16_t timeout){
+	BG96_SendATCommand(buffer);
+	waitingForReply = true;
+	uint32_t tickstart = HW_RTC_GetTimerValue();
+	uint32_t tickNow = HW_RTC_GetTimerValue();
+	while(!totalReplyBufferDone && ( ( tickNow - tickstart ) ) < timeout){
+    SCH_Run(); 
+		tickNow = HW_RTC_GetTimerValue();
+  }
+	totalReplyBufferDone = false;
+	waitingForReply = false;
+	if(StringStartsWith(totalReplyBuffer, replyBuffer)){
+		return BG96_OK;
+	}else if(( tickNow - tickstart )  >= timeout){
+		PRINTF("TIMEOUT");
+		return BG96_TIMEOUT;
+	}else{
+		PRINTF("ERROR %s", totalReplyBuffer);
+		return BG96_ERROR;
+	}
+}
+
+BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint16_t timeout){
+	BG96_SendATCommand(buffer);
+	waitingForReply = true;
+	uint32_t tickstart = HW_RTC_GetTimerValue();
+	uint32_t tickNow = HW_RTC_GetTimerValue();
+	while(!totalReplyBufferDone && ( ( tickNow - tickstart ) ) < timeout){
+    SCH_Run(); 
+		tickNow = HW_RTC_GetTimerValue();
+  }
+	totalReplyBufferDone = false;
+	waitingForReply = false;
+	if(( tickNow - tickstart )  >= timeout){
+		PRINTF("TIMEOUT");
+		return BG96_TIMEOUT;
+	}else{
+		strcpy(replyBuffer, totalReplyBuffer);
+		return BG96_OK;
+	}
+}
+

@@ -161,6 +161,7 @@ void vcom_Dma_IRQHandler( void );
 /* Exported macros -----------------------------------------------------------*/
 #if 1
 #define PRINTF(...)     vcom2_Send(__VA_ARGS__)
+#define PRINTF_LN(...)     vcom2_Send(__VA_ARGS__);vcom2_Send("\r\n")
 #else
 #define PRINTF(...)
 #endif

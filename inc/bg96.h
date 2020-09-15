@@ -15,6 +15,7 @@
 #include "low_power_manager.h"
 #include "tiny_vsnprintf.h"
 #include "scheduler.h"
+#include "util.h"
 
 #include "vcom.h"
 
@@ -34,6 +35,12 @@ extern "C" {
 #define BG96_RESETKEY_PORT GPIOA
 #define BG96_RESETKEY_PIN GPIO_PIN_8	
 
+typedef enum BG96_statuses{
+	BG96_OK, 
+	BG96_ERROR,
+	BG96_TIMEOUT
+}BG96_Status_t;
+
 // Inits
 void BG96_Init( void );
 void BG96_PowerOn( void );
@@ -51,8 +58,8 @@ void BG96_ParseResult( char *buffer );
 
 // AT functions
 void BG96_SendATCommand( char *buffer );
-
-
+BG96_Status_t BG96_SendATCommandCheckReply( char *buffer , char *replyBuffer, uint16_t timeout);
+BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint16_t timeout);
 
 #ifdef __cplusplus
 }
