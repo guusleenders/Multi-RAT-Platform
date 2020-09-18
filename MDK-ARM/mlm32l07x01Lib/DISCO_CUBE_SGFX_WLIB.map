@@ -3574,6 +3574,8 @@ Section Cross References
     bg96.o(i.BG96_GetAvailableNetworks) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
     bg96.o(i.BG96_GetBandConfiguration) refers to bg96.o(i.BG96_SendATCommandGetReply) for BG96_SendATCommandGetReply
     bg96.o(i.BG96_GetBandConfiguration) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
+    bg96.o(i.BG96_GetEDRXConfiguration) refers to bg96.o(i.BG96_SendATCommandGetReply) for BG96_SendATCommandGetReply
+    bg96.o(i.BG96_GetEDRXConfiguration) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
     bg96.o(i.BG96_GetFirmwareInfo) refers to bg96.o(i.BG96_SendATCommandGetReply) for BG96_SendATCommandGetReply
     bg96.o(i.BG96_GetFirmwareInfo) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
     bg96.o(i.BG96_GetHardwareInfo) refers to bg96.o(i.BG96_SendATCommandGetReply) for BG96_SendATCommandGetReply
@@ -3585,6 +3587,8 @@ Section Cross References
     bg96.o(i.BG96_GetNetworkStatus) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
     bg96.o(i.BG96_GetNetworkStatus) refers to bg96.o(i.BG96_SendATCommandGetReply) for BG96_SendATCommandGetReply
     bg96.o(i.BG96_GetNewChar) refers to bg96.o(.bss) for .bss
+    bg96.o(i.BG96_GetPowerSavingMode) refers to bg96.o(i.BG96_SendATCommandGetReply) for BG96_SendATCommandGetReply
+    bg96.o(i.BG96_GetPowerSavingMode) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
     bg96.o(i.BG96_GetSignalQuality) refers to bg96.o(i.BG96_SendATCommandGetReply) for BG96_SendATCommandGetReply
     bg96.o(i.BG96_GetSignalQuality) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
     bg96.o(i.BG96_GetSignalStength) refers to bg96.o(i.BG96_SendATCommandGetReply) for BG96_SendATCommandGetReply
@@ -3592,6 +3596,33 @@ Section Cross References
     bg96.o(i.BG96_GetTime) refers to bg96.o(i.BG96_SendATCommandGetReply) for BG96_SendATCommandGetReply
     bg96.o(i.BG96_GetTime) refers to strstr.o(.text) for strstr
     bg96.o(i.BG96_GetTime) refers to strncpy.o(.text) for strncpy
+    bg96.o(i.BG96_HTTP_Get) refers to printfa.o(i.__0sprintf) for __2sprintf
+    bg96.o(i.BG96_HTTP_Get) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
+    bg96.o(i.BG96_HTTP_ReadResponse) refers to printfa.o(i.__0sprintf) for __2sprintf
+    bg96.o(i.BG96_HTTP_ReadResponse) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
+    bg96.o(i.BG96_HTTP_ReadResponse) refers to memseta.o(.text) for __aeabi_memclr4
+    bg96.o(i.BG96_HTTP_ReadResponse) refers to hw_rtc.o(i.HW_RTC_GetTimerValue) for HW_RTC_GetTimerValue
+    bg96.o(i.BG96_HTTP_ReadResponse) refers to bg96.o(i.BG96_SendATCommandGetReply) for BG96_SendATCommandGetReply
+    bg96.o(i.BG96_HTTP_ReadResponse) refers to strlen.o(.text) for strlen
+    bg96.o(i.BG96_HTTP_ReadResponse) refers to util.o(i.StringStartsWith) for StringStartsWith
+    bg96.o(i.BG96_HTTP_SetContentType) refers to printfa.o(i.__0sprintf) for __2sprintf
+    bg96.o(i.BG96_HTTP_SetContentType) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
+    bg96.o(i.BG96_HTTP_SetContentType) refers to bg96.o(.data) for .data
+    bg96.o(i.BG96_HTTP_SetContextID) refers to printfa.o(i.__0sprintf) for __2sprintf
+    bg96.o(i.BG96_HTTP_SetContextID) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
+    bg96.o(i.BG96_HTTP_SetContextID) refers to bg96.o(.data) for .data
+    bg96.o(i.BG96_HTTP_SetRequestHeaderID) refers to printfa.o(i.__0sprintf) for __2sprintf
+    bg96.o(i.BG96_HTTP_SetRequestHeaderID) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
+    bg96.o(i.BG96_HTTP_SetRequestHeaderID) refers to bg96.o(.data) for .data
+    bg96.o(i.BG96_HTTP_SetResponseHeaderID) refers to printfa.o(i.__0sprintf) for __2sprintf
+    bg96.o(i.BG96_HTTP_SetResponseHeaderID) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
+    bg96.o(i.BG96_HTTP_SetResponseHeaderID) refers to bg96.o(.data) for .data
+    bg96.o(i.BG96_HTTP_SetSSLContextID) refers to printfa.o(i.__0sprintf) for __2sprintf
+    bg96.o(i.BG96_HTTP_SetSSLContextID) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
+    bg96.o(i.BG96_HTTP_SetSSLContextID) refers to bg96.o(.data) for .data
+    bg96.o(i.BG96_HTTP_SetURL) refers to strlen.o(.text) for strlen
+    bg96.o(i.BG96_HTTP_SetURL) refers to printfa.o(i.__0sprintf) for __2sprintf
+    bg96.o(i.BG96_HTTP_SetURL) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
     bg96.o(i.BG96_IRQHandler) refers to low_power_manager.o(i.LPM_SetStopMode) for LPM_SetStopMode
     bg96.o(i.BG96_IRQHandler) refers to scheduler.o(i.SCH_SetTask) for SCH_SetTask
     bg96.o(i.BG96_IRQHandler) refers to bg96.o(.bss) for .bss
@@ -3620,6 +3651,7 @@ Section Cross References
     bg96.o(i.BG96_ReceiveToBuffer) refers to bg96.o(.bss) for .bss
     bg96.o(i.BG96_ReceiveToBuffer) refers to bg96.o(.data) for .data
     bg96.o(i.BG96_ResetConfiguration) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
+    bg96.o(i.BG96_ResetPacketCounters) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
     bg96.o(i.BG96_ResetParameters) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
     bg96.o(i.BG96_SaveConfiguration) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
     bg96.o(i.BG96_SelectConnectID) refers to bg96.o(.data) for .data
@@ -3653,6 +3685,9 @@ Section Cross References
     bg96.o(i.BG96_SendATCommandGetReply) refers to bg96.o(.bss) for .bss
     bg96.o(i.BG96_SetCatM1Band) refers to printfa.o(i.__0sprintf) for __2sprintf
     bg96.o(i.BG96_SetCatM1Band) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
+    bg96.o(i.BG96_SetDNSServer) refers to printfa.o(i.__0sprintf) for __2sprintf
+    bg96.o(i.BG96_SetDNSServer) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
+    bg96.o(i.BG96_SetDNSServer) refers to bg96.o(.data) for .data
     bg96.o(i.BG96_SetEDRXConfiguration) refers to printfa.o(i.__0sprintf) for __2sprintf
     bg96.o(i.BG96_SetEDRXConfiguration) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
     bg96.o(i.BG96_SetErrorFormat) refers to printfa.o(i.__0sprintf) for __2sprintf
@@ -3666,6 +3701,10 @@ Section Cross References
     bg96.o(i.BG96_SetNetworkReporting) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
     bg96.o(i.BG96_SetPDPContext) refers to printfa.o(i.__0sprintf) for __2sprintf
     bg96.o(i.BG96_SetPDPContext) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
+    bg96.o(i.BG96_SetPowerSavingMode) refers to printfa.o(i.__0sprintf) for __2sprintf
+    bg96.o(i.BG96_SetPowerSavingMode) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
+    bg96.o(i.BG96_SetPowerSavingModeSettings) refers to printfa.o(i.__0sprintf) for __2sprintf
+    bg96.o(i.BG96_SetPowerSavingModeSettings) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
     bg96.o(i.BG96_SetSIMPIN) refers to printfa.o(i.__0sprintf) for __2sprintf
     bg96.o(i.BG96_SetSIMPIN) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
     bg96.o(i.BG96_SetScrambleConfiguration) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
@@ -3697,6 +3736,11 @@ Section Cross References
     bg96.o(i.BG96_UDP_Stop) refers to bg96.o(.data) for .data
     bg96.o(i.BG96_Wake) refers to stm32l0xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
     bg96.o(i.BG96_Wake) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
+    bg96.o(i.bg96_GetPacketCounters) refers to memseta.o(.text) for __aeabi_memclr4
+    bg96.o(i.bg96_GetPacketCounters) refers to bg96.o(i.BG96_SendATCommandGetReply) for BG96_SendATCommandGetReply
+    bg96.o(i.bg96_GetPacketCounters) refers to bg96.o(i.BG96_SendATCommandCheckReply) for BG96_SendATCommandCheckReply
+    bg96.o(i.bg96_GetPacketCounters) refers to strtok.o(.text) for strtok
+    bg96.o(i.bg96_GetPacketCounters) refers to atoi.o(.text) for atoi
     vcom2.o(i.vcom2_DeInit) refers to stm32l0xx_ll_lpuart.o(i.LL_LPUART_DeInit) for LL_LPUART_DeInit
     vcom2.o(i.vcom2_Init) refers to vcom2.o(i.vcom2_IoInit) for vcom2_IoInit
     vcom2.o(i.vcom2_Init) refers to stm32l0xx_hal_uart.o(i.HAL_UART_Init) for HAL_UART_Init
@@ -4044,6 +4088,8 @@ Section Cross References
     uldiv.o(.text) refers to llshl.o(.text) for __aeabi_llsl
     llmul.o(.text) refers to llshl.o(.text) for __aeabi_llsl
     rand.o(.text) refers to rand.o(.data) for .data
+    strtok.o(.text) refers to strtok.o(.data) for .data
+    strtok_r.o(.text) refers to strtok_r.o(.data) for .data
     printfb.o(i.__0fprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
     printfb.o(i.__0fprintf$bare) refers to fputc.o(i.fputc) for fputc
     printfb.o(i.__0printf$bare) refers to printfb.o(i._printf_core) for _printf_core
@@ -5915,24 +5961,38 @@ Removing Unused input sections from the image.
     Removing bg96.o(i.BG96_GNSS_GetLocation), (328 bytes).
     Removing bg96.o(i.BG96_GetAvailableNetworks), (56 bytes).
     Removing bg96.o(i.BG96_GetBandConfiguration), (56 bytes).
+    Removing bg96.o(i.BG96_GetEDRXConfiguration), (52 bytes).
     Removing bg96.o(i.BG96_GetFirmwareInfo), (52 bytes).
     Removing bg96.o(i.BG96_GetHardwareInfo), (52 bytes).
     Removing bg96.o(i.BG96_GetIMEI), (48 bytes).
     Removing bg96.o(i.BG96_GetNetworkInfo), (52 bytes).
     Removing bg96.o(i.BG96_GetNetworkStatus), (80 bytes).
+    Removing bg96.o(i.BG96_GetPowerSavingMode), (52 bytes).
     Removing bg96.o(i.BG96_GetSignalQuality), (48 bytes).
     Removing bg96.o(i.BG96_GetSignalStength), (52 bytes).
     Removing bg96.o(i.BG96_GetTime), (76 bytes).
+    Removing bg96.o(i.BG96_HTTP_Get), (84 bytes).
+    Removing bg96.o(i.BG96_HTTP_ReadResponse), (164 bytes).
+    Removing bg96.o(i.BG96_HTTP_SetContentType), (76 bytes).
+    Removing bg96.o(i.BG96_HTTP_SetContextID), (76 bytes).
+    Removing bg96.o(i.BG96_HTTP_SetRequestHeaderID), (80 bytes).
+    Removing bg96.o(i.BG96_HTTP_SetResponseHeaderID), (80 bytes).
+    Removing bg96.o(i.BG96_HTTP_SetSSLContextID), (72 bytes).
+    Removing bg96.o(i.BG96_HTTP_SetURL), (84 bytes).
     Removing bg96.o(i.BG96_PowerDown), (72 bytes).
     Removing bg96.o(i.BG96_ResetConfiguration), (28 bytes).
+    Removing bg96.o(i.BG96_ResetPacketCounters), (36 bytes).
     Removing bg96.o(i.BG96_SaveConfiguration), (28 bytes).
     Removing bg96.o(i.BG96_SelectConnectID), (12 bytes).
     Removing bg96.o(i.BG96_SelectContextID), (12 bytes).
     Removing bg96.o(i.BG96_SetCatM1Band), (72 bytes).
+    Removing bg96.o(i.BG96_SetDNSServer), (72 bytes).
     Removing bg96.o(i.BG96_SetEDRXConfiguration), (64 bytes).
     Removing bg96.o(i.BG96_SetGSMBand), (72 bytes).
     Removing bg96.o(i.BG96_SetNBIoTBand), (72 bytes).
     Removing bg96.o(i.BG96_SetPDPContext), (64 bytes).
+    Removing bg96.o(i.BG96_SetPowerSavingMode), (80 bytes).
+    Removing bg96.o(i.BG96_SetPowerSavingModeSettings), (56 bytes).
     Removing bg96.o(i.BG96_SetSIMPIN), (48 bytes).
     Removing bg96.o(i.BG96_SetScrambleConfiguration), (84 bytes).
     Removing bg96.o(i.BG96_Sleep), (56 bytes).
@@ -5940,6 +6000,7 @@ Removing Unused input sections from the image.
     Removing bg96.o(i.BG96_UDP_SendDataTo), (112 bytes).
     Removing bg96.o(i.BG96_UDP_StartService), (92 bytes).
     Removing bg96.o(i.BG96_Wake), (40 bytes).
+    Removing bg96.o(i.bg96_GetPacketCounters), (132 bytes).
     Removing vcom2.o(.rev16_text), (4 bytes).
     Removing vcom2.o(.revsh_text), (4 bytes).
     Removing vcom2.o(i.vcom2_DeInit), (16 bytes).
@@ -6056,7 +6117,7 @@ Removing Unused input sections from the image.
     Removing cfcmple.o(.text), (20 bytes).
     Removing dfltul.o(.text), (28 bytes).
 
-1648 unused section(s) (total 112031 bytes) removed from the image.
+1663 unused section(s) (total 113227 bytes) removed from the image.
 
 ==============================================================================
 
@@ -6068,57 +6129,57 @@ Image Symbol Table
 
     ../clib/../cmprslib/zerorunl2.c          0x00000000   Number         0  __dczerorl2.o ABSOLUTE
     ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isalnum_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isxdigit_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  islower_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isspace_o.o ABSOLUTE
     ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  ispunct_o.o ABSOLUTE
     ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isprint_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  ctype_c.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isspace_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isgraph_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isdigit_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  iscntrl_o.o ABSOLUTE
     ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isblank_o.o ABSOLUTE
     ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isalpha_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  ctype_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isspace_c.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  iscntrl_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  islower_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isdigit_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isgraph_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  ctype_c.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isxdigit_o.o ABSOLUTE
     ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isupper_o.o ABSOLUTE
-    ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isspace_c.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  ctype_o.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
+    ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  idiv.o ABSOLUTE
     ../clib/microlib/errno.c                 0x00000000   Number         0  errno.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llmul.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llmul.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloc.o ABSOLUTE
     ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocr.o ABSOLUTE
     ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloca.o ABSOLUTE
     ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocra.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloc.o ABSOLUTE
     ../clib/microlib/malloc/mvars.c          0x00000000   Number         0  mvars.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf0.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf1.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf0.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf8.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfb.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
     ../clib/microlib/printf/stubs.s          0x00000000   Number         0  stubs.o ABSOLUTE
     ../clib/microlib/stdio/fputc.c           0x00000000   Number         0  fputc.o ABSOLUTE
     ../clib/microlib/stdio/semi.s            0x00000000   Number         0  semi.o ABSOLUTE
@@ -6132,36 +6193,38 @@ Image Symbol Table
     ../clib/microlib/string/strncpy.c        0x00000000   Number         0  strncpy.o ABSOLUTE
     ../clib/microlib/string/strrchr.c        0x00000000   Number         0  strrchr.o ABSOLUTE
     ../clib/microlib/string/strstr.c         0x00000000   Number         0  strstr.o ABSOLUTE
+    ../clib/microlib/string/strtok.c         0x00000000   Number         0  strtok_r.o ABSOLUTE
+    ../clib/microlib/string/strtok.c         0x00000000   Number         0  strtok.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusesemip.o ABSOLUTE
     ../clib/microlib/unhosted.c              0x00000000   Number         0  uread4.o ABSOLUTE
-    ../clib/scanf.c                          0x00000000   Number         0  scanf_fp.o ABSOLUTE
-    ../clib/scanf.c                          0x00000000   Number         0  strtol.o ABSOLUTE
-    ../clib/scanf.c                          0x00000000   Number         0  strtod.o ABSOLUTE
-    ../clib/scanf.c                          0x00000000   Number         0  _sgetc.o ABSOLUTE
     ../clib/scanf.c                          0x00000000   Number         0  _strtoul.o ABSOLUTE
     ../clib/scanf.c                          0x00000000   Number         0  _chval.o ABSOLUTE
+    ../clib/scanf.c                          0x00000000   Number         0  strtol.o ABSOLUTE
     ../clib/scanf.c                          0x00000000   Number         0  atoi.o ABSOLUTE
+    ../clib/scanf.c                          0x00000000   Number         0  strtod.o ABSOLUTE
+    ../clib/scanf.c                          0x00000000   Number         0  scanf_fp.o ABSOLUTE
+    ../clib/scanf.c                          0x00000000   Number         0  _sgetc.o ABSOLUTE
     ../fplib/microlib/d2f.c                  0x00000000   Number         0  d2f.o ABSOLUTE
     ../fplib/microlib/f2d.c                  0x00000000   Number         0  f2d.o ABSOLUTE
     ../fplib/microlib/fpadd.c                0x00000000   Number         0  fadd.o ABSOLUTE
     ../fplib/microlib/fpadd.c                0x00000000   Number         0  dadd.o ABSOLUTE
-    ../fplib/microlib/fpdiv.c                0x00000000   Number         0  fdiv.o ABSOLUTE
     ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
+    ../fplib/microlib/fpdiv.c                0x00000000   Number         0  fdiv.o ABSOLUTE
     ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
     ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  fepilogue.o ABSOLUTE
-    ../fplib/microlib/fpfix.c                0x00000000   Number         0  ffixi.o ABSOLUTE
     ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixi.o ABSOLUTE
-    ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixui.o ABSOLUTE
     ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixul.o ABSOLUTE
+    ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixui.o ABSOLUTE
     ../fplib/microlib/fpfix.c                0x00000000   Number         0  ffixui.o ABSOLUTE
+    ../fplib/microlib/fpfix.c                0x00000000   Number         0  ffixi.o ABSOLUTE
+    ../fplib/microlib/fpflt.c                0x00000000   Number         0  dfltul.o ABSOLUTE
+    ../fplib/microlib/fpflt.c                0x00000000   Number         0  dfltui.o ABSOLUTE
     ../fplib/microlib/fpflt.c                0x00000000   Number         0  dflti.o ABSOLUTE
     ../fplib/microlib/fpflt.c                0x00000000   Number         0  ffltui.o ABSOLUTE
     ../fplib/microlib/fpflt.c                0x00000000   Number         0  fflti.o ABSOLUTE
-    ../fplib/microlib/fpflt.c                0x00000000   Number         0  dfltul.o ABSOLUTE
-    ../fplib/microlib/fpflt.c                0x00000000   Number         0  dfltui.o ABSOLUTE
-    ../fplib/microlib/fpmul.c                0x00000000   Number         0  fmul.o ABSOLUTE
     ../fplib/microlib/fpmul.c                0x00000000   Number         0  dmul.o ABSOLUTE
+    ../fplib/microlib/fpmul.c                0x00000000   Number         0  fmul.o ABSOLUTE
     ../fplib/microlib/fprnd.c                0x00000000   Number         0  drnd.o ABSOLUTE
     ../fplib/microlib/fpscalb.c              0x00000000   Number         0  dscalb.o ABSOLUTE
     ../mathlib/atof.c                        0x00000000   Number         0  atof.o ABSOLUTE
@@ -7137,76 +7200,76 @@ Image Symbol Table
     upper_digits                             0x2000010c   Data           4  tiny_vsnprintf.o(.data)
     .data                                    0x20000110   Section        8  ltc2941.o(.data)
     I2C_EXPBD_Timeout                        0x20000114   Data           4  ltc2941.o(.data)
-    .data                                    0x20000118   Section        8  bg96.o(.data)
+    .data                                    0x20000118   Section       12  bg96.o(.data)
     totalReplyBufferDone                     0x20000118   Data           1  bg96.o(.data)
     waitingForReply                          0x20000119   Data           1  bg96.o(.data)
-    i                                        0x2000011c   Data           4  bg96.o(.data)
-    .data                                    0x20000120   Section       47  sgfxsx1276modulation-lib.o(.data)
-    prbs9_val                                0x20000120   Data           2  sgfxsx1276modulation-lib.o(.data)
-    PhaseVal                                 0x20000122   Data           2  sgfxsx1276modulation-lib.o(.data)
-    valPaMax                                 0x20000124   Data           2  sgfxsx1276modulation-lib.o(.data)
-    valPaEnable                              0x20000126   Data           2  sgfxsx1276modulation-lib.o(.data)
-    dma_buffer_size                          0x20000128   Data           2  sgfxsx1276modulation-lib.o(.data)
-    TxDataN                                  0x2000012a   Data           2  sgfxsx1276modulation-lib.o(.data)
-    TxDataIdx                                0x2000012c   Data           2  sgfxsx1276modulation-lib.o(.data)
-    TxDataBuf                                0x20000130   Data           4  sgfxsx1276modulation-lib.o(.data)
-    .data                                    0x20000150   Section        4  rand.o(.data)
-    _rand_state                              0x20000150   Data           4  rand.o(.data)
-    .bss                                     0x20000154   Section      432  sx1276.o(.bss)
-    RxTxBuffer                               0x20000154   Data         256  sx1276.o(.bss)
-    .bss                                     0x20000304   Section       64  scheduler.o(.bss)
-    TaskCb                                   0x20000304   Data          64  scheduler.o(.bss)
-    .bss                                     0x20000344   Section     1708  loramac.o(.bss)
-    MacCtx                                   0x20000344   Data        1160  loramac.o(.bss)
-    NvmMacCtx                                0x200007cc   Data         476  loramac.o(.bss)
-    .bss                                     0x200009f0   Section      252  loramaccommands.o(.bss)
-    NvmCtx                                   0x200009f0   Data         252  loramaccommands.o(.bss)
-    .bss                                     0x20000aec   Section       44  loramacconfirmqueue.o(.bss)
-    ConfirmQueueNvmCtx                       0x20000aec   Data          22  loramacconfirmqueue.o(.bss)
-    ConfirmQueueCtx                          0x20000b04   Data          20  loramacconfirmqueue.o(.bss)
-    .bss                                     0x20000b18   Section       64  loramaccrypto.o(.bss)
-    CryptoCtx                                0x20000b18   Data          12  loramaccrypto.o(.bss)
-    NvmCryptoCtx                             0x20000b24   Data          52  loramaccrypto.o(.bss)
-    .bss                                     0x20000b58   Section      292  regioneu868.o(.bss)
-    NvmCtx                                   0x20000b58   Data         292  regioneu868.o(.bss)
-    .bss                                     0x20000c7c   Section      964  soft-se.o(.bss)
-    SeNvmCtx                                 0x20000c7c   Data         964  soft-se.o(.bss)
-    .bss                                     0x20001040   Section      276  lora-test.o(.bss)
-    CertifTxNextPacketTimer                  0x20001040   Data          24  lora-test.o(.bss)
-    certifParam                              0x20001058   Data         252  lora-test.o(.bss)
-    .bss                                     0x20001154   Section       64  hw_gpio.o(.bss)
-    GpioIrq                                  0x20001154   Data          64  hw_gpio.o(.bss)
-    .bss                                     0x20001194   Section      104  hw_rtc.o(.bss)
-    RtcHandle                                0x20001194   Data          36  hw_rtc.o(.bss)
-    RTC_AlarmStructure                       0x200011b8   Data          40  hw_rtc.o(.bss)
-    RtcTimerContext                          0x200011e0   Data          28  hw_rtc.o(.bss)
-    .bss                                     0x200011fc   Section       88  hw_spi.o(.bss)
-    SpiHandle                                0x200011fc   Data          88  hw_spi.o(.bss)
-    .bss                                     0x20001254   Section       48  main.o(.bss)
-    TxTimer                                  0x20001254   Data          24  main.o(.bss)
-    TxLedTimer                               0x2000126c   Data          24  main.o(.bss)
-    .bss                                     0x20001284   Section       64  main.o(.bss)
-    AppDataBuff                              0x20001284   Data          64  main.o(.bss)
-    .bss                                     0x200012c4   Section       64  mlm32l0xx_hal_msp.o(.bss)
-    hdma_tx                                  0x200012c4   Data          64  mlm32l0xx_hal_msp.o(.bss)
-    .bss                                     0x20001304   Section       96  mlm32l0xx_hw.o(.bss)
-    hadc                                     0x20001304   Data          96  mlm32l0xx_hw.o(.bss)
-    .bss                                     0x20001364   Section       56  hw_tim2.o(.bss)
-    TimHandle                                0x20001364   Data          56  hw_tim2.o(.bss)
-    .bss                                     0x2000139c   Section       76  ltc2941.o(.bss)
-    I2C_EXPBD_Handle                         0x2000139c   Data          76  ltc2941.o(.bss)
-    .bss                                     0x200013e8   Section      372  bg96.o(.bss)
-    replyBuffer                              0x200013e8   Data         100  bg96.o(.bss)
-    uart_context                             0x2000144c   Data         156  bg96.o(.bss)
-    SleepBuff                                0x200014e8   Data          16  bg96.o(.bss)
-    totalReplyBuffer                         0x200014f8   Data         100  bg96.o(.bss)
-    .bss                                     0x2000155c   Section      284  vcom2.o(.bss)
-    uart_context                             0x2000155c   Data         156  vcom2.o(.bss)
-    SleepBuff                                0x200015f8   Data          16  vcom2.o(.bss)
-    UartHandle                               0x20001608   Data         112  vcom2.o(.bss)
-    .bss                                     0x20001678   Section     3200  sgfxsx1276modulation-lib.o(.bss)
-    SpiTxBuffer                              0x20001678   Data        3200  sgfxsx1276modulation-lib.o(.bss)
-    STACK                                    0x200022f8   Section     1024  startup_stm32l072xx.o(STACK)
+    i                                        0x20000120   Data           4  bg96.o(.data)
+    .data                                    0x20000124   Section       47  sgfxsx1276modulation-lib.o(.data)
+    prbs9_val                                0x20000124   Data           2  sgfxsx1276modulation-lib.o(.data)
+    PhaseVal                                 0x20000126   Data           2  sgfxsx1276modulation-lib.o(.data)
+    valPaMax                                 0x20000128   Data           2  sgfxsx1276modulation-lib.o(.data)
+    valPaEnable                              0x2000012a   Data           2  sgfxsx1276modulation-lib.o(.data)
+    dma_buffer_size                          0x2000012c   Data           2  sgfxsx1276modulation-lib.o(.data)
+    TxDataN                                  0x2000012e   Data           2  sgfxsx1276modulation-lib.o(.data)
+    TxDataIdx                                0x20000130   Data           2  sgfxsx1276modulation-lib.o(.data)
+    TxDataBuf                                0x20000134   Data           4  sgfxsx1276modulation-lib.o(.data)
+    .data                                    0x20000154   Section        4  rand.o(.data)
+    _rand_state                              0x20000154   Data           4  rand.o(.data)
+    .bss                                     0x20000158   Section      432  sx1276.o(.bss)
+    RxTxBuffer                               0x20000158   Data         256  sx1276.o(.bss)
+    .bss                                     0x20000308   Section       64  scheduler.o(.bss)
+    TaskCb                                   0x20000308   Data          64  scheduler.o(.bss)
+    .bss                                     0x20000348   Section     1708  loramac.o(.bss)
+    MacCtx                                   0x20000348   Data        1160  loramac.o(.bss)
+    NvmMacCtx                                0x200007d0   Data         476  loramac.o(.bss)
+    .bss                                     0x200009f4   Section      252  loramaccommands.o(.bss)
+    NvmCtx                                   0x200009f4   Data         252  loramaccommands.o(.bss)
+    .bss                                     0x20000af0   Section       44  loramacconfirmqueue.o(.bss)
+    ConfirmQueueNvmCtx                       0x20000af0   Data          22  loramacconfirmqueue.o(.bss)
+    ConfirmQueueCtx                          0x20000b08   Data          20  loramacconfirmqueue.o(.bss)
+    .bss                                     0x20000b1c   Section       64  loramaccrypto.o(.bss)
+    CryptoCtx                                0x20000b1c   Data          12  loramaccrypto.o(.bss)
+    NvmCryptoCtx                             0x20000b28   Data          52  loramaccrypto.o(.bss)
+    .bss                                     0x20000b5c   Section      292  regioneu868.o(.bss)
+    NvmCtx                                   0x20000b5c   Data         292  regioneu868.o(.bss)
+    .bss                                     0x20000c80   Section      964  soft-se.o(.bss)
+    SeNvmCtx                                 0x20000c80   Data         964  soft-se.o(.bss)
+    .bss                                     0x20001044   Section      276  lora-test.o(.bss)
+    CertifTxNextPacketTimer                  0x20001044   Data          24  lora-test.o(.bss)
+    certifParam                              0x2000105c   Data         252  lora-test.o(.bss)
+    .bss                                     0x20001158   Section       64  hw_gpio.o(.bss)
+    GpioIrq                                  0x20001158   Data          64  hw_gpio.o(.bss)
+    .bss                                     0x20001198   Section      104  hw_rtc.o(.bss)
+    RtcHandle                                0x20001198   Data          36  hw_rtc.o(.bss)
+    RTC_AlarmStructure                       0x200011bc   Data          40  hw_rtc.o(.bss)
+    RtcTimerContext                          0x200011e4   Data          28  hw_rtc.o(.bss)
+    .bss                                     0x20001200   Section       88  hw_spi.o(.bss)
+    SpiHandle                                0x20001200   Data          88  hw_spi.o(.bss)
+    .bss                                     0x20001258   Section       48  main.o(.bss)
+    TxTimer                                  0x20001258   Data          24  main.o(.bss)
+    TxLedTimer                               0x20001270   Data          24  main.o(.bss)
+    .bss                                     0x20001288   Section       64  main.o(.bss)
+    AppDataBuff                              0x20001288   Data          64  main.o(.bss)
+    .bss                                     0x200012c8   Section       64  mlm32l0xx_hal_msp.o(.bss)
+    hdma_tx                                  0x200012c8   Data          64  mlm32l0xx_hal_msp.o(.bss)
+    .bss                                     0x20001308   Section       96  mlm32l0xx_hw.o(.bss)
+    hadc                                     0x20001308   Data          96  mlm32l0xx_hw.o(.bss)
+    .bss                                     0x20001368   Section       56  hw_tim2.o(.bss)
+    TimHandle                                0x20001368   Data          56  hw_tim2.o(.bss)
+    .bss                                     0x200013a0   Section       76  ltc2941.o(.bss)
+    I2C_EXPBD_Handle                         0x200013a0   Data          76  ltc2941.o(.bss)
+    .bss                                     0x200013ec   Section      372  bg96.o(.bss)
+    replyBuffer                              0x200013ec   Data         100  bg96.o(.bss)
+    uart_context                             0x20001450   Data         156  bg96.o(.bss)
+    SleepBuff                                0x200014ec   Data          16  bg96.o(.bss)
+    totalReplyBuffer                         0x200014fc   Data         100  bg96.o(.bss)
+    .bss                                     0x20001560   Section      284  vcom2.o(.bss)
+    uart_context                             0x20001560   Data         156  vcom2.o(.bss)
+    SleepBuff                                0x200015fc   Data          16  vcom2.o(.bss)
+    UartHandle                               0x2000160c   Data         112  vcom2.o(.bss)
+    .bss                                     0x2000167c   Section     3200  sgfxsx1276modulation-lib.o(.bss)
+    SpiTxBuffer                              0x2000167c   Data        3200  sgfxsx1276modulation-lib.o(.bss)
+    STACK                                    0x20002300   Section     1024  startup_stm32l072xx.o(STACK)
 
     Global Symbols
 
@@ -7827,15 +7890,19 @@ Image Symbol Table
     prescalar                                0x20000110   Data           1  ltc2941.o(.data)
     _contextID                               0x2000011a   Data           1  bg96.o(.data)
     _connectID                               0x2000011b   Data           1  bg96.o(.data)
-    nextbit                                  0x20000134   Data           4  sgfxsx1276modulation-lib.o(.data)
-    modulationLibVersion                     0x20000138   Data          23  sgfxsx1276modulation-lib.o(.data)
-    SX1276                                   0x20000254   Data         104  sx1276.o(.bss)
-    TxTimeoutTimer                           0x200002bc   Data          24  sx1276.o(.bss)
-    RxTimeoutTimer                           0x200002d4   Data          24  sx1276.o(.bss)
-    RxTimeoutSyncWord                        0x200002ec   Data          24  sx1276.o(.bss)
-    Contexts                                 0x200009a8   Data          56  loramac.o(.bss)
-    RxDoneParams                             0x200009e0   Data          16  loramac.o(.bss)
-    __initial_sp                             0x200026f8   Data           0  startup_stm32l072xx.o(STACK)
+    _responseHeaderID                        0x2000011c   Data           1  bg96.o(.data)
+    _requestHeaderID                         0x2000011d   Data           1  bg96.o(.data)
+    _SSLContextID                            0x2000011e   Data           1  bg96.o(.data)
+    _contentType                             0x2000011f   Data           1  bg96.o(.data)
+    nextbit                                  0x20000138   Data           4  sgfxsx1276modulation-lib.o(.data)
+    modulationLibVersion                     0x2000013c   Data          23  sgfxsx1276modulation-lib.o(.data)
+    SX1276                                   0x20000258   Data         104  sx1276.o(.bss)
+    TxTimeoutTimer                           0x200002c0   Data          24  sx1276.o(.bss)
+    RxTimeoutTimer                           0x200002d8   Data          24  sx1276.o(.bss)
+    RxTimeoutSyncWord                        0x200002f0   Data          24  sx1276.o(.bss)
+    Contexts                                 0x200009ac   Data          56  loramac.o(.bss)
+    RxDoneParams                             0x200009e4   Data          16  loramac.o(.bss)
+    __initial_sp                             0x20002700   Data           0  startup_stm32l072xx.o(STACK)
 
 
 
@@ -7845,62 +7912,62 @@ Memory Map of the image
 
   Image Entry point : 0x080000c1
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000eaf0, Max: 0x00017000, ABSOLUTE, COMPRESSED[0x0000ea64])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000eaf4, Max: 0x00017000, ABSOLUTE, COMPRESSED[0x0000ea64])
 
     Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0000e99c, Max: 0x00017000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x08000000   0x08000000   0x000000c0   Data   RO         6526    RESET               startup_stm32l072xx.o
-    0x080000c0   0x080000c0   0x00000000   Code   RO        12881  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
-    0x080000c0   0x080000c0   0x00000004   Code   RO        13242    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
-    0x080000c4   0x080000c4   0x00000004   Code   RO        13245    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
-    0x080000c8   0x080000c8   0x00000000   Code   RO        13247    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
-    0x080000c8   0x080000c8   0x00000000   Code   RO        13249    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
-    0x080000c8   0x080000c8   0x00000008   Code   RO        13250    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
-    0x080000d0   0x080000d0   0x00000000   Code   RO        13252    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
-    0x080000d0   0x080000d0   0x00000000   Code   RO        13254    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
-    0x080000d0   0x080000d0   0x00000004   Code   RO        13243    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
+    0x080000c0   0x080000c0   0x00000000   Code   RO        12971  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
+    0x080000c0   0x080000c0   0x00000004   Code   RO        13338    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
+    0x080000c4   0x080000c4   0x00000004   Code   RO        13341    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
+    0x080000c8   0x080000c8   0x00000000   Code   RO        13343    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
+    0x080000c8   0x080000c8   0x00000000   Code   RO        13345    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
+    0x080000c8   0x080000c8   0x00000008   Code   RO        13346    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
+    0x080000d0   0x080000d0   0x00000000   Code   RO        13348    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
+    0x080000d0   0x080000d0   0x00000000   Code   RO        13350    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
+    0x080000d0   0x080000d0   0x00000004   Code   RO        13339    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
     0x080000d4   0x080000d4   0x0000001c   Code   RO         6527    .text               startup_stm32l072xx.o
-    0x080000f0   0x080000f0   0x0000002c   Code   RO        12884    .text               mc_p.l(uidiv.o)
-    0x0800011c   0x0800011c   0x00000028   Code   RO        12886    .text               mc_p.l(idiv.o)
-    0x08000144   0x08000144   0x00000060   Code   RO        12888    .text               mc_p.l(uldiv.o)
-    0x080001a4   0x080001a4   0x00000024   Code   RO        12892    .text               mc_p.l(rand.o)
-    0x080001c8   0x080001c8   0x00000024   Code   RO        12895    .text               mc_p.l(memcpya.o)
-    0x080001ec   0x080001ec   0x00000024   Code   RO        12897    .text               mc_p.l(memseta.o)
-    0x08000210   0x08000210   0x0000000e   Code   RO        12903    .text               mc_p.l(strlen.o)
-    0x0800021e   0x0800021e   0x00000012   Code   RO        12905    .text               mc_p.l(strcpy.o)
-    0x08000230   0x08000230   0x00000014   Code   RO        13200    .text               mc_p.l(uread4.o)
-    0x08000244   0x08000244   0x000000b2   Code   RO        13204    .text               mf_p.l(fadd.o)
-    0x080002f6   0x080002f6   0x0000007a   Code   RO        13206    .text               mf_p.l(fmul.o)
-    0x08000370   0x08000370   0x0000007c   Code   RO        13208    .text               mf_p.l(fdiv.o)
-    0x080003ec   0x080003ec   0x00000164   Code   RO        13210    .text               mf_p.l(dadd.o)
-    0x08000550   0x08000550   0x000000d0   Code   RO        13212    .text               mf_p.l(dmul.o)
-    0x08000620   0x08000620   0x000000f0   Code   RO        13214    .text               mf_p.l(ddiv.o)
-    0x08000710   0x08000710   0x0000002c   Code   RO        13216    .text               mf_p.l(dscalb.o)
-    0x0800073c   0x0800073c   0x0000000e   Code   RO        13220    .text               mf_p.l(ffltui.o)
+    0x080000f0   0x080000f0   0x0000002c   Code   RO        12974    .text               mc_p.l(uidiv.o)
+    0x0800011c   0x0800011c   0x00000028   Code   RO        12976    .text               mc_p.l(idiv.o)
+    0x08000144   0x08000144   0x00000060   Code   RO        12978    .text               mc_p.l(uldiv.o)
+    0x080001a4   0x080001a4   0x00000024   Code   RO        12982    .text               mc_p.l(rand.o)
+    0x080001c8   0x080001c8   0x00000024   Code   RO        12985    .text               mc_p.l(memcpya.o)
+    0x080001ec   0x080001ec   0x00000024   Code   RO        12987    .text               mc_p.l(memseta.o)
+    0x08000210   0x08000210   0x0000000e   Code   RO        12993    .text               mc_p.l(strlen.o)
+    0x0800021e   0x0800021e   0x00000012   Code   RO        12995    .text               mc_p.l(strcpy.o)
+    0x08000230   0x08000230   0x00000014   Code   RO        13296    .text               mc_p.l(uread4.o)
+    0x08000244   0x08000244   0x000000b2   Code   RO        13300    .text               mf_p.l(fadd.o)
+    0x080002f6   0x080002f6   0x0000007a   Code   RO        13302    .text               mf_p.l(fmul.o)
+    0x08000370   0x08000370   0x0000007c   Code   RO        13304    .text               mf_p.l(fdiv.o)
+    0x080003ec   0x080003ec   0x00000164   Code   RO        13306    .text               mf_p.l(dadd.o)
+    0x08000550   0x08000550   0x000000d0   Code   RO        13308    .text               mf_p.l(dmul.o)
+    0x08000620   0x08000620   0x000000f0   Code   RO        13310    .text               mf_p.l(ddiv.o)
+    0x08000710   0x08000710   0x0000002c   Code   RO        13312    .text               mf_p.l(dscalb.o)
+    0x0800073c   0x0800073c   0x0000000e   Code   RO        13316    .text               mf_p.l(ffltui.o)
     0x0800074a   0x0800074a   0x00000002   PAD
-    0x0800074c   0x0800074c   0x00000028   Code   RO        13222    .text               mf_p.l(dflti.o)
-    0x08000774   0x08000774   0x0000001c   Code   RO        13224    .text               mf_p.l(dfltui.o)
-    0x08000790   0x08000790   0x00000032   Code   RO        13226    .text               mf_p.l(ffixi.o)
-    0x080007c2   0x080007c2   0x00000028   Code   RO        13228    .text               mf_p.l(ffixui.o)
+    0x0800074c   0x0800074c   0x00000028   Code   RO        13318    .text               mf_p.l(dflti.o)
+    0x08000774   0x08000774   0x0000001c   Code   RO        13320    .text               mf_p.l(dfltui.o)
+    0x08000790   0x08000790   0x00000032   Code   RO        13322    .text               mf_p.l(ffixi.o)
+    0x080007c2   0x080007c2   0x00000028   Code   RO        13324    .text               mf_p.l(ffixui.o)
     0x080007ea   0x080007ea   0x00000002   PAD
-    0x080007ec   0x080007ec   0x00000048   Code   RO        13230    .text               mf_p.l(dfixi.o)
-    0x08000834   0x08000834   0x0000003c   Code   RO        13232    .text               mf_p.l(dfixui.o)
-    0x08000870   0x08000870   0x00000028   Code   RO        13234    .text               mf_p.l(f2d.o)
-    0x08000898   0x08000898   0x00000028   Code   RO        13236    .text               mf_p.l(cdrcmple.o)
-    0x080008c0   0x080008c0   0x00000038   Code   RO        13238    .text               mf_p.l(d2f.o)
-    0x080008f8   0x080008f8   0x00000020   Code   RO        13259    .text               mc_p.l(llshl.o)
-    0x08000918   0x08000918   0x00000022   Code   RO        13261    .text               mc_p.l(llushr.o)
-    0x0800093a   0x0800093a   0x00000026   Code   RO        13263    .text               mc_p.l(llsshr.o)
-    0x08000960   0x08000960   0x00000000   Code   RO        13278    .text               mc_p.l(iusefp.o)
-    0x08000960   0x08000960   0x00000082   Code   RO        13279    .text               mf_p.l(fepilogue.o)
-    0x080009e2   0x080009e2   0x000000be   Code   RO        13281    .text               mf_p.l(depilogue.o)
-    0x08000aa0   0x08000aa0   0x0000007c   Code   RO        13285    .text               mf_p.l(drnd.o)
-    0x08000b1c   0x08000b1c   0x00000040   Code   RO        13287    .text               mf_p.l(dfixul.o)
-    0x08000b5c   0x08000b5c   0x00000028   Code   RO        13289    .text               mf_p.l(cdcmple.o)
-    0x08000b84   0x08000b84   0x00000024   Code   RO        13291    .text               mc_p.l(init.o)
-    0x08000ba8   0x08000ba8   0x00000056   Code   RO        13348    .text               mc_p.l(__dczerorl2.o)
+    0x080007ec   0x080007ec   0x00000048   Code   RO        13326    .text               mf_p.l(dfixi.o)
+    0x08000834   0x08000834   0x0000003c   Code   RO        13328    .text               mf_p.l(dfixui.o)
+    0x08000870   0x08000870   0x00000028   Code   RO        13330    .text               mf_p.l(f2d.o)
+    0x08000898   0x08000898   0x00000028   Code   RO        13332    .text               mf_p.l(cdrcmple.o)
+    0x080008c0   0x080008c0   0x00000038   Code   RO        13334    .text               mf_p.l(d2f.o)
+    0x080008f8   0x080008f8   0x00000020   Code   RO        13355    .text               mc_p.l(llshl.o)
+    0x08000918   0x08000918   0x00000022   Code   RO        13357    .text               mc_p.l(llushr.o)
+    0x0800093a   0x0800093a   0x00000026   Code   RO        13359    .text               mc_p.l(llsshr.o)
+    0x08000960   0x08000960   0x00000000   Code   RO        13374    .text               mc_p.l(iusefp.o)
+    0x08000960   0x08000960   0x00000082   Code   RO        13375    .text               mf_p.l(fepilogue.o)
+    0x080009e2   0x080009e2   0x000000be   Code   RO        13377    .text               mf_p.l(depilogue.o)
+    0x08000aa0   0x08000aa0   0x0000007c   Code   RO        13381    .text               mf_p.l(drnd.o)
+    0x08000b1c   0x08000b1c   0x00000040   Code   RO        13383    .text               mf_p.l(dfixul.o)
+    0x08000b5c   0x08000b5c   0x00000028   Code   RO        13385    .text               mf_p.l(cdcmple.o)
+    0x08000b84   0x08000b84   0x00000024   Code   RO        13387    .text               mc_p.l(init.o)
+    0x08000ba8   0x08000ba8   0x00000056   Code   RO        13444    .text               mc_p.l(__dczerorl2.o)
     0x08000bfe   0x08000bfe   0x00000002   PAD
     0x08000c00   0x08000c00   0x00000024   Code   RO         3538    i.ADC_DelayMicroSecond  stm32l0xx_hal_adc.o
     0x08000c24   0x08000c24   0x00000064   Code   RO         3540    i.ADC_Enable        stm32l0xx_hal_adc.o
@@ -7915,27 +7982,27 @@ Memory Map of the image
     0x08000f4c   0x08000f4c   0x0000007c   Code   RO        12233    i.BG96_ConnectToOperator  bg96.o
     0x08000fc8   0x08000fc8   0x00000038   Code   RO        12234    i.BG96_DeactivateContext  bg96.o
     0x08001000   0x08001000   0x0000006c   Code   RO        12235    i.BG96_Dma_IRQHandler  bg96.o
-    0x0800106c   0x0800106c   0x00000020   Code   RO        12246    i.BG96_GetNewChar   bg96.o
-    0x0800108c   0x0800108c   0x000000cc   Code   RO        12250    i.BG96_IRQHandler   bg96.o
-    0x08001158   0x08001158   0x00000108   Code   RO        12251    i.BG96_Init         bg96.o
-    0x08001260   0x08001260   0x00000020   Code   RO        12252    i.BG96_IsNewCharReceived  bg96.o
-    0x08001280   0x08001280   0x0000001c   Code   RO        12253    i.BG96_ParseResult  bg96.o
-    0x0800129c   0x0800129c   0x000000a8   Code   RO        12255    i.BG96_PowerOn      bg96.o
-    0x08001344   0x08001344   0x00000044   Code   RO        12256    i.BG96_PrintDMA     bg96.o
-    0x08001388   0x08001388   0x00000074   Code   RO        12257    i.BG96_ReceiveToBuffer  bg96.o
-    0x080013fc   0x080013fc   0x0000001c   Code   RO        12259    i.BG96_ResetParameters  bg96.o
-    0x08001418   0x08001418   0x00000040   Code   RO        12263    i.BG96_SelectNetwork  bg96.o
-    0x08001458   0x08001458   0x00000100   Code   RO        12264    i.BG96_Send         bg96.o
-    0x08001558   0x08001558   0x00000014   Code   RO        12265    i.BG96_SendATCommand  bg96.o
-    0x0800156c   0x0800156c   0x00000090   Code   RO        12266    i.BG96_SendATCommandCheckReply  bg96.o
-    0x080015fc   0x080015fc   0x00000060   Code   RO        12267    i.BG96_SendATCommandGetReply  bg96.o
-    0x0800165c   0x0800165c   0x00000034   Code   RO        12270    i.BG96_SetErrorFormat  bg96.o
-    0x08001690   0x08001690   0x000001a0   Code   RO        12272    i.BG96_SetMode      bg96.o
-    0x08001830   0x08001830   0x00000034   Code   RO        12274    i.BG96_SetNetworkReporting  bg96.o
-    0x08001864   0x08001864   0x00000090   Code   RO        12279    i.BG96_StartDMA     bg96.o
-    0x080018f4   0x080018f4   0x0000006c   Code   RO        12281    i.BG96_UDP_SendData  bg96.o
-    0x08001960   0x08001960   0x0000006c   Code   RO        12283    i.BG96_UDP_Start    bg96.o
-    0x080019cc   0x080019cc   0x00000038   Code   RO        12285    i.BG96_UDP_Stop     bg96.o
+    0x0800106c   0x0800106c   0x00000020   Code   RO        12247    i.BG96_GetNewChar   bg96.o
+    0x0800108c   0x0800108c   0x000000cc   Code   RO        12260    i.BG96_IRQHandler   bg96.o
+    0x08001158   0x08001158   0x00000108   Code   RO        12261    i.BG96_Init         bg96.o
+    0x08001260   0x08001260   0x00000020   Code   RO        12262    i.BG96_IsNewCharReceived  bg96.o
+    0x08001280   0x08001280   0x0000001c   Code   RO        12263    i.BG96_ParseResult  bg96.o
+    0x0800129c   0x0800129c   0x000000a8   Code   RO        12265    i.BG96_PowerOn      bg96.o
+    0x08001344   0x08001344   0x00000044   Code   RO        12266    i.BG96_PrintDMA     bg96.o
+    0x08001388   0x08001388   0x00000074   Code   RO        12267    i.BG96_ReceiveToBuffer  bg96.o
+    0x080013fc   0x080013fc   0x0000001c   Code   RO        12270    i.BG96_ResetParameters  bg96.o
+    0x08001418   0x08001418   0x00000040   Code   RO        12274    i.BG96_SelectNetwork  bg96.o
+    0x08001458   0x08001458   0x00000100   Code   RO        12275    i.BG96_Send         bg96.o
+    0x08001558   0x08001558   0x00000014   Code   RO        12276    i.BG96_SendATCommand  bg96.o
+    0x0800156c   0x0800156c   0x00000090   Code   RO        12277    i.BG96_SendATCommandCheckReply  bg96.o
+    0x080015fc   0x080015fc   0x00000060   Code   RO        12278    i.BG96_SendATCommandGetReply  bg96.o
+    0x0800165c   0x0800165c   0x00000034   Code   RO        12282    i.BG96_SetErrorFormat  bg96.o
+    0x08001690   0x08001690   0x000001a0   Code   RO        12284    i.BG96_SetMode      bg96.o
+    0x08001830   0x08001830   0x00000034   Code   RO        12286    i.BG96_SetNetworkReporting  bg96.o
+    0x08001864   0x08001864   0x00000090   Code   RO        12293    i.BG96_StartDMA     bg96.o
+    0x080018f4   0x080018f4   0x0000006c   Code   RO        12295    i.BG96_UDP_SendData  bg96.o
+    0x08001960   0x08001960   0x0000006c   Code   RO        12297    i.BG96_UDP_Start    bg96.o
+    0x080019cc   0x080019cc   0x00000038   Code   RO        12299    i.BG96_UDP_Stop     bg96.o
     0x08001a04   0x08001a04   0x00000064   Code   RO         2770    i.BSP_LED_Init      b-l072z-lrwan1.o
     0x08001a68   0x08001a68   0x00000020   Code   RO         2771    i.BSP_LED_Off       b-l072z-lrwan1.o
     0x08001a88   0x08001a88   0x00000020   Code   RO         2772    i.BSP_LED_On        b-l072z-lrwan1.o
@@ -8332,7 +8399,7 @@ Memory Map of the image
     0x08009f68   0x08009f68   0x0000000a   Code   RO        11926    i.STLL_SetEndOfTxFrame  st_lowlevel.o
     0x08009f72   0x08009f72   0x00000008   Code   RO        11930    i.STLL_TIM2_Stop    st_lowlevel.o
     0x08009f7a   0x08009f7a   0x00000002   PAD
-    0x08009f7c   0x08009f7c   0x00000090   Code   RO        12703    i.STLL_TX_IRQHandler_CB  SgfxSTModemSx1276V123_CM0_Keil_O3.lib(sgfxsx1276modulation-lib.o)
+    0x08009f7c   0x08009f7c   0x00000090   Code   RO        12793    i.STLL_TX_IRQHandler_CB  SgfxSTModemSx1276V123_CM0_Keil_O3.lib(sgfxsx1276modulation-lib.o)
     0x0800a00c   0x0800a00c   0x00000008   Code   RO        11932    i.STLL_Transmit_DMA_Stop  st_lowlevel.o
     0x0800a014   0x0800a014   0x00000002   Code   RO        11451    i.SVC_Handler       mlm32l0xx_it.o
     0x0800a016   0x0800a016   0x00000002   PAD
@@ -8404,7 +8471,7 @@ Memory Map of the image
     0x0800bf10   0x0800bf10   0x0000004c   Code   RO         7169    i.SetTxContinuousWave  loramac.o
     0x0800bf5c   0x0800bf5c   0x00000028   Code   RO         7170    i.SetTxContinuousWave1  loramac.o
     0x0800bf84   0x0800bf84   0x00000048   Code   RO         7171    i.StopRetransmission  loramac.o
-    0x0800bfcc   0x0800bfcc   0x00000028   Code   RO        12635    i.StringStartsWith  util.o
+    0x0800bfcc   0x0800bfcc   0x00000028   Code   RO        12725    i.StringStartsWith  util.o
     0x0800bff4   0x0800bff4   0x00000104   Code   RO         7172    i.SwitchClass       loramac.o
     0x0800c0f8   0x0800c0f8   0x00000008   Code   RO        11452    i.SysTick_Handler   mlm32l0xx_it.o
     0x0800c100   0x0800c100   0x00000040   Code   RO         6667    i.SysTimeAdd        systime.o
@@ -8419,8 +8486,8 @@ Memory Map of the image
     0x0800c37a   0x0800c37a   0x00000032   Code   RO         4973    i.TIM_OC2_SetConfig  stm32l0xx_hal_tim.o
     0x0800c3ac   0x0800c3ac   0x00000036   Code   RO         4974    i.TIM_OC3_SetConfig  stm32l0xx_hal_tim.o
     0x0800c3e2   0x0800c3e2   0x00000036   Code   RO         4975    i.TIM_OC4_SetConfig  stm32l0xx_hal_tim.o
-    0x0800c418   0x0800c418   0x00000064   Code   RO        12712    i.TX_Write_Modu_Buffer  SgfxSTModemSx1276V123_CM0_Keil_O3.lib(sgfxsx1276modulation-lib.o)
-    0x0800c47c   0x0800c47c   0x0000004c   Code   RO        12713    i.TX_Write_RampDown_Buffer  SgfxSTModemSx1276V123_CM0_Keil_O3.lib(sgfxsx1276modulation-lib.o)
+    0x0800c418   0x0800c418   0x00000064   Code   RO        12802    i.TX_Write_Modu_Buffer  SgfxSTModemSx1276V123_CM0_Keil_O3.lib(sgfxsx1276modulation-lib.o)
+    0x0800c47c   0x0800c47c   0x0000004c   Code   RO        12803    i.TX_Write_RampDown_Buffer  SgfxSTModemSx1276V123_CM0_Keil_O3.lib(sgfxsx1276modulation-lib.o)
     0x0800c4c8   0x0800c4c8   0x0000000c   Code   RO         6758    i.TimerGetCurrentTime  timeserver.o
     0x0800c4d4   0x0800c4d4   0x0000001e   Code   RO         6759    i.TimerGetElapsedTime  timeserver.o
     0x0800c4f2   0x0800c4f2   0x00000012   Code   RO         6760    i.TimerInit         timeserver.o
@@ -8442,29 +8509,29 @@ Memory Map of the image
     0x0800cadc   0x0800cadc   0x00000066   Code   RO         8039    i.VerifyCmacB0      loramaccrypto.o
     0x0800cb42   0x0800cb42   0x00000002   PAD
     0x0800cb44   0x0800cb44   0x000000a4   Code   RO         9460    i.VerifyRfFreq      regioneu868.o
-    0x0800cbe8   0x0800cbe8   0x00000028   Code   RO        13146    i.__0sprintf        mc_p.l(printfa.o)
-    0x0800cc10   0x0800cc10   0x0000002e   Code   RO        13283    i.__ARM_clz         mf_p.l(depilogue.o)
+    0x0800cbe8   0x0800cbe8   0x00000028   Code   RO        13242    i.__0sprintf        mc_p.l(printfa.o)
+    0x0800cc10   0x0800cc10   0x0000002e   Code   RO        13379    i.__ARM_clz         mf_p.l(depilogue.o)
     0x0800cc3e   0x0800cc3e   0x00000030   Code   RO        10896    i.__ARM_common_ll_muluu  hw_rtc.o
     0x0800cc6e   0x0800cc6e   0x0000001a   Code   RO          433    i.__ARM_common_switch8  hts221_driver_hl.o
-    0x0800cc88   0x0800cc88   0x0000000e   Code   RO        13342    i.__scatterload_copy  mc_p.l(handlers.o)
-    0x0800cc96   0x0800cc96   0x00000002   Code   RO        13343    i.__scatterload_null  mc_p.l(handlers.o)
-    0x0800cc98   0x0800cc98   0x0000000e   Code   RO        13344    i.__scatterload_zeroinit  mc_p.l(handlers.o)
+    0x0800cc88   0x0800cc88   0x0000000e   Code   RO        13438    i.__scatterload_copy  mc_p.l(handlers.o)
+    0x0800cc96   0x0800cc96   0x00000002   Code   RO        13439    i.__scatterload_null  mc_p.l(handlers.o)
+    0x0800cc98   0x0800cc98   0x0000000e   Code   RO        13440    i.__scatterload_zeroinit  mc_p.l(handlers.o)
     0x0800cca6   0x0800cca6   0x00000002   PAD
-    0x0800cca8   0x0800cca8   0x00000174   Code   RO        13151    i._fp_digits        mc_p.l(printfa.o)
-    0x0800ce1c   0x0800ce1c   0x000006ec   Code   RO        13152    i._printf_core      mc_p.l(printfa.o)
-    0x0800d508   0x0800d508   0x00000020   Code   RO        13153    i._printf_post_padding  mc_p.l(printfa.o)
-    0x0800d528   0x0800d528   0x0000002c   Code   RO        13154    i._printf_pre_padding  mc_p.l(printfa.o)
-    0x0800d554   0x0800d554   0x0000000a   Code   RO        13156    i._sputc            mc_p.l(printfa.o)
+    0x0800cca8   0x0800cca8   0x00000174   Code   RO        13247    i._fp_digits        mc_p.l(printfa.o)
+    0x0800ce1c   0x0800ce1c   0x000006ec   Code   RO        13248    i._printf_core      mc_p.l(printfa.o)
+    0x0800d508   0x0800d508   0x00000020   Code   RO        13249    i._printf_post_padding  mc_p.l(printfa.o)
+    0x0800d528   0x0800d528   0x0000002c   Code   RO        13250    i._printf_pre_padding  mc_p.l(printfa.o)
+    0x0800d554   0x0800d554   0x0000000a   Code   RO        13252    i._sputc            mc_p.l(printfa.o)
     0x0800d55e   0x0800d55e   0x00000054   Code   RO        10333    i.aes_encrypt       aes.o
     0x0800d5b2   0x0800d5b2   0x00000002   PAD
     0x0800d5b4   0x0800d5b4   0x000000fc   Code   RO        10334    i.aes_set_key       aes.o
-    0x0800d6b0   0x0800d6b0   0x000000c8   Code   RO        12872    i.ceil              m_ps.l(ceil.o)
+    0x0800d6b0   0x0800d6b0   0x000000c8   Code   RO        12962    i.ceil              m_ps.l(ceil.o)
     0x0800d778   0x0800d778   0x0000000c   Code   RO        10643    i.certif_running    lora-test.o
     0x0800d784   0x0800d784   0x00000084   Code   RO        10335    i.copy_and_key      aes.o
     0x0800d808   0x0800d808   0x00000042   Code   RO        10336    i.copy_block        aes.o
     0x0800d84a   0x0800d84a   0x00000002   PAD
     0x0800d84c   0x0800d84c   0x00000104   Code   RO        11625    i.ee_number         tiny_vsnprintf.o
-    0x0800d950   0x0800d950   0x000000c8   Code   RO        12876    i.floor             m_ps.l(floor.o)
+    0x0800d950   0x0800d950   0x000000c8   Code   RO        12966    i.floor             m_ps.l(floor.o)
     0x0800da18   0x0800da18   0x000000e8   Code   RO        11010    i.main              main.o
     0x0800db00   0x0800db00   0x00000016   Code   RO         6912    i.memcpy1           utilities.o
     0x0800db16   0x0800db16   0x0000001a   Code   RO         6913    i.memcpyr           utilities.o
@@ -8474,14 +8541,14 @@ Memory Map of the image
     0x0800dd5c   0x0800dd5c   0x0000002c   Code   RO         6916    i.rand1             utilities.o
     0x0800dd88   0x0800dd88   0x00000016   Code   RO         6917    i.randr             utilities.o
     0x0800dd9e   0x0800dd9e   0x00000002   PAD
-    0x0800dda0   0x0800dda0   0x0000009c   Code   RO        12879    i.round             m_ps.l(round.o)
+    0x0800dda0   0x0800dda0   0x0000009c   Code   RO        12969    i.round             m_ps.l(round.o)
     0x0800de3c   0x0800de3c   0x0000012c   Code   RO        11012    i.sendLoRaWAN       main.o
     0x0800df68   0x0800df68   0x00000068   Code   RO        10338    i.shift_sub_rows    aes.o
     0x0800dfd0   0x0800dfd0   0x0000015c   Code   RO        11626    i.tiny_vsnprintf_like  tiny_vsnprintf.o
-    0x0800e12c   0x0800e12c   0x00000040   Code   RO        12591    i.vcom2_Init        vcom2.o
-    0x0800e16c   0x0800e16c   0x00000032   Code   RO        12593    i.vcom2_IoInit      vcom2.o
+    0x0800e12c   0x0800e12c   0x00000040   Code   RO        12681    i.vcom2_Init        vcom2.o
+    0x0800e16c   0x0800e16c   0x00000032   Code   RO        12683    i.vcom2_IoInit      vcom2.o
     0x0800e19e   0x0800e19e   0x00000002   PAD
-    0x0800e1a0   0x0800e1a0   0x0000006c   Code   RO        12594    i.vcom2_Send        vcom2.o
+    0x0800e1a0   0x0800e1a0   0x0000006c   Code   RO        12684    i.vcom2_Send        vcom2.o
     0x0800e20c   0x0800e20c   0x00000082   Code   RO        10339    i.xor_block         aes.o
     0x0800e28e   0x0800e28e   0x00000002   PAD
     0x0800e290   0x0800e290   0x000000e0   Data   RO         1749    .constdata          sx1276.o
@@ -8497,16 +8564,16 @@ Memory Map of the image
     0x0800e818   0x0800e818   0x00000018   Data   RO        10792    .constdata          hw_rtc.o
     0x0800e830   0x0800e830   0x00000044   Data   RO        11018    .constdata          main.o
     0x0800e874   0x0800e874   0x00000058   Data   RO        11651    .constdata          hw_eeprom.o
-    0x0800e8cc   0x0800e8cc   0x00000007   Data   RO        12288    .constdata          bg96.o
+    0x0800e8cc   0x0800e8cc   0x00000007   Data   RO        12303    .constdata          bg96.o
     0x0800e8d3   0x0800e8d3   0x00000001   PAD
     0x0800e8d4   0x0800e8d4   0x00000046   Data   RO        10555    .conststring        lora.o
     0x0800e91a   0x0800e91a   0x00000002   PAD
     0x0800e91c   0x0800e91c   0x0000004d   Data   RO        11627    .conststring        tiny_vsnprintf.o
     0x0800e969   0x0800e969   0x00000003   PAD
-    0x0800e96c   0x0800e96c   0x00000030   Data   RO        13340    Region$$Table       anon$$obj.o
+    0x0800e96c   0x0800e96c   0x00000030   Data   RO        13436    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800e99c, Size: 0x000026f8, Max: 0x00005000, ABSOLUTE, COMPRESSED[0x000000c8])
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800e99c, Size: 0x00002700, Max: 0x00005000, ABSOLUTE, COMPRESSED[0x000000c8])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -8531,32 +8598,33 @@ Memory Map of the image
     0x20000106   COMPRESSED   0x00000002   PAD
     0x20000108   COMPRESSED   0x00000008   Data   RW        11628    .data               tiny_vsnprintf.o
     0x20000110   COMPRESSED   0x00000008   Data   RW        12125    .data               ltc2941.o
-    0x20000118   COMPRESSED   0x00000008   Data   RW        12289    .data               bg96.o
-    0x20000120   COMPRESSED   0x0000002f   Data   RW        12718    .data               SgfxSTModemSx1276V123_CM0_Keil_O3.lib(sgfxsx1276modulation-lib.o)
-    0x2000014f   COMPRESSED   0x00000001   PAD
-    0x20000150   COMPRESSED   0x00000004   Data   RW        12893    .data               mc_p.l(rand.o)
-    0x20000154        -       0x000001b0   Zero   RW         1748    .bss                sx1276.o
-    0x20000304        -       0x00000040   Zero   RW         6995    .bss                scheduler.o
-    0x20000344        -       0x000006ac   Zero   RW         7174    .bss                loramac.o
-    0x200009f0        -       0x000000fc   Zero   RW         7797    .bss                loramaccommands.o
-    0x20000aec        -       0x0000002c   Zero   RW         7893    .bss                loramacconfirmqueue.o
-    0x20000b18        -       0x00000040   Zero   RW         8040    .bss                loramaccrypto.o
-    0x20000b58        -       0x00000124   Zero   RW         9461    .bss                regioneu868.o
-    0x20000c7c        -       0x000003c4   Zero   RW        10445    .bss                soft-se.o
-    0x20001040        -       0x00000114   Zero   RW        10646    .bss                lora-test.o
-    0x20001154        -       0x00000040   Zero   RW        10723    .bss                hw_gpio.o
-    0x20001194        -       0x00000068   Zero   RW        10791    .bss                hw_rtc.o
-    0x200011fc        -       0x00000058   Zero   RW        10917    .bss                hw_spi.o
-    0x20001254        -       0x00000030   Zero   RW        11016    .bss                main.o
-    0x20001284        -       0x00000040   Zero   RW        11017    .bss                main.o
-    0x200012c4        -       0x00000040   Zero   RW        11249    .bss                mlm32l0xx_hal_msp.o
-    0x20001304        -       0x00000060   Zero   RW        11332    .bss                mlm32l0xx_hw.o
-    0x20001364        -       0x00000038   Zero   RW        11559    .bss                hw_tim2.o
-    0x2000139c        -       0x0000004c   Zero   RW        12122    .bss                ltc2941.o
-    0x200013e8        -       0x00000174   Zero   RW        12287    .bss                bg96.o
-    0x2000155c        -       0x0000011c   Zero   RW        12595    .bss                vcom2.o
-    0x20001678        -       0x00000c80   Zero   RW        12716    .bss                SgfxSTModemSx1276V123_CM0_Keil_O3.lib(sgfxsx1276modulation-lib.o)
-    0x200022f8        -       0x00000400   Zero   RW         6524    STACK               startup_stm32l072xx.o
+    0x20000118   COMPRESSED   0x0000000c   Data   RW        12304    .data               bg96.o
+    0x20000124   COMPRESSED   0x0000002f   Data   RW        12808    .data               SgfxSTModemSx1276V123_CM0_Keil_O3.lib(sgfxsx1276modulation-lib.o)
+    0x20000153   COMPRESSED   0x00000001   PAD
+    0x20000154   COMPRESSED   0x00000004   Data   RW        12983    .data               mc_p.l(rand.o)
+    0x20000158        -       0x000001b0   Zero   RW         1748    .bss                sx1276.o
+    0x20000308        -       0x00000040   Zero   RW         6995    .bss                scheduler.o
+    0x20000348        -       0x000006ac   Zero   RW         7174    .bss                loramac.o
+    0x200009f4        -       0x000000fc   Zero   RW         7797    .bss                loramaccommands.o
+    0x20000af0        -       0x0000002c   Zero   RW         7893    .bss                loramacconfirmqueue.o
+    0x20000b1c        -       0x00000040   Zero   RW         8040    .bss                loramaccrypto.o
+    0x20000b5c        -       0x00000124   Zero   RW         9461    .bss                regioneu868.o
+    0x20000c80        -       0x000003c4   Zero   RW        10445    .bss                soft-se.o
+    0x20001044        -       0x00000114   Zero   RW        10646    .bss                lora-test.o
+    0x20001158        -       0x00000040   Zero   RW        10723    .bss                hw_gpio.o
+    0x20001198        -       0x00000068   Zero   RW        10791    .bss                hw_rtc.o
+    0x20001200        -       0x00000058   Zero   RW        10917    .bss                hw_spi.o
+    0x20001258        -       0x00000030   Zero   RW        11016    .bss                main.o
+    0x20001288        -       0x00000040   Zero   RW        11017    .bss                main.o
+    0x200012c8        -       0x00000040   Zero   RW        11249    .bss                mlm32l0xx_hal_msp.o
+    0x20001308        -       0x00000060   Zero   RW        11332    .bss                mlm32l0xx_hw.o
+    0x20001368        -       0x00000038   Zero   RW        11559    .bss                hw_tim2.o
+    0x200013a0        -       0x0000004c   Zero   RW        12122    .bss                ltc2941.o
+    0x200013ec        -       0x00000174   Zero   RW        12302    .bss                bg96.o
+    0x20001560        -       0x0000011c   Zero   RW        12685    .bss                vcom2.o
+    0x2000167c        -       0x00000c80   Zero   RW        12806    .bss                SgfxSTModemSx1276V123_CM0_Keil_O3.lib(sgfxsx1276modulation-lib.o)
+    0x200022fc   COMPRESSED   0x00000004   PAD
+    0x20002300        -       0x00000400   Zero   RW         6524    STACK               startup_stm32l072xx.o
 
 
 
@@ -8594,7 +8662,7 @@ Image component sizes
 
       1304         12        768          0          0      14708   aes.o
        164         32         12         20          0       3240   b-l072z-lrwan1.o
-      2828        792          7          8        372      20298   bg96.o
+      2828        792          7         12        372      20500   bg96.o
         30         10          0          0          0       1552   bsp.o
        554          0          0          0          0       4777   cmac.o
         98          4          0          0          0       1335   debug.o
@@ -8617,7 +8685,7 @@ Image component sizes
        312          0          0          0          0       2155   loramacserializer.o
        136         18          0          8          0       5541   low_power_manager.o
        512         76          0          8         76       6622   ltc2941.o
-      1230        406         68         60        112      13605   main.o
+      1230        406         68         60        112      14753   main.o
        698         52        116         24          0      12709   mlm32l07x01.o
        382         38          0          0         64       5903   mlm32l0xx_hal_msp.o
       1388        172          0          2         96      11291   mlm32l0xx_hw.o
@@ -8662,7 +8730,7 @@ Image component sizes
        222         18          0          0        284       3009   vcom2.o
 
     ----------------------------------------------------------------------
-     51732       5324       1996        288       6528    1131133   Object Totals
+     51732       5324       1996        292       6528    1132483   Object Totals
          0          0         48          0          0          0   (incl. Generated)
         70          0          6          5          0          0   (incl. Padding)
 
@@ -8723,8 +8791,8 @@ Image component sizes
        122          0          0          0          0         72   fmul.o
 
     ----------------------------------------------------------------------
-      6076        278          0         52       3200       3748   Library Totals
-         8          0          0          1          0          0   (incl. Padding)
+      6076        278          0         52       3204       3748   Library Totals
+         8          0          0          1          4          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -8736,7 +8804,7 @@ Image component sizes
       2306         70          0          0          0       1868   mf_p.l
 
     ----------------------------------------------------------------------
-      6076        278          0         52       3200       3748   Library Totals
+      6076        278          0         52       3204       3748   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -8745,14 +8813,14 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     57808       5602       1996        340       9728    1109833   Grand Totals
-     57808       5602       1996        200       9728    1109833   ELF Image Totals (compressed)
+     57808       5602       1996        344       9732    1111183   Grand Totals
+     57808       5602       1996        200       9732    1111183   ELF Image Totals (compressed)
      57808       5602       1996        200          0          0   ROM Totals
 
 ==============================================================================
 
     Total RO  Size (Code + RO Data)                59804 (  58.40kB)
-    Total RW  Size (RW Data + ZI Data)             10068 (   9.83kB)
+    Total RW  Size (RW Data + ZI Data)             10076 (   9.84kB)
     Total ROM Size (Code + RO Data + RW Data)      60004 (  58.60kB)
 
 ==============================================================================

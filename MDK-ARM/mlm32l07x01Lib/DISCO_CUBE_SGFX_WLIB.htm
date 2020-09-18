@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\mlm32l07x01Lib\DISCO_CUBE_SGFX_WLIB.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\mlm32l07x01Lib\DISCO_CUBE_SGFX_WLIB.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Sep 17 15:00:53 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Sep 18 16:25:48 2020
 <BR><P>
 <H3>Maximum Stack Usage =       1016 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -830,8 +830,8 @@ Global Symbols
 <P><STRONG><a name="[ac]"></a>BG96_SendATCommand</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, bg96.o(i.BG96_SendATCommand))
 <BR><BR>[Stack]<UL><LI>Max Depth = 364<LI>Call Chain = BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Send
+<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Send
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_SendData
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
@@ -867,8 +867,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_Run
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_GetTimerValue
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommand
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_CheckSIMPIN
 </UL>

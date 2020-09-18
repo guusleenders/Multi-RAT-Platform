@@ -109,6 +109,34 @@ enum {
 #define BG96_NETWORK_REPORTING_STAT 1
 #define BG96_NETWORK_REPORTING_INFO 2
 
+// PSM 
+#define BG96_PSM_ENABLE 1
+#define BG96_PSM_DISABLE 0
+#define BG96_PSM_RAU_10MIN "0000001" // Customization possible, usage: bits 8-6: unit; bits 5-1: number
+#define BG96_PSM_RAU_1HR "0010001"
+#define BG96_PSM_RAU_10HR "0100001"
+#define BG96_PSM_RAU_2SEC "0110001"
+#define BG96_PSM_RAU_30SEC "1000001"
+#define BG96_PSM_RAU_1MIN "1010001"
+#define BG96_PSM_GPSREADY_2SEC "0000001" // Customization possible, usage: bits 8-6: unit; bits 5-1: number
+#define BG96_PSM_GPSREADY_1MIN "0010001"
+#define BG96_PSM_GPSREADY_05HR "0100001"
+#define BG96_PSM_GPSREADY_DEACTIVATED "1110001"
+#define BG96_PSM_TAU_10MIN "0000001" // T3412 timer. Customization possible, usage: bits 8-6: unit; bits 5-1: number
+#define BG96_PSM_TAU_1HR "0010001"
+#define BG96_PSM_TAU_10HR "0100001"
+#define BG96_PSM_TAU_2SEC "0110001"
+#define BG96_PSM_TAU_30SEC "1000001"
+#define BG96_PSM_TAU_1MIN "1010001"
+#define BG96_PSM_ACTIVE_2SEC "0000001" // T3324 timer. Customization possible, usage: bits 8-6: unit; bits 5-1: number
+#define BG96_PSM_ACTIVE_1MIN "0010001"
+#define BG96_PSM_ACTIVE_05HR "0100001"
+#define BG96_PSM_ACTIVE_DEACTIVATED "1110001"
+#define BG96_PSM_VERSION_NO_NETWORK_COORDINATION 0b0001
+#define BG96_PSM_VERSION_REL12_NO_NETWORK_RETENTION 0b0010
+#define BG96_PSM_VERSION_REL12_WITH_NETWORK_RETENTION 0b0100
+#define BG96_PSM_VERSION_PSM_BETWEEN_EDRX 0b1000
+
 // GPS
 #define BG96_GNSS_MODE_STANDALONE 1
 #define BG96_GNSS_MODE_MS_BASED 2
@@ -128,6 +156,14 @@ enum {
 #define BG96_TCP_AUTH_TYPE_CHAP 2
 #define BG96_TCP_AUTH_TYPE_PAPCHAP 3
 
+// HTTP
+#define BG96_HTTP_DISABLE 0
+#define BG96_HTTP_ENABLE 1
+#define BG96_HTTP_CONTENT_TYPE_APPLICATION 0
+#define BG96_HTTP_CONTENT_TYPE_TEXT 1
+#define BG96_HTTP_CONTENT_TYPE_APPLICATION_STREAM 2
+#define BG96_HTTP_CONTENT_TYPE_MULTIPART 3
+#define BG96_HTTP_RESPONSE_SIZE 100
 typedef enum BG96_statuses{
 	BG96_OK, 
 	BG96_ERROR,
@@ -183,6 +219,9 @@ BG96_Status_t BG96_ConnectToOperator( uint32_t timeout );
 BG96_Status_t BG96_SetEDRXConfiguration(uint8_t enable, uint8_t mode, char * edrx);
 BG96_Status_t BG96_Sleep(void );
 BG96_Status_t BG96_Wake( void );
+BG96_Status_t BG96_SetPowerSavingMode(uint8_t mode, char * requestedRAU, char * requestedGPRSREADY, char * requestedTAU, char * requestedActiveTimer);
+BG96_Status_t BG96_GetPowerSavingMode(char * buffer);
+BG96_Status_t BG96_SetPowerSavingModeSettings(uint32_t threshold, uint8_t version);
 
 // GNSS AT commands
 BG96_Status_t BG96_GNSS_Enable( uint8_t mode, uint8_t fixTime,  uint8_t accuracy, uint16_t fixCount, uint16_t fixDelay);
@@ -190,9 +229,10 @@ BG96_Status_t BG96_GNSS_Disable( void );
 BG96_Status_t BG96_GNSS_GetLocation(float * latitudePointer, float * longitudePointer, uint8_t timeout);
 
 // TCP/UDP/IP commands
-
 void BG96_SelectContextID(uint8_t context);
 void BG96_SelectConnectID(uint8_t connect);
+BG96_Status_t BG96_GetPacketCounters(uint16_t * downlink, uint16_t * uplink);
+BG96_Status_t BG96_ResetPacketCounters( void );
 BG96_Status_t BG96_ConfigureContext( void );
 BG96_Status_t BG96_ConfigureContextAPN(uint8_t contextType, char * apn, char * username, char * password, uint8_t authentication );
 BG96_Status_t BG96_ActivateContext( void );
@@ -204,6 +244,16 @@ BG96_Status_t BG96_UDP_GetStatus(char * replyBuffer);
 BG96_Status_t BG96_UDP_SendData( char * data);
 BG96_Status_t BG96_UDP_SendDataTo(char * ipaddress, uint32_t port, char * data);
 	
+// HTTP Commands
+BG96_Status_t BG96_HTTP_SetContextID(uint8_t id);
+BG96_Status_t BG96_HTTP_SetResponseHeaderID(uint8_t id);
+BG96_Status_t BG96_HTTP_SetRequestHeaderID(uint8_t id);
+BG96_Status_t BG96_HTTP_SetSSLContextID(uint8_t id);
+BG96_Status_t BG96_HTTP_SetContentType(uint8_t id);
+BG96_Status_t BG96_HTTP_SetURL(char * url);
+BG96_Status_t BG96_HTTP_Get(uint16_t timeout);
+BG96_Status_t BG96_HTTP_ReadResponse(uint16_t wait_time, char * buffer, uint16_t timeout);
+
 #ifdef __cplusplus
 }
 #endif

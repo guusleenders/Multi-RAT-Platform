@@ -42,8 +42,15 @@ static bool totalReplyBufferDone = false;
 static bool waitingForReply = false;
 static char totalReplyBuffer[BG96_REPLY_SIZE];
 
+// TCP properties
 uint8_t _contextID = 1;
 uint8_t _connectID = 1;
+
+// HTTP properties
+uint8_t _responseHeaderID = 1;
+uint8_t _requestHeaderID = 1;
+uint8_t _SSLContextID = 1;
+uint8_t _contentType = 1;
 
 void BG96_Init( void ){
 	// --- Init Serial stuff ---
@@ -670,8 +677,15 @@ BG96_Status_t BG96_ConnectToOperator( uint32_t timeout ){
 
 BG96_Status_t BG96_SetEDRXConfiguration(uint8_t enable, uint8_t mode, char * edrx){
 	char buffer[30]; 
-	sprintf(buffer, "AT+CEDRXS=,%d,%d,%s\r\n", enable, mode, edrx);
+	sprintf(buffer, "AT+CEDRXS=%d,%d,%s\r\n", enable, mode, edrx);
 	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_GetEDRXConfiguration(char * buffer){
+	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+CEDRXRDP", buffer, 300);
+	if(status != BG96_OK)
+		return status;
+	return BG96_SendATCommandCheckReply("", "OK", 300);
 }
 
 BG96_Status_t BG96_Sleep( void ){
@@ -700,6 +714,26 @@ BG96_Status_t BG96_GetTime(char * timeresult){
 	strncpy(timeresult, startLocation+9, 2);
 	return BG96_OK;
 }
+
+BG96_Status_t BG96_SetPowerSavingMode(uint8_t mode, char * requestedRAU, char * requestedGPRSREADY, char * requestedTAU, char * requestedActiveTimer){
+	char buffer[100]; 
+	sprintf(buffer, "AT+CPSMS=%d,\"%s\",\"%s\",\"%s\",\"%s\"\r\n", mode, requestedRAU, requestedGPRSREADY, requestedTAU, requestedActiveTimer);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 1000);
+}
+
+BG96_Status_t BG96_GetPowerSavingMode(char * buffer){
+	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+QPSMS=?\r\n", buffer, 300); // QPSMS in stead of CPSMS: returns network parameters in stead of requested things
+	if(status != BG96_OK)
+		return status; 
+	return BG96_SendATCommandCheckReply("", "OK", 300);
+}
+
+BG96_Status_t BG96_SetPowerSavingModeSettings(uint32_t threshold, uint8_t version){
+	char buffer[30]; 
+	sprintf(buffer, "AT+QPSMCFG=%d,%d\r\n", threshold, version);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 1000);
+}
+// Also possible: AT+QPSMEXTCFG Extended Modem Optimization
 
 // --- GNSS AT commands ---
 BG96_Status_t BG96_GNSS_Enable(uint8_t mode, uint8_t fixTime,  uint8_t accuracy, uint16_t fixCount, uint16_t fixDelay){
@@ -775,6 +809,38 @@ void BG96_SelectConnectID(uint8_t connect){
 	_connectID = connect;
 }
 
+BG96_Status_t bg96_GetPacketCounters(uint16_t * downlink, uint16_t * uplink){
+	BG96_Status_t status  =  BG96_ERROR; 
+	const uint8_t bufsize = 32;
+  char buffer[bufsize];
+  memset(buffer, '\0', bufsize);
+  BG96_SendATCommandGetReply("AT+QGDCNT?\r\n", buffer, 300);
+  status = BG96_SendATCommandCheckReply("", "OK", 300);
+	if(status != BG96_OK)	
+		return status;
+	
+  char * nextPointer;
+  nextPointer = strtok(buffer," ,\"");
+	
+  uint8_t index = 0;
+	
+  while (nextPointer != NULL){
+		if(index == 2){
+			*uplink = atoi(nextPointer);
+		}
+		if(index == 2){
+			*downlink = atoi(nextPointer);
+		}
+		nextPointer = strtok(NULL, ",\"");
+		index ++;
+  }
+	return BG96_OK;
+}
+
+BG96_Status_t BG96_ResetPacketCounters( void ){
+	return BG96_SendATCommandCheckReply("AT+QGDCNT=0\r\n", "OK", 300);
+}	
+
 BG96_Status_t BG96_ConfigureContext( void ){
 	char buffer[20]; 
 	sprintf(buffer, "AT+QICSGP=%d\r\n", _contextID);
@@ -844,4 +910,89 @@ BG96_Status_t BG96_UDP_SendDataTo(char * ipaddress, uint32_t port, char * data){
 	if(status != BG96_OK)
 		return status;
 	return BG96_SendATCommandCheckReply(data, "SEND OK", 1000);
+}
+
+BG96_Status_t BG96_SetDNSServer(char * primary, char * secondary){
+	char buffer[60]; 
+	sprintf(buffer, "AT+QISEND=%d,\"%s\",\"%s\"\r\n", _contextID, primary, secondary);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+// --- HTTP Commands ---
+BG96_Status_t BG96_HTTP_SetContextID(uint8_t id){
+	char buffer[60]; 
+	_contextID = id;
+	sprintf(buffer, "AT+QHTTPCFG=\"contextid\",%d\r\n", id);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_HTTP_SetResponseHeaderID(uint8_t id){
+	char buffer[60]; 
+	_responseHeaderID = id;
+	sprintf(buffer, "AT+QHTTPCFG=\"responseheader\",%d\r\n", id);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_HTTP_SetRequestHeaderID(uint8_t id){
+	char buffer[60]; 
+	_requestHeaderID = id;
+	sprintf(buffer, "AT+QHTTPCFG=\"requestheader\",%d\r\n", id);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_HTTP_SetSSLContextID(uint8_t id){
+	char buffer[60]; 
+	_SSLContextID = id;
+	sprintf(buffer, "AT+QHTTPCFG=\"sslctxid\",%d\r\n", id);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_HTTP_SetContentType(uint8_t id){
+	char buffer[60]; 
+	_contentType = id;
+	sprintf(buffer, "AT+QHTTPCFG=\"contenttype\",%d\r\n", id);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_HTTP_SetURL(char * url){
+	char buffer[60]; 
+	sprintf(buffer, "AT+QHTTPURL=%d\r\n", strlen(url));
+	BG96_Status_t status = BG96_SendATCommandCheckReply(buffer, "CONNECT", 300);
+	if(status != BG96_OK)
+		return status;
+	return BG96_SendATCommandCheckReply(url, "OK", 300);
+}
+
+BG96_Status_t BG96_HTTP_Get(uint16_t timeout){
+	char buffer[60]; 
+	sprintf(buffer, "AT+QHTTPURL=%d\r\n", timeout);
+	BG96_Status_t status = BG96_SendATCommandCheckReply(buffer, "OK", 300);
+	if(status != BG96_OK)
+		return status;
+	return BG96_SendATCommandCheckReply("", "+QHTTPGET:", 2000);
+}
+
+BG96_Status_t BG96_HTTP_ReadResponse(uint16_t wait_time, char * buffer, uint16_t timeout){ //TODO: Tested (this is not tested)
+	sprintf(buffer, "AT+QHTTPREAD=%d\r\n", wait_time);
+	BG96_Status_t status = BG96_SendATCommandCheckReply(buffer, "CONNECT", 300);
+	if(status != BG96_OK)
+		return status;
+	
+	// Buffer needs to be initialized as \0?
+	uint16_t i = 0;
+	char responseBuffer[BG96_HTTP_RESPONSE_SIZE];
+	memset(responseBuffer, '\0', BG96_HTTP_RESPONSE_SIZE);
+	uint32_t tickstart = HW_RTC_GetTimerValue();
+	uint32_t tickNow = HW_RTC_GetTimerValue();
+	while(!StringStartsWith(responseBuffer, "+QHTTPREAD") && ( ( tickNow - tickstart ) ) < timeout){
+		status = BG96_SendATCommandGetReply("", responseBuffer+i, 300);
+		if(status != BG96_OK)
+			return status;
+		i = strlen(responseBuffer);
+		tickNow = HW_RTC_GetTimerValue();
+	}
+	if(( tickNow - tickstart )  >= timeout){
+		return BG96_TIMEOUT;
+	}
+	return BG96_OK;
 }
