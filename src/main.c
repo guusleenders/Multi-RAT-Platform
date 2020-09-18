@@ -193,14 +193,31 @@ int main( void ){
 	
 	LPM_SetOffMode(LPM_APPLI_Id, LPM_Disable);
 	
-	PRINTF("Started");
+	PRINTF_LN("Started");
 	
 	BG96_Init();
 	BG96_PowerOn();
 	
-	char totalReplyBuffer[20];
-	BG96_SendATCommandGetReply("AT\r\n", totalReplyBuffer, 1000);
-	PRINTF_LN("buffer: %s", totalReplyBuffer);
+	char buffer[30];
+	memset(buffer, '\0', 30);
+
+	BG96_SetErrorFormat(BG96_ERROR_VERBOSE);
+	BG96_SetNetworkReporting(BG96_NETWORK_REPORTING_DISABLE);
+	
+	BG96_CheckSIMPIN(buffer);
+	
+	BG96_SetMode(BG96_NBIOT_MODE);
+	
+	BG96_SelectNetwork(20601, BG96_NETWORK_NBIOT);
+	
+	
+	BG96_ConnectToOperator(60000);
+	
+	BG96_ActivateContext();
+  BG96_UDP_Start("80.236.250.91",8891);
+	BG96_UDP_SendData("Hello world");
+	BG96_UDP_Stop();
+	BG96_DeactivateContext();
 	
 	PRINTF("DONE\r\n");	
 	while(true){SCH_Run( ); }

@@ -38,6 +38,13 @@ static struct {
   int len;                /* low power buffer length */
 } SleepBuff;
 
+static bool totalReplyBufferDone = false;
+static bool waitingForReply = false;
+static char totalReplyBuffer[BG96_REPLY_SIZE];
+
+uint8_t _contextID = 1;
+uint8_t _connectID = 1;
+
 void BG96_Init( void ){
 	// --- Init Serial stuff ---
 	__LPUART1_CLK_ENABLE();
@@ -341,29 +348,9 @@ static void BG96_StartDMA(char* buf, uint16_t buffLen){
   LL_LPUART_EnableIT_TC(UARTX);
 }
 
-void BG96_PowerOn( void ){
-	HAL_Delay(10);
-  HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_SET); 
-  HAL_Delay(500);
-  HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_RESET); 
-  
-  HAL_Delay(10);
-  HAL_GPIO_WritePin(BG96_RESETKEY_PORT, BG96_RESETKEY_PIN, GPIO_PIN_SET); 
-  HAL_Delay(500);
-  HAL_GPIO_WritePin(BG96_RESETKEY_PORT, BG96_RESETKEY_PIN, GPIO_PIN_RESET); 
-	
-	BG96_SendATCommandCheckReply("","RDY", 10000);
-	BG96_SendATCommandCheckReply("AT\r\n","OK", 1000);
-	BG96_SendATCommandCheckReply("ATE0\r\n","OK", 1000);
-}
 
-#define REPLY_SIZE 50
-
-static bool totalReplyBufferDone = false;
-static bool waitingForReply = false;
-static char totalReplyBuffer[REPLY_SIZE];
 void BG96_ReceiveToBuffer( void ){
-  static char replyBuffer[REPLY_SIZE];
+  static char replyBuffer[BG96_REPLY_SIZE];
   static unsigned i = 0;
   unsigned cmd_size = 0;
 
@@ -373,7 +360,7 @@ void BG96_ReceiveToBuffer( void ){
     replyBuffer[i] = BG96_GetNewChar();
 
 		#if 0 /* echo On    */
-    PRINTF("%c", command[i]);
+    PRINTF("%c", replyBuffer[i]);
 		#endif
 
     if (replyBuffer[i] == AT_ERROR_RX_CHAR){
@@ -395,8 +382,15 @@ void BG96_ReceiveToBuffer( void ){
 					memset(replyBuffer, '\0', cmd_size);
 
 				}
+			}else if(replyBuffer[i] == '>'){ // include '>' for data input 
+					/* need to put static i=0 to avoid realtime issue when CR+LF is used by hyperterminal */
+					cmd_size = i; 
+					i = 0;
+					if(waitingForReply)
+							BG96_ParseResult(replyBuffer);
+					memset(replyBuffer, '\0', cmd_size);
 			}
-			else if (i == (REPLY_SIZE - 1)){
+			else if (i == (BG96_REPLY_SIZE - 1)){
 				memset(replyBuffer, '\0', i);
 				i = 0;
 				//com_error(AT_TEST_PARAM_OVERFLOW);
@@ -410,7 +404,7 @@ void BG96_ReceiveToBuffer( void ){
 
 void BG96_ParseResult( char *buffer ){
 	totalReplyBufferDone = true;
-	memcpy(totalReplyBuffer, buffer, REPLY_SIZE);
+	memcpy(totalReplyBuffer, buffer, BG96_REPLY_SIZE);
 }
 
 void BG96_SendATCommand( char *buffer ){
@@ -432,10 +426,10 @@ BG96_Status_t BG96_SendATCommandCheckReply( char *buffer , char *replyBuffer, ui
 	if(StringStartsWith(totalReplyBuffer, replyBuffer)){
 		return BG96_OK;
 	}else if(( tickNow - tickstart )  >= timeout){
-		PRINTF("TIMEOUT");
+		PRINTF_LN("TIMEOUT");
 		return BG96_TIMEOUT;
 	}else{
-		PRINTF("ERROR %s", totalReplyBuffer);
+		PRINTF_LN("ERROR _%s_%s", totalReplyBuffer, replyBuffer);
 		return BG96_ERROR;
 	}
 }
@@ -460,3 +454,394 @@ BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint
 	}
 }
 
+BG96_Status_t BG96_PowerOn( void ){
+	HAL_Delay(10);
+  HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_SET); 
+  HAL_Delay(500);
+  HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_RESET); 
+  
+  HAL_Delay(10);
+  HAL_GPIO_WritePin(BG96_RESETKEY_PORT, BG96_RESETKEY_PIN, GPIO_PIN_SET); 
+  HAL_Delay(500);
+  HAL_GPIO_WritePin(BG96_RESETKEY_PORT, BG96_RESETKEY_PIN, GPIO_PIN_RESET); 
+	
+	BG96_Status_t status = BG96_SendATCommandCheckReply("", "RDY", 10000);
+	if(status != BG96_OK)
+		return status;
+	status = BG96_SendATCommandCheckReply("AT\r\n", "OK", 1000);
+	if(status != BG96_OK)
+		return status;
+	status = BG96_ResetParameters();
+	if(status != BG96_OK)
+		return status;
+	status = BG96_SendATCommandCheckReply("ATE0\r\n", "OK", 1000);
+	return status;
+}
+
+BG96_Status_t BG96_PowerDown( void ){
+	BG96_Status_t status  = BG96_SendATCommandCheckReply("AT+QPOWD=1\r\n", "OK", 300);
+	if(status != BG96_OK)
+		return status;
+  status = BG96_SendATCommandCheckReply("", "POWERED DOWN", 60000);
+	return status;
+}
+
+BG96_Status_t BG96_SaveConfiguration( void ){
+	return BG96_SendATCommandCheckReply("AT&W\r\n", "OK", 300);
+}
+
+BG96_Status_t BG96_ResetConfiguration( void ){
+	return BG96_SendATCommandCheckReply("ATZ\r\n", "OK", 300);
+}
+
+BG96_Status_t BG96_ResetParameters( void ){
+	return BG96_SendATCommandCheckReply("AT&F0\r\n", "OK", 300);
+}
+
+BG96_Status_t BG96_GetIMEI( char* buffer ){
+	BG96_Status_t status  = BG96_SendATCommandGetReply("AT+GSN\r\n", buffer, 300);
+	if(status != BG96_OK)
+			return status;
+	return BG96_SendATCommandCheckReply("", "OK", 300); // Check out last (closing) OK\r\n
+}
+
+BG96_Status_t BG96_GetFirmwareInfo( char* buffer ){
+	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+CGMR\r\n", buffer, 300);
+	if(status != BG96_OK)
+			return status;
+	return BG96_SendATCommandCheckReply("", "OK", 300); // Check out last (closing) OK\r\n
+}
+
+BG96_Status_t BG96_GetHardwareInfo( char* buffer ){
+	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+CGMM\r\n", buffer, 300);
+	if(status != BG96_OK)
+			return status;
+	return BG96_SendATCommandCheckReply("", "OK", 300); // Check out last (closing) OK\r\n
+}
+
+BG96_Status_t BG96_SetErrorFormat( uint8_t error ){
+	char buffer[30]; 
+	sprintf(buffer, "AT+CMEE=%d\r\n", error);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_SetNetworkReporting( uint8_t creg ){
+	char buffer[30]; 
+	sprintf(buffer, "AT+CREG=%d\r\n", creg);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_CheckSIMPIN( char* reply ){
+	return BG96_SendATCommandGetReply("AT+CPIN?\r\n", reply, 300);
+}
+
+BG96_Status_t BG96_SetSIMPIN( char* pin ){
+	char buffer[5]; 
+	sprintf(buffer, "AT+CPIN=%s\r\n", pin);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_SetGSMBand( char* band ){
+	char buffer[30]; 
+	sprintf(buffer, "AT+QCFG=\"band\",%s,%s,%s\r\n", band, BG96_LTE_NO_CHANGE, BG96_LTE_NO_CHANGE);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_SetCatM1Band( char* band ){
+	char buffer[30]; 
+	sprintf(buffer, "AT+QCFG=\"band\",%s,%s,%s\r\n", BG96_GSM_NO_CHANGE, band, BG96_LTE_NO_CHANGE);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_SetNBIoTBand( char* band ){
+	char buffer[30]; 
+	sprintf(buffer, "AT+QCFG=\"band\",%s,%s,%s\r\n", BG96_GSM_NO_CHANGE, BG96_LTE_NO_CHANGE, band);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_GetBandConfiguration( char* buffer ){
+	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+QCFG=\"band\"\r\n", buffer, 300);
+	if(status != BG96_OK)
+			return status;
+	return BG96_SendATCommandCheckReply("", "OK", 300); // Check out last (closing) OK\r\n
+}
+ 
+BG96_Status_t BG96_SetScrambleConfiguration( bool scramble ){
+	if(scramble){
+		return BG96_SendATCommandCheckReply("AT+QCFG=\"nbsibscramble\",0\r\n", "OK", 300);
+	}else{
+		return BG96_SendATCommandCheckReply("AT+QCFG=\"nbsibscramble\",1\r\n", "OK", 300);
+	}
+}
+
+BG96_Status_t BG96_SetMode( uint8_t mode){
+	BG96_Status_t status;
+	if(mode == BG96_AUTO_MODE){
+		// Modem configuration : AUTO_MODE
+    // *Priority Table (Cat.M1 -> Cat.NB1 -> GSM)
+    status = BG96_SendATCommandCheckReply("AT+QCFG=\"nwscanseq\",00,1\r\n", "OK", 300);
+    status = BG96_SendATCommandCheckReply("AT+QCFG=\"nwscanmode\",0,1\r\n", "OK", 300);
+    status = BG96_SendATCommandCheckReply("AT+QCFG=\"iotopmode\",2,1\r\n", "OK", 300);
+  }else if(mode == BG96_GSM_MODE){
+		// Modem configuration : GSM_MODE
+    status = BG96_SendATCommandCheckReply("AT+QCFG=\"nwscanseq\",01,1\r\n", "OK", 300);
+    status = BG96_SendATCommandCheckReply("AT+QCFG=\"nwscanmode\",1,1\r\n", "OK", 300);
+    status = BG96_SendATCommandCheckReply("AT+QCFG=\"iotopmode\",2,1\r\n", "OK", 300); 
+  }else if(mode == BG96_CATM1_MODE){
+    //  Modem configuration : CATM1_MODE
+    status = BG96_SendATCommandCheckReply("AT+QCFG=\"nwscanseq\",02,1", "OK", 300);
+    status = BG96_SendATCommandCheckReply("AT+QCFG=\"nwscanmode\",3,1\r\n", "OK", 300);
+    status = BG96_SendATCommandCheckReply("AT+QCFG=\"iotopmode\",0,1\r\n", "OK", 300);
+  }else if(mode == BG96_NBIOT_MODE){
+    // Modem configuration : CATNB1_MODE ( NB-IoT )
+    status = BG96_SendATCommandCheckReply("AT+QCFG=\"nwscanseq\",03,1\r\n", "OK", 300);
+    status = BG96_SendATCommandCheckReply("AT+QCFG=\"nwscanmode\",3,1\r\n", "OK", 300);
+    status = BG96_SendATCommandCheckReply("AT+QCFG=\"iotopmode\",1,1\r\n", "OK", 300);
+  }
+	return status;
+}
+
+BG96_Status_t BG96_GetSignalQuality(char * buffer){
+	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+CSQ\r\n", buffer, 300);
+	if(status != BG96_OK)
+			return status;
+	return BG96_SendATCommandCheckReply("", "OK", 300); // Check out last (closing) OK\r\n
+}
+
+BG96_Status_t BG96_GetSignalStength(char * buffer){
+	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+QCSQ\r\n", buffer, 300);
+	if(status != BG96_OK)
+			return status;
+	return BG96_SendATCommandCheckReply("", "OK", 300); // Check out last (closing) OK\r\n
+}
+
+BG96_Status_t BG96_GetNetworkInfo(char * buffer){
+	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+QNWINFO\r\n", buffer, 300);
+	if(status != BG96_OK)
+			return status;
+	return BG96_SendATCommandCheckReply("", "OK", 300); // Check out last (closing) OK\r\n
+}
+
+BG96_Status_t BG96_GetNetworkStatus(char * buffer){
+	BG96_Status_t status  =  BG96_SendATCommandCheckReply("AT+CEREG=4\r\n", "OK", 300);
+	if(status != BG96_OK)
+			return status;
+	status = BG96_SendATCommandGetReply("AT+CEREG?\r\n", buffer, 300);
+	if(status != BG96_OK)
+			return status;
+	return BG96_SendATCommandCheckReply("", "OK", 300); // Check out last (closing) OK\r\n
+}
+
+BG96_Status_t BG96_GetAvailableNetworks(char * buffer){
+	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+COPS=?\r\n", buffer, 48928);
+	if(status != BG96_OK)
+			return status;
+	return BG96_SendATCommandCheckReply("", "OK", 300); // Check out last (closing) OK\r\n
+}
+
+BG96_Status_t BG96_SelectNetwork(uint16_t networkId, uint8_t mode){
+	char buffer[50]; 
+	sprintf(buffer, "AT+COPS=1,2,\"%d\",%d\r\n", networkId, mode);
+	BG96_Status_t status = BG96_SendATCommandCheckReply(buffer, "OK", 48928); // Delay up to 180s, limited by int size
+	return status;
+}
+
+BG96_Status_t BG96_SetPDPContext(char * url){
+	char buffer[30]; 
+	sprintf(buffer, "AT+CGDCONT=1,\"IP\",\"%s\"\r\n", url);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300); 
+}
+
+BG96_Status_t BG96_ConnectToOperator( uint32_t timeout ){
+	uint32_t tickstart = HW_RTC_GetTimerValue();
+	uint32_t tickNow = HW_RTC_GetTimerValue();
+	BG96_Status_t status  =  BG96_ERROR; 
+	while(status != BG96_OK  && ( ( tickNow - tickstart ) ) < timeout){
+		HAL_Delay(100+rand()%200); // Wait for random amount of time (100-299ms)
+		status = BG96_SendATCommandCheckReply("AT+CGATT?\r\n", "+CGATT: 1", 300);
+		BG96_SendATCommandCheckReply("", "OK", 300); // Check out last (closing) OK\r\n
+		tickNow = HW_RTC_GetTimerValue();
+	}
+	if(( tickNow - tickstart ) >= timeout){
+		return BG96_TIMEOUT;
+	}
+	return status; 
+}
+
+BG96_Status_t BG96_SetEDRXConfiguration(uint8_t enable, uint8_t mode, char * edrx){
+	char buffer[30]; 
+	sprintf(buffer, "AT+CEDRXS=,%d,%d,%s\r\n", enable, mode, edrx);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_Sleep( void ){
+	BG96_Status_t status = BG96_SendATCommandCheckReply("AT+QSCLK=1\r\n", "OK", 300);
+	HAL_GPIO_WritePin(BG96_DTR_PORT, BG96_DTR_PIN, GPIO_PIN_SET); 
+	return status;
+}
+
+BG96_Status_t BG96_Wake( void ){
+	HAL_GPIO_WritePin(BG96_DTR_PORT, BG96_DTR_PIN, GPIO_PIN_SET); 
+	return BG96_SendATCommandCheckReply("", "RDY", 6000);
+}
+
+// Not tested
+BG96_Status_t BG96_GetTime(char * timeresult){
+	char response[30];
+	BG96_Status_t status  =  BG96_ERROR; 
+	status = BG96_SendATCommandGetReply("AT+QLTS=2", response, 300);
+	if(status != BG96_OK)
+		return status;
+	
+	char * startLocation = strstr(response, "+QLTS: ");
+	if(startLocation == NULL)
+			return BG96_ERROR;
+	
+	strncpy(timeresult, startLocation+9, 2);
+	return BG96_OK;
+}
+
+// --- GNSS AT commands ---
+BG96_Status_t BG96_GNSS_Enable(uint8_t mode, uint8_t fixTime,  uint8_t accuracy, uint16_t fixCount, uint16_t fixDelay){
+	char buffer[30]; 
+	sprintf(buffer, "AT+QGPS=%d,%d,%d,%d,%d\r\n", mode, fixTime, accuracy, fixCount, fixDelay);
+	BG96_Status_t status = BG96_SendATCommandCheckReply(buffer, "OK", 300);
+	return status;
+}
+
+BG96_Status_t BG96_GNSS_Disable( void ){
+	BG96_Status_t status = BG96_SendATCommandCheckReply("AT+QGPSEND\r\n", "OK", 300);
+	return status;
+}
+// Not tested
+BG96_Status_t BG96_GNSS_GetLocation(float * latitudePointer, float * longitudePointer, uint8_t timeout){
+  char response[BG96_REPLY_SIZE]; 
+  memset(response, 0 , BG96_REPLY_SIZE);
+	BG96_Status_t status;
+	uint32_t tickstart = HW_RTC_GetTimerValue();
+	uint32_t tickNow = HW_RTC_GetTimerValue();
+	
+	while(status != BG96_OK && !StringStartsWith(response, "+QGPSLOC: ") && ( ( tickNow - tickstart ) ) < timeout){
+		status = BG96_SendATCommandGetReply("AT+QGPSLOC?\r\n", response, 300);
+		tickNow = HW_RTC_GetTimerValue();
+	}
+  
+  char * startLocation = strstr(response, "+QGPSLOC: ");
+  
+  char tempBuffer[10];
+  strncpy(tempBuffer, startLocation+19, 2);
+  tempBuffer[2] = '\0';
+  int latitudeDegrees = atoi(tempBuffer);
+  
+  strncpy(tempBuffer, startLocation+21,8);
+  tempBuffer[8] = '\0';
+  float latitudeMinutes = atof(tempBuffer);
+
+  int latitudeSign;
+  if(*(startLocation + 28) == 'N'){
+	  latitudeSign = 1;
+  }else{
+	  latitudeSign = -1;
+  }
+  
+  strncpy(tempBuffer, startLocation+30,3);
+  tempBuffer[3] = '\0';
+  int longitudeDegrees = atoi(tempBuffer);
+  
+  strncpy(tempBuffer, startLocation+33,8);
+  tempBuffer[6] = '\0';
+  float longitudeMinutes = atof(tempBuffer);
+  
+  int longitudeSign;
+  if(*(startLocation + 40) == 'E'){
+	  longitudeSign = 1;
+  }else{
+	  longitudeSign = -1;
+  }
+ 
+  *latitudePointer = (latitudeDegrees + latitudeMinutes/60)*latitudeSign;
+  *longitudePointer = (longitudeDegrees + longitudeMinutes/60)*longitudeSign;  
+	
+	return BG96_OK;
+} 
+
+// --- TCP/UDP/IP commands ---
+
+void BG96_SelectContextID(uint8_t context){
+	_contextID = context;
+}
+
+void BG96_SelectConnectID(uint8_t connect){
+	_connectID = connect;
+}
+
+BG96_Status_t BG96_ConfigureContext( void ){
+	char buffer[20]; 
+	sprintf(buffer, "AT+QICSGP=%d\r\n", _contextID);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}	
+
+BG96_Status_t BG96_ConfigureContextAPN(uint8_t contextType, char * apn, char * username, char * password, uint8_t authentication ){
+	char buffer[60]; 
+	sprintf(buffer, "AT+QICSGP=%d, %d, \"%s\", \"%s\", \"%s\", %d\r\n", _contextID, contextType, apn, username, password, authentication);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}	
+
+BG96_Status_t BG96_ActivateContext( void ){
+	char buffer[20]; 
+	sprintf(buffer, "AT+QIACT=%d\r\n", _contextID);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_DeactivateContext( void ){
+	char buffer[20]; 
+	sprintf(buffer, "AT+QIDEACT=%d\r\n", _contextID);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_UDP_Start(char * ipaddress, uint32_t port){ // Start as client
+	char buffer[60]; 
+	sprintf(buffer, "AT+QIOPEN=%d,%d,\"UDP\",\"%s\",%d\r\n", _contextID, _connectID, ipaddress, port);
+	BG96_Status_t status =  BG96_SendATCommandCheckReply(buffer, "OK", 300);
+	if(status != BG96_OK)
+		return status;
+	return BG96_SendATCommandCheckReply("", "+QIOPEN", 300);
+}
+
+BG96_Status_t BG96_UDP_Stop( void ){ 
+	char buffer[60]; 
+	sprintf(buffer, "AT+QICLOSE=%d\r\n", _connectID);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_UDP_StartService(char * ipaddress, uint32_t port){ // Start service
+	char buffer[60]; 
+	sprintf(buffer, "AT+QIOPEN=%d,%d,\"UDP SERVICE\",\"%s\",%d,0,0\r\n", _contextID, _connectID, ipaddress, port);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_UDP_GetStatus(char * replyBuffer){ // Start service
+	char buffer[60]; 
+	sprintf(buffer, "AT+QISTATE=1,%d\r\n", _connectID);
+	return BG96_SendATCommandGetReply(buffer, replyBuffer, 300);
+}
+
+BG96_Status_t BG96_UDP_SendData( char * data){
+	char buffer[60]; 
+	sprintf(buffer, "AT+QISEND=%d\r\n", _connectID);
+	BG96_Status_t status = BG96_SendATCommandCheckReply(buffer, ">", 300);
+	if(status != BG96_OK)
+		return status;
+	BG96_SendATCommand(data);
+	status = BG96_SendATCommandCheckReply("\x1A", "", 1000);
+	return BG96_SendATCommandCheckReply("","SEND OK",300);
+}
+
+BG96_Status_t BG96_UDP_SendDataTo(char * ipaddress, uint32_t port, char * data){
+	char buffer[60]; 
+	sprintf(buffer, "AT+QISEND=%d,%d,\"%s\",%d\r\n", _connectID, strlen(data), ipaddress, port);
+	BG96_Status_t status = BG96_SendATCommandCheckReply(buffer, ">", 300);
+	if(status != BG96_OK)
+		return status;
+	return BG96_SendATCommandCheckReply(data, "SEND OK", 1000);
+}
