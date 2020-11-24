@@ -539,6 +539,7 @@ BG96_Status_t BG96_SetNetworkReporting( uint8_t creg ){
 }
 
 BG96_Status_t BG96_CheckSIMPIN( char* reply ){
+	PRINTF_LN("check sim pin");
 	return BG96_SendATCommandGetReply("AT+CPIN?\r\n", reply, 300);
 }
 

@@ -61,7 +61,7 @@
 #include "vcom2.h"
 #include "version.h"
 
-#include "ltc2941.h"
+#include "ltc2942.h"
 #include "sgfx_sx1276_driver.h"
 
 #include "bg96.h"
@@ -194,7 +194,7 @@ int main( void ){
 	LPM_SetOffMode(LPM_APPLI_Id, LPM_Disable);
 	
 	PRINTF_LN("Started");
-	
+	/*
 	BG96_Init();
 	BG96_PowerOn();
 	
@@ -203,38 +203,35 @@ int main( void ){
 
 	BG96_SetErrorFormat(BG96_ERROR_VERBOSE);
 	BG96_SetNetworkReporting(BG96_NETWORK_REPORTING_DISABLE);
-	
 	BG96_CheckSIMPIN(buffer);
 	
 	BG96_SetMode(BG96_NBIOT_MODE);
-	
 	BG96_SelectNetwork(20601, BG96_NETWORK_NBIOT);
 	
-	
 	BG96_ConnectToOperator(60000);
-	
 	BG96_ActivateContext();
-  BG96_UDP_Start("80.236.250.91",8891);
+  BG96_UDP_Start("62.235.63.122",8891);
 	BG96_UDP_SendData("Hello world");
 	BG96_UDP_Stop();
 	BG96_DeactivateContext();
 	
 	PRINTF("DONE\r\n");	
-	while(true){SCH_Run( ); }
+	//while(true){SCH_Run( ); }
+	*/
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	LTC2941_Init();
-	uint8_t test = LTC2941_GetStatus();
-	PRINTF("LTC2641: %d||", test);
-	uint8_t test1 = LTC2941_GetControl();
+	LTC2942_Init(LTC2942_NBIOT);
+	uint8_t test = LTC2942_GetStatus(LTC2942_NBIOT);
+	PRINTF("LTC2942: %d||", test);
+	uint8_t test1 = LTC2942_GetControl(LTC2942_NBIOT);
 	PRINTF("%d||", test1);
 	
-	LTC2941_SetPrescaler(PRESCALAR_M_1);
-	LTC2941_SetAlertConfig(ALERT_DISABLED);
-	LTC2941_SetBatteryAlert(VBAT_ALERT_OFF);
-	LTC2941_SetAccumulatedCharge(0);
-	LTC2941_SetShutdown(1);
-	
-	test1 = LTC2941_GetControl();
+	LTC2942_SetPrescaler(LTC2942_NBIOT, PRESCALAR_M_1);
+	LTC2942_SetAlertConfig(LTC2942_NBIOT, ALERT_DISABLED);
+	LTC2942_SetAccumulatedCharge(LTC2942_NBIOT, 0);
+	LTC2942_SetShutdown(LTC2942_NBIOT, 0);
+	uint16_t testvoltage = LTC2942_GetVoltage(LTC2942_NBIOT)*1000;
+	PRINTF("%d mV||", testvoltage);
+	test1 = LTC2942_GetControl(LTC2942_NBIOT);
 	PRINTF("%d||", test1);
   #ifdef DEBUG
 	PRINTF("wakeup1");
@@ -309,30 +306,31 @@ void SCH_Idle( void ){
 
 static void sendTest(void){
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, NULL ); // Disable irq to forbidd user to press button while transmitting
-	LTC2941_SetShutdown(0);
+	LTC2942_SetShutdown(LTC2942_NBIOT, 0);
 	
-	energy = LTC2941_GetmAh()*10000;
+	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000;
 	
 	#ifdef DEBUG
 	PRINTF("1. SIGFOX \n");
 	#endif
 	sendSigfox();
 	
-	energy = LTC2941_GetmAh()*10000 - energy;
+	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000 - energy;
 	uint16_t uwh = (uint16_t) (energy *3.3f);
-	PRINTF("\r\n||Sigfox energy used: %d uAh/10 (%d uWh/10)||\r\n",energy,uwh);
+	PRINTF("\r\n||Sigfox energy used: %d/10 uAh (%d/10 uWh)||\r\n",energy,uwh);
 	
 	#ifdef DEBUG
 	PRINTF("2. LORAWAN \n");
 	#endif
 	
-	energy = LTC2941_GetmAh()*10000;
+	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000;
 	LoRaMacInitializationReset();
 	sendLoRaWAN();
 	
 	
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, send_data_request_from_irq ); // Enable user to press button after transmittion
 	
+	while(1){}
 }
 
 static void onTimerEvent(void *context){
@@ -465,10 +463,10 @@ static void LORA_HasJoined(void){
 	isConnectedLoRaWAN = true;
 	//BSP_LED_On(LED_GREEN);
 	
-	energy = LTC2941_GetmAh()*10000 - energy;
+	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000 - energy;
 	uint16_t uwh = (uint16_t) (energy *3.3f);
 	PRINTF("\r\n||LoRa join energy used: %d uAh/10 (%d uWh/10)||\r\n",energy,uwh);
-	LTC2941_SetShutdown(1);
+	LTC2942_SetShutdown(LTC2942_NBIOT, 1);
 	
 }
 
@@ -730,10 +728,10 @@ static void LORA_TxNeeded(void){
 }
 
 static void LORA_Done(void){
-  energy = LTC2941_GetmAh()*10000 - energy;
+  energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000 - energy;
 	uint16_t uwh = (uint16_t) (energy *3.3f);
 	PRINTF("\r\n||LoRa energy used: %d uAh/10 (%d uWh/10)||\r\n",energy,uwh);
-	LTC2941_SetShutdown(1);
+	LTC2942_SetShutdown(LTC2942_NBIOT, 1);
 }
 
 

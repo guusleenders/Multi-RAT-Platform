@@ -94,10 +94,10 @@
 ".\mlm32l07x01lib\st_lowlevel.o"
 "..\Common\cwmx1zzabz\Credentials_libs\SgfxCredentialsV011_CM0_Keil_O3.lib"
 "..\Common\cwmx1zzabz\Radio_Sigfox_Driver\SgfxSTModemSx1276V123_CM0_Keil_O3.lib"
-".\mlm32l07x01lib\ltc2941.o"
 ".\mlm32l07x01lib\bg96.o"
 ".\mlm32l07x01lib\vcom2.o"
 ".\mlm32l07x01lib\util.o"
+".\mlm32l07x01lib\ltc2942.o"
 --library_type=microlib --strict --scatter ".\NUCLEO_CUBE_SGFX.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
