@@ -156,7 +156,7 @@ static uint8_t I2C_Init( LTC2942_SENSOR sensorType ){
 
 			/* I2C_EXPBD peripheral configuration */
 
-			LTC2942_LRWAN_Handle.Init.Timing 				 = LTC2942_TIMING_400KHZ;    /* 400KHz */
+			LTC2942_LRWAN_Handle.Init.Timing 				 = LTC2942_TIMING_100KHZ;    /* 400KHz */
 			LTC2942_LRWAN_Handle.Init.OwnAddress1    = 0x33;
 			LTC2942_LRWAN_Handle.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
 			
@@ -178,7 +178,7 @@ static uint8_t I2C_Init( LTC2942_SENSOR sensorType ){
 
 			/* I2C_EXPBD peripheral configuration */
 
-			LTC2942_NBIOT_Handle.Init.Timing 				 = LTC2942_TIMING_400KHZ;    /* 400KHz */
+			LTC2942_NBIOT_Handle.Init.Timing 				 = LTC2942_TIMING_100KHZ;    /* 400KHz */
 			LTC2942_NBIOT_Handle.Init.OwnAddress1    = 0x33;
 			LTC2942_NBIOT_Handle.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
 			

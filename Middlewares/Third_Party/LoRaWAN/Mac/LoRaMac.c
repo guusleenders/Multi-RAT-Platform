@@ -795,7 +795,6 @@ struct
 
 static void OnRadioTxDone( void )
 {
-		PRINTF(" | OnRadioTxDone | " );
     TxDoneParams.CurTime = TimerGetCurrentTime( );
     MacCtx.LastTxSysTime = SysTimeGet( );
 
@@ -806,7 +805,7 @@ static void OnRadioTxDone( void )
         MacCtx.MacCallbacks->MacProcessNotify( );
     }
 #if !defined(NO_MAC_PRINTF)
-    PRINTNOW(); PRINTF("PHY txDone\n\r" );
+    PRINTNOW(); 
 #endif
 }
 
@@ -860,6 +859,15 @@ static void OnRadioRxTimeout( void )
     {
         MacCtx.MacCallbacks->MacProcessNotify( );
     }
+		
+		// Call LORA_Done when second receive slot timeout
+		// If confirmed message, LORA_Done callback will happen in ProcessRadioRxDone
+		if( MacCtx.RxSlot == RX_SLOT_WIN_2 )
+    {
+        PRINTF("second window done");
+				MacCtx.MacCallbacks->LORA_Done();
+    }
+		
 #if !defined(NO_MAC_PRINTF)
     PRINTNOW(); PRINTF("PHY rxTimeOut\n\r" );
 #endif
@@ -879,7 +887,6 @@ static void UpdateRxSlotIdleState( void )
 
 static void ProcessRadioTxDone( void )
 {
-		PRINTF(" | ProcessRadioTxDone | ");
     GetPhyParams_t getPhy;
     PhyParam_t phyParam;
     SetBandTxDoneParams_t txDone;
@@ -942,8 +949,6 @@ static void PrepareRxDoneAbort( void )
 
 static void ProcessRadioRxDone( void )
 {
-		PRINTF(" | ProcessRadioRxDone | ");
-	
     LoRaMacHeader_t macHdr;
     ApplyCFListParams_t applyCFList;
     GetPhyParams_t getPhy;
@@ -1231,7 +1236,7 @@ static void ProcessRadioRxDone( void )
             {
 								// ADD CALLBACK HERE
 								MacCtx.MacCallbacks->LORA_Done();
-							
+								PRINTF("LORA DONE");
                 if( macHdr.Bits.MType == FRAME_TYPE_DATA_CONFIRMED_DOWN )
                 {
                     MacCtx.NvmCtx->SrvAckRequested = true;

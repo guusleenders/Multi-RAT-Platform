@@ -58,25 +58,25 @@ extern "C" {
 #define LTC2942_TEMPERATURE_THRESH_HIGH_REG     0x0E
 #define LTC2942_TEMPERATURE_THRESH_low_REG		  0x0F
 
-#define LTC2942_ADC_MODE_MASK     0x3F
-#define LTC2942_PRESCALAR_MASK      0xC7
-#define LTC2942_ALERT_MODE_MASK     0xF9
-#define LTC2942_SHUTDOWN_MASK       0xFE
+#define LTC2942_ADC_MODE_MASK     				      0x3F
+#define LTC2942_PRESCALAR_MASK     						  0xC7
+#define LTC2942_ALERT_MODE_MASK     						0xF9
+#define LTC2942_SHUTDOWN_MASK       						0xFE
 
-#define LTC2942_ADC_MODE_POS		6
-#define LTC2942_PRESCALAR_POS		3
-#define LTC2942_ALERT_MODE_POS		1
-#define LTC2942_SHUTDOWN_POS		0
+#define LTC2942_ADC_MODE_POS										6
+#define LTC2942_PRESCALAR_POS										3
+#define LTC2942_ALERT_MODE_POS									1
+#define LTC2942_SHUTDOWN_POS										0
 
-#define LTC2942_ADC_MODE_AUTOMATIC		3
-#define LTC2942_ADC_VOLTAGE						2
-#define LTC2942_ADC_TEMPERATURE				1
-#define LTC2942_ADC_SLEEP							0
+#define LTC2942_ADC_MODE_AUTOMATIC							3
+#define LTC2942_ADC_VOLTAGE											2
+#define LTC2942_ADC_TEMPERATURE									1
+#define LTC2942_ADC_SLEEP												0
 
-#define LTC2942_BATTERY_MAX         5570 // mAh
+#define LTC2942_BATTERY_MAX         						5570 // mAh
 
-#define LTC2942_LRWAN_RSENSE					0.101189 // Calibrated; nominal value: 0.1
-#define LTC2942_NBIOT_RSENSE					0.101189 // Calibrated; nominal value: 0.1
+#define LTC2942_LRWAN_RSENSE										0.101189 // Calibrated; nominal value: 0.1
+#define LTC2942_NBIOT_RSENSE										0.025 // Calibrated; nominal value: 0.1
 
 typedef enum {
     VBAT_ALERT_OFF = 0,

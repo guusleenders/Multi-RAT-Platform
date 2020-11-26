@@ -56,6 +56,7 @@
 #include "bsp.h"
 
 #include "lora.h"
+#include "LoRaMac.h"
 #include "bsp.h"
 #include "timeServer.h"
 #include "vcom2.h"
@@ -72,7 +73,7 @@
 #define USER_BUTTON_ALT_GPIO_PORT                   GPIOA
 //#define STDBY_ON
 #define DEBUG	
-#define SEND_DELAY																	30000
+#define SEND_DELAY																	120*1000
 
 // --------------------------- SIGFOX DEFINITIONS ------------------------------
 #define PAC_LEN 8
@@ -95,7 +96,6 @@ uint8_t err_id;
 #define LPP_DATATYPE_BAROMETER      0x73
 #define LPP_APP_PORT 99
 
-#define APP_TX_DUTYCYCLE 									1000 					  // Defines the application data transmission duty cycle. 5s, value in [ms; 10000].
 #define LORAWAN_ADR_STATE 								LORAWAN_ADR_ON 	// LoRaWAN Adaptive Data Rate; Please note that when ADR is enabled the end-device should be static
 #define LORAWAN_DEFAULT_DATA_RATE 				DR_0 						// LoRaWAN Default data Rate Data Rate; Please note that LORAWAN_DEFAULT_DATA_RATE is used only when ADR is disabled
 #define LORAWAN_APP_PORT 									2 							// LoRaWAN application port; do not use 224. It is reserved for certification
@@ -108,10 +108,14 @@ uint8_t err_id;
 // ---------------------------- GENERAL FUNCTIONS ---------------------------------
 static void sendTest(void);
 static void onTimerEvent(void *context);
+static void initEnergyMeasurement(void);
 
 // --------------------------- SIGFOX FUNCTIONS --------------------------------
+static void initSigfox( void );													 // Init Sigfox modem
+static void registerSigfox( void );										   // Register Sigfox to network (empty function)
+static void sendSigfox( void );													 // Send Sigfox data
+
 static sfx_error_t st_sigfox_open( st_sfx_rc_t SgfxRc ); // Open the sigfox library; @param The Region configuration
-static void sendSigfox( void );													 // Send data to back end sigfox server
 
 #ifndef STDBY_ON 
 static void send_data_request( void  );					 // To post interrupt to backgroud; managed by scheduler
@@ -121,17 +125,23 @@ static void user_button_init( void );									   // Initialize the user btton to
 #endif
 
 // ---------------------------- LORA FUNCTIONS ---------------------------------
+static void initLoRaWAN(void);													// Init lora modem
+static void registerLoRaWAN(void);											// Register to LoRaWAN network (join mechanism)
+static void sendLoRaWAN(void); 													// Send LoRaWAN data
+
 static void LORA_RxData(lora_AppData_t *AppData);				// Callback when LoRa endNode has received a frame
 static void LORA_HasJoined(void);												// Callback when LoRa endNode has just joined
 static void LORA_ConfirmClass(DeviceClass_t Class);			// Callback when LoRa endNode has just switch the class
 static void LORA_TxNeeded(void);												// Callback when server needs endNode to send a frame
 static uint8_t LORA_GetBatteryLevel(void);							// Callback to get the battery level in % of full charge (254 full charge, 0 no charge)
-static void sendLoRaWAN(void);													// LoRa endNode send request
 static void LORA_Done(void);	
 
-//static void LoraStartTx(TxEventType_t EventType);			// Start the tx process
-//static void OnTxTimerEvent(void *context);						// TX timer callback function
 static void LoraMacProcessNotify(void);									// TX timer callback function
+
+// ---------------------------- NBIOT FUNCTIONS ---------------------------------
+static void initNBIoT(void);														// Init NB-IoT modem
+static void registerNBIoT(void);												// Register to NB-IoT network
+static void sendNBIoT(void);														// Send NB-IoT data
 
 // -------------------------- GENERAL VARIABLES ---------------------------------
 static TimerEvent_t TxTimer;
@@ -175,10 +185,7 @@ static  LoRaParam_t LoRaParamInit = {LORAWAN_ADR_STATE,
 																		
 // -------------------------------- MAIN ---------------------------------------
 int main( void ){
-  sfx_error_t error;
-  uint8_t dev_id[ID_LEN];
-  uint8_t dev_pac[PAC_LEN];
-  st_sfx_rc_t SgfxRc=APPLI_RC;
+
 
   HAL_Init(); 					// STM32 HAL library initialization
   SystemClock_Config(); // Configure the system clock  
@@ -193,95 +200,39 @@ int main( void ){
 	
 	LPM_SetOffMode(LPM_APPLI_Id, LPM_Disable);
 	
-	PRINTF_LN("Started");
-	/*
-	BG96_Init();
-	BG96_PowerOn();
+	PRINTF_LN("Started...");
 	
-	char buffer[30];
-	memset(buffer, '\0', 30);
-
-	BG96_SetErrorFormat(BG96_ERROR_VERBOSE);
-	BG96_SetNetworkReporting(BG96_NETWORK_REPORTING_DISABLE);
-	BG96_CheckSIMPIN(buffer);
+	PRINTF_LN("Initializing...");
+	initEnergyMeasurement();
 	
-	BG96_SetMode(BG96_NBIOT_MODE);
-	BG96_SelectNetwork(20601, BG96_NETWORK_NBIOT);
+	PRINTF_LN("1. NB-IoT");
+	initNBIoT();
+	registerNBIoT();
 	
-	BG96_ConnectToOperator(60000);
-	BG96_ActivateContext();
-  BG96_UDP_Start("62.235.63.122",8891);
-	BG96_UDP_SendData("Hello world");
-	BG96_UDP_Stop();
-	BG96_DeactivateContext();
+	PRINTF_LN("2. Sigfox");
+	initSigfox();
+	registerSigfox();
 	
-	PRINTF("DONE\r\n");	
-	//while(true){SCH_Run( ); }
-	*/
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	LTC2942_Init(LTC2942_NBIOT);
-	uint8_t test = LTC2942_GetStatus(LTC2942_NBIOT);
-	PRINTF("LTC2942: %d||", test);
-	uint8_t test1 = LTC2942_GetControl(LTC2942_NBIOT);
-	PRINTF("%d||", test1);
-	
-	LTC2942_SetPrescaler(LTC2942_NBIOT, PRESCALAR_M_1);
-	LTC2942_SetAlertConfig(LTC2942_NBIOT, ALERT_DISABLED);
-	LTC2942_SetAccumulatedCharge(LTC2942_NBIOT, 0);
-	LTC2942_SetShutdown(LTC2942_NBIOT, 0);
-	uint16_t testvoltage = LTC2942_GetVoltage(LTC2942_NBIOT)*1000;
-	PRINTF("%d mV||", testvoltage);
-	test1 = LTC2942_GetControl(LTC2942_NBIOT);
-	PRINTF("%d||", test1);
-  #ifdef DEBUG
-	PRINTF("wakeup1");
-	#endif
-	
-  // -- Init Sigfox
-  error=st_sigfox_open( SgfxRc);															// Open Sifox Lib
-  HW_EEPROM_WRITE( E2pData.SgfxKey, CREDENTIALS_KEY_PRIVATE); // Use private key
-  if ( error == SFX_ERR_NONE ){
-    PRINTF(" OK\n\r");
-  }
-  else{
-    PRINTF(" error %d\n\r", error);
-  }
-	
-
-  SIGFOX_API_get_device_id(dev_id);
-  SIGFOX_API_get_initial_pac(dev_pac);
-	SGFX_SX1276_setPower(14); // power between 10 and 20dBm
-  
-	#ifdef DEBUG
-	PRINTF("%d dBm\r\n",SGFX_SX1276_getPower( ) );
-  PRINTF("devId=") ; for(int i =0; i<ID_LEN; i++) {PRINTF("%02X",dev_id[ID_LEN-1-i]);} PRINTF("\n\r");
-  PRINTF("devPac="); for(int i =0; i<PAC_LEN; i++) {PRINTF("%02X",dev_pac[i]);} PRINTF("\n\r");
-	#endif
-	
-	// Init LoRaWAN
-	LORA_Init(&LoRaMainCallbacks, &LoRaParamInit);
-	#ifdef DEBUG
-	PRINTF("lora init done");
-	#endif
-	
-	//LORA_Join();
-	#ifdef DEBUG
-	PRINTF("lora join done");
-	#endif
+	PRINTF_LN("3. LoRaWAN");
+	initLoRaWAN();
+	registerLoRaWAN();
 	
 	// Set low power mode: stop mode (timers on)
 	LPM_SetOffMode(LPM_APPLI_Id, LPM_Disable);
 	LPM_SetStopMode(LPM_APPLI_Id, LPM_Enable);
 	
-	SCH_RegTask( SEND_TASK, sendTest );		  // Record send data task
+	SCH_RegTask(SEND_TASK, sendTest);		  // Record send data task
 	
 	// Init button 
-  user_button_init( );										// Initialise user button
+  user_button_init();										// Initialise user button
   
 	// Set timers for every 30 seconds (defined by SEND_DELAY in ms)
 	TimerInit(&TxTimer, onTimerEvent);
 	TimerSetValue(&TxTimer,  SEND_DELAY);
 	TimerStart(&TxTimer);
+	
+	PRINTF_LN("");
+	PRINTF_LN("");
 	
   /* main loop*/
   while( 1 ){
@@ -305,32 +256,28 @@ void SCH_Idle( void ){
 }
 
 static void sendTest(void){
-	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, NULL ); // Disable irq to forbidd user to press button while transmitting
-	LTC2942_SetShutdown(LTC2942_NBIOT, 0);
+	PRINTF_LN("Starting testing sequence...");
 	
-	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000;
+	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, NULL ); // Disable irq to forbidd user to press button while transmitting
+
+	#ifdef DEBUG
+	PRINTF("1. NB-IoT \n");
+	#endif
+	sendNBIoT();
 	
 	#ifdef DEBUG
-	PRINTF("1. SIGFOX \n");
+	PRINTF("2. SIGFOX \n");
 	#endif
 	sendSigfox();
 	
-	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000 - energy;
-	uint16_t uwh = (uint16_t) (energy *3.3f);
-	PRINTF("\r\n||Sigfox energy used: %d/10 uAh (%d/10 uWh)||\r\n",energy,uwh);
-	
 	#ifdef DEBUG
-	PRINTF("2. LORAWAN \n");
+	PRINTF("3. LORAWAN \n");
 	#endif
 	
-	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000;
-	LoRaMacInitializationReset();
 	sendLoRaWAN();
 	
-	
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, send_data_request_from_irq ); // Enable user to press button after transmittion
-	
-	while(1){}
+
 }
 
 static void onTimerEvent(void *context){
@@ -338,9 +285,69 @@ static void onTimerEvent(void *context){
 	send_data_request(); 
 }
 
+
+// -------------------------- ENERGY MEASUREMENT FUNCTIONS -------------------------------
+static void initEnergyMeasurement(void){
+	LTC2942_Init(LTC2942_LRWAN);
+	LTC2942_SetPrescaler(LTC2942_LRWAN, PRESCALAR_M_1);
+	LTC2942_SetAlertConfig(LTC2942_LRWAN, ALERT_DISABLED);
+	LTC2942_SetAccumulatedCharge(LTC2942_LRWAN, 0);
+	LTC2942_SetShutdown(LTC2942_LRWAN, 0);
+	
+	uint16_t testvoltage = LTC2942_GetVoltage(LTC2942_LRWAN)*1000;
+	PRINTF_LN("Voltage LRWAN: %d mV", testvoltage);
+	
+	LTC2942_Init(LTC2942_NBIOT);
+	LTC2942_SetPrescaler(LTC2942_NBIOT, PRESCALAR_M_1);
+	LTC2942_SetAlertConfig(LTC2942_NBIOT, ALERT_DISABLED);
+	LTC2942_SetAccumulatedCharge(LTC2942_NBIOT, 0);
+	LTC2942_SetShutdown(LTC2942_NBIOT, 0);
+	
+	testvoltage = LTC2942_GetVoltage(LTC2942_NBIOT)*1000;
+	PRINTF_LN("Voltage NBIOT: %d mV", testvoltage);
+	
+	LTC2942_SetShutdown(LTC2942_LRWAN, 1);
+	LTC2942_SetShutdown(LTC2942_NBIOT, 1);
+}
+
 // -------------------------------- SIGFOX FUNCTIONS -------------------------------------
+static void initSigfox( void ){
+	sfx_error_t error;
+  uint8_t dev_id[ID_LEN];
+  uint8_t dev_pac[PAC_LEN];
+  st_sfx_rc_t SgfxRc=APPLI_RC;
+	
+	error=st_sigfox_open( SgfxRc);															// Open Sifox Lib
+  HW_EEPROM_WRITE( E2pData.SgfxKey, CREDENTIALS_KEY_PRIVATE); // Use private key
+  if ( error == SFX_ERR_NONE ){
+    PRINTF(" OK\n\r");
+  }
+  else{
+    PRINTF(" error %d\n\r", error);
+  }
+	
+
+  SIGFOX_API_get_device_id(dev_id);
+  SIGFOX_API_get_initial_pac(dev_pac);
+	SGFX_SX1276_setPower(14); // power between 10 and 20dBm
+		
+	PRINTF_LN("- Initialised");
+	
+	#ifdef DEBUG
+	PRINTF("%d dBm\r\n",SGFX_SX1276_getPower( ) );
+  PRINTF("devId=") ; for(int i =0; i<ID_LEN; i++) {PRINTF("%02X",dev_id[ID_LEN-1-i]);} PRINTF("\n\r");
+  PRINTF("devPac="); for(int i =0; i<PAC_LEN; i++) {PRINTF("%02X",dev_pac[i]);} PRINTF("\n\r");
+	#endif
+}
+
+static void registerSigfox( void ){
+	
+}
+
 static void sendSigfox( void ){
-	PRINTF(" | in sendSigfox | ");
+	LTC2942_SetShutdown(LTC2942_LRWAN, 0);
+	energy = LTC2942_GetmAh(LTC2942_LRWAN)*10000;
+	
   uint8_t ul_msg[12] = {0x00, 0x01, 0x02, 0x03,0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10, 0x11}; 
   uint8_t dl_msg[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
   uint32_t  ul_size =0;
@@ -367,14 +374,18 @@ static void sendSigfox( void ){
   for (i=0; i<ul_size; i++){
     PRINTF("%02X ", ul_msg[i]) ;
   }
-  BSP_LED_On( LED_BLUE );
+  //BSP_LED_On( LED_BLUE );
 	
-
-
 	// -- Send frame on Sigfox network
   SIGFOX_API_send_frame(ul_msg, ul_size, dl_msg, nbTxRepeatFlag, SFX_FALSE);
   
-  BSP_LED_Off( LED_BLUE );
+  //BSP_LED_Off( LED_BLUE );
+	
+	energy = LTC2942_GetmAh(LTC2942_LRWAN)*10000 - energy;
+	float voltage = LTC2942_GetVoltage(LTC2942_LRWAN);
+	uint16_t uwh = (uint16_t) (energy * voltage);
+	uint16_t mj = uwh * 3.6;
+	PRINTF("\r\n||Sigfox energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ)||\r\n", energy, uwh, mj);
 	
 	#ifdef DEBUG
   PRINTF("done\n\r");
@@ -451,26 +462,22 @@ static void user_button_init( void ){
 #endif
 
 // -------------------------------- LORA FUNCTIONS -------------------------------------
-void LoraMacProcessNotify(void){
-  LoraMacProcessRequest = LORA_SET;
+
+static void initLoRaWAN(void){
+	LORA_Init(&LoRaMainCallbacks, &LoRaParamInit);
+	PRINTF_LN("- Initialised");
 }
 
-static void LORA_HasJoined(void){
-	#if( OVER_THE_AIR_ACTIVATION != 0 )
-  PRINTF("JOINED\n\r");
-	#endif
-  LORA_RequestClass(LORAWAN_DEFAULT_CLASS);
-	isConnectedLoRaWAN = true;
-	//BSP_LED_On(LED_GREEN);
-	
-	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000 - energy;
-	uint16_t uwh = (uint16_t) (energy *3.3f);
-	PRINTF("\r\n||LoRa join energy used: %d uAh/10 (%d uWh/10)||\r\n",energy,uwh);
-	LTC2942_SetShutdown(LTC2942_NBIOT, 1);
-	
+static void registerLoRaWAN(void){
+	LORA_Join();
+	PRINTF_LN("- Joined");
 }
 
 static void sendLoRaWAN(void){
+	energy = LTC2942_GetmAh(LTC2942_LRWAN)*10000;
+	
+	LoRaMacInitializationReset();
+	
 	//LORA_Init(&LoRaMainCallbacks, &LoRaParamInit);
   //LORA_Join();
 	
@@ -612,6 +619,26 @@ static void sendLoRaWAN(void){
 	//LPM_SetOffMode(LPM_APPLI_Id, LPM_Enable);
 }
 
+void LoraMacProcessNotify(void){
+  LoraMacProcessRequest = LORA_SET;
+}
+
+static void LORA_HasJoined(void){
+	#if( OVER_THE_AIR_ACTIVATION != 0 )
+  PRINTF("JOINED\n\r");
+	#endif
+  LORA_RequestClass(LORAWAN_DEFAULT_CLASS);
+	isConnectedLoRaWAN = true;
+	//BSP_LED_On(LED_GREEN);
+	
+	energy = LTC2942_GetmAh(LTC2942_LRWAN)*10000 - energy;
+	float voltage = LTC2942_GetVoltage(LTC2942_LRWAN);
+	uint16_t uwh = (uint16_t) (energy * voltage);
+	uint16_t mj = uwh * 3.6;
+	PRINTF("\r\n||LoRa join energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ)||\r\n", energy, uwh, mj);
+	LTC2942_SetShutdown(LTC2942_LRWAN, 1);
+	
+}
 
 static void LORA_RxData(lora_AppData_t *AppData){
   /* USER CODE BEGIN 4 */
@@ -674,38 +701,7 @@ static void LORA_RxData(lora_AppData_t *AppData){
     default:
       break;
   }
-  /* USER CODE END 4 */
 }
-
-//static void OnTxTimerEvent(void *context){
-//  /*Wait for next tx slot*/
-//  TimerStart(&TxTimer);
-
-//  AppProcessRequest = LORA_SET;
-//}
-
-//static void LoraStartTx(TxEventType_t EventType)
-//{
-//  if (EventType == TX_ON_TIMER)
-//  {
-//    /* send everytime timer elapses */
-//    TimerInit(&TxTimer, OnTxTimerEvent);
-//    TimerSetValue(&TxTimer,  APP_TX_DUTYCYCLE);
-//    OnTxTimerEvent(NULL);
-//  }
-//  else
-//  {
-//    /* send everytime button is pushed */
-//    GPIO_InitTypeDef initStruct = {0};
-
-//    initStruct.Mode = GPIO_MODE_IT_RISING;
-//    initStruct.Pull = GPIO_PULLUP;
-//    initStruct.Speed = GPIO_SPEED_HIGH;
-
-//    HW_GPIO_Init(USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, &initStruct);
-//    HW_GPIO_SetIrq(USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 0, Send);
-//  }
-//}
 
 static void LORA_ConfirmClass(DeviceClass_t Class){
 	#ifdef DEBUG
@@ -728,10 +724,12 @@ static void LORA_TxNeeded(void){
 }
 
 static void LORA_Done(void){
-  energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000 - energy;
-	uint16_t uwh = (uint16_t) (energy *3.3f);
-	PRINTF("\r\n||LoRa energy used: %d uAh/10 (%d uWh/10)||\r\n",energy,uwh);
-	LTC2942_SetShutdown(LTC2942_NBIOT, 1);
+  energy = LTC2942_GetmAh(LTC2942_LRWAN)*10000 - energy;
+	float voltage = LTC2942_GetVoltage(LTC2942_LRWAN);
+	uint16_t uwh = (uint16_t) (energy * voltage);
+	uint16_t mj = uwh * 3.6;
+	PRINTF("\r\n||LoRa energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ )||\r\n", energy, uwh, mj);
+	LTC2942_SetShutdown(LTC2942_LRWAN, 1);
 }
 
 
@@ -767,3 +765,108 @@ static void OnTimerLedEvent(void *context){
   LED_Off(LED_RED1) ;
 }
 #endif
+
+// -------------------------------- NBIOT FUNCTIONS -------------------------------------
+
+static void initNBIoT(void){
+	LTC2942_SetShutdown(LTC2942_LRWAN, 0);
+	energy = LTC2942_GetmAh(LTC2942_LRWAN)*10000;
+
+	BG96_Init();
+	BG96_PowerOn();
+	
+	char buffer[30];
+	memset(buffer, '\0', 30);
+
+	BG96_SetErrorFormat(BG96_ERROR_VERBOSE);
+	BG96_SetNetworkReporting(BG96_NETWORK_REPORTING_DISABLE);
+	BG96_CheckSIMPIN(buffer);
+	BG96_SetMode(BG96_NBIOT_MODE);
+	BG96_EnablePSMIndication();
+	BG96_SetPowerSavingMode(1, "", "", "\"00000100\"", "\"00001111\""); // set tau timer to ..., active timer to 30s (seems to work best in network)
+	BG96_SetPowerSavingModeImmediately(); // Not available in current firmware
+	PRINTF_LN("- Initialised");
+
+	energy = LTC2942_GetmAh(LTC2942_LRWAN)*10000 - energy;
+	float voltage = LTC2942_GetVoltage(LTC2942_LRWAN);
+	uint16_t uwh = (uint16_t) (energy * voltage);
+	uint16_t mj = uwh * 3.6;
+	PRINTF("\r\n||NB-IoT init energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ )||\r\n", energy, uwh, mj);
+	LTC2942_SetShutdown(LTC2942_LRWAN, 1);
+
+}
+
+static void registerNBIoT(void){
+	LTC2942_SetShutdown(LTC2942_NBIOT, 0);
+	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000;
+	
+	BG96_SelectNetwork(20601, BG96_NETWORK_NBIOT);
+	BG96_ConnectToOperator(60000);
+	PRINTF_LN("- Connected to operator");
+	
+	BG96_DisableNetworkStatus();
+	
+	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000 - energy;
+	float voltage = LTC2942_GetVoltage(LTC2942_NBIOT);
+	uint16_t uwh = (uint16_t) (energy * voltage);
+	uint16_t mj = uwh * 3.6;
+	PRINTF("\r\n||NB-IoT registration energy used: %d uAh/10 (%d uWh/10, %d/10 mJ )||\r\n", energy, uwh, mj);
+	
+	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000;
+	
+	BG96_ActivateContext();
+	BG96_UDP_Start("62.235.63.122",8891);
+	BG96_UDP_SendData("Hello world");
+	BG96_UDP_Stop();
+	BG96_DeactivateContext();
+	
+	BG96_WaitForPowerDown(240000);
+	PRINTF_LN("- Entered PSM");
+	
+	if(BG96_IsPoweredDown()){
+		PRINTF_LN("- Status: powered down confirmed");
+	}
+	
+	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000 - energy;
+	voltage = LTC2942_GetVoltage(LTC2942_NBIOT);
+	uwh = (uint16_t) (energy * voltage);
+	mj = uwh * 3.6;
+	PRINTF("\r\n||NB-IoT first packet energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ )||\r\n", energy, uwh, mj);
+	LTC2942_SetShutdown(LTC2942_NBIOT, 1);
+}
+
+static void sendNBIoT(void){
+	LTC2942_SetShutdown(LTC2942_NBIOT, 0);
+	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000;
+	
+	if(BG96_IsPoweredDown()){
+		PRINTF_LN("- Status: powered down");
+		PRINTF_LN("- Waking from psm");
+		BG96_WakeFromPSM();
+	}else{
+		PRINTF_LN("- Status: powered on");
+	}
+	
+	
+	BG96_UDP_Start("62.235.63.122",8891);
+	BG96_UDP_SendData("Hello world");
+	BG96_UDP_Stop();
+	BG96_DeactivateContext();
+	
+	PRINTF_LN("- Done sending NB-IoT");
+	PRINTF_LN("- Waiting for PSM");
+	
+	BG96_WaitForPowerDown(240000);
+	PRINTF_LN("- Entered PSM");
+	
+	if(BG96_IsPoweredDown()){
+		PRINTF_LN("- Status: powered down confirmed");
+	}
+	
+	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000 - energy;
+	float voltage = LTC2942_GetVoltage(LTC2942_NBIOT);
+	uint16_t uwh = (uint16_t) (energy * voltage);
+	uint32_t mj = uwh * 3.6f;
+	PRINTF("\r\n||NB-IoT packet energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ )||\r\n", energy, uwh, mj);
+	LTC2942_SetShutdown(LTC2942_NBIOT, 1);
+}

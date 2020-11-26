@@ -119,9 +119,20 @@ void BG96_Init( void ){
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(BG96_POWERKEY_PORT, &GPIO_InitStruct);
+	HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_RESET);
 	// Reset
 	GPIO_InitStruct.Pin = BG96_RESETKEY_PIN;
 	HAL_GPIO_Init(BG96_RESETKEY_PORT, &GPIO_InitStruct);
+	HAL_GPIO_WritePin(BG96_RESETKEY_PORT, BG96_RESETKEY_PIN, GPIO_PIN_RESET);
+	// DTR
+	GPIO_InitStruct.Pin = BG96_DTR_PIN;
+	HAL_GPIO_Init(BG96_DTR_PORT, &GPIO_InitStruct);
+	HAL_GPIO_WritePin(BG96_DTR_PORT, BG96_DTR_PIN, GPIO_PIN_RESET);
+	// Status
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+  HW_GPIO_Init( BG96_STATUS_PORT, BG96_STATUS_PIN, &GPIO_InitStruct );
 }
 
 void BG96_Send( const char *format, ... ){
@@ -419,7 +430,7 @@ void BG96_SendATCommand( char *buffer ){
 		BG96_Send(buffer);
 }
 
-BG96_Status_t BG96_SendATCommandCheckReply( char *buffer , char *replyBuffer, uint16_t timeout){
+BG96_Status_t BG96_SendATCommandCheckReply( char *buffer , char *replyBuffer, uint32_t timeout){
 	BG96_SendATCommand(buffer);
 	waitingForReply = true;
 	uint32_t tickstart = HW_RTC_GetTimerValue();
@@ -441,7 +452,7 @@ BG96_Status_t BG96_SendATCommandCheckReply( char *buffer , char *replyBuffer, ui
 	}
 }
 
-BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint16_t timeout){
+BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint32_t timeout){
 	BG96_SendATCommand(buffer);
 	waitingForReply = true;
 	uint32_t tickstart = HW_RTC_GetTimerValue();
@@ -469,7 +480,7 @@ BG96_Status_t BG96_PowerOn( void ){
   
   HAL_Delay(10);
   HAL_GPIO_WritePin(BG96_RESETKEY_PORT, BG96_RESETKEY_PIN, GPIO_PIN_SET); 
-  HAL_Delay(500);
+  HAL_Delay(400);
   HAL_GPIO_WritePin(BG96_RESETKEY_PORT, BG96_RESETKEY_PIN, GPIO_PIN_RESET); 
 	
 	BG96_Status_t status = BG96_SendATCommandCheckReply("", "RDY", 10000);
@@ -481,7 +492,8 @@ BG96_Status_t BG96_PowerOn( void ){
 	status = BG96_ResetParameters();
 	if(status != BG96_OK)
 		return status;
-	status = BG96_SendATCommandCheckReply("ATE0\r\n", "OK", 1000);
+	status = BG96_SendATCommandCheckReply("ATE0\r\n", "ATE0", 1000);
+	BG96_SendATCommandCheckReply("", "OK", 1000);
 	return status;
 }
 
@@ -540,7 +552,8 @@ BG96_Status_t BG96_SetNetworkReporting( uint8_t creg ){
 
 BG96_Status_t BG96_CheckSIMPIN( char* reply ){
 	PRINTF_LN("check sim pin");
-	return BG96_SendATCommandGetReply("AT+CPIN?\r\n", reply, 300);
+	BG96_SendATCommandGetReply("AT+CPIN?\r\n", reply, 300);
+	return BG96_SendATCommandCheckReply("", "OK", 300);
 }
 
 BG96_Status_t BG96_SetSIMPIN( char* pin ){
@@ -640,6 +653,13 @@ BG96_Status_t BG96_GetNetworkStatus(char * buffer){
 	return BG96_SendATCommandCheckReply("", "OK", 300); // Check out last (closing) OK\r\n
 }
 
+BG96_Status_t BG96_DisableNetworkStatus( void ){
+	BG96_Status_t status  =  BG96_SendATCommandCheckReply("AT+CEREG=0\r\n", "OK", 300);
+	if(status != BG96_OK)
+			return status;
+	return status; // Check out last (closing) OK\r\n
+}
+
 BG96_Status_t BG96_GetAvailableNetworks(char * buffer){
 	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+COPS=?\r\n", buffer, 48928);
 	if(status != BG96_OK)
@@ -700,6 +720,16 @@ BG96_Status_t BG96_Wake( void ){
 	return BG96_SendATCommandCheckReply("", "RDY", 6000);
 }
 
+BG96_Status_t BG96_WakeFromPSM( void ){
+	HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_SET); // Wake module
+	HAL_Delay(80);
+	HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_RESET); // Wake module
+	BG96_Status_t status = BG96_SendATCommandCheckReply("", "RDY", 7000);
+	status = BG96_SendATCommandCheckReply("AT\r\n", "OK", 7000);
+	HAL_Delay(2000); // Let reconnection establish
+	return status;
+}
+
 // Not tested
 BG96_Status_t BG96_GetTime(char * timeresult){
 	char response[30];
@@ -718,8 +748,14 @@ BG96_Status_t BG96_GetTime(char * timeresult){
 
 BG96_Status_t BG96_SetPowerSavingMode(uint8_t mode, char * requestedRAU, char * requestedGPRSREADY, char * requestedTAU, char * requestedActiveTimer){
 	char buffer[100]; 
-	sprintf(buffer, "AT+CPSMS=%d,\"%s\",\"%s\",\"%s\",\"%s\"\r\n", mode, requestedRAU, requestedGPRSREADY, requestedTAU, requestedActiveTimer);
+	sprintf(buffer, "AT+CPSMS=%d,%s,%s,%s,%s\r\n", mode, requestedRAU, requestedGPRSREADY, requestedTAU, requestedActiveTimer);
 	return BG96_SendATCommandCheckReply(buffer, "OK", 1000);
+}
+
+BG96_Status_t BG96_SetPowerSavingModeImmediately(){
+	char buffer[30]; 
+	sprintf(buffer, "AT+QCFG=\"psm/enter\"\r\n");
+	return BG96_SendATCommandCheckReply(buffer, "ERROR", 1000);
 }
 
 BG96_Status_t BG96_GetPowerSavingMode(char * buffer){
@@ -734,6 +770,38 @@ BG96_Status_t BG96_SetPowerSavingModeSettings(uint32_t threshold, uint8_t versio
 	sprintf(buffer, "AT+QPSMCFG=%d,%d\r\n", threshold, version);
 	return BG96_SendATCommandCheckReply(buffer, "OK", 1000);
 }
+
+BG96_Status_t BG96_EnablePSMIndication( void ){
+	char buffer[30]; 
+	sprintf(buffer, "AT+QCFG=\"psm/urc\",1\r\n");
+	return BG96_SendATCommandCheckReply(buffer, "ERROR", 1000);
+}
+
+BG96_Status_t BG96_DisablePSMIndication( void ){
+	char buffer[30]; 
+	sprintf(buffer, "AT+QCFG=\"psm/urc\",0\r\n");
+	return BG96_SendATCommandCheckReply(buffer, "ERROR", 1000);
+}
+
+BG96_Status_t BG96_WaitForPowerDown( uint32_t timeout ){
+	BG96_Status_t status  =  BG96_SendATCommandCheckReply("", "POWERED DOWN", BG96_WAIT_FOR_POWERDOWN_MAX);
+	uint32_t tickstart = HW_RTC_GetTimerValue();
+	uint32_t tickNow = HW_RTC_GetTimerValue();
+	while(status != BG96_OK  && ( ( tickNow - tickstart ) ) < timeout){
+		HAL_Delay(100+rand()%200); // Wait for random amount of time (100-299ms)
+		status  =  BG96_SendATCommandCheckReply("", "POWERED DOWN", BG96_WAIT_FOR_POWERDOWN_MAX);
+		tickNow = HW_RTC_GetTimerValue();
+	}
+	return status;
+}
+
+bool BG96_IsPoweredDown(){
+	if(HAL_GPIO_ReadPin(BG96_STATUS_PORT, BG96_STATUS_PIN) == GPIO_PIN_SET)
+		return true;
+	else
+		return false;
+}
+
 // Also possible: AT+QPSMEXTCFG Extended Modem Optimization
 
 // --- GNSS AT commands ---
@@ -857,7 +925,14 @@ BG96_Status_t BG96_ConfigureContextAPN(uint8_t contextType, char * apn, char * u
 BG96_Status_t BG96_ActivateContext( void ){
 	char buffer[20]; 
 	sprintf(buffer, "AT+QIACT=%d\r\n", _contextID);
-	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+	BG96_Status_t status = BG96_SendATCommandCheckReply(buffer, "OK", 1000);
+	uint8_t retries = 0;
+	while(status != BG96_OK && retries < BG96_MAX_SEND_RETRIES){
+		HAL_Delay(100+rand()%200);
+		status = BG96_SendATCommandCheckReply(buffer, "OK", 1000);
+		retries++;
+	}
+	return status;
 }
 
 BG96_Status_t BG96_DeactivateContext( void ){
@@ -870,6 +945,12 @@ BG96_Status_t BG96_UDP_Start(char * ipaddress, uint32_t port){ // Start as clien
 	char buffer[60]; 
 	sprintf(buffer, "AT+QIOPEN=%d,%d,\"UDP\",\"%s\",%d\r\n", _contextID, _connectID, ipaddress, port);
 	BG96_Status_t status =  BG96_SendATCommandCheckReply(buffer, "OK", 300);
+	uint8_t retries = 0;
+	while(status != BG96_OK && retries < BG96_MAX_SEND_RETRIES){
+		HAL_Delay(100+rand()%200);
+		status =  BG96_SendATCommandCheckReply(buffer, "OK", 300);
+		retries++;
+	}
 	if(status != BG96_OK)
 		return status;
 	return BG96_SendATCommandCheckReply("", "+QIOPEN", 300);

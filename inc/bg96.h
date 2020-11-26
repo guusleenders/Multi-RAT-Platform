@@ -31,17 +31,23 @@ extern "C" {
 #define BG96_SERIAL_AF GPIO_AF6_LPUART1
 
 #define BG96_POWERKEY_PORT GPIOB
-#define BG96_POWERKEY_PIN GPIO_PIN_13														
+#define BG96_POWERKEY_PIN GPIO_PIN_15														
 #define BG96_RESETKEY_PORT GPIOA
 #define BG96_RESETKEY_PIN GPIO_PIN_8	
 
 #define BG96_DTR_PORT GPIOB
-#define BG96_DTR_PIN GPIO_PIN_13														
+#define BG96_DTR_PIN GPIO_PIN_12			
+
+#define BG96_STATUS_PIN GPIO_PIN_9
+#define BG96_STATUS_PORT GPIOA
 
 #define BG96_REPLY_SIZE 100
 #define BG96_IP_ADDRESS_SIZE 30
 #define BG96_DOMAIN_NAME_SIZE 50
 #define BG96_PORT_SIZE 8  
+
+#define BG96_MAX_SEND_RETRIES 10
+#define BG96_WAIT_FOR_POWERDOWN_MAX 240000
 
 enum {
     BG96_AUTO_MODE = 0,
@@ -186,8 +192,8 @@ void BG96_ParseResult( char *buffer );
 
 // AT-supporting functions
 void BG96_SendATCommand( char *buffer );
-BG96_Status_t BG96_SendATCommandCheckReply( char *buffer , char *replyBuffer, uint16_t timeout);
-BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint16_t timeout);
+BG96_Status_t BG96_SendATCommandCheckReply( char *buffer , char *replyBuffer, uint32_t timeout);
+BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint32_t timeout);
 
 // General AT commands
 BG96_Status_t BG96_PowerOn( void );
@@ -212,6 +218,7 @@ BG96_Status_t BG96_GetSignalQuality(char * buffer);
 BG96_Status_t BG96_GetSignalStength(char * buffer);
 BG96_Status_t BG96_GetNetworkInfo(char * buffer);
 BG96_Status_t BG96_GetNetworkStatus(char * buffer);
+BG96_Status_t BG96_DisableNetworkStatus( void );
 BG96_Status_t BG96_GetAvailableNetworks(char * buffer);
 BG96_Status_t BG96_SelectNetwork(uint16_t networkId, uint8_t mode);
 BG96_Status_t BG96_SetPDPContext(char * url);
@@ -219,9 +226,15 @@ BG96_Status_t BG96_ConnectToOperator( uint32_t timeout );
 BG96_Status_t BG96_SetEDRXConfiguration(uint8_t enable, uint8_t mode, char * edrx);
 BG96_Status_t BG96_Sleep(void );
 BG96_Status_t BG96_Wake( void );
+BG96_Status_t BG96_WakeFromPSM( void );
+BG96_Status_t BG96_EnablePSMIndication( void );
+BG96_Status_t BG96_DisablePSMIndication( void );
 BG96_Status_t BG96_SetPowerSavingMode(uint8_t mode, char * requestedRAU, char * requestedGPRSREADY, char * requestedTAU, char * requestedActiveTimer);
 BG96_Status_t BG96_GetPowerSavingMode(char * buffer);
 BG96_Status_t BG96_SetPowerSavingModeSettings(uint32_t threshold, uint8_t version);
+BG96_Status_t BG96_SetPowerSavingModeImmediately( void );
+BG96_Status_t BG96_WaitForPowerDown( uint32_t timeout );
+bool BG96_IsPoweredDown( void );
 
 // GNSS AT commands
 BG96_Status_t BG96_GNSS_Enable( uint8_t mode, uint8_t fixTime,  uint8_t accuracy, uint16_t fixCount, uint16_t fixDelay);
