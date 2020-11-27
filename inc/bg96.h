@@ -218,6 +218,7 @@ BG96_Status_t BG96_GetSignalQuality(char * buffer);
 BG96_Status_t BG96_GetSignalStength(char * buffer);
 BG96_Status_t BG96_GetNetworkInfo(char * buffer);
 BG96_Status_t BG96_GetNetworkStatus(char * buffer);
+BG96_Status_t BG96_GetCELevel(uint8_t * celevel);
 BG96_Status_t BG96_DisableNetworkStatus( void );
 BG96_Status_t BG96_GetAvailableNetworks(char * buffer);
 BG96_Status_t BG96_SelectNetwork(uint16_t networkId, uint8_t mode);

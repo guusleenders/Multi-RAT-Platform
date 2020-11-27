@@ -653,6 +653,18 @@ BG96_Status_t BG96_GetNetworkStatus(char * buffer){
 	return BG96_SendATCommandCheckReply("", "OK", 300); // Check out last (closing) OK\r\n
 }
 
+BG96_Status_t BG96_GetCELevel(uint8_t * celevel){
+  char buffer[50];
+	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+QCFG=\"celevel\"\r\n", buffer, 300);
+	if(status != BG96_OK)
+			return status;
+	if(!StringStartsWith(buffer, "+CME ERROR")){
+		// in buffer: +QCFG: "celevel",<celevel>
+		*celevel = buffer[17]-'0';
+	}
+	return BG96_SendATCommandCheckReply("", "OK", 300); // Check out last (closing) OK\r\n
+}
+
 BG96_Status_t BG96_DisableNetworkStatus( void ){
 	BG96_Status_t status  =  BG96_SendATCommandCheckReply("AT+CEREG=0\r\n", "OK", 300);
 	if(status != BG96_OK)

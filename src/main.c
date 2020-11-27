@@ -1,49 +1,26 @@
-/******************************************************************************
- * @file    main.c
- * @author  MCD Application Team
- * @version V1.1.0
- * @date    30-April-2018
- * @brief   this is the main!
- ******************************************************************************
- * @attention
- *
- * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
- * All rights reserved.</center></h2>
- *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted, provided that the following conditions are met:
- *
- * 1. Redistribution of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- * 3. Neither the name of STMicroelectronics nor the names of other 
- *    contributors to this software may be used to endorse or promote products 
- *    derived from this software without specific written permission.
- * 4. This software, including modifications and/or derivative works of this 
- *    software, must execute solely and exclusively on microcontroller or
- *    microprocessor devices manufactured by or for STMicroelectronics.
- * 5. Redistribution and use of this software other than as permitted under 
- *    this license is void and will automatically terminate your rights under 
- *    this license. 
- *
- * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
- * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
- * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
- * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
- * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- ******************************************************************************
- */
 
+/*  ____  ____      _    __  __  ____ ___
+ * |  _ \|  _ \    / \  |  \/  |/ ___/ _ \
+ * | | | | |_) |  / _ \ | |\/| | |  | | | |
+ * | |_| |  _ <  / ___ \| |  | | |__| |_| |
+ * |____/|_| \_\/_/   \_\_|  |_|\____\___/
+ *                           research group
+ *                             dramco.be/
+ *
+ *  KU Leuven - Technology Campus Gent,
+ *  Gebroeders De Smetstraat 1,
+ *  B-9000 Gent, Belgium
+ *
+ *         File: main.c
+ *      Created: 2020-11-27
+ *       Author: Guus Leenders
+ *      Version: 0.2
+ *
+ *  Description: text
+ *      some more text
+ *
+ */
+ 
 /* Includes ------------------------------------------------------------------*/
 #include "hw.h"
 #include "low_power_manager.h"
@@ -69,11 +46,21 @@
 
 
 // -------------------------- GENERAL DEFINITIONS ------------------------------
+#define NBIOT
+#define SIGFOX
+#define LORAWAN
+
 #define USER_BUTTON_ALT_PIN                         GPIO_PIN_0
 #define USER_BUTTON_ALT_GPIO_PORT                   GPIOA
 //#define STDBY_ON
 #define DEBUG	
 #define SEND_DELAY																	120*1000
+
+typedef enum {
+		INIT = (uint8_t)0, 
+		REGISTRATION = (uint8_t)1,
+		SEND = (uint8_t)2
+} MESSAGE_TYPE;
 
 // --------------------------- SIGFOX DEFINITIONS ------------------------------
 #define PAC_LEN 8
@@ -96,12 +83,13 @@ uint8_t err_id;
 #define LPP_DATATYPE_BAROMETER      0x73
 #define LPP_APP_PORT 99
 
+#define LORAWAN_PAYLOAD_SIZE							15
 #define LORAWAN_ADR_STATE 								LORAWAN_ADR_ON 	// LoRaWAN Adaptive Data Rate; Please note that when ADR is enabled the end-device should be static
 #define LORAWAN_DEFAULT_DATA_RATE 				DR_0 						// LoRaWAN Default data Rate Data Rate; Please note that LORAWAN_DEFAULT_DATA_RATE is used only when ADR is disabled
 #define LORAWAN_APP_PORT 									2 							// LoRaWAN application port; do not use 224. It is reserved for certification
 #define LORAWAN_DEFAULT_CLASS 						CLASS_A 				// LoRaWAN default endNode class port
 #define LORAWAN_DEFAULT_CONFIRM_MSG_STATE LORAWAN_UNCONFIRMED_MSG // LoRaWAN default confirm state
-#define LORAWAN_APP_DATA_BUFF_SIZE 				64 							// User application data buffer size
+#define LORAWAN_APP_DATA_BUFF_SIZE 				20 							// User application data buffer size
 
 
 
@@ -147,6 +135,34 @@ static void sendNBIoT(void);														// Send NB-IoT data
 static TimerEvent_t TxTimer;
 bool sendTestHappened = false; 
 static uint16_t energy = 0;
+
+struct InitEnergy_t {
+	 uint8_t deviceID; 
+	 uint8_t bootID;
+	 uint16_t packetNumber;
+	 MESSAGE_TYPE packetType; 
+   uint16_t  nbiotEnergy;
+   uint16_t  sigfoxEnergy;
+	 uint16_t lorawanEnergy;
+} initEnergyStruct;  
+
+struct Energy_t {
+	uint8_t deviceID; 
+	uint8_t bootID;
+	uint16_t packetNumber;
+  uint16_t  nbiotEnergy;
+	char nbiotConditions[50];
+	MESSAGE_TYPE nbiotPacketType; 
+  uint16_t  sigfoxEnergy;
+	char sigfoxConditions[10];
+	MESSAGE_TYPE sigfoxPacketType; 
+	uint16_t lorawanEnergy;
+	char lorawanConditions[10];
+	MESSAGE_TYPE lorawanPacketType; 
+} energyStruct;  
+
+
+
 // ---------------------------- LORA VARIABLES ---------------------------------
 static uint8_t AppDataBuff[LORAWAN_APP_DATA_BUFF_SIZE]; // User application data
 
@@ -201,21 +217,49 @@ int main( void ){
 	LPM_SetOffMode(LPM_APPLI_Id, LPM_Disable);
 	
 	PRINTF_LN("Started...");
+	initEnergyStruct.bootID = randr(0, 255);
+	energyStruct.bootID = initEnergyStruct.bootID;
+	initEnergyStruct.deviceID = 0;
+	energyStruct.deviceID = 0;
+	initEnergyStruct.packetNumber = 0;
+	energyStruct.packetNumber = 0;
+	
+	PRINTF_LN("- Boot ID: %d", energyStruct.bootID);
+	
 	
 	PRINTF_LN("Initializing...");
 	initEnergyMeasurement();
 	
+	#ifdef NBIOT
 	PRINTF_LN("1. NB-IoT");
 	initNBIoT();
-	registerNBIoT();
+	#endif
 	
+	#ifdef SIGFOX
 	PRINTF_LN("2. Sigfox");
 	initSigfox();
-	registerSigfox();
+	#endif
 	
+	#ifdef LORAWAN
 	PRINTF_LN("3. LoRaWAN");
 	initLoRaWAN();
+	#endif
+	
+	PRINTF_LN("Registering...");
+	#ifdef NBIOT
+	PRINTF_LN("1. NB-IoT");
+	registerNBIoT();
+	#endif
+	
+	#ifdef SIGFOX
+	PRINTF_LN("2. Sigfox");
+	registerSigfox();
+	#endif
+	
+	#ifdef LORAWAN
+	PRINTF_LN("3. LoRaWAN");
 	registerLoRaWAN();
+	#endif
 	
 	// Set low power mode: stop mode (timers on)
 	LPM_SetOffMode(LPM_APPLI_Id, LPM_Disable);
@@ -259,25 +303,35 @@ static void sendTest(void){
 	PRINTF_LN("Starting testing sequence...");
 	
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, NULL ); // Disable irq to forbidd user to press button while transmitting
-
-	#ifdef DEBUG
+	
+	#ifdef NBIOT
 	PRINTF("1. NB-IoT \n");
-	#endif
 	sendNBIoT();
+	#endif
 	
-	#ifdef DEBUG
+	
+	HAL_Delay(500);
+	
+	#ifdef SIGFOX
 	PRINTF("2. SIGFOX \n");
-	#endif
+	initSigfox();
 	sendSigfox();
-	
-	#ifdef DEBUG
-	PRINTF("3. LORAWAN \n");
 	#endif
 	
+	HAL_Delay(500);
+	
+	#ifdef LORAWAN
+	PRINTF("3. LORAWAN \n");
+
+	LoRaMacInitializationReset();
 	sendLoRaWAN();
+	#endif
+	
+	HAL_Delay(500);
+	
+	energyStruct.packetNumber++;
 	
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, send_data_request_from_irq ); // Enable user to press button after transmittion
-
 }
 
 static void onTimerEvent(void *context){
@@ -288,6 +342,7 @@ static void onTimerEvent(void *context){
 
 // -------------------------- ENERGY MEASUREMENT FUNCTIONS -------------------------------
 static void initEnergyMeasurement(void){
+	#if defined(LORAWAN) || defined(SIGFOX)
 	LTC2942_Init(LTC2942_LRWAN);
 	LTC2942_SetPrescaler(LTC2942_LRWAN, PRESCALAR_M_1);
 	LTC2942_SetAlertConfig(LTC2942_LRWAN, ALERT_DISABLED);
@@ -297,6 +352,10 @@ static void initEnergyMeasurement(void){
 	uint16_t testvoltage = LTC2942_GetVoltage(LTC2942_LRWAN)*1000;
 	PRINTF_LN("Voltage LRWAN: %d mV", testvoltage);
 	
+	LTC2942_SetShutdown(LTC2942_LRWAN, 1);
+	#endif
+	
+	#ifdef NBIOT
 	LTC2942_Init(LTC2942_NBIOT);
 	LTC2942_SetPrescaler(LTC2942_NBIOT, PRESCALAR_M_1);
 	LTC2942_SetAlertConfig(LTC2942_NBIOT, ALERT_DISABLED);
@@ -306,12 +365,30 @@ static void initEnergyMeasurement(void){
 	testvoltage = LTC2942_GetVoltage(LTC2942_NBIOT)*1000;
 	PRINTF_LN("Voltage NBIOT: %d mV", testvoltage);
 	
-	LTC2942_SetShutdown(LTC2942_LRWAN, 1);
 	LTC2942_SetShutdown(LTC2942_NBIOT, 1);
+	#endif
+	
 }
+
+static void startEnergyMeasurement(LTC2942_SENSOR sensor){
+	LTC2942_SetShutdown(sensor, 0);
+	LTC2942_SetAccumulatedCharge(sensor, 0);
+	energy = LTC2942_GetmAh(sensor)*10000;
+}
+
+uint16_t stopEnergyMeasurement(LTC2942_SENSOR sensor){
+	energy = LTC2942_GetmAh(sensor)*10000 - energy;
+	float voltage = LTC2942_GetVoltage(sensor);
+	uint16_t uwh = (uint16_t) (energy * voltage);
+	LTC2942_SetShutdown(sensor, 1);
+	return uwh;
+}
+     
 
 // -------------------------------- SIGFOX FUNCTIONS -------------------------------------
 static void initSigfox( void ){
+	startEnergyMeasurement(LTC2942_LRWAN);
+	
 	sfx_error_t error;
   uint8_t dev_id[ID_LEN];
   uint8_t dev_pac[PAC_LEN];
@@ -338,6 +415,9 @@ static void initSigfox( void ){
   PRINTF("devId=") ; for(int i =0; i<ID_LEN; i++) {PRINTF("%02X",dev_id[ID_LEN-1-i]);} PRINTF("\n\r");
   PRINTF("devPac="); for(int i =0; i<PAC_LEN; i++) {PRINTF("%02X",dev_pac[i]);} PRINTF("\n\r");
 	#endif
+	
+	initEnergyStruct.packetType = INIT;
+	initEnergyStruct.sigfoxEnergy = stopEnergyMeasurement(LTC2942_LRWAN);
 }
 
 static void registerSigfox( void ){
@@ -345,8 +425,8 @@ static void registerSigfox( void ){
 }
 
 static void sendSigfox( void ){
-	LTC2942_SetShutdown(LTC2942_LRWAN, 0);
-	energy = LTC2942_GetmAh(LTC2942_LRWAN)*10000;
+	
+	//startEnergyMeasurement(LTC2942_LRWAN);
 	
   uint8_t ul_msg[12] = {0x00, 0x01, 0x02, 0x03,0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10, 0x11}; 
   uint8_t dl_msg[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
@@ -367,30 +447,28 @@ static void sendSigfox( void ){
   ul_msg[ul_size++] = ( humidity >> 8 ) & 0xFF;
   ul_msg[ul_size++] = humidity & 0xFF;
 
-	#ifdef DEBUG
-  PRINTF("senddata....");
-	#endif 
 	
+	PRINTF("- Data to be sent:");
   for (i=0; i<ul_size; i++){
     PRINTF("%02X ", ul_msg[i]) ;
   }
+	PRINTF_LN("");
   //BSP_LED_On( LED_BLUE );
-	
+	#ifdef DEBUG
+  PRINTF_LN("- Start sending Sigfox data");
+	#endif 
 	// -- Send frame on Sigfox network
   SIGFOX_API_send_frame(ul_msg, ul_size, dl_msg, nbTxRepeatFlag, SFX_FALSE);
-  
+	
+  #ifdef DEBUG
+  PRINTF_LN("- Done sending Sigfox data");
+	#endif 
   //BSP_LED_Off( LED_BLUE );
 	
-	energy = LTC2942_GetmAh(LTC2942_LRWAN)*10000 - energy;
-	float voltage = LTC2942_GetVoltage(LTC2942_LRWAN);
-	uint16_t uwh = (uint16_t) (energy * voltage);
-	uint16_t mj = uwh * 3.6;
-	PRINTF("\r\n||Sigfox energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ)||\r\n", energy, uwh, mj);
-	
-	#ifdef DEBUG
-  PRINTF("done\n\r");
-	#endif
-	
+	/*uint16_t uwh = stopEnergyMeasurement(LTC2942_LRWAN);
+	energyStruct.sigfoxPacketType = SEND;
+	energyStruct.sigfoxEnergy = uwh;
+	PRINTF("\r\n||Sigfox energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ)||\r\n", energy, uwh, uwh*3.6f);*/
 }
 
 #ifndef STDBY_ON 
@@ -464,42 +542,38 @@ static void user_button_init( void ){
 // -------------------------------- LORA FUNCTIONS -------------------------------------
 
 static void initLoRaWAN(void){
+	startEnergyMeasurement(LTC2942_LRWAN);
+	
 	LORA_Init(&LoRaMainCallbacks, &LoRaParamInit);
 	PRINTF_LN("- Initialised");
+	
+	initEnergyStruct.packetType = INIT;
+	initEnergyStruct.lorawanEnergy = stopEnergyMeasurement(LTC2942_LRWAN);
 }
 
 static void registerLoRaWAN(void){
+	startEnergyMeasurement(LTC2942_LRWAN);
+	
 	LORA_Join();
 	PRINTF_LN("- Joined");
+	
+	// Stop energy measurement in hasjoined function
 }
 
 static void sendLoRaWAN(void){
-	energy = LTC2942_GetmAh(LTC2942_LRWAN)*10000;
+	startEnergyMeasurement(LTC2942_LRWAN);
 	
-	LoRaMacInitializationReset();
-	
-	//LORA_Init(&LoRaMainCallbacks, &LoRaParamInit);
-  //LORA_Join();
-	
-  /* USER CODE BEGIN 3 */
-  uint16_t pressure = 0;
-  int16_t temperature = 0;
-  uint16_t humidity = 0;
-  uint8_t batteryLevel;
-  sensor_t sensor_data;
 
-	PRINTF("STARTING SEND");
-	
-  if (LORA_JoinStatus() != LORA_SET)
-  {
+
+  if (LORA_JoinStatus() != LORA_SET) {
     /*Not joined, try again later*/
+		#ifdef DEBUG
+		PRINTF_LN("- Not joined, try again later");
+		#endif
     LORA_Join();
     return;
   }
-	#ifdef DEBUG
-  PRINTF("SEND REQUEST\n\r");
-	#endif 
-	
+
 	#ifndef CAYENNE_LPP
   //int32_t latitude, longitude = 0;
   //uint16_t altitudeGps = 0;
@@ -515,98 +589,26 @@ static void sendLoRaWAN(void){
   TimerStart(&TxLedTimer);
 	#endif
 
-  BSP_sensor_Read(&sensor_data);
-
-	#ifdef CAYENNE_LPP
-  uint8_t cchannel = 0;
-  temperature = (int16_t)(sensor_data.temperature * 10);         /* in °C * 10 */
-  pressure    = (uint16_t)(sensor_data.pressure * 100 / 10);      /* in hPa / 10 */
-  humidity    = (uint16_t)(sensor_data.humidity * 2);            /* in %*2     */
   uint32_t i = 0;
 
-  batteryLevel = LORA_GetBatteryLevel();                      /* 1 (very low) to 254 (fully charged) */
-
-  AppData.Port = LPP_APP_PORT;
-
-  AppData.Buff[i++] = cchannel++;
-  AppData.Buff[i++] = LPP_DATATYPE_BAROMETER;
-  AppData.Buff[i++] = (pressure >> 8) & 0xFF;
-  AppData.Buff[i++] = pressure & 0xFF;
-  AppData.Buff[i++] = cchannel++;
-  AppData.Buff[i++] = LPP_DATATYPE_TEMPERATURE;
-  AppData.Buff[i++] = (temperature >> 8) & 0xFF;
-  AppData.Buff[i++] = temperature & 0xFF;
-  AppData.Buff[i++] = cchannel++;
-  AppData.Buff[i++] = LPP_DATATYPE_HUMIDITY;
-  AppData.Buff[i++] = humidity & 0xFF;
-	#if defined( REGION_US915 ) || defined ( REGION_AU915 ) || defined ( REGION_AS923 )
-  /* The maximum payload size does not allow to send more data for lowest DRs */
-	#else
-  AppData.Buff[i++] = cchannel++;
-  AppData.Buff[i++] = LPP_DATATYPE_DIGITAL_INPUT;
-  AppData.Buff[i++] = batteryLevel * 100 / 254;
-  AppData.Buff[i++] = cchannel++;
-  AppData.Buff[i++] = LPP_DATATYPE_DIGITAL_OUTPUT;
-  AppData.Buff[i++] = AppLedStateOn;
-	#endif  /* REGION_XX915 */
-	#else  /* not CAYENNE_LPP */
-
-  temperature = (int16_t)(sensor_data.temperature * 100);         /* in °C * 100 */
-  pressure    = (uint16_t)(sensor_data.pressure * 100 / 10);      /* in hPa / 10 */
-  humidity    = (uint16_t)(sensor_data.humidity * 10);            /* in %*10     */
-  //latitude = sensor_data.latitude;
-  //longitude = sensor_data.longitude;
-  uint32_t i = 0;
-
-  batteryLevel = LORA_GetBatteryLevel();                      /* 1 (very low) to 254 (fully charged) */
+  //batteryLevel = LORA_GetBatteryLevel();                      /* 1 (very low) to 254 (fully charged) */
 
   AppData.Port = LORAWAN_APP_PORT;
 
-	#if defined( REGION_US915 ) || defined ( REGION_AU915 ) || defined ( REGION_AS923 )
-  AppData.Buff[i++] = AppLedStateOn;
-  AppData.Buff[i++] = (pressure >> 8) & 0xFF;
-  AppData.Buff[i++] = pressure & 0xFF;
-  AppData.Buff[i++] = (temperature >> 8) & 0xFF;
-  AppData.Buff[i++] = temperature & 0xFF;
-  AppData.Buff[i++] = (humidity >> 8) & 0xFF;
-  AppData.Buff[i++] = humidity & 0xFF;
-  AppData.Buff[i++] = batteryLevel;
-  AppData.Buff[i++] = 0;
-  AppData.Buff[i++] = 0;
-  AppData.Buff[i++] = 0;
-	#else  /* not REGION_XX915 */
-  AppData.Buff[i++] = AppLedStateOn;
-  AppData.Buff[i++] = (pressure >> 8) & 0xFF;
-  AppData.Buff[i++] = pressure & 0xFF;
-  AppData.Buff[i++] = (temperature >> 8) & 0xFF;
-  AppData.Buff[i++] = temperature & 0xFF;
-  AppData.Buff[i++] = (humidity >> 8) & 0xFF;
-  AppData.Buff[i++] = humidity & 0xFF;
-  AppData.Buff[i++] = batteryLevel;
-	AppData.Buff[i++] = 0x00;
-  AppData.Buff[i++] = 0x00;
-  AppData.Buff[i++] = 0x00;
-  AppData.Buff[i++] = 0x00;
-  AppData.Buff[i++] = 0x00;
-  AppData.Buff[i++] = 0x00;
-  AppData.Buff[i++] = 0x00;
-  AppData.Buff[i++] = 0x00;
-//  AppData.Buff[i++] = (latitude >> 16) & 0xFF;
-//  AppData.Buff[i++] = (latitude >> 8) & 0xFF;
-//  AppData.Buff[i++] = latitude & 0xFF;
-//  AppData.Buff[i++] = (longitude >> 16) & 0xFF;
-//  AppData.Buff[i++] = (longitude >> 8) & 0xFF;
-//  AppData.Buff[i++] = longitude & 0xFF;
-//  AppData.Buff[i++] = (altitudeGps >> 8) & 0xFF;
-//  AppData.Buff[i++] = altitudeGps & 0xFF;
-	#endif  /* REGION_XX915 */
-	#endif  /* CAYENNE_LPP */
+  AppData.Buff[i++] = energyStruct.deviceID;
+  AppData.Buff[i++] = energyStruct.bootID;
+  AppData.Buff[i++] = (energyStruct.packetNumber >> 8) & 0xFF;;
+	AppData.Buff[i++] = energyStruct.packetNumber  & 0xFF;
+	
+	for(uint8_t p = 0; p < LORAWAN_PAYLOAD_SIZE-4; p++){
+		AppData.Buff[i++] = 0x00;
+	}
   AppData.BuffSize = i;
 	#ifdef DEBUG
-	PRINTF("LORASEND");
+	PRINTF_LN("- Sending packet");
 	#endif
   LORA_send(&AppData, LORAWAN_DEFAULT_CONFIRM_MSG_STATE);
-	PRINTF("LORA SEND DONE");
+	PRINTF_LN("- LoRaWAN send command done");
 //	if (LoraMacProcessRequest == LORA_SET)
 //    {
 //      /*reset notification flag*/
@@ -625,25 +627,23 @@ void LoraMacProcessNotify(void){
 
 static void LORA_HasJoined(void){
 	#if( OVER_THE_AIR_ACTIVATION != 0 )
-  PRINTF("JOINED\n\r");
+  PRINTF_LN("- Joined done");
 	#endif
   LORA_RequestClass(LORAWAN_DEFAULT_CLASS);
 	isConnectedLoRaWAN = true;
 	//BSP_LED_On(LED_GREEN);
 	
-	energy = LTC2942_GetmAh(LTC2942_LRWAN)*10000 - energy;
-	float voltage = LTC2942_GetVoltage(LTC2942_LRWAN);
-	uint16_t uwh = (uint16_t) (energy * voltage);
-	uint16_t mj = uwh * 3.6;
-	PRINTF("\r\n||LoRa join energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ)||\r\n", energy, uwh, mj);
-	LTC2942_SetShutdown(LTC2942_LRWAN, 1);
-	
+	uint16_t uwh = stopEnergyMeasurement(LTC2942_LRWAN);
+	energyStruct.lorawanPacketType = REGISTRATION;
+	energyStruct.lorawanEnergy = uwh;
+	PRINTF("\r\n||LoRa join energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ)||\r\n", energy, uwh, uwh*3.6f);
+
 }
 
 static void LORA_RxData(lora_AppData_t *AppData){
   /* USER CODE BEGIN 4 */
 	#ifdef DEBUG
-  PRINTF("PACKET RECEIVED ON PORT %d\n\r", AppData->Port);
+  PRINTF_LN("- LoRaWAN packet received on port %d\n\r", AppData->Port);
 	#endif
 	
   switch (AppData->Port){
@@ -705,7 +705,7 @@ static void LORA_RxData(lora_AppData_t *AppData){
 
 static void LORA_ConfirmClass(DeviceClass_t Class){
 	#ifdef DEBUG
-  PRINTF("switch to class %c done\n\r", "ABC"[Class]);
+  PRINTF("- Switching to class %c done\n\r", "ABC"[Class]);
 	#endif
 
   /*Optionnal*/
@@ -724,11 +724,10 @@ static void LORA_TxNeeded(void){
 }
 
 static void LORA_Done(void){
-  energy = LTC2942_GetmAh(LTC2942_LRWAN)*10000 - energy;
-	float voltage = LTC2942_GetVoltage(LTC2942_LRWAN);
-	uint16_t uwh = (uint16_t) (energy * voltage);
-	uint16_t mj = uwh * 3.6;
-	PRINTF("\r\n||LoRa energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ )||\r\n", energy, uwh, mj);
+	uint16_t uwh = 	stopEnergyMeasurement(LTC2942_LRWAN);
+	energyStruct.lorawanEnergy = uwh;
+	energyStruct.lorawanPacketType = SEND;
+	PRINTF("\r\n||LoRa energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ )||\r\n", energy, uwh, uwh*3.6f);
 	LTC2942_SetShutdown(LTC2942_LRWAN, 1);
 }
 
@@ -769,8 +768,7 @@ static void OnTimerLedEvent(void *context){
 // -------------------------------- NBIOT FUNCTIONS -------------------------------------
 
 static void initNBIoT(void){
-	LTC2942_SetShutdown(LTC2942_LRWAN, 0);
-	energy = LTC2942_GetmAh(LTC2942_LRWAN)*10000;
+	startEnergyMeasurement(LTC2942_NBIOT);
 
 	BG96_Init();
 	BG96_PowerOn();
@@ -787,33 +785,39 @@ static void initNBIoT(void){
 	BG96_SetPowerSavingModeImmediately(); // Not available in current firmware
 	PRINTF_LN("- Initialised");
 
-	energy = LTC2942_GetmAh(LTC2942_LRWAN)*10000 - energy;
-	float voltage = LTC2942_GetVoltage(LTC2942_LRWAN);
-	uint16_t uwh = (uint16_t) (energy * voltage);
-	uint16_t mj = uwh * 3.6;
-	PRINTF("\r\n||NB-IoT init energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ )||\r\n", energy, uwh, mj);
-	LTC2942_SetShutdown(LTC2942_LRWAN, 1);
-
+	uint16_t uwh = stopEnergyMeasurement(LTC2942_NBIOT);
+	initEnergyStruct.packetType = INIT;
+	initEnergyStruct.nbiotEnergy = uwh;
+	PRINTF("\r\n||NB-IoT init energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ )||\r\n", energy, uwh, uwh*3.6f);
 }
 
 static void registerNBIoT(void){
-	LTC2942_SetShutdown(LTC2942_NBIOT, 0);
-	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000;
+	startEnergyMeasurement(LTC2942_NBIOT);
 	
 	BG96_SelectNetwork(20601, BG96_NETWORK_NBIOT);
 	BG96_ConnectToOperator(60000);
 	PRINTF_LN("- Connected to operator");
 	
+	uint8_t celevel; 
+	BG96_GetCELevel(&celevel);
+	PRINTF_LN("- CE Level: %d", celevel);
+	
 	BG96_DisableNetworkStatus();
 	
-	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000 - energy;
-	float voltage = LTC2942_GetVoltage(LTC2942_NBIOT);
-	uint16_t uwh = (uint16_t) (energy * voltage);
-	uint16_t mj = uwh * 3.6;
-	PRINTF("\r\n||NB-IoT registration energy used: %d uAh/10 (%d uWh/10, %d/10 mJ )||\r\n", energy, uwh, mj);
+	/*BG96_WaitForPowerDown(240000);
+	PRINTF_LN("- Entered PSM");
 	
-	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000;
+	if(BG96_IsPoweredDown()){
+		PRINTF_LN("- Status: powered down confirmed");
+	}*/
+
+	uint16_t uwh = stopEnergyMeasurement(LTC2942_NBIOT);
+	energyStruct.nbiotPacketType = REGISTRATION;
+	energyStruct.nbiotEnergy = uwh;
+	PRINTF("\r\n||NB-IoT registration energy used: %d uAh/10 (%d uWh/10, %d/10 mJ )||\r\n", energy, uwh, uwh*3.6f);
 	
+	sendNBIoT();
+	/*
 	BG96_ActivateContext();
 	BG96_UDP_Start("62.235.63.122",8891);
 	BG96_UDP_SendData("Hello world");
@@ -833,11 +837,11 @@ static void registerNBIoT(void){
 	mj = uwh * 3.6;
 	PRINTF("\r\n||NB-IoT first packet energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ )||\r\n", energy, uwh, mj);
 	LTC2942_SetShutdown(LTC2942_NBIOT, 1);
+	*/
 }
 
 static void sendNBIoT(void){
-	LTC2942_SetShutdown(LTC2942_NBIOT, 0);
-	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000;
+	startEnergyMeasurement(LTC2942_NBIOT);
 	
 	if(BG96_IsPoweredDown()){
 		PRINTF_LN("- Status: powered down");
@@ -849,7 +853,21 @@ static void sendNBIoT(void){
 	
 	
 	BG96_UDP_Start("62.235.63.122",8891);
-	BG96_UDP_SendData("Hello world");
+	char buffer[100]; 
+	//			  			 1  2  3  4  5  6  7  8  9  10 11 12 13
+	sprintf(buffer, "%d,%d,%d,%d,%s,%d,%d,%s,%d,%d,%s,%d",    	energyStruct.deviceID, \
+																															energyStruct.bootID, \
+																															energyStruct.packetNumber, \
+																															energyStruct.nbiotEnergy, \
+																															energyStruct.nbiotConditions, \
+																															energyStruct.nbiotPacketType, \
+																															energyStruct.sigfoxEnergy, \
+																															energyStruct.sigfoxConditions, \
+																															energyStruct.sigfoxPacketType, \
+																															energyStruct.lorawanEnergy, \
+																															energyStruct.lorawanConditions, \
+																															energyStruct.lorawanPacketType);		
+	BG96_UDP_SendData(buffer);
 	BG96_UDP_Stop();
 	BG96_DeactivateContext();
 	
@@ -863,9 +881,9 @@ static void sendNBIoT(void){
 		PRINTF_LN("- Status: powered down confirmed");
 	}
 	
-	energy = LTC2942_GetmAh(LTC2942_NBIOT)*10000 - energy;
-	float voltage = LTC2942_GetVoltage(LTC2942_NBIOT);
-	uint16_t uwh = (uint16_t) (energy * voltage);
+	uint16_t uwh = stopEnergyMeasurement(LTC2942_NBIOT);
+	energyStruct.nbiotPacketType = SEND;
+	energyStruct.nbiotEnergy = uwh;
 	uint32_t mj = uwh * 3.6f;
 	PRINTF("\r\n||NB-IoT packet energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ )||\r\n", energy, uwh, mj);
 	LTC2942_SetShutdown(LTC2942_NBIOT, 1);
