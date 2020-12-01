@@ -471,7 +471,7 @@ BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint
 		return BG96_OK;
 	}
 }
-
+	
 BG96_Status_t BG96_PowerOn( void ){
 	HAL_Delay(10);
   HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_SET); 
@@ -687,12 +687,13 @@ BG96_Status_t BG96_SelectNetwork(uint16_t networkId, uint8_t mode){
 }
 
 BG96_Status_t BG96_SetPDPContext(char * url){
-	char buffer[30]; 
-	sprintf(buffer, "AT+CGDCONT=1,\"IP\",\"%s\"\r\n", url);
+	char buffer[50]; 
+	sprintf(buffer, "AT+CGDCONT=1,\"IP\",%s\r\n", url);
 	return BG96_SendATCommandCheckReply(buffer, "OK", 300); 
 }
 
 BG96_Status_t BG96_ConnectToOperator( uint32_t timeout ){
+	PRINTF_LN("Started connecting to operator");
 	uint32_t tickstart = HW_RTC_GetTimerValue();
 	uint32_t tickNow = HW_RTC_GetTimerValue();
 	BG96_Status_t status  =  BG96_ERROR; 
@@ -715,11 +716,29 @@ BG96_Status_t BG96_SetEDRXConfiguration(uint8_t enable, uint8_t mode, char * edr
 }
 
 BG96_Status_t BG96_GetEDRXConfiguration(char * buffer){
-	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+CEDRXRDP", buffer, 300);
+	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+CEDRXRDP\r\n", buffer, 300);
 	if(status != BG96_OK)
 		return status;
 	return BG96_SendATCommandCheckReply("", "OK", 300);
 }
+
+BG96_Status_t BG96_GetPacketCounter( char* buffer ){
+	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+QGDCNT?\r\n", buffer, 300);
+	if(status != BG96_OK)
+		return status;
+	return BG96_SendATCommandCheckReply("", "OK", 300);
+}
+
+BG96_Status_t BG96_ConfigureURCIndication( char* indication ){
+	char buffer[30]; 
+	sprintf(buffer, "AT+QURCCFG=\"urcport\",%s\r\n", indication);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+}
+
+BG96_Status_t BG96_SetModemOptimization( void ){
+	return BG96_SendATCommandCheckReply("AT+QPSMEXTCFG=15,1,120,2,1,1\r\n\r\n", "OK", 300);
+}
+
 
 BG96_Status_t BG96_Sleep( void ){
 	BG96_Status_t status = BG96_SendATCommandCheckReply("AT+QSCLK=1\r\n", "OK", 300);
@@ -732,13 +751,23 @@ BG96_Status_t BG96_Wake( void ){
 	return BG96_SendATCommandCheckReply("", "RDY", 6000);
 }
 
-BG96_Status_t BG96_WakeFromPSM( void ){
-	HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_SET); // Wake module
-	HAL_Delay(80);
-	HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_RESET); // Wake module
-	BG96_Status_t status = BG96_SendATCommandCheckReply("", "RDY", 7000);
+BG96_Status_t BG96_WakeFromPSM( uint32_t timeout ){
+	BG96_Status_t status = BG96_ERROR;
+	uint32_t tickstart = HW_RTC_GetTimerValue();
+	uint32_t tickNow = HW_RTC_GetTimerValue();
+	while(BG96_IsPoweredDown() && ( ( tickNow - tickstart ) ) < timeout){
+		HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_SET); // Wake module
+		HAL_Delay(80);
+		HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_RESET); // Wake module
+		
+		HAL_Delay(2000); // Let reconnection establish
+		tickNow = HW_RTC_GetTimerValue();
+	}
+	status = BG96_SendATCommandCheckReply("", "RDY", 7000);
 	status = BG96_SendATCommandCheckReply("AT\r\n", "OK", 7000);
-	HAL_Delay(2000); // Let reconnection establish
+	if(( ( tickNow - tickstart ) ) >= timeout){
+		return BG96_TIMEOUT;
+	}
 	return status;
 }
 
@@ -758,6 +787,19 @@ BG96_Status_t BG96_GetTime(char * timeresult){
 	return BG96_OK;
 }
 
+BG96_Status_t BG96_AbortRRC(){
+	char buffer[30]; 
+	sprintf(buffer, "AT+QCFG=\"rrcabort\",1\r\n");
+	return BG96_SendATCommandCheckReply(buffer, "OK", 1000);
+}
+
+BG96_Status_t BG96_ConfigureFeatures(char * val){
+	char buffer[30]; 
+	sprintf(buffer, "AT+QCFG=\"nccconfig\",%s\r\n", val);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 1000);
+}
+
+
 BG96_Status_t BG96_SetPowerSavingMode(uint8_t mode, char * requestedRAU, char * requestedGPRSREADY, char * requestedTAU, char * requestedActiveTimer){
 	char buffer[100]; 
 	sprintf(buffer, "AT+CPSMS=%d,%s,%s,%s,%s\r\n", mode, requestedRAU, requestedGPRSREADY, requestedTAU, requestedActiveTimer);
@@ -766,7 +808,7 @@ BG96_Status_t BG96_SetPowerSavingMode(uint8_t mode, char * requestedRAU, char * 
 
 BG96_Status_t BG96_SetPowerSavingModeImmediately(){
 	char buffer[30]; 
-	sprintf(buffer, "AT+QCFG=\"psm/enter\"\r\n");
+	sprintf(buffer, "AT+QCFG=\"psm/enter\",1\r\n");
 	return BG96_SendATCommandCheckReply(buffer, "ERROR", 1000);
 }
 
@@ -796,15 +838,18 @@ BG96_Status_t BG96_DisablePSMIndication( void ){
 }
 
 BG96_Status_t BG96_WaitForPowerDown( uint32_t timeout ){
-	BG96_Status_t status  =  BG96_SendATCommandCheckReply("", "POWERED DOWN", BG96_WAIT_FOR_POWERDOWN_MAX);
+	//BG96_Status_t status  =  BG96_SendATCommandCheckReply("", "POWERED DOWN", BG96_WAIT_FOR_POWERDOWN_MAX);
 	uint32_t tickstart = HW_RTC_GetTimerValue();
 	uint32_t tickNow = HW_RTC_GetTimerValue();
-	while(status != BG96_OK  && ( ( tickNow - tickstart ) ) < timeout){
+	while(!BG96_IsPoweredDown() && ( ( tickNow - tickstart ) ) < timeout){
 		HAL_Delay(100+rand()%200); // Wait for random amount of time (100-299ms)
-		status  =  BG96_SendATCommandCheckReply("", "POWERED DOWN", BG96_WAIT_FOR_POWERDOWN_MAX);
+		//status  =  BG96_SendATCommandCheckReply("", "POWERED DOWN", BG96_WAIT_FOR_POWERDOWN_MAX);
 		tickNow = HW_RTC_GetTimerValue();
 	}
-	return status;
+	if(( ( tickNow - tickstart ) ) >= timeout){
+		return BG96_TIMEOUT;
+	}
+	return BG96_OK;
 }
 
 bool BG96_IsPoweredDown(){
@@ -814,7 +859,17 @@ bool BG96_IsPoweredDown(){
 		return false;
 }
 
-// Also possible: AT+QPSMEXTCFG Extended Modem Optimization
+BG96_Status_t BG96_WaitForConnection(uint32_t timeout){
+	uint32_t tickstart = HW_RTC_GetTimerValue();
+	uint32_t tickNow = HW_RTC_GetTimerValue();
+	BG96_Status_t status = BG96_ERROR;
+	while(status != BG96_OK && ( ( tickNow - tickstart ) ) < timeout){
+		//HAL_Delay(500+rand()%500);
+		status = BG96_SendATCommandCheckReply("", "+CEREG: 1,\"", 5000);
+		tickNow = HW_RTC_GetTimerValue();
+	}
+	return status;
+}	
 
 // --- GNSS AT commands ---
 BG96_Status_t BG96_GNSS_Enable(uint8_t mode, uint8_t fixTime,  uint8_t accuracy, uint16_t fixCount, uint16_t fixDelay){
@@ -923,8 +978,8 @@ BG96_Status_t BG96_ResetPacketCounters( void ){
 }	
 
 BG96_Status_t BG96_ConfigureContext( void ){
-	char buffer[20]; 
-	sprintf(buffer, "AT+QICSGP=%d\r\n", _contextID);
+	char buffer[60]; 
+	sprintf(buffer, "AT+QICSGP=%d,1,\"m2minternet.proximus.be\",\"\",\"\",1\r\n", _contextID);
 	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
 }	
 
@@ -938,11 +993,12 @@ BG96_Status_t BG96_ActivateContext( void ){
 	char buffer[20]; 
 	sprintf(buffer, "AT+QIACT=%d\r\n", _contextID);
 	BG96_Status_t status = BG96_SendATCommandCheckReply(buffer, "OK", 1000);
-	uint8_t retries = 0;
-	while(status != BG96_OK && retries < BG96_MAX_SEND_RETRIES){
+	uint32_t tickstart = HW_RTC_GetTimerValue();
+	uint32_t tickNow = HW_RTC_GetTimerValue();
+	while(status != BG96_OK && ( ( tickNow - tickstart ) ) < 30000){
 		HAL_Delay(100+rand()%200);
 		status = BG96_SendATCommandCheckReply(buffer, "OK", 1000);
-		retries++;
+		tickNow = HW_RTC_GetTimerValue();
 	}
 	return status;
 }
@@ -953,19 +1009,46 @@ BG96_Status_t BG96_DeactivateContext( void ){
 	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
 }
 
+bool BG96_CheckIfContextActivated( void ){
+	char buffer[100];
+	BG96_Status_t status = BG96_SendATCommandGetReply("AT+QIACT?\r\n", buffer, 300);
+	char bufferCheck[40]; 
+	sprintf(bufferCheck, "+QIACT: %d,1", _contextID);
+	if(StringStartsWith(buffer, bufferCheck)){
+		return true;
+	}
+	return false;
+}
+
 BG96_Status_t BG96_UDP_Start(char * ipaddress, uint32_t port){ // Start as client
 	char buffer[60]; 
 	sprintf(buffer, "AT+QIOPEN=%d,%d,\"UDP\",\"%s\",%d\r\n", _contextID, _connectID, ipaddress, port);
 	BG96_Status_t status =  BG96_SendATCommandCheckReply(buffer, "OK", 300);
-	uint8_t retries = 0;
-	while(status != BG96_OK && retries < BG96_MAX_SEND_RETRIES){
+	uint32_t tickstart = HW_RTC_GetTimerValue();
+	uint32_t tickNow = HW_RTC_GetTimerValue();
+	while(status != BG96_OK && ( ( tickNow - tickstart ) ) < 30000){
 		HAL_Delay(100+rand()%200);
 		status =  BG96_SendATCommandCheckReply(buffer, "OK", 300);
-		retries++;
+		tickNow = HW_RTC_GetTimerValue();
 	}
 	if(status != BG96_OK)
 		return status;
-	return BG96_SendATCommandCheckReply("", "+QIOPEN", 300);
+	BG96_SendATCommandGetReply("", buffer, 300);
+	char bufferCheck[40]; 
+	sprintf(bufferCheck, "+QIOPEN: %d,0", _connectID);
+	if(StringStartsWith(buffer, bufferCheck)){
+		PRINTF_LN("buffer check ok");
+		
+		return BG96_OK;
+	}
+	bufferCheck[11] = '\0';
+	if(StringStartsWith(buffer, bufferCheck)){
+		PRINTF_LN("buffer check !ok");
+		return BG96_ERROR;
+	}
+	PRINTF_LN("other");
+	PRINTF_LN("%s",buffer);
+	return BG96_ERROR;
 }
 
 BG96_Status_t BG96_UDP_Stop( void ){ 
@@ -986,10 +1069,18 @@ BG96_Status_t BG96_UDP_GetStatus(char * replyBuffer){ // Start service
 	return BG96_SendATCommandGetReply(buffer, replyBuffer, 300);
 }
 
-BG96_Status_t BG96_UDP_SendData( char * data){
+BG96_Status_t BG96_UDP_SendData( char * data, uint32_t timeout){
 	char buffer[60]; 
+	BG96_Status_t status = BG96_ERROR;
 	sprintf(buffer, "AT+QISEND=%d\r\n", _connectID);
-	BG96_Status_t status = BG96_SendATCommandCheckReply(buffer, ">", 300);
+	uint32_t tickstart = HW_RTC_GetTimerValue();
+	uint32_t tickNow = HW_RTC_GetTimerValue();
+	
+	while(status != BG96_OK && ( ( tickNow - tickstart ) ) < timeout){
+		HAL_Delay(500+rand()%500);
+		status = BG96_SendATCommandCheckReply(buffer, ">", 300);
+		tickNow = HW_RTC_GetTimerValue();
+	}
 	if(status != BG96_OK)
 		return status;
 	BG96_SendATCommand(data);

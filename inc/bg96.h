@@ -41,7 +41,7 @@ extern "C" {
 #define BG96_STATUS_PIN GPIO_PIN_9
 #define BG96_STATUS_PORT GPIOA
 
-#define BG96_REPLY_SIZE 100
+#define BG96_REPLY_SIZE 120
 #define BG96_IP_ADDRESS_SIZE 30
 #define BG96_DOMAIN_NAME_SIZE 50
 #define BG96_PORT_SIZE 8  
@@ -170,6 +170,11 @@ enum {
 #define BG96_HTTP_CONTENT_TYPE_APPLICATION_STREAM 2
 #define BG96_HTTP_CONTENT_TYPE_MULTIPART 3
 #define BG96_HTTP_RESPONSE_SIZE 100
+
+#define BG96_URCINDICATION_UART1 "uart1"
+#define BG96_URCINDICATION_USBAT "usbat"
+#define BG96_URCINDICATION_USBMODEM "usbmodem"
+
 typedef enum BG96_statuses{
 	BG96_OK, 
 	BG96_ERROR,
@@ -225,9 +230,13 @@ BG96_Status_t BG96_SelectNetwork(uint16_t networkId, uint8_t mode);
 BG96_Status_t BG96_SetPDPContext(char * url);
 BG96_Status_t BG96_ConnectToOperator( uint32_t timeout );
 BG96_Status_t BG96_SetEDRXConfiguration(uint8_t enable, uint8_t mode, char * edrx);
+BG96_Status_t BG96_GetEDRXConfiguration(char * buffer);
+BG96_Status_t BG96_GetPacketCounter( char* buffer );
+BG96_Status_t BG96_ConfigureURCIndication( char* indication );
+BG96_Status_t BG96_SetModemOptimization( void );
 BG96_Status_t BG96_Sleep(void );
 BG96_Status_t BG96_Wake( void );
-BG96_Status_t BG96_WakeFromPSM( void );
+BG96_Status_t BG96_WakeFromPSM( uint32_t timeout );
 BG96_Status_t BG96_EnablePSMIndication( void );
 BG96_Status_t BG96_DisablePSMIndication( void );
 BG96_Status_t BG96_SetPowerSavingMode(uint8_t mode, char * requestedRAU, char * requestedGPRSREADY, char * requestedTAU, char * requestedActiveTimer);
@@ -236,6 +245,7 @@ BG96_Status_t BG96_SetPowerSavingModeSettings(uint32_t threshold, uint8_t versio
 BG96_Status_t BG96_SetPowerSavingModeImmediately( void );
 BG96_Status_t BG96_WaitForPowerDown( uint32_t timeout );
 bool BG96_IsPoweredDown( void );
+BG96_Status_t BG96_WaitForConnection(uint32_t timeout);
 
 // GNSS AT commands
 BG96_Status_t BG96_GNSS_Enable( uint8_t mode, uint8_t fixTime,  uint8_t accuracy, uint16_t fixCount, uint16_t fixDelay);
@@ -251,11 +261,12 @@ BG96_Status_t BG96_ConfigureContext( void );
 BG96_Status_t BG96_ConfigureContextAPN(uint8_t contextType, char * apn, char * username, char * password, uint8_t authentication );
 BG96_Status_t BG96_ActivateContext( void );
 BG96_Status_t BG96_DeactivateContext( void );
+bool BG96_CheckIfContextActivated( void );
 BG96_Status_t BG96_UDP_Start(char * ipaddress, uint32_t port);
 BG96_Status_t BG96_UDP_Stop( void );
 BG96_Status_t BG96_UDP_StartService(char * ipaddress, uint32_t port);
 BG96_Status_t BG96_UDP_GetStatus(char * replyBuffer);
-BG96_Status_t BG96_UDP_SendData( char * data);
+BG96_Status_t BG96_UDP_SendData( char * data, uint32_t timeout);
 BG96_Status_t BG96_UDP_SendDataTo(char * ipaddress, uint32_t port, char * data);
 	
 // HTTP Commands
