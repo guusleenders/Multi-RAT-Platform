@@ -171,18 +171,20 @@ enum {
 #define BG96_HTTP_CONTENT_TYPE_MULTIPART 3
 #define BG96_HTTP_RESPONSE_SIZE 100
 
-#define BG96_URCINDICATION_UART1 "uart1"
-#define BG96_URCINDICATION_USBAT "usbat"
-#define BG96_URCINDICATION_USBMODEM "usbmodem"
+#define BG96_URCINDICATION_UART1 "\"uart1\""
+#define BG96_URCINDICATION_USBAT "\"usbat\""
+#define BG96_URCINDICATION_USBMODEM "\"usbmodem\""
 
 typedef enum BG96_statuses{
-	BG96_OK, 
-	BG96_ERROR,
+	BG96_ERROR, 
+	BG96_OK,
 	BG96_TIMEOUT
 }BG96_Status_t;
 
 // Inits
 void BG96_Init( void );
+void BG96_DeInit(void);
+void BG96_IoDeInit(void);
 
 // Serial functions
 void BG96_Send( const char *format, ... );
@@ -202,6 +204,7 @@ BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint
 
 // General AT commands
 BG96_Status_t BG96_PowerOn( void );
+BG96_Status_t BG96_SetBaudRate( uint16_t baud );
 BG96_Status_t BG96_PowerDown( void );
 BG96_Status_t BG96_SaveConfiguration( void );
 BG96_Status_t BG96_ResetConfiguration( void );

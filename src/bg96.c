@@ -8,6 +8,8 @@
 
 #define BUFSIZE_RX 8
 
+#define FIRSTBOOT
+
 static UART_HandleTypeDef BG96_UARTHandle;
 
 static void BG96_Receive(char rx); //Takes one character that has been received and save it in uart_context.buffRx
@@ -73,7 +75,7 @@ void BG96_Init( void ){
   /*## Configure the UART peripheral ######################################*/
 
 
-  LL_RCC_SetLPUARTClockSource(LL_RCC_LPUART1_CLKSOURCE_HSI);
+  LL_RCC_SetLPUARTClockSource(LL_RCC_LPUART1_CLKSOURCE_HSI); // Change to RCC_CCIPR_LPUART1SEL for low power-ness, first boot LL_RCC_LPUART1_CLKSOURCE_HSI
   UARTX_CLK_ENABLE();
 
 	/*##-3- Configure the NVIC for UART ########################################*/
@@ -81,7 +83,7 @@ void BG96_Init( void ){
   HAL_NVIC_SetPriority(UARTX_IRQn, IRQ_PRIORITY_USARTX, 0);
   HAL_NVIC_EnableIRQ(UARTX_IRQn);
 
-  LPUART_InitStruct.BaudRate = 9600;
+LPUART_InitStruct.BaudRate = 9600; // Change to 9600 for low power-ness; first boot: 115200
   LPUART_InitStruct.DataWidth = LL_LPUART_DATAWIDTH_8B;
   LPUART_InitStruct.StopBits = LL_LPUART_STOPBITS_1;
   LPUART_InitStruct.Parity = LL_LPUART_PARITY_NONE;
@@ -133,6 +135,23 @@ void BG96_Init( void ){
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
   HW_GPIO_Init( BG96_STATUS_PORT, BG96_STATUS_PIN, &GPIO_InitStruct );
+
+	
+}
+
+void BG96_DeInit(void){
+  LL_LPUART_DeInit(UARTX);
+}
+
+void BG96_IoDeInit(void){
+  GPIO_InitTypeDef GPIO_InitStructure = {0};
+
+  GPIO_InitStructure.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStructure.Pull = GPIO_NOPULL;
+
+  HW_GPIO_Init(BG96_TX_PORT, BG96_TX_PIN, &GPIO_InitStructure);
+
+  HW_GPIO_Init(BG96_RX_PORT, BG96_RX_PIN, &GPIO_InitStructure);
 }
 
 void BG96_Send( const char *format, ... ){
@@ -364,6 +383,7 @@ static void BG96_StartDMA(char* buf, uint16_t buffLen){
   LL_DMA_EnableChannel( DMA1, LL_DMA_CHANNEL_7); 
   /*enable LPUART transmitt complete interrupt*/
   LL_LPUART_EnableIT_TC(UARTX);
+	
 }
 
 
@@ -439,6 +459,7 @@ BG96_Status_t BG96_SendATCommandCheckReply( char *buffer , char *replyBuffer, ui
     SCH_Run(); 
 		tickNow = HW_RTC_GetTimerValue();
   }
+	HAL_Delay(2);
 	totalReplyBufferDone = false;
 	waitingForReply = false;
 	if(StringStartsWith(totalReplyBuffer, replyBuffer)){
@@ -461,6 +482,7 @@ BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint
     SCH_Run(); 
 		tickNow = HW_RTC_GetTimerValue();
   }
+	HAL_Delay(2);
 	totalReplyBufferDone = false;
 	waitingForReply = false;
 	if(( tickNow - tickstart )  >= timeout){
@@ -473,6 +495,7 @@ BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint
 }
 	
 BG96_Status_t BG96_PowerOn( void ){
+	//BG96_SaveConfiguration();
 	HAL_Delay(10);
   HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_SET); 
   HAL_Delay(500);
@@ -483,7 +506,13 @@ BG96_Status_t BG96_PowerOn( void ){
   HAL_Delay(400);
   HAL_GPIO_WritePin(BG96_RESETKEY_PORT, BG96_RESETKEY_PIN, GPIO_PIN_RESET); 
 	
-	BG96_Status_t status = BG96_SendATCommandCheckReply("", "RDY", 10000);
+	//HAL_Delay(20000);
+	//BG96_SetBaudRate(9600);
+	
+	BG96_Status_t status = BG96_SendATCommandCheckReply("", "RDY", 10000); // RDY
+	status = BG96_SendATCommandCheckReply("", "APP RDY", 2000); // APP RDY
+	//status = BG96_SendATCommandCheckReply("ATE0\r\n", "ATE0", 1000);
+	//BG96_SaveConfiguration();
 	if(status != BG96_OK)
 		return status;
 	status = BG96_SendATCommandCheckReply("AT\r\n", "OK", 1000);
@@ -494,7 +523,21 @@ BG96_Status_t BG96_PowerOn( void ){
 		return status;
 	status = BG96_SendATCommandCheckReply("ATE0\r\n", "ATE0", 1000);
 	BG96_SendATCommandCheckReply("", "OK", 1000);
+	
+		
+	#ifdef FIRSTBOOT
+	BG96_Status_t BG96_SetBaudRate( uint16_t baud );
+	#endif
+	
 	return status;
+}
+
+BG96_Status_t BG96_SetBaudRate( uint16_t baud ){
+	char buffer[30]; 
+	sprintf(buffer, "AT+IPR=%d\r\n", baud);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
+	
+	// TODO: Auto save via BG96_SaveConfiguration (but with new baud rate)
 }
 
 BG96_Status_t BG96_PowerDown( void ){
@@ -683,6 +726,8 @@ BG96_Status_t BG96_SelectNetwork(uint16_t networkId, uint8_t mode){
 	char buffer[50]; 
 	sprintf(buffer, "AT+COPS=1,2,\"%d\",%d\r\n", networkId, mode);
 	BG96_Status_t status = BG96_SendATCommandCheckReply(buffer, "OK", 48928); // Delay up to 180s, limited by int size
+	//BG96_SendATCommandCheckReply("", "APP RDY", 300);
+	//BG96_SendATCommandCheckReply("", "+CEREG", 300);
 	return status;
 }
 
@@ -697,10 +742,15 @@ BG96_Status_t BG96_ConnectToOperator( uint32_t timeout ){
 	uint32_t tickstart = HW_RTC_GetTimerValue();
 	uint32_t tickNow = HW_RTC_GetTimerValue();
 	BG96_Status_t status  =  BG96_ERROR; 
+	char buffer[30];
 	while(status != BG96_OK  && ( ( tickNow - tickstart ) ) < timeout){
-		HAL_Delay(100+rand()%200); // Wait for random amount of time (100-299ms)
 		status = BG96_SendATCommandCheckReply("AT+CGATT?\r\n", "+CGATT: 1", 300);
-		BG96_SendATCommandCheckReply("", "OK", 300); // Check out last (closing) OK\r\n
+		BG96_SendATCommandGetReply("", buffer, 300); // Check out last (closing) OK\r\n
+		if(StringStartsWith(buffer, "+CGATT: 1")){ // If cgat 1 is detected instead of OK, then is connected!
+			status = BG96_OK;
+		}
+		if(status != BG96_OK)
+			HAL_Delay(100+rand()%200); // Wait for random amount of time (100-299ms)
 		tickNow = HW_RTC_GetTimerValue();
 	}
 	if(( tickNow - tickstart ) >= timeout){
@@ -736,7 +786,7 @@ BG96_Status_t BG96_ConfigureURCIndication( char* indication ){
 }
 
 BG96_Status_t BG96_SetModemOptimization( void ){
-	return BG96_SendATCommandCheckReply("AT+QPSMEXTCFG=15,1,120,2,1,1\r\n\r\n", "OK", 300);
+	return BG96_SendATCommandCheckReply("AT+QPSMEXTCFG=6,1,120,2,1,1\r\n\r\n", "OK", 300);
 }
 
 
@@ -760,15 +810,16 @@ BG96_Status_t BG96_WakeFromPSM( uint32_t timeout ){
 		HAL_Delay(80);
 		HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_RESET); // Wake module
 		
-		HAL_Delay(2000); // Let reconnection establish
+		HAL_Delay(4000); // Let reconnection establish
 		tickNow = HW_RTC_GetTimerValue();
 	}
-	status = BG96_SendATCommandCheckReply("", "RDY", 7000);
-	status = BG96_SendATCommandCheckReply("AT\r\n", "OK", 7000);
-	if(( ( tickNow - tickstart ) ) >= timeout){
+	/*status = BG96_SendATCommandCheckReply("", "RDY", 7000);
+	status = BG96_SendATCommandCheckReply("AT\r\n", "OK", 7000);*/
+	if(BG96_IsPoweredDown()){
 		return BG96_TIMEOUT;
+	}else{
+		return BG96_OK;
 	}
-	return status;
 }
 
 // Not tested
@@ -802,18 +853,18 @@ BG96_Status_t BG96_ConfigureFeatures(char * val){
 
 BG96_Status_t BG96_SetPowerSavingMode(uint8_t mode, char * requestedRAU, char * requestedGPRSREADY, char * requestedTAU, char * requestedActiveTimer){
 	char buffer[100]; 
-	sprintf(buffer, "AT+CPSMS=%d,%s,%s,%s,%s\r\n", mode, requestedRAU, requestedGPRSREADY, requestedTAU, requestedActiveTimer);
+	sprintf(buffer, "AT+QPSMS=%d,%s,%s,%s,%s\r\n", mode, requestedRAU, requestedGPRSREADY, requestedTAU, requestedActiveTimer);
 	return BG96_SendATCommandCheckReply(buffer, "OK", 1000);
 }
 
 BG96_Status_t BG96_SetPowerSavingModeImmediately(){
 	char buffer[30]; 
 	sprintf(buffer, "AT+QCFG=\"psm/enter\",1\r\n");
-	return BG96_SendATCommandCheckReply(buffer, "ERROR", 1000);
+	return BG96_SendATCommandCheckReply(buffer, "OK", 1000);
 }
 
 BG96_Status_t BG96_GetPowerSavingMode(char * buffer){
-	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+QPSMS=?\r\n", buffer, 300); // QPSMS in stead of CPSMS: returns network parameters in stead of requested things
+	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+QPSMS?\r\n", buffer, 300); // QPSMS in stead of CPSMS: returns network parameters in stead of requested things
 	if(status != BG96_OK)
 		return status; 
 	return BG96_SendATCommandCheckReply("", "OK", 300);
@@ -838,15 +889,14 @@ BG96_Status_t BG96_DisablePSMIndication( void ){
 }
 
 BG96_Status_t BG96_WaitForPowerDown( uint32_t timeout ){
-	//BG96_Status_t status  =  BG96_SendATCommandCheckReply("", "POWERED DOWN", BG96_WAIT_FOR_POWERDOWN_MAX);
 	uint32_t tickstart = HW_RTC_GetTimerValue();
 	uint32_t tickNow = HW_RTC_GetTimerValue();
+	PRINTF_LN("- Ticks started at %08x", tickstart);
 	while(!BG96_IsPoweredDown() && ( ( tickNow - tickstart ) ) < timeout){
-		HAL_Delay(100+rand()%200); // Wait for random amount of time (100-299ms)
-		//status  =  BG96_SendATCommandCheckReply("", "POWERED DOWN", BG96_WAIT_FOR_POWERDOWN_MAX);
+		HAL_Delay(50);
 		tickNow = HW_RTC_GetTimerValue();
 	}
-	if(( ( tickNow - tickstart ) ) >= timeout){
+	if(( tickNow - tickstart ) >= timeout){
 		return BG96_TIMEOUT;
 	}
 	return BG96_OK;
@@ -860,20 +910,42 @@ bool BG96_IsPoweredDown(){
 }
 
 BG96_Status_t BG96_WaitForConnection(uint32_t timeout){
+	char buffer[100];
 	uint32_t tickstart = HW_RTC_GetTimerValue();
 	uint32_t tickNow = HW_RTC_GetTimerValue();
 	BG96_Status_t status = BG96_ERROR;
+	BG96_SendATCommandCheckReply("AT+CEREG=2\r\n", "OK", 300);
 	while(status != BG96_OK && ( ( tickNow - tickstart ) ) < timeout){
 		//HAL_Delay(500+rand()%500);
-		status = BG96_SendATCommandCheckReply("", "+CEREG: 1,\"", 5000);
+		status = BG96_SendATCommandGetReply("AT+CEREG?\r\n", buffer, 1000);
+		if(status == BG96_OK){
+			char *search = strchr(buffer, '9'); //Check if nbiot is connected = mode 9
+			PRINTF_LN("- %s", buffer);
+			if(search == NULL){ // If no 9 is found
+				PRINTF_LN("- NBIOT mode not found");
+				if(StringStartsWith(buffer, "+CEREG: 1,\"")){ // Check for CEREG: 1,"
+					status = BG96_OK; // If that is found: OK
+				}else{
+					status = BG96_ERROR; // If not, all else is lost
+				}
+			}else{
+				status = BG96_OK; // 9 is found
+				PRINTF_LN("- NBIOT mode is found");
+			}
+		}
 		tickNow = HW_RTC_GetTimerValue();
 	}
+	if(status != BG96_OK){
+		status = BG96_SendATCommandCheckReply("AT+CEREG?\r\n", "+CEREG: 4,1,\"", 300); // Check one last time
+	}
+	BG96_SendATCommandCheckReply("AT+CEREG=0\r\n", "OK", 300);
+		
 	return status;
 }	
 
 // --- GNSS AT commands ---
 BG96_Status_t BG96_GNSS_Enable(uint8_t mode, uint8_t fixTime,  uint8_t accuracy, uint16_t fixCount, uint16_t fixDelay){
-	char buffer[30]; 
+	char buffer[50]; 
 	sprintf(buffer, "AT+QGPS=%d,%d,%d,%d,%d\r\n", mode, fixTime, accuracy, fixCount, fixDelay);
 	BG96_Status_t status = BG96_SendATCommandCheckReply(buffer, "OK", 300);
 	return status;
@@ -1012,7 +1084,7 @@ BG96_Status_t BG96_DeactivateContext( void ){
 bool BG96_CheckIfContextActivated( void ){
 	char buffer[100];
 	BG96_Status_t status = BG96_SendATCommandGetReply("AT+QIACT?\r\n", buffer, 300);
-	char bufferCheck[40]; 
+	char bufferCheck[30]; 
 	sprintf(bufferCheck, "+QIACT: %d,1", _contextID);
 	if(StringStartsWith(buffer, bufferCheck)){
 		return true;
@@ -1021,7 +1093,7 @@ bool BG96_CheckIfContextActivated( void ){
 }
 
 BG96_Status_t BG96_UDP_Start(char * ipaddress, uint32_t port){ // Start as client
-	char buffer[60]; 
+	char buffer[70]; 
 	sprintf(buffer, "AT+QIOPEN=%d,%d,\"UDP\",\"%s\",%d\r\n", _contextID, _connectID, ipaddress, port);
 	BG96_Status_t status =  BG96_SendATCommandCheckReply(buffer, "OK", 300);
 	uint32_t tickstart = HW_RTC_GetTimerValue();
@@ -1064,7 +1136,7 @@ BG96_Status_t BG96_UDP_StartService(char * ipaddress, uint32_t port){ // Start s
 }
 
 BG96_Status_t BG96_UDP_GetStatus(char * replyBuffer){ // Start service
-	char buffer[60]; 
+	char buffer[30]; 
 	sprintf(buffer, "AT+QISTATE=1,%d\r\n", _connectID);
 	return BG96_SendATCommandGetReply(buffer, replyBuffer, 300);
 }

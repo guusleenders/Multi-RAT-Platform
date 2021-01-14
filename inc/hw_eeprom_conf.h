@@ -85,7 +85,7 @@ typedef struct {
 /* Exported constants --------------------------------------------------------*/
 #define DEFAULT_FACTORY_SETTINGS { 0, /*calibartion RSSI*/ \
                                    E2P_SET,            /* AtEcho  =  Set */   \
-                                   14,                 /* TxPower = 14dBm in RC1, 20dBm in Rc2 and RC4 */   \
+                                   10,                 /* TxPower = 14dBm in RC1, 20dBm in Rc2 and RC4 */   \
                                    ST_RC1,             /* SgfxRcz = RC1  */   \
                                    CREDENTIALS_KEY_PRIVATE,/*Private KEY*/     \
                                    {RC2_SET_STD_CONFIG_SM_WORD_0, RC2_SET_STD_CONFIG_SM_WORD_1, RC2_SET_STD_CONFIG_SM_WORD_2 }, \

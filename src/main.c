@@ -41,12 +41,17 @@
 
 #include "ltc2942.h"
 #include "sgfx_sx1276_driver.h"
+#include "stm32l0xx_hal.h"
 
+#include "stm32l0xx_hal_wwdg.h"
+#include "stm32l0xx_hal_rng.h"
 
 #include "bg96.h"
 
 
 // -------------------------- GENERAL DEFINITIONS ------------------------------
+
+
 #define NBIOT
 #define SIGFOX
 #define LORAWAN
@@ -54,8 +59,8 @@
 #define USER_BUTTON_ALT_PIN                         GPIO_PIN_0
 #define USER_BUTTON_ALT_GPIO_PORT                   GPIOA
 //#define STDBY_ON
-#define DEBUG	
-#define SEND_DELAY																	120*1000
+//#define DEBUG	
+#define SEND_DELAY																	20*1000
 
 typedef enum {
 		INIT = (uint8_t)0, 
@@ -131,7 +136,8 @@ static void LoraMacProcessNotify(void);									// TX timer callback function
 // ---------------------------- NBIOT FUNCTIONS ---------------------------------
 static void initNBIoT(void);														// Init NB-IoT modem
 static void registerNBIoT(void);												// Register to NB-IoT network
-static void sendNBIoT(void);														// Send NB-IoT data
+static int8_t sendNBIoT(void);														// Send NB-IoT data
+void stopEnergyMeasurementNBIoT( void );								// Stop NB-IoT energy measurement
 
 // -------------------------- GENERAL VARIABLES ---------------------------------
 static TimerEvent_t TxTimer;
@@ -164,7 +170,7 @@ struct Energy_t {
 } energyStruct;  
 
 RNG_HandleTypeDef hrng;
-
+WWDG_HandleTypeDef   WwdgHandle;
 
 // ---------------------------- LORA VARIABLES ---------------------------------
 static uint8_t AppDataBuff[LORAWAN_APP_DATA_BUFF_SIZE]; // User application data
@@ -221,6 +227,20 @@ int main( void ){
 	
 	PRINTF_LN("Started...");
 	
+	if(__HAL_RCC_GET_FLAG(RCC_FLAG_WWDGRST) != RESET){ 
+    /* WWDGRST flag set: Turn LED1 on */
+    PRINTF_LN("- Started from WDT");
+    /* Clear reset flags */
+    __HAL_RCC_CLEAR_RESET_FLAGS();
+  }
+	
+	PRINTF_LN("- Setting up WDT");
+	WwdgHandle.Instance = WWDG;
+
+  WwdgHandle.Init.Prescaler = WWDG_PRESCALER_8;
+  WwdgHandle.Init.Window    = 80;
+  WwdgHandle.Init.Counter   = 127;
+	
 	__HAL_RCC_RNG_CLK_ENABLE();
 	hrng.Instance = RNG;
   HAL_RNG_Init(&hrng);
@@ -229,7 +249,6 @@ int main( void ){
 	uint16_t bootID = 0;
 	if(HAL_RNG_GenerateRandomNumber(&hrng, &random) == HAL_OK){
 		bootID = random % 999;
-    PRINTF_LN("Random: %d", bootID);
   }
 	
 	HAL_RNG_DeInit(&hrng);
@@ -263,18 +282,21 @@ int main( void ){
 	#endif
 	
 	PRINTF_LN("Registering...");
+	#ifdef NBIOT
 	PRINTF_LN("1. NB-IoT");
 	registerNBIoT();
-	
+	#endif
 	PRINTF_LN("- Done, now Sigfox");
 	
+	#ifdef SIGFOX
 	PRINTF_LN("2. Sigfox");
 	registerSigfox();
-
-
+	#endif
+	
+	#ifdef LORAWAN
 	PRINTF_LN("3. LoRaWAN");
 	registerLoRaWAN();
-
+	#endif
 	
 	// Set low power mode: stop mode (timers on)
 	LPM_SetOffMode(LPM_APPLI_Id, LPM_Disable);
@@ -315,6 +337,7 @@ void SCH_Idle( void ){
 }
 
 static void sendTest(void){
+
 	PRINTF_LN("Starting testing sequence...");
 	
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, NULL ); // Disable irq to forbidd user to press button while transmitting
@@ -325,7 +348,7 @@ static void sendTest(void){
 	#endif
 	
 	energyStruct.packetNumber++;
-	
+	HAL_Delay(500);
 	#ifdef SIGFOX
 	PRINTF("2. SIGFOX \n");
 	sendSigfox();
@@ -342,11 +365,14 @@ static void sendTest(void){
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, send_data_request_from_irq ); // Enable user to press button after transmittion
 	
 	PRINTF_LN("Testing sequence done.");
+	
+	TimerStart(&TxTimer); // Schedule next testing cycle
+
 }
 
 static void onTimerEvent(void *context){
-	TimerStart(&TxTimer);
 	send_data_request(); 
+	
 }
 
 
@@ -461,7 +487,15 @@ static void sendSigfox( void ){
 	SIGFOX_API_close(); // Make sure sigfox api is closed before opening
 	
 	st_sfx_rc_t SgfxRc=APPLI_RC;
-  st_sigfox_open( SgfxRc);
+	
+	error=st_sigfox_open( SgfxRc);															// Open Sifox Lib
+  HW_EEPROM_WRITE( E2pData.SgfxKey, CREDENTIALS_KEY_PRIVATE); // Use private key
+  if ( error == SFX_ERR_NONE ){
+    PRINTF(" OK\n\r");
+  }
+  else{
+    PRINTF(" error %d\n\r", error);
+  }
 	
 	PRINTF("- Data to be sent:");
   for (i=0; i<ul_size; i++){
@@ -793,16 +827,19 @@ static void initNBIoT(void){
 	
 	char buffer[30];
 	memset(buffer, '\0', 30);
-
+	
+	BG96_SendATCommandGetReply("ATX1\r\n", buffer, 300); // Important for edrx?
+	BG96_SendATCommandGetReply("AT+QCFG=\"psm/urc\",1\r\n", buffer, 300);
+	//BG96_SendATCommandGetReply("AT+CFUN=0\r\n", buffer, 300);
 	BG96_SetErrorFormat(BG96_ERROR_VERBOSE);
-	//BG96_ConfigureURCIndication(BG96_URCINDICATION_UART1);
-	BG96_SetNetworkReporting(BG96_NETWORK_REPORTING_DISABLE);
+	BG96_ConfigureURCIndication(BG96_URCINDICATION_USBAT);
+	BG96_SetNetworkReporting(BG96_NETWORK_REPORTING_STAT);
 	BG96_SetModemOptimization();
 	//BG96_CheckSIMPIN(buffer);
-	BG96_SetMode(BG96_NBIOT_MODE);
 	//BG96_EnablePSMIndication();
-	BG96_SetPowerSavingMode(1, "", "", "\"00000100\"", "\"00001111\""); // set tau timer to ..., active timer to 30s (seems to work best in network)
-	BG96_SetEDRXConfiguration(1,5,"\"0010\"");
+	BG96_SetPowerSavingMode(1, "", "", "\"00001010\"", "\"00001111\""); // set tau timer to 1h, active timer to 30s (seems to work best in network)
+	BG96_SetEDRXConfiguration(2,5,"\"0010\"");
+	BG96_SetMode(BG96_NBIOT_MODE);
 	//BG96_SetPowerSavingModeImmediately(); // Not available in current firmware
 	PRINTF_LN("- Initialised");
 
@@ -837,77 +874,132 @@ static void registerNBIoT(void){
 	energyStruct.nbiotEnergy = uwh;
 	PRINTF("\r\n||NB-IoT registration energy used: %d uAh/10 (%d uWh/10, %d/10 mJ )||\r\n", energy, uwh, uwh*3.6f);
 	
+	BG96_SetPowerSavingModeSettings(20,12);
+	
+	char buffertest[100];
+	BG96_GetPowerSavingMode(buffertest);
+	PRINTF_LN("- Power saving mode settings: %s\r\n", buffertest);
+	BG96_GetEDRXConfiguration(buffertest);
+	PRINTF_LN("- Edrx mode settings: %s\r\n", buffertest);
+	BG96_SetModemOptimization();
+	BG96_Sleep();
+	//BG96_SendATCommandGetReply("AT+QCFG=\"rrcabort\",1\r\n", buffer, 300);
+	BG96_SetPowerSavingModeImmediately();
+	
 	sendNBIoT();
 	
 	PRINTF_LN("- Register procedure complete");
 
 }
 
-static void sendNBIoT(void){
+static int8_t sendNBIoT(void){
+	BG96_Init();
+	
 	startEnergyMeasurement(LTC2942_NBIOT);
 	
 	if(BG96_IsPoweredDown()){
 		PRINTF_LN("- Status: powered down");
 		PRINTF_LN("- Waking from psm");
-		BG96_WakeFromPSM(1000);
-		
-		BG96_WaitForConnection(30000);
+		if(BG96_WakeFromPSM(10000) == BG96_OK){
+			PRINTF("- Wake from PSM ok");
+			if(BG96_WaitForConnection(20000) != BG96_OK){
+				PRINTF("- Wait for connection fail");
+				stopEnergyMeasurementNBIoT();
+				return -1;
+			}else{
+				PRINTF("- Wait for connection ok");
+			}
+		}else{
+			PRINTF_LN("- Wake from PSM fail");
+			stopEnergyMeasurementNBIoT();
+			return -1;
+		}
 	}else{
 		PRINTF_LN("- Status: powered on");
 	}
-	//BG96_WaitForClear(1000);
+
 	if(!BG96_CheckIfContextActivated()){
 		PRINTF_LN("- Context not active");
-		//BG96_ActivateContext();
-		//PRINTF_LN("- Context activated");
+		BG96_ActivateContext();
+		PRINTF_LN("- Context activated");
 	}else{
 		PRINTF_LN("- Context already active");
 	}
 	
+	char bufferNetworkInfo[100];
+	BG96_GetNetworkInfo(bufferNetworkInfo);
+	PRINTF_LN("- Network info: %s", bufferNetworkInfo);
 	
-	//BG96_WaitForClear(1000);
 	HAL_Delay(200);
-	while(BG96_UDP_Start("62.235.63.122",8891) != BG96_OK){
-		PRINTF_LN("- UDP Start failed, try again");
-		HAL_Delay(200);
+	if(BG96_UDP_Start("62.235.63.122",8891) != BG96_OK){
+		PRINTF_LN("- UDP Start failed, going back to psm");
+	}else{
+	
+		/*uint8_t celevel; 
+		BG96_GetCELevel(&celevel);
+		char propBuffer[70];
+		BG96_GetEDRXConfiguration(propBuffer);
+		PRINTF_LN("%s", propBuffer);
+		BG96_GetNetworkStatus(propBuffer);
+		PRINTF_LN("%s", propBuffer);*/
+		
+		char buffer[100]; 
+		//			  			 1  2  3  4  5  6  7  8  9  10 11 12 13
+		sprintf(buffer, "%d,%d,%d,%d,%s,%d,%d,%s,%d,%d,%s,%d",    	energyStruct.deviceID, \
+																																energyStruct.bootID, \
+																																energyStruct.packetNumber, \
+																																energyStruct.nbiotEnergy, \
+																																energyStruct.nbiotConditions, \
+																																energyStruct.nbiotPacketType, \
+																																energyStruct.sigfoxEnergy, \
+																																energyStruct.sigfoxConditions, \
+																																energyStruct.sigfoxPacketType, \
+																																energyStruct.lorawanEnergy, \
+																																energyStruct.lorawanConditions, \
+																																energyStruct.lorawanPacketType);		
+		BG96_UDP_SendData(buffer, 30000);
+		BG96_UDP_Stop();
+		BG96_DeactivateContext();
+		
+		PRINTF_LN("- Done sending NB-IoT");
+		//BG96_SendATCommandGetReply("AT+CFUN=4\r\n", buffer, 300);
+		//BG96_SendATCommandGetReply("AT+QCFG=\"rrcabort\",1\r\n", buffer, 300);
+		BG96_SetPowerSavingModeImmediately();
+		//BG96_Sleep();
+		PRINTF_LN("- Waiting for PSM");
 	}
-	
-	/*uint8_t celevel; 
-	BG96_GetCELevel(&celevel);
-	char propBuffer[70];
-	BG96_GetEDRXConfiguration(propBuffer);
-	PRINTF_LN("%s", propBuffer);
-	BG96_GetNetworkStatus(propBuffer);
-	PRINTF_LN("%s", propBuffer);
-	*/
-	char buffer[100]; 
-	//			  			 1  2  3  4  5  6  7  8  9  10 11 12 13
-	sprintf(buffer, "%d,%d,%d,%d,%s,%d,%d,%s,%d,%d,%s,%d",    	energyStruct.deviceID, \
-																															energyStruct.bootID, \
-																															energyStruct.packetNumber, \
-																															energyStruct.nbiotEnergy, \
-																															energyStruct.nbiotConditions, \
-																															energyStruct.nbiotPacketType, \
-																															energyStruct.sigfoxEnergy, \
-																															energyStruct.sigfoxConditions, \
-																															energyStruct.sigfoxPacketType, \
-																															energyStruct.lorawanEnergy, \
-																															energyStruct.lorawanConditions, \
-																															energyStruct.lorawanPacketType);		
-	BG96_UDP_SendData(buffer, 30000);
-	BG96_UDP_Stop();
-	BG96_DeactivateContext();
-	
-	PRINTF_LN("- Done sending NB-IoT");
-	PRINTF_LN("- Waiting for PSM");
-	
-	BG96_WaitForPowerDown(240000);
-	PRINTF_LN("- Entered PSM");
+	if(BG96_WaitForPowerDown(60000) != BG96_OK){
+		PRINTF_LN("- PSM failed, try again.");
+		if(!BG96_IsPoweredDown())
+			BG96_SetPowerSavingModeImmediately();
+		
+	}
+	while(!BG96_IsPoweredDown()){ // TODO: add timer for shutdown; BG96 needs to be shut down before Sigfox
+		BG96_WaitForPowerDown(60000);
+		PRINTF_LN("- PSM failed again, try again.");
+		if(!BG96_IsPoweredDown())
+			BG96_SetPowerSavingModeImmediately();
+	}
+	if(BG96_IsPoweredDown()){
+		PRINTF_LN("- Entered PSM after 1 retries");
+		// Maybe reset controller after power down not happened for timeout?
+	}else{
+		PRINTF_LN("- PSM failed");
+		BG96_SetPowerSavingModeImmediately();
+		
+	}
 	
 	if(BG96_IsPoweredDown()){
 		PRINTF_LN("- Status: powered down confirmed");
 	}
 	
+	stopEnergyMeasurementNBIoT();
+	BG96_DeInit();
+	BG96_IoDeInit();
+	return 0; 
+}
+
+void stopEnergyMeasurementNBIoT( void ){
 	uint16_t uwh = stopEnergyMeasurement(LTC2942_NBIOT);
 	energyStruct.nbiotPacketType = SEND;
 	energyStruct.nbiotEnergy = uwh;

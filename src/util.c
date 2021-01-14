@@ -34,6 +34,7 @@ bool StringStartsWith(char * str, char * seq){
 	return true;
 }
 
+/*
 bool HexToString(uint8_t * bin, uint8_t binsz, char **result ){
 	char hex_str[] = "0123456789abcdef";
 	uint8_t i;
@@ -54,8 +55,8 @@ bool HexToString(uint8_t * bin, uint8_t binsz, char **result ){
 	}
 
 	return true;
-}
-
+}*/
+/*
 char * StringToHexString(char * bin, unsigned int binsz, char **result ){
 	char hex_str[] = "0123456789abcdef";
 	unsigned int i;
@@ -77,3 +78,4 @@ char * StringToHexString(char * bin, unsigned int binsz, char **result ){
 
 	return (*result);
 }
+*/

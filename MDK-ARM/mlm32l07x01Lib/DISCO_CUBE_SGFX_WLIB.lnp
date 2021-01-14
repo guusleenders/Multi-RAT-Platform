@@ -38,6 +38,7 @@
 ".\mlm32l07x01lib\stm32l0xx_ll_dma.o"
 ".\mlm32l07x01lib\stm32l0xx_ll_spi.o"
 ".\mlm32l07x01lib\stm32l0xx_hal_rng.o"
+".\mlm32l07x01lib\stm32l0xx_hal_wwdg.o"
 ".\mlm32l07x01lib\startup_stm32l072xx.o"
 ".\mlm32l07x01lib\low_power_manager.o"
 ".\mlm32l07x01lib\queue.o"
