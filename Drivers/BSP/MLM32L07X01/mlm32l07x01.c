@@ -45,19 +45,14 @@
 #include "radio.h"
 #include "sx1276.h"
 #include "mlm32l07x01.h"
-
+#include <stdint.h>
 
 #define IRQ_HIGH_PRIORITY  0
 
-#define TCXO_ON()   HW_GPIO_Write( RADIO_TCXO_VCC_PORT, RADIO_TCXO_VCC_PIN, 1) 
-
-#define TCXO_OFF()  HW_GPIO_Write( RADIO_TCXO_VCC_PORT, RADIO_TCXO_VCC_PIN, 0) 
 
 static void SX1276AntSwInit( void );
 
 static void SX1276AntSwDeInit( void );
-
-void SX1276SetXO( uint8_t state );
 
 uint32_t SX1276GetWakeTime( void );
 

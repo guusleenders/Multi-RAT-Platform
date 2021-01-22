@@ -151,7 +151,7 @@ void HW_Init( void )
     SX1276Init( &events );
     /* set DIO3 from 'buffer empty' to NA to save current*/
     SX1276Write( 0x40, 0x01 );
-
+	  //SX1276SetSleep();
     McuInitialized = true;
   }
 }

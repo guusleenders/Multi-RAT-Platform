@@ -61,6 +61,9 @@ Maintainer: Miguel Luis and Gregory Cristian
 
 #define BOARD_WAKEUP_TIME  5 //TCXO
 
+#define TCXO_ON()   HW_GPIO_Write( RADIO_TCXO_VCC_PORT, RADIO_TCXO_VCC_PIN, 1) 
+
+#define TCXO_OFF()  HW_GPIO_Write( RADIO_TCXO_VCC_PORT, RADIO_TCXO_VCC_PIN, 0) 
 
 
 
@@ -69,6 +72,8 @@ Maintainer: Miguel Luis and Gregory Cristian
 
 /* Exported functions ------------------------------------------------------- */ 
 
+void SX1276SetXO( uint8_t state );
+	
 /*!
  * \brief Initializes the radio I/Os pins interface
  */

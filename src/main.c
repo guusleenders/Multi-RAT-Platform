@@ -45,6 +45,9 @@
 
 #include "stm32l0xx_hal_wwdg.h"
 #include "stm32l0xx_hal_rng.h"
+#include "stm32l0xx_hal_gpio.h"
+
+#include "mlm32l07x01.h"
 
 #include "bg96.h"
 
@@ -59,8 +62,8 @@
 #define USER_BUTTON_ALT_PIN                         GPIO_PIN_0
 #define USER_BUTTON_ALT_GPIO_PORT                   GPIOA
 //#define STDBY_ON
-//#define DEBUG	
-#define SEND_DELAY																	20*1000
+#define DEBUG	
+#define SEND_DELAY																	120*1000
 
 typedef enum {
 		INIT = (uint8_t)0, 
@@ -215,22 +218,43 @@ int main( void ){
   HAL_Init(); 					// STM32 HAL library initialization
   SystemClock_Config(); // Configure the system clock  
   DBG_Init();   				// Configure the debug mode
-  HW_Init();						// Configure the hardware
+	HW_Init();						// Configure the hardware
+	HW_EEPROM_Init(); 		// Initialise Eeprom factory Setting at device Birth
+	#ifdef DEBUG
 	vcom2_Init( NULL );
-  HW_EEPROM_Init(); 		// Initialise Eeprom factory Setting at device Birth
+	#endif
 	
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+	
+  GPIO_InitTypeDef  GPIO_InitStruct;
+	GPIO_InitStruct.Pin = GPIO_PIN_12;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_SET);
+	HAL_Delay(100);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_RESET); 
+	
+  //BSP_LED_On(LED_GREEN);
   BSP_LED_Init(LED_BLUE);
   BSP_LED_Init(LED_GREEN);
   BSP_LED_Init(LED_RED2);
 	
 	LPM_SetOffMode(LPM_APPLI_Id, LPM_Disable);
-	
+	LPM_SetStopMode(LPM_APPLI_Id, LPM_Disable);
+
+	#ifdef DEBUG
 	PRINTF_LN("Started...");
+	#endif
+	
+	
+	uint32_t random = 0; 
+	uint16_t bootID = 0;
 	
 	if(__HAL_RCC_GET_FLAG(RCC_FLAG_WWDGRST) != RESET){ 
-    /* WWDGRST flag set: Turn LED1 on */
     PRINTF_LN("- Started from WDT");
-    /* Clear reset flags */
     __HAL_RCC_CLEAR_RESET_FLAGS();
   }
 	
@@ -245,8 +269,7 @@ int main( void ){
 	hrng.Instance = RNG;
   HAL_RNG_Init(&hrng);
 	
-	uint32_t random = 0; 
-	uint16_t bootID = 0;
+	
 	if(HAL_RNG_GenerateRandomNumber(&hrng, &random) == HAL_OK){
 		bootID = random % 999;
   }
@@ -260,10 +283,13 @@ int main( void ){
 	initEnergyStruct.packetNumber = 0;
 	energyStruct.packetNumber = 0;
 	
+	#ifdef DEBUG
 	PRINTF_LN("- Boot ID: %d", energyStruct.bootID);
+	#endif
 	
-	
+	#ifdef DEBUG
 	PRINTF_LN("Initializing...");
+	#endif
 	initEnergyMeasurement();
 	
 	#ifdef NBIOT
@@ -281,12 +307,12 @@ int main( void ){
 	initLoRaWAN();
 	#endif
 	
-	PRINTF_LN("Registering...");
+	//PRINTF_LN("Registering...");
 	#ifdef NBIOT
 	PRINTF_LN("1. NB-IoT");
 	registerNBIoT();
 	#endif
-	PRINTF_LN("- Done, now Sigfox");
+	//PRINTF_LN("- Done, now Sigfox");
 	
 	#ifdef SIGFOX
 	PRINTF_LN("2. Sigfox");
@@ -295,7 +321,9 @@ int main( void ){
 	
 	#ifdef LORAWAN
 	PRINTF_LN("3. LoRaWAN");
+	//TCXO_ON();
 	registerLoRaWAN();
+	//SX1276SetXO(0); DO NOT DO THIS, MUST BE IN JOINED
 	#endif
 	
 	// Set low power mode: stop mode (timers on)
@@ -311,9 +339,6 @@ int main( void ){
 	TimerInit(&TxTimer, onTimerEvent);
 	TimerSetValue(&TxTimer,  SEND_DELAY);
 	TimerStart(&TxTimer);
-	
-	PRINTF_LN("");
-	PRINTF_LN("");
 	
   /* main loop*/
   while( 1 ){
@@ -338,7 +363,7 @@ void SCH_Idle( void ){
 
 static void sendTest(void){
 
-	PRINTF_LN("Starting testing sequence...");
+	//PRINTF_LN("Starting testing sequence...");
 	
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, NULL ); // Disable irq to forbidd user to press button while transmitting
 	
@@ -351,20 +376,21 @@ static void sendTest(void){
 	HAL_Delay(500);
 	#ifdef SIGFOX
 	PRINTF("2. SIGFOX \n");
+	//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_SET);
 	sendSigfox();
+	//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_RESET);
 	#endif
 
 	#ifdef LORAWAN
 	PRINTF("3. LORAWAN \n");
-
 	LoRaMacInitializationReset();
 	sendLoRaWAN();
 	#endif
 	
-
+	
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, send_data_request_from_irq ); // Enable user to press button after transmittion
 	
-	PRINTF_LN("Testing sequence done.");
+	//PRINTF_LN("Testing sequence done.");
 	
 	TimerStart(&TxTimer); // Schedule next testing cycle
 
@@ -379,7 +405,7 @@ static void onTimerEvent(void *context){
 // -------------------------- ENERGY MEASUREMENT FUNCTIONS -------------------------------
 static void initEnergyMeasurement(void){
 	uint16_t testvoltage = 0;
-	#if defined(LORAWAN) || defined(SIGFOX)
+	//#if defined(LORAWAN) || defined(SIGFOX)
 	LTC2942_Init(LTC2942_LRWAN);
 	LTC2942_SetPrescaler(LTC2942_LRWAN, PRESCALAR_M_1);
 	LTC2942_SetAlertConfig(LTC2942_LRWAN, ALERT_DISABLED);
@@ -390,10 +416,12 @@ static void initEnergyMeasurement(void){
 	PRINTF_LN("Voltage LRWAN: %d mV", testvoltage);
 	
 	LTC2942_SetShutdown(LTC2942_LRWAN, 1);
-	#endif
+	//#endif
 	
-	#ifdef NBIOT
+	//#ifdef NBIOT
 	LTC2942_Init(LTC2942_NBIOT);
+	uint8_t test = LTC2942_GetControl(LTC2942_NBIOT);
+	PRINTF_LN("Test control reg: %d", test);
 	LTC2942_SetPrescaler(LTC2942_NBIOT, PRESCALAR_M_1);
 	LTC2942_SetAlertConfig(LTC2942_NBIOT, ALERT_DISABLED);
 	LTC2942_SetAccumulatedCharge(LTC2942_NBIOT, 0);
@@ -403,7 +431,7 @@ static void initEnergyMeasurement(void){
 	PRINTF_LN("Voltage NBIOT: %d mV", testvoltage);
 	
 	LTC2942_SetShutdown(LTC2942_NBIOT, 1);
-	#endif
+	//#endif
 	
 }
 
@@ -419,12 +447,15 @@ uint16_t stopEnergyMeasurement(LTC2942_SENSOR sensor){
 	uint16_t uwh = (uint16_t) (energy * voltage);
 	LTC2942_SetShutdown(sensor, 1);
 	return uwh;
+	return 0;
 }
      
 
 // -------------------------------- SIGFOX FUNCTIONS -------------------------------------
 static void initSigfox( void ){
 	startEnergyMeasurement(LTC2942_LRWAN);
+	
+	SX1276SetXO(1);
 	
 	sfx_error_t error;
   uint8_t dev_id[ID_LEN];
@@ -446,6 +477,8 @@ static void initSigfox( void ){
 	SGFX_SX1276_setPower(14); // power between 10 and 20dBm
 		
 	PRINTF_LN("- Initialised");
+	
+	SX1276SetXO(0);
 	
 	#ifdef DEBUG
 	PRINTF("%d dBm\r\n",SGFX_SX1276_getPower( ) );
@@ -837,8 +870,8 @@ static void initNBIoT(void){
 	BG96_SetModemOptimization();
 	//BG96_CheckSIMPIN(buffer);
 	//BG96_EnablePSMIndication();
-	BG96_SetPowerSavingMode(1, "", "", "\"00001010\"", "\"00001111\""); // set tau timer to 1h, active timer to 30s (seems to work best in network)
-	BG96_SetEDRXConfiguration(2,5,"\"0010\"");
+	BG96_SetPowerSavingMode(1, "", "", "\"00001010\"", "\"00001010\""); // set tau timer to 1h, active timer to 30s (seems to work best in network)//20s
+	BG96_SetEDRXConfiguration(1,5,"\"0010\"");
 	BG96_SetMode(BG96_NBIOT_MODE);
 	//BG96_SetPowerSavingModeImmediately(); // Not available in current firmware
 	PRINTF_LN("- Initialised");
@@ -867,7 +900,10 @@ static void registerNBIoT(void){
 	PRINTF_LN("%s", buffer);
 	BG96_GetNetworkStatus(buffer);
 	PRINTF_LN("%s", buffer);
-
+	
+	BG96_SetPowerSavingMode(1, "", "", "\"00001010\"", "\"00001010\""); // set tau timer to 1h, active timer to 30s (seems to work best in network)//20s
+	BG96_SetEDRXConfiguration(1,5,"\"0010\"");
+	
 
 	uint16_t uwh = stopEnergyMeasurement(LTC2942_NBIOT);
 	energyStruct.nbiotPacketType = REGISTRATION;
@@ -948,12 +984,15 @@ static int8_t sendNBIoT(void){
 		sprintf(buffer, "%d,%d,%d,%d,%s,%d,%d,%s,%d,%d,%s,%d",    	energyStruct.deviceID, \
 																																energyStruct.bootID, \
 																																energyStruct.packetNumber, \
+																																\
 																																energyStruct.nbiotEnergy, \
 																																energyStruct.nbiotConditions, \
 																																energyStruct.nbiotPacketType, \
+																																\
 																																energyStruct.sigfoxEnergy, \
 																																energyStruct.sigfoxConditions, \
 																																energyStruct.sigfoxPacketType, \
+																																\
 																																energyStruct.lorawanEnergy, \
 																																energyStruct.lorawanConditions, \
 																																energyStruct.lorawanPacketType);		
@@ -992,6 +1031,9 @@ static int8_t sendNBIoT(void){
 	if(BG96_IsPoweredDown()){
 		PRINTF_LN("- Status: powered down confirmed");
 	}
+	
+	//HAL_GPIO_WritePin(BG96_RX_PORT, BG96_RX_PIN, GPIO_PIN_SET);
+	//HAL_GPIO_WritePin(BG96_TX_PORT, BG96_TX_PIN, GPIO_PIN_SET);
 	
 	stopEnergyMeasurementNBIoT();
 	BG96_DeInit();
