@@ -240,6 +240,7 @@ BG96_Status_t BG96_SetModemOptimization( void );
 BG96_Status_t BG96_Sleep(void );
 BG96_Status_t BG96_Wake( void );
 BG96_Status_t BG96_WakeFromPSM( uint32_t timeout );
+BG96_Status_t BG96_WakeFromPSMToSend( void );
 BG96_Status_t BG96_EnablePSMIndication( void );
 BG96_Status_t BG96_DisablePSMIndication( void );
 BG96_Status_t BG96_SetPowerSavingMode(uint8_t mode, char * requestedRAU, char * requestedGPRSREADY, char * requestedTAU, char * requestedActiveTimer);

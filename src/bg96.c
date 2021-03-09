@@ -824,6 +824,36 @@ BG96_Status_t BG96_WakeFromPSM( uint32_t timeout ){
 	}
 }
 
+BG96_Status_t BG96_WakeFromPSMToSend( void ){
+	if(BG96_IsPoweredDown()){
+		PRINTF_LN("- Status: powered down");
+		PRINTF_LN("- Waking from psm");
+		if(BG96_WakeFromPSM(10000) == BG96_OK){
+			PRINTF("- Wake from PSM ok");
+			if(BG96_WaitForConnection(20000) != BG96_OK){
+				PRINTF("- Wait for connection fail");
+				return BG96_ERROR;
+			}else{
+				PRINTF("- Wait for connection ok");
+			}
+		}else{
+			PRINTF_LN("- Wake from PSM fail");
+			return BG96_ERROR;
+		}
+	}else{
+		PRINTF_LN("- Status: powered on");
+	}
+
+	if(!BG96_CheckIfContextActivated()){
+		PRINTF_LN("- Context not active");
+		BG96_ActivateContext();
+		PRINTF_LN("- Context activated");
+	}else{
+		PRINTF_LN("- Context already active");
+	}
+	return BG96_OK;
+}
+
 // Not tested
 BG96_Status_t BG96_GetTime(char * timeresult){
 	char response[30];
