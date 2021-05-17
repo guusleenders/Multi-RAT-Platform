@@ -24,6 +24,8 @@
 #include <stdbool.h>
 #include <string.h>
 
+
+
 bool StringStartsWith(char * str, char * seq){
 	uint8_t i;
 	for(i=0; i<strlen(seq); i++){

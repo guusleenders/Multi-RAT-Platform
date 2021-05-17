@@ -92,3 +92,4 @@
 .\mlm32l07x01lib\main.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_ll_dma.h
 .\mlm32l07x01lib\main.o: ..\inc\tiny_vsnprintf.h
 .\mlm32l07x01lib\main.o: ..\inc\util.h
+.\mlm32l07x01lib\main.o: ..\inc\bq27441.h

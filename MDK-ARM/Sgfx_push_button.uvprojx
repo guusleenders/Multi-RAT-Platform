@@ -1062,6 +1062,11 @@
               <FileType>1</FileType>
               <FilePath>..\src\ltc2942.c</FilePath>
             </File>
+            <File>
+              <FileName>bq27441.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\bq27441.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

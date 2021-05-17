@@ -100,6 +100,7 @@
 ".\mlm32l07x01lib\vcom2.o"
 ".\mlm32l07x01lib\util.o"
 ".\mlm32l07x01lib\ltc2942.o"
+".\mlm32l07x01lib\bq27441.o"
 --library_type=microlib --strict --scatter ".\NUCLEO_CUBE_SGFX.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

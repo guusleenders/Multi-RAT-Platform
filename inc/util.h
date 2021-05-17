@@ -25,6 +25,8 @@
 #include <stdbool.h>
 
 #define CTRL_Z 26
+#define constrain(amt,low,high) ((amt)<(low)?(low):((amt)>(high)?(high):(amt)))
+
 
 bool StringStartsWith(char * str, char * seq);
 bool HexToString(uint8_t * bin, uint8_t binsz, char **result );

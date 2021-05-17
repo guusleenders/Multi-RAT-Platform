@@ -51,6 +51,8 @@
 
 #include "bg96.h"
 
+#include "bq27441.h"
+
 
 // -------------------------- GENERAL DEFINITIONS ------------------------------
 
@@ -290,7 +292,27 @@ int main( void ){
 	#ifdef DEBUG
 	PRINTF_LN("Initializing...");
 	#endif
-	initEnergyMeasurement();
+	if(BQ27441_Begin(BQ27441_NBIOT) == BQ27441_OK){
+		PRINTF_LN("BQ27441 success");
+	}else{
+		PRINTF_LN("BQ27441 fail");
+	}
+	BQ27441_SoftReset(BQ27441_NBIOT);
+	BQ27441_SetCapacity(BQ27441_NBIOT, 400);
+	
+	uint16_t voltage = 0;
+	BQ27441_Voltage(BQ27441_NBIOT, &voltage);
+	PRINTF_LN("Voltage: %d mV", voltage);
+	int16_t current = 0;
+	BQ27441_Current(BQ27441_NBIOT, BQ27441_AVG, &current);
+	PRINTF_LN("Current: %d mA", current);
+	
+	while(1){
+		uint16_t capacity = 0;
+		BQ27441_Capacity(BQ27441_NBIOT, BQ27441_AVAIL, &capacity);
+		PRINTF_LN("Remaining capacity: %d mAh", capacity);
+		HAL_Delay(2000);
+	}
 	
 	#ifdef NBIOT
 	PRINTF_LN("1. NB-IoT");
