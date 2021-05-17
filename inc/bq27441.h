@@ -130,7 +130,7 @@ typedef enum {
 #define BQ27441_DEVICE_ID								0x0421	// Default device ID
 
 
-// -- Standard Commands --
+// -- Standard Commands -
 // The fuel gauge uses a series of 2-byte standard commands to enable system 
 // reading and writing of battery information. Each command has an associated
 // sequential command-code pair.
