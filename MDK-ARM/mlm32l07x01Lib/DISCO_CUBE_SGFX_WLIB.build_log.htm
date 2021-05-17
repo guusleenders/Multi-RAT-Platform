@@ -22,35 +22,88 @@ Dialog DLL:      TARMCM1.DLL V1.14.2.0
  
 <h2>Project:</h2>
 F:\OneDrive - KU Leuven\Werk\Doctoraat\Experiments\STM32 LRWAN1\Combo_LRWAN_SFOX\LoRaWAN-Sigfox-NBIoT-Send\MDK-ARM\Sgfx_push_button.uvprojx
-Project File Date:  03/10/2021
+Project File Date:  05/17/2021
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'mlm32l07x01'
-compiling bq27441.c...
-..\inc\bq27441.h(354): warning:  #1-D: last line of file ends without a newline
-  #endif /* __BQ27441 */
-..\src\bq27441.c(297): warning:  #186-D: pointless comparison of unsigned integer with zero
-  	thresholds[0] = constrain(set, 0, 100);
-..\src\bq27441.c(298): warning:  #186-D: pointless comparison of unsigned integer with zero
-  	thresholds[1] = constrain(clear, 0, 100);
-..\src\bq27441.c(315): warning:  #186-D: pointless comparison of unsigned integer with zero
-  	thresholds[0] = constrain(set, 0, 100);
-..\src\bq27441.c(316): warning:  #186-D: pointless comparison of unsigned integer with zero
-  	thresholds[1] = constrain(clear, 0, 100);
-..\src\bq27441.c(376): warning:  #186-D: pointless comparison of unsigned integer with zero
-  	uint8_t soci = constrain(delta, 0, 100);
-..\src\bq27441.c(587): warning:  #940-D: missing return statement at end of non-void function "BQ27441_ComputeBlockChecksum" 
-  }
-..\src\bq27441.c: 7 warnings, 0 errors
-linking...
-.\NUCLEO_CUBE_SGFX.sct(20): warning: L6329W: Pattern sigfox_data.o(RO) only matches removed unused sections.
-.\NUCLEO_CUBE_SGFX.sct(26): warning: L6329W: Pattern sgfx_cmac_lib.o(RO) only matches removed unused sections.
-.\NUCLEO_CUBE_SGFX.sct(27): warning: L6329W: Pattern sgfx_credentials_lib.o(RO) only matches removed unused sections.
-Program Size: Code=22036 RO-data=716 RW-data=188 ZI-data=6232  
-Finished: 0 information, 3 warning and 0 error messages.
-FromELF: creating hex file...
-".\mlm32l07x01Lib\DISCO_CUBE_SGFX_WLIB.axf" - 0 Error(s), 10 Warning(s).
+compiling sigfox.c...
+..\inc\energy.h(48): error:  #114: function "startEnergyMeasurement"  was referenced but not defined
+  static void startEnergyMeasurement(LTC2942_SENSOR sensor);
+..\src\sigfox.c(5): warning:  #177-D: function "initSigfox"  was declared but never referenced
+  static void initSigfox( void ){
+..\src\sigfox.c(43): warning:  #177-D: function "registerSigfox"  was declared but never referenced
+  static void registerSigfox( void ){
+..\src\sigfox.c(47): warning:  #177-D: function "sendSigfox"  was declared but never referenced
+  static void sendSigfox( void ){
+..\src\sigfox.c(163): warning:  #177-D: function "user_button_init"  was declared but never referenced
+  static void user_button_init( void ){
+..\src\sigfox.c: 4 warnings, 1 error
+compiling lorawan.c...
+..\src\lorawan.c(22): error:  #77-D: this declaration has no storage class or type specifier
+  LoraMacProcessRequest = LORA_RESET;
+..\src\lorawan.c(22): error:  #147: declaration is incompatible with "LoraFlagStatus LoraMacProcessRequest"  (declared at line 50 of "..\inc\lorawan_.h")
+  LoraMacProcessRequest = LORA_RESET;
+..\src\lorawan.c(23): error:  #77-D: this declaration has no storage class or type specifier
+  AppProcessRequest = LORA_RESET;
+..\src\lorawan.c(23): error:  #147: declaration is incompatible with "LoraFlagStatus AppProcessRequest"  (declared at line 49 of "..\inc\lorawan_.h")
+  AppProcessRequest = LORA_RESET;
+..\src\lorawan.c(248): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\inc\energy.h(48): error:  #114: function "startEnergyMeasurement"  was referenced but not defined
+  static void startEnergyMeasurement(LTC2942_SENSOR sensor);
+..\src\lorawan.c(40): warning:  #177-D: function "initLoRaWAN"  was declared but never referenced
+  static void initLoRaWAN(void){
+..\src\lorawan.c(53): warning:  #177-D: function "registerLoRaWAN"  was declared but never referenced
+  static void registerLoRaWAN(void){
+..\src\lorawan.c(65): warning:  #177-D: function "sendLoRaWAN"  was declared but never referenced
+  static void sendLoRaWAN(void){
+..\src\lorawan.c(30): warning:  #177-D: variable "TxLedTimer"  was declared but never referenced
+  static TimerEvent_t TxLedTimer; 					// Timer to handle the application Tx Led to toggle
+..\src\lorawan.c(245): warning:  #177-D: function "OnTimerLedEvent"  was declared but never referenced
+  static void OnTimerLedEvent(void *context){
+..\src\lorawan.c: 6 warnings, 5 errors
+compiling nbiot.c...
+..\inc\energy.h(48): error:  #114: function "startEnergyMeasurement"  was referenced but not defined
+  static void startEnergyMeasurement(LTC2942_SENSOR sensor);
+..\src\nbiot.c(5): warning:  #177-D: function "initNBIoT"  was declared but never referenced
+  static void initNBIoT(void){
+..\src\nbiot.c(41): warning:  #177-D: function "registerNBIoT"  was declared but never referenced
+  static void registerNBIoT(void){
+..\src\nbiot.c: 2 warnings, 1 error
+compiling bg96.c...
+..\src\bg96.c(805): warning:  #550-D: variable "status"  was set but never used
+  	BG96_Status_t status = BG96_ERROR;
+..\src\bg96.c: 1 warning, 0 errors
+compiling main.c...
+..\inc\energy.h(47): error:  #114: function "initEnergyMeasurement"  was referenced but not defined
+  static void initEnergyMeasurement(void);
+..\inc\sigfox.h(35): error:  #114: function "initSigfox"  was referenced but not defined
+  static void initSigfox( void );													 // Init Sigfox modem
+..\inc\sigfox.h(36): error:  #114: function "registerSigfox"  was referenced but not defined
+  static void registerSigfox( void );										   // Register Sigfox to network (empty function)
+..\inc\sigfox.h(37): error:  #114: function "sendSigfox"  was referenced but not defined
+  static void sendSigfox( void );													 // Send Sigfox data
+..\inc\sigfox.h(42): error:  #114: function "send_data_request"  was referenced but not defined
+  static void send_data_request( void  );					 // To post interrupt to backgroud; managed by scheduler
+..\inc\sigfox.h(43): error:  #114: function "send_data_request_from_irq"  was referenced but not defined
+  static void send_data_request_from_irq( void * context );
+..\inc\sigfox.h(44): error:  #114: function "user_button_init"  was referenced but not defined
+  static void user_button_init( void );									   // Initialize the user btton to request sending data
+..\inc\lorawan_.h(36): error:  #114: function "initLoRaWAN"  was referenced but not defined
+  static void initLoRaWAN(void);													// Init lora modem
+..\inc\lorawan_.h(37): error:  #114: function "registerLoRaWAN"  was referenced but not defined
+  static void registerLoRaWAN(void);											// Register to LoRaWAN network (join mechanism)
+..\inc\lorawan_.h(38): error:  #114: function "sendLoRaWAN"  was referenced but not defined
+  static void sendLoRaWAN(void); 													// Send LoRaWAN data
+..\inc\nbiot.h(13): error:  #114: function "initNBIoT"  was referenced but not defined
+  static void initNBIoT(void);														// Init NB-IoT modem
+..\inc\nbiot.h(14): error:  #114: function "registerNBIoT"  was referenced but not defined
+  static void registerNBIoT(void);												// Register to NB-IoT network
+..\inc\nbiot.h(15): error:  #114: function "sendNBIoT"  was referenced but not defined
+  static int8_t sendNBIoT(void);														// Send NB-IoT data
+..\src\main.c: 0 warnings, 13 errors
+".\mlm32l07x01Lib\DISCO_CUBE_SGFX_WLIB.axf" - 20 Error(s), 13 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -64,7 +117,8 @@ Package Vendor: Keil
   C:\Users\guusl\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:03
+Target not created.
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

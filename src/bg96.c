@@ -508,7 +508,7 @@ BG96_Status_t BG96_PowerOn( void ){
 	
 	//HAL_Delay(20000);
 	//BG96_SetBaudRate(9600);
-	char powerOnBuffer[10];
+	//char powerOnBuffer[10];
 	BG96_Status_t status = BG96_SendATCommandCheckReply("", "RDY", 10000); // RDY
 	status = BG96_SendATCommandGetReply("", "APP RDY", 2000); // APP RDY // TODO: if this is RDY again, wait for APP RDY
 	//status = BG96_SendATCommandCheckReply("ATE0\r\n", "ATE0", 1000);

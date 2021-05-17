@@ -583,7 +583,7 @@ BQ27441_Error_et BQ27441_ComputeBlockChecksum(BQ27441_SENSOR sensor, uint8_t* cs
 		*csum += data[i];
 	}
 	*csum = 255 - *csum;
-	
+	return BQ27441_OK;
 }
 
 // Use the BlockDataCheckSum() command to write a checksum value

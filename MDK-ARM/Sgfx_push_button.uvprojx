@@ -968,11 +968,6 @@
               <FilePath>..\src\hw_spi.c</FilePath>
             </File>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\main.c</FilePath>
-            </File>
-            <File>
               <FileName>vcom.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\vcom.c</FilePath>
@@ -1066,6 +1061,31 @@
               <FileName>bq27441.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\bq27441.c</FilePath>
+            </File>
+            <File>
+              <FileName>energy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\energy.c</FilePath>
+            </File>
+            <File>
+              <FileName>lorawan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\lorawan.c</FilePath>
+            </File>
+            <File>
+              <FileName>nbiot.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\nbiot.c</FilePath>
+            </File>
+            <File>
+              <FileName>sigfox.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\sigfox.c</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\main.c</FilePath>
             </File>
           </Files>
         </Group>
