@@ -1,6 +1,6 @@
 // -------------------------------- LORA FUNCTIONS -------------------------------------
 
-#include "lorawan_.h"
+#include "lorawan.h"
 
 static uint8_t AppDataBuff[LORAWAN_APP_DATA_BUFF_SIZE]; // User application data
 
@@ -19,25 +19,25 @@ static LoRaMainCallback_t LoRaMainCallbacks = { LORA_GetBatteryLevel,
                                                 LoraMacProcessNotify,
 																								LORA_Done
                                               };
-LoraMacProcessRequest = LORA_RESET;
-AppProcessRequest = LORA_RESET;
+LoraFlagStatus LoraMacProcessRequest = LORA_RESET;
+LoraFlagStatus AppProcessRequest = LORA_RESET;
 bool isConnectedLoRaWAN = false;
 																							
 static uint8_t AppLedStateOn = RESET; 		// Specifies the state of the application LED
 
 //static TimerEvent_t TxTimer;
 #ifdef USE_B_L072Z_LRWAN1
-static TimerEvent_t TxLedTimer; 					// Timer to handle the application Tx Led to toggle
-static void OnTimerLedEvent(void *context);
+TimerEvent_t TxLedTimer; 					// Timer to handle the application Tx Led to toggle
+void OnTimerLedEvent(void *context);
 #endif
 
 // Initialises the Lora Parameters
-static  LoRaParam_t LoRaParamInit = {LORAWAN_ADR_STATE,
+ LoRaParam_t LoRaParamInit = {LORAWAN_ADR_STATE,
                                      LORAWAN_DEFAULT_DATA_RATE,
                                      LORAWAN_PUBLIC_NETWORK
                                     };
 
-static void initLoRaWAN(void){
+void initLoRaWAN(void){
 	startEnergyMeasurement(LTC2942_LRWAN);
 	
 	// ---------- Init LoRa hardware, functions,... ---------- 
@@ -50,7 +50,7 @@ static void initLoRaWAN(void){
 	initEnergyStruct.lorawanEnergy = stopEnergyMeasurement(LTC2942_LRWAN);
 }
 
-static void registerLoRaWAN(void){
+void registerLoRaWAN(void){
 	startEnergyMeasurement(LTC2942_LRWAN);
 	
 	// ---------- Join LoRaWAN network ---------- 
@@ -62,7 +62,7 @@ static void registerLoRaWAN(void){
 	// Stop energy measurement in hasjoined function
 }
 
-static void sendLoRaWAN(void){
+void sendLoRaWAN(void){
 	startEnergyMeasurement(LTC2942_LRWAN);
 	
 	// ---------- Check if joined ---------- 
@@ -105,7 +105,7 @@ void LoraMacProcessNotify(void){
   LoraMacProcessRequest = LORA_SET;
 }
 
-static void LORA_HasJoined(void){
+void LORA_HasJoined(void){
 	// ---------- LoRa has joined callback ---------- 
 	#if( OVER_THE_AIR_ACTIVATION != 0 )
   PRINTF_LN("- Joined done");
@@ -122,7 +122,7 @@ static void LORA_HasJoined(void){
 
 }
 
-static void LORA_RxData(lora_AppData_t *AppData){
+void LORA_RxData(lora_AppData_t *AppData){
 	// ---------- LoRa Data is comming in ---------- 
 	// TODO: this code is standard user code 
 	#ifdef DEBUG
@@ -186,7 +186,7 @@ static void LORA_RxData(lora_AppData_t *AppData){
   }
 }
 
-static void LORA_ConfirmClass(DeviceClass_t Class){
+void LORA_ConfirmClass(DeviceClass_t Class){
 	#ifdef DEBUG
   PRINTF("- Switching to class %c done\n\r", "ABC"[Class]);
 	#endif
@@ -198,7 +198,7 @@ static void LORA_ConfirmClass(DeviceClass_t Class){
   LORA_send(&AppData, LORAWAN_UNCONFIRMED_MSG);
 }
 
-static void LORA_TxNeeded(void){
+void LORA_TxNeeded(void){
 	// ---------- LoRa TX Needed ---------- 
 	#ifdef DEBUG
 	PRINTF_LN("- LoRa TX Needed");
@@ -210,7 +210,7 @@ static void LORA_TxNeeded(void){
   LORA_send(&AppData, LORAWAN_UNCONFIRMED_MSG);
 }
 
-static void LORA_Done(void){
+void LORA_Done(void){
 	// ---------- LoRa is done, stop everything ---------- 
 	#ifdef DEBUG
 	PRINTF_LN("- LoRa DONE");
@@ -242,7 +242,7 @@ uint8_t LORA_GetBatteryLevel(void){
 
 
 #ifdef USE_B_L072Z_LRWAN1
-static void OnTimerLedEvent(void *context){
+void OnTimerLedEvent(void *context){
   LED_Off(LED_RED1) ;
 }
 #endif

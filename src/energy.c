@@ -2,7 +2,7 @@
 
 #include "energy.h"
 
-static void initEnergyMeasurement(void){
+void initEnergyMeasurement(void){
 	uint16_t testvoltage = 0;
 	//#if defined(LORAWAN) || defined(SIGFOX)
 	LTC2942_Init(LTC2942_LRWAN);
@@ -34,7 +34,7 @@ static void initEnergyMeasurement(void){
 	
 }
 
-static void startEnergyMeasurement(LTC2942_SENSOR sensor){
+void startEnergyMeasurement(LTC2942_SENSOR sensor){
 	LTC2942_SetShutdown(sensor, 0);
 	LTC2942_SetAccumulatedCharge(sensor, 0);
 	energy = LTC2942_GetmAh(sensor)*10000;

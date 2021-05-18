@@ -33,21 +33,21 @@ extern "C" {
 #define LORAWAN_APP_DATA_BUFF_SIZE 				20 							// User application data buffer size
 
 // ---------------------------- LORA FUNCTIONS ---------------------------------
-static void initLoRaWAN(void);													// Init lora modem
-static void registerLoRaWAN(void);											// Register to LoRaWAN network (join mechanism)
-static void sendLoRaWAN(void); 													// Send LoRaWAN data
+void initLoRaWAN(void);													// Init lora modem
+void registerLoRaWAN(void);											// Register to LoRaWAN network (join mechanism)
+void sendLoRaWAN(void); 													// Send LoRaWAN data
 
-static void LORA_RxData(lora_AppData_t *AppData);				// Callback when LoRa endNode has received a frame
-static void LORA_HasJoined(void);												// Callback when LoRa endNode has just joined
-static void LORA_ConfirmClass(DeviceClass_t Class);			// Callback when LoRa endNode has just switch the class
-static void LORA_TxNeeded(void);												// Callback when server needs endNode to send a frame
-static uint8_t LORA_GetBatteryLevel(void);							// Callback to get the battery level in % of full charge (254 full charge, 0 no charge)
-static void LORA_Done(void);	
+void LORA_RxData(lora_AppData_t *AppData);				// Callback when LoRa endNode has received a frame
+void LORA_HasJoined(void);												// Callback when LoRa endNode has just joined
+void LORA_ConfirmClass(DeviceClass_t Class);			// Callback when LoRa endNode has just switch the class
+void LORA_TxNeeded(void);												// Callback when server needs endNode to send a frame
+uint8_t LORA_GetBatteryLevel(void);							// Callback to get the battery level in % of full charge (254 full charge, 0 no charge)
+void LORA_Done(void);	
 
-static void LoraMacProcessNotify(void);									// TX timer callback function
+void LoraMacProcessNotify(void);									// TX timer callback function
 
-LoraFlagStatus AppProcessRequest;
-LoraFlagStatus LoraMacProcessRequest;
+extern LoraFlagStatus AppProcessRequest;
+extern LoraFlagStatus LoraMacProcessRequest;
 
 
 #ifdef __cplusplus

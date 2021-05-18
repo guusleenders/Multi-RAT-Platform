@@ -10,9 +10,9 @@
 
 
 // ---------------------------- NBIOT FUNCTIONS ---------------------------------
-static void initNBIoT(void);														// Init NB-IoT modem
-static void registerNBIoT(void);												// Register to NB-IoT network
-static int8_t sendNBIoT(void);														// Send NB-IoT data
+void initNBIoT(void);														// Init NB-IoT modem
+void registerNBIoT(void);												// Register to NB-IoT network
+int8_t sendNBIoT(void);														// Send NB-IoT data
 void stopEnergyMeasurementNBIoT( void );								// Stop NB-IoT energy measurement
 
 #ifdef __cplusplus

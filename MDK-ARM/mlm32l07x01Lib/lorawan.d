@@ -1,5 +1,5 @@
 .\mlm32l07x01lib\lorawan.o: ..\src\lorawan.c
-.\mlm32l07x01lib\lorawan.o: ..\inc\lorawan_.h
+.\mlm32l07x01lib\lorawan.o: ..\inc\lorawan.h
 .\mlm32l07x01lib\lorawan.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\mlm32l07x01lib\lorawan.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\mlm32l07x01lib\lorawan.o: ..\Middlewares\Third_Party\LoRaWAN\Patterns\Basic\lora.h

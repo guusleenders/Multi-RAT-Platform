@@ -95,5 +95,5 @@
 .\mlm32l07x01lib\main.o: ..\inc\bq27441.h
 .\mlm32l07x01lib\main.o: ..\inc\sigfox.h
 .\mlm32l07x01lib\main.o: ..\inc\energy.h
-.\mlm32l07x01lib\main.o: ..\inc\lorawan_.h
+.\mlm32l07x01lib\main.o: ..\inc\lorawan.h
 .\mlm32l07x01lib\main.o: ..\inc\nbiot.h

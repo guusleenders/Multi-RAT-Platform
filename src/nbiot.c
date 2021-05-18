@@ -2,7 +2,7 @@
 
 #include "nbiot.h"
 
-static void initNBIoT(void){
+void initNBIoT(void){
 	startEnergyMeasurement(LTC2942_NBIOT);
 
 	BG96_Init();
@@ -38,7 +38,7 @@ static void initNBIoT(void){
 	#endif
 }
 
-static void registerNBIoT(void){
+void registerNBIoT(void){
 	startEnergyMeasurement(LTC2942_NBIOT);
 	
 	// ---------- Configure/select network ---------- 
@@ -106,7 +106,7 @@ static void registerNBIoT(void){
 
 }
 
-static int8_t sendNBIoT(void){
+int8_t sendNBIoT(void){
 	BG96_Init();
 	
 	startEnergyMeasurement(LTC2942_NBIOT);

@@ -2,23 +2,23 @@
 
 #include "sigfox.h"
 
-static void initSigfox( void ){
+void initSigfox( void ){
 	startEnergyMeasurement(LTC2942_LRWAN);
 	
 	SX1276SetXO(1);
 	
-	sfx_error_t error;
+	sfx_error_t sfxerror;
   uint8_t dev_id[ID_LEN];
   uint8_t dev_pac[PAC_LEN];
   st_sfx_rc_t SgfxRc=APPLI_RC;
 	
-	error=st_sigfox_open( SgfxRc);															// Open Sifox Lib
+	sfxerror=st_sigfox_open( SgfxRc);															// Open Sifox Lib
   HW_EEPROM_WRITE( E2pData.SgfxKey, CREDENTIALS_KEY_PRIVATE); // Use private key
-  if ( error == SFX_ERR_NONE ){
+  if ( sfxerror == SFX_ERR_NONE ){
     PRINTF(" OK\n\r");
   }
   else{
-    PRINTF(" error %d\n\r", error);
+    PRINTF(" error %d\n\r", sfxerror);
   }
 	
 
@@ -40,11 +40,11 @@ static void initSigfox( void ){
 	initEnergyStruct.sigfoxEnergy = stopEnergyMeasurement(LTC2942_LRWAN);
 }
 
-static void registerSigfox( void ){
+void registerSigfox( void ){
 	
 }
 
-static void sendSigfox( void ){
+void sendSigfox( void ){
 	
 	startEnergyMeasurement(LTC2942_LRWAN);
 	
@@ -71,13 +71,13 @@ static void sendSigfox( void ){
 	
 	st_sfx_rc_t SgfxRc=APPLI_RC;
 	
-	error=st_sigfox_open( SgfxRc);															// Open Sifox Lib
+	sfx_error_t sfxerror=st_sigfox_open( SgfxRc);															// Open Sifox Lib
   HW_EEPROM_WRITE( E2pData.SgfxKey, CREDENTIALS_KEY_PRIVATE); // Use private key
-  if ( error == SFX_ERR_NONE ){
+  if ( sfxerror == SFX_ERR_NONE ){
     PRINTF(" OK\n\r");
   }
   else{
-    PRINTF(" error %d\n\r", error);
+    PRINTF(" error %d\n\r", sfxerror);
   }
 	
 	PRINTF("- Data to be sent:");
@@ -90,9 +90,9 @@ static void sendSigfox( void ){
   PRINTF_LN("- Start sending Sigfox data");
 	#endif 
 	// -- Send frame on Sigfox network
-  sfx_error_t error = SIGFOX_API_send_frame(ul_msg, ul_size, dl_msg, nbTxRepeatFlag, SFX_FALSE);
-	if(error != SFX_ERR_NONE)
-			PRINTF_LN("- SIGFOX ERROR %d", error);
+  sfxerror = SIGFOX_API_send_frame(ul_msg, ul_size, dl_msg, nbTxRepeatFlag, SFX_FALSE);
+	if(sfxerror != SFX_ERR_NONE)
+			PRINTF_LN("- SIGFOX ERROR %d", sfxerror);
 	SIGFOX_API_close();
 	
   #ifdef DEBUG
@@ -107,51 +107,51 @@ static void sendSigfox( void ){
 }
 
 #ifndef STDBY_ON 
-static void send_data_request_from_irq( void * context ){
+void send_data_request_from_irq( void * context ){
   /* send task to background*/
   send_data_request();
 }
-static void send_data_request( void ){
+void send_data_request( void ){
   /* send task to background*/
   SCH_SetTask( SEND_TASK );
 }
 #endif
 
 sfx_error_t st_sigfox_open( st_sfx_rc_t SgfxRc ){
-  sfx_error_t error = SFX_ERR_NONE;
+  sfx_error_t sfxerror = SFX_ERR_NONE;
 
   // Record RCZ
   switch(SgfxRc.id){
     case RC1_ID: {      
-      error = SIGFOX_API_open(&SgfxRc.param);
+      sfxerror = SIGFOX_API_open(&SgfxRc.param);
       break;
     }
     case RC2_ID:{
       sfx_u32 config_words[3] = {RC2_SET_STD_CONFIG_SM_WORD_0, RC2_SET_STD_CONFIG_SM_WORD_1, RC2_SET_STD_CONFIG_SM_WORD_2 };
-      error = SIGFOX_API_open(&SgfxRc.param );
-      if ( error == SFX_ERR_NONE ){
-        error = SIGFOX_API_set_std_config(  config_words, RC2_SET_STD_TIMER_ENABLE);
+      sfxerror = SIGFOX_API_open(&SgfxRc.param );
+      if ( sfxerror == SFX_ERR_NONE ){
+        sfxerror = SIGFOX_API_set_std_config(  config_words, RC2_SET_STD_TIMER_ENABLE);
       }
       break;
     }
     case RC3C_ID:{
       sfx_u32 config_words[3] = {0x00000003,0x00001388,0x00000000};
-      error = SIGFOX_API_open(&SgfxRc.param );
-      if ( error == SFX_ERR_NONE ){
-        error = SIGFOX_API_set_std_config( config_words, NA);
+      sfxerror = SIGFOX_API_open(&SgfxRc.param );
+      if ( sfxerror == SFX_ERR_NONE ){
+        sfxerror = SIGFOX_API_set_std_config( config_words, NA);
       }
       break;
     }
     case RC4_ID:{
       sfx_u32 config_words[3] = {RC4_SET_STD_CONFIG_SM_WORD_0, RC4_SET_STD_CONFIG_SM_WORD_1, RC4_SET_STD_CONFIG_SM_WORD_2 };
-      error = SIGFOX_API_open(&SgfxRc.param );
-      if ( error == SFX_ERR_NONE ){
-        error = SIGFOX_API_set_std_config( config_words, RC4_SET_STD_TIMER_ENABLE);
+      sfxerror = SIGFOX_API_open(&SgfxRc.param );
+      if ( sfxerror == SFX_ERR_NONE ){
+        sfxerror = SIGFOX_API_set_std_config( config_words, RC4_SET_STD_TIMER_ENABLE);
       }
       break;
     }
     default:{
-      error = SFX_ERR_API_OPEN;
+      sfxerror = SFX_ERR_API_OPEN;
       break;
     }
   }
@@ -160,7 +160,7 @@ sfx_error_t st_sigfox_open( st_sfx_rc_t SgfxRc ){
 
 #ifndef STDBY_ON 
 /* when STDBY_ON the reset button is used instead of the push button */
-static void user_button_init( void ){
+void user_button_init( void ){
 
   GPIO_InitTypeDef initStruct={0};
 

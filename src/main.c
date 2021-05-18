@@ -54,7 +54,7 @@
 #include "bq27441.h"
 
 #include "sigfox.h"
-#include "lorawan_.h"
+#include "lorawan.h"
 #include "nbiot.h"
 #include "energy.h"
 

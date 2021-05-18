@@ -32,16 +32,16 @@ sfx_u8 error = 0;
 uint8_t err_id;
 
 // --------------------------- SIGFOX FUNCTIONS --------------------------------
-static void initSigfox( void );													 // Init Sigfox modem
-static void registerSigfox( void );										   // Register Sigfox to network (empty function)
-static void sendSigfox( void );													 // Send Sigfox data
+void initSigfox( void );													 // Init Sigfox modem
+void registerSigfox( void );										   // Register Sigfox to network (empty function)
+void sendSigfox( void );													 // Send Sigfox data
 
 static sfx_error_t st_sigfox_open( st_sfx_rc_t SgfxRc ); // Open the sigfox library; @param The Region configuration
 
 #ifndef STDBY_ON 
-static void send_data_request( void  );					 // To post interrupt to backgroud; managed by scheduler
-static void send_data_request_from_irq( void * context );
-static void user_button_init( void );									   // Initialize the user btton to request sending data
+void send_data_request( void  );					 // To post interrupt to backgroud; managed by scheduler
+void send_data_request_from_irq( void * context );
+void user_button_init( void );									   // Initialize the user btton to request sending data
 																												 // when STDBY_ON the reset button is used instead of the push button 
 #endif
 
