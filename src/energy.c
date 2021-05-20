@@ -2,6 +2,10 @@
 
 #include "energy.h"
 
+uint16_t energy = 0;
+InitEnergy_t initEnergyStruct; 
+Energy_t energyStruct; 
+
 void initEnergyMeasurement(void){
 	uint16_t testvoltage = 0;
 	//#if defined(LORAWAN) || defined(SIGFOX)
@@ -46,5 +50,5 @@ uint16_t stopEnergyMeasurement(LTC2942_SENSOR sensor){
 	uint16_t uwh = (uint16_t) (energy * voltage);
 	LTC2942_SetShutdown(sensor, 1);
 	return uwh;
-	return 0;
+	//return 0;
 }

@@ -28,8 +28,7 @@ extern "C" {
 /* Can be changed according to application zone*/
 #define APPLI_RC   ST_RC1
 
-sfx_u8 error = 0;
-uint8_t err_id;
+//sfx_u8 error = 0;
 
 // --------------------------- SIGFOX FUNCTIONS --------------------------------
 void initSigfox( void );													 // Init Sigfox modem

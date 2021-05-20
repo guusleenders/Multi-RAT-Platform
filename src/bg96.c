@@ -82,8 +82,13 @@ void BG96_Init( void ){
   /* NVIC for UART */
   HAL_NVIC_SetPriority(UARTX_IRQn, IRQ_PRIORITY_USARTX, 0);
   HAL_NVIC_EnableIRQ(UARTX_IRQn);
-
-LPUART_InitStruct.BaudRate = 9600; // Change to 9600 for low power-ness; first boot: 115200
+	
+	#ifdef BG96_FIRSTBOOT
+	LPUART_InitStruct.BaudRate = 115200; // Change to 9600 for low power-ness; first boot: 115200
+	#endif
+	#ifndef BG96_FIRSTBOOT
+	LPUART_InitStruct.BaudRate = 9600; // Change to 9600 for low power-ness; first boot: 115200
+	#endif
   LPUART_InitStruct.DataWidth = LL_LPUART_DATAWIDTH_8B;
   LPUART_InitStruct.StopBits = LL_LPUART_STOPBITS_1;
   LPUART_InitStruct.Parity = LL_LPUART_PARITY_NONE;
@@ -506,11 +511,20 @@ BG96_Status_t BG96_PowerOn( void ){
   HAL_Delay(400);
   HAL_GPIO_WritePin(BG96_RESETKEY_PORT, BG96_RESETKEY_PIN, GPIO_PIN_RESET); 
 	
-	//HAL_Delay(20000);
-	//BG96_SetBaudRate(9600);
+	#ifdef BG96_FIRSTBOOT
+	HAL_Delay(20000);
+	BG96_SetBaudRate(9600);
+	BG96_SendATCommandCheckReply("ATE0\r\n", "ATE0", 1000);
+	BG96_SaveConfiguration();
+	#endif
+	
 	//char powerOnBuffer[10];
-	BG96_Status_t status = BG96_SendATCommandCheckReply("", "RDY", 10000); // RDY
-	status = BG96_SendATCommandGetReply("", "APP RDY", 2000); // APP RDY // TODO: if this is RDY again, wait for APP RDY
+	BG96_Status_t status = BG96_SendATCommandGetReply("", "", 2000); // POWERED DOWN? 
+	PRINTF_LN("POWERED DOWN");
+	status = BG96_SendATCommandCheckReply("", "RDY", 10000); // RDY
+	PRINTF_LN("RDY");
+	status = BG96_SendATCommandGetReply("", "APP RDY", 2000); // APP RDY // TODO: if this is RDY again, wait for APP RDY (!) Is this optional? 
+	PRINTF_LN("APP RDY");
 	//status = BG96_SendATCommandCheckReply("ATE0\r\n", "ATE0", 1000);
 	//BG96_SaveConfiguration();
 	if(status != BG96_OK)

@@ -44,6 +44,7 @@ Maintainer: Miguel Luis, Gregory Cristian and Wael Guibene
 #include "LoRaMac.h"
 #include "region/Region.h"
 
+
 /* Exported constants --------------------------------------------------------*/
    /*!
  * LoRaWAN confirmed messages

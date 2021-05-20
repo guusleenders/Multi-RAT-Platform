@@ -25,6 +25,22 @@
 #include "hw.h"
 #include "low_power_manager.h"
 
+#include "sigfox.h"
+#include "lorawan.h"
+#include "nbiot.h"
+#include "energy.h"
+
+#include "stm32l0xx_hal_wwdg.h"
+#include "stm32l0xx_hal_rng.h"
+#include "stm32l0xx_hal_gpio.h"
+
+#include "hw_eeprom.h"
+
+#include "mlm32l07x01.h"
+
+#include "timeServer.h"
+#include "vcom2.h"
+/*
 #include "scheduler.h"
 #include "st_sigfox_api.h"
 #include "radio.h"
@@ -58,7 +74,7 @@
 #include "nbiot.h"
 #include "energy.h"
 
-
+*/
 // -------------------------- GENERAL DEFINITIONS ------------------------------
 
 

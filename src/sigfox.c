@@ -155,7 +155,7 @@ sfx_error_t st_sigfox_open( st_sfx_rc_t SgfxRc ){
       break;
     }
   }
-  return error;
+  return sfxerror;
 }
 
 #ifndef STDBY_ON 

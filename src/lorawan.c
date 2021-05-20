@@ -46,7 +46,7 @@ void initLoRaWAN(void){
 	PRINTF_LN("- Initialised");
 	#endif 
 	
-	initEnergyStruct.packetType = INIT;
+	//initEnergyStruct.packetType = INIT;
 	initEnergyStruct.lorawanEnergy = stopEnergyMeasurement(LTC2942_LRWAN);
 }
 

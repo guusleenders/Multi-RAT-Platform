@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include "ltc2942.h"
 
-#include "vcom2.h"
+#include "vcom.h"
 
 typedef enum {
 		INIT = (uint8_t)0, 
@@ -47,6 +47,7 @@ typedef struct Energy_t {
 
 extern InitEnergy_t initEnergyStruct; 
 extern Energy_t energyStruct; 
+
 extern uint16_t energy;
 
 
