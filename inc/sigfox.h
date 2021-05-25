@@ -28,6 +28,8 @@ extern "C" {
 /* Can be changed according to application zone*/
 #define APPLI_RC   ST_RC1
 
+#define SIGFOX_POWER 14
+
 //sfx_u8 error = 0;
 
 // --------------------------- SIGFOX FUNCTIONS --------------------------------

@@ -82,6 +82,8 @@
 #define SIGFOX
 #define LORAWAN
 
+#define DEVICE_ID 0
+
 #define USER_BUTTON_ALT_PIN                         GPIO_PIN_0
 #define USER_BUTTON_ALT_GPIO_PORT                   GPIOA
 //#define STDBY_ON
@@ -167,15 +169,11 @@ int main( void ){
 	
 	HAL_RNG_DeInit(&hrng);
 	
-	initEnergyStruct.bootID = bootID;
-	energyStruct.bootID = initEnergyStruct.bootID;
-	initEnergyStruct.deviceID = 0;
-	energyStruct.deviceID = 0;
-	initEnergyStruct.packetNumber = 0;
-	energyStruct.packetNumber = 0;
+	energyStruct.general_bootID = initEnergyStruct.bootID;
+	energyStruct.general_deviceID = DEVICE_ID;
 	
 	#ifdef DEBUG
-	PRINTF_LN("- Boot ID: %d", energyStruct.bootID);
+	PRINTF_LN("- Boot ID: %d", energyStruct.general_bootID);
 	#endif
 	
 	#ifdef DEBUG
@@ -183,41 +181,8 @@ int main( void ){
 	#endif
 	
 	initEnergyMeasurement();
-		
-	#ifdef NBIOT
-	PRINTF_LN("1. NB-IoT");
-	initNBIoT();
-	#endif
 	
-	#ifdef SIGFOX
-	PRINTF_LN("2. Sigfox");
-	initSigfox();
-	#endif
-	
-	#ifdef LORAWAN
-	PRINTF_LN("3. LoRaWAN");
-	initLoRaWAN();
-	#endif
-	
-	//PRINTF_LN("Registering...");
-	#ifdef NBIOT
-	PRINTF_LN("1. NB-IoT");
-	registerNBIoT();
-	sendNBIoT();
-	#endif
-	//PRINTF_LN("- Done, now Sigfox");
-	
-	#ifdef SIGFOX
-	PRINTF_LN("2. Sigfox");
-	registerSigfox();
-	#endif
-	
-	#ifdef LORAWAN
-	PRINTF_LN("3. LoRaWAN");
-	//TCXO_ON();
-	registerLoRaWAN();
-	//SX1276SetXO(0); DO NOT DO THIS, MUST BE IN JOINED
-	#endif
+	sendTest();
 	
 	// Set low power mode: stop mode (timers on)
 	LPM_SetOffMode(LPM_APPLI_Id, LPM_Disable);
@@ -260,31 +225,37 @@ static void sendTest(void){
 	
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, NULL ); // Disable irq to forbidd user to press button while transmitting
 	
+	clearEnergyStruct();
+	
 	#ifdef NBIOT
 	PRINTF("1. NB-IoT \n");
 	sendNBIoT();
 	#endif
 	
-	energyStruct.packetNumber++;
 	HAL_Delay(500);
+	
 	#ifdef SIGFOX
 	PRINTF("2. SIGFOX \n");
-	//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_SET);
 	sendSigfox();
-	//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_RESET);
 	#endif
-
+	
+	HAL_Delay(500);
+	
 	#ifdef LORAWAN
 	PRINTF("3. LORAWAN \n");
 	LoRaMacInitializationReset();
 	sendLoRaWAN();
 	#endif
 	
+	while(!isDoneLoRaWAN()){
+		SCH_Run( ); 
+	}
+	
+	HAL_Delay(500);
+	
+	sendEnergyStruct();
 	
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, send_data_request_from_irq ); // Enable user to press button after transmittion
-	
-	//PRINTF_LN("Testing sequence done.");
-	
 	TimerStart(&TxTimer); // Schedule next testing cycle
 
 }

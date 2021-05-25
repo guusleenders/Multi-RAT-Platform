@@ -22,6 +22,7 @@ static LoRaMainCallback_t LoRaMainCallbacks = { LORA_GetBatteryLevel,
 LoraFlagStatus LoraMacProcessRequest = LORA_RESET;
 LoraFlagStatus AppProcessRequest = LORA_RESET;
 bool isConnectedLoRaWAN = false;
+bool loradone = false; 
 																							
 static uint8_t AppLedStateOn = RESET; 		// Specifies the state of the application LED
 
@@ -47,7 +48,7 @@ void initLoRaWAN(void){
 	#endif 
 	
 	//initEnergyStruct.packetType = INIT;
-	initEnergyStruct.lorawanEnergy = stopEnergyMeasurement(LTC2942_LRWAN);
+	//initEnergyStruct.lorawanEnergy = stopEnergyMeasurement(LTC2942_LRWAN);
 }
 
 void registerLoRaWAN(void){
@@ -65,6 +66,16 @@ void registerLoRaWAN(void){
 void sendLoRaWAN(void){
 	startEnergyMeasurement(LTC2942_LRWAN);
 	
+	if(!isConnectedLoRaWAN){
+		energyStruct.lorawan_initStatus = 0;
+		initLoRaWAN();
+		registerLoRaWAN();
+	}else{
+		energyStruct.lorawan_initStatus = 1; 
+	}
+	
+	loradone = false; 
+	
 	// ---------- Check if joined ---------- 
   if (LORA_JoinStatus() != LORA_SET) {
     /*Not joined, try again later*/
@@ -79,10 +90,10 @@ void sendLoRaWAN(void){
   uint32_t i = 0;
   //batteryLevel = LORA_GetBatteryLevel();                      /* 1 (very low) to 254 (fully charged) */
   AppData.Port = LORAWAN_APP_PORT;
-  AppData.Buff[i++] = energyStruct.deviceID;
-  AppData.Buff[i++] = energyStruct.bootID;
-  AppData.Buff[i++] = (energyStruct.packetNumber >> 8) & 0xFF;;
-	AppData.Buff[i++] = energyStruct.packetNumber  & 0xFF;
+  AppData.Buff[i++] = energyStruct.general_deviceID;
+  AppData.Buff[i++] = energyStruct.general_bootID;
+  AppData.Buff[i++] = (energyStruct.lorawan_packetNumber >> 8) & 0xFF;;
+	AppData.Buff[i++] = energyStruct.lorawan_packetNumber  & 0xFF;
 	
 	for(uint8_t p = 0; p < LORAWAN_PAYLOAD_SIZE-4; p++){
 		AppData.Buff[i++] = 0x00;
@@ -113,9 +124,9 @@ void LORA_HasJoined(void){
   LORA_RequestClass(LORAWAN_DEFAULT_CLASS);
 	isConnectedLoRaWAN = true;
 
-	uint16_t uwh = stopEnergyMeasurement(LTC2942_LRWAN);
+	/*uint16_t uwh = stopEnergyMeasurement(LTC2942_LRWAN);
 	energyStruct.lorawanPacketType = REGISTRATION;
-	energyStruct.lorawanEnergy = uwh;
+	energyStruct.lorawanEnergy = uwh;*/
 	#ifdef DEBUG
 	PRINTF("\r\n||LoRa join energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ)||\r\n", energy, uwh, uwh*3.6f);
 	#endif
@@ -191,7 +202,7 @@ void LORA_ConfirmClass(DeviceClass_t Class){
   PRINTF("- Switching to class %c done\n\r", "ABC"[Class]);
 	#endif
 
-  // Optionnal: informs the server that switch has occurred ASAP
+  // Optional: informs the server that switch has occurred ASAP
   AppData.BuffSize = 0;
   AppData.Port = LORAWAN_APP_PORT;
 
@@ -210,16 +221,20 @@ void LORA_TxNeeded(void){
   LORA_send(&AppData, LORAWAN_UNCONFIRMED_MSG);
 }
 
+bool isDoneLoRaWAN(void){
+	return loradone;
+}
 void LORA_Done(void){
 	// ---------- LoRa is done, stop everything ---------- 
 	#ifdef DEBUG
 	PRINTF_LN("- LoRa DONE");
 	#endif
-	
+	loradone = true;
 	uint16_t uwh = 	stopEnergyMeasurement(LTC2942_LRWAN);
-	energyStruct.lorawanEnergy = uwh;
-	energyStruct.lorawanPacketType = SEND;
+	energyStruct.lorawan_energy = uwh;
 	PRINTF("\r\n||LoRa energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ )||\r\n", energy, uwh, uwh*3.6f);
+	
+	energyStruct.lorawan_packetNumber++; 
 }
 
 uint8_t LORA_GetBatteryLevel(void){

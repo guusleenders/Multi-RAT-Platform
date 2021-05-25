@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
 #include "ltc2942.h"
 
 #include "vcom.h"
@@ -30,18 +31,23 @@ typedef struct InitEnergy_t {
 
 
 typedef struct Energy_t {
-	uint8_t deviceID; 
-	uint16_t bootID;
-	uint16_t packetNumber;
-  uint16_t  nbiotEnergy;
-	char nbiotConditions[50];
-	MESSAGE_TYPE nbiotPacketType; 
-  uint16_t  sigfoxEnergy;
-	char sigfoxConditions[10];
-	MESSAGE_TYPE sigfoxPacketType; 
-	uint16_t lorawanEnergy;
-	char lorawanConditions[10];
-	MESSAGE_TYPE lorawanPacketType; 
+	uint8_t 	general_deviceID; 
+	uint16_t 	general_bootID;
+	
+	uint16_t  nbiot_packetNumber;
+  uint16_t  nbiot_energy;
+	char 			nbiot_conditions[150];
+	uint8_t 	nbiot_initStatus; 
+	
+	uint16_t  sigfox_packetNumber;
+  uint16_t  sigfox_energy;
+	char 			sigfox_conditions[10];
+	uint8_t 	sigfox_initStatus;
+
+	uint16_t  lorawan_packetNumber;
+  uint16_t  lorawan_energy;
+	char 			lorawan_conditions[10];
+	uint8_t 	lorawan_initStatus;
 } Energy_t;  
 
 
@@ -55,6 +61,7 @@ void initEnergyMeasurement(void);
 void startEnergyMeasurement(LTC2942_SENSOR sensor);
 uint16_t stopEnergyMeasurement(LTC2942_SENSOR sensor);
 
+void clearEnergyStruct( void );
 
 #ifdef __cplusplus
 }

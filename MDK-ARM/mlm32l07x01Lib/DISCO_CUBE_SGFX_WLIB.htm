@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\mlm32l07x01Lib\DISCO_CUBE_SGFX_WLIB.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\mlm32l07x01Lib\DISCO_CUBE_SGFX_WLIB.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue May 25 14:22:31 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue May 25 20:06:43 2021
 <BR><P>
-<H3>Maximum Stack Usage =       1600 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =       1640 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-sendTest &rArr; sendSigfox &rArr; SIGFOX_API_send_frame &rArr; SIGFOX_INT_execute_communication_sequence &rArr; SIGFOX_INT_prepare_transmission &rArr; SIGFOX_INT_build_frame &rArr; SE_API_secure_uplink_message &rArr; SIGFOX_encrypt_decrypt_frame &rArr; CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
+main &rArr; sendTest &rArr; sendSigfox &rArr; SIGFOX_API_send_frame &rArr; SIGFOX_INT_execute_communication_sequence &rArr; SIGFOX_INT_prepare_transmission &rArr; SIGFOX_INT_build_frame &rArr; SE_API_secure_uplink_message &rArr; SIGFOX_encrypt_decrypt_frame &rArr; CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 <P>
 <H3>
 Mutually Recursive functions
@@ -159,7 +159,7 @@ Global Symbols
 <P><STRONG><a name="[3b]"></a>__main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry.o(.ARM.Collect$$$$00000000))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l072xx.o(.text)
 </UL>
-<P><STRONG><a name="[34c]"></a>_main_stk</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry2.o(.ARM.Collect$$$$00000001))
+<P><STRONG><a name="[350]"></a>_main_stk</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry2.o(.ARM.Collect$$$$00000001))
 
 <P><STRONG><a name="[7a]"></a>_main_scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry5.o(.ARM.Collect$$$$00000004))
 <BR><BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
@@ -169,15 +169,15 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
 </UL>
 
-<P><STRONG><a name="[34d]"></a>_main_clock</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry7b.o(.ARM.Collect$$$$00000008))
+<P><STRONG><a name="[351]"></a>_main_clock</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry7b.o(.ARM.Collect$$$$00000008))
 
-<P><STRONG><a name="[34e]"></a>_main_cpp_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry8b.o(.ARM.Collect$$$$0000000A))
+<P><STRONG><a name="[352]"></a>_main_cpp_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry8b.o(.ARM.Collect$$$$0000000A))
 
-<P><STRONG><a name="[34f]"></a>_main_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry9a.o(.ARM.Collect$$$$0000000B))
+<P><STRONG><a name="[353]"></a>_main_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry9a.o(.ARM.Collect$$$$0000000B))
 
-<P><STRONG><a name="[350]"></a>__rt_final_cpp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry10a.o(.ARM.Collect$$$$0000000D))
+<P><STRONG><a name="[354]"></a>__rt_final_cpp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry10a.o(.ARM.Collect$$$$0000000D))
 
-<P><STRONG><a name="[351]"></a>__rt_final_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry11a.o(.ARM.Collect$$$$0000000F))
+<P><STRONG><a name="[355]"></a>__rt_final_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry11a.o(.ARM.Collect$$$$0000000F))
 
 <P><STRONG><a name="[15]"></a>Reset_Handler</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, startup_stm32l072xx.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l072xx.o(RESET)
@@ -255,7 +255,7 @@ Global Symbols
 <P><STRONG><a name="[1b]"></a>WWDG_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32l072xx.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l072xx.o(RESET)
 </UL>
-<P><STRONG><a name="[352]"></a>__aeabi_uidiv</STRONG> (Thumb, 0 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
+<P><STRONG><a name="[356]"></a>__aeabi_uidiv</STRONG> (Thumb, 0 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
 
 <P><STRONG><a name="[7d]"></a>__aeabi_uidivmod</STRONG> (Thumb, 44 bytes, Stack size 12 bytes, uidiv.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = __aeabi_uidivmod
@@ -273,9 +273,9 @@ Global Symbols
 <LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GetTemperatureLevel
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GetBatteryLevel
 <LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_StartWakeUpAlarm
-<LI><a href="#[31c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ee_number
+<LI><a href="#[322]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ee_number
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
-<LI><a href="#[335]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_set_key
+<LI><a href="#[339]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_set_key
 <LI><a href="#[2d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_secure_uplink_message
 <LI><a href="#[2e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_process_uplink
 <LI><a href="#[2db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_dc_lbt_channel_pn_min
@@ -283,12 +283,11 @@ Global Symbols
 <LI><a href="#[2d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_build_frame
 <LI><a href="#[2c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TX_Start
 <LI><a href="#[2dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_compute_uplink_frequency
-<LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_GetBatteryLevel
 <LI><a href="#[314]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
 </UL>
 
-<P><STRONG><a name="[353]"></a>__aeabi_idiv</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, idiv.o(.text), UNUSED)
+<P><STRONG><a name="[357]"></a>__aeabi_idiv</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, idiv.o(.text), UNUSED)
 
 <P><STRONG><a name="[7c]"></a>__aeabi_idivmod</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, idiv.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = __aeabi_idivmod &rArr; __aeabi_uidivmod
@@ -327,13 +326,13 @@ Global Symbols
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ActivateContext
 </UL>
 
-<P><STRONG><a name="[354]"></a>srand</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, rand.o(.text), UNUSED)
+<P><STRONG><a name="[358]"></a>srand</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, rand.o(.text), UNUSED)
 
 <P><STRONG><a name="[ce]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[334]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_key
-<LI><a href="#[338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_cra
-<LI><a href="#[33c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_initial_pac
-<LI><a href="#[33b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_dev_id
+<BR><BR>[Called By]<UL><LI><a href="#[338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_key
+<LI><a href="#[33c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_cra
+<LI><a href="#[340]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_initial_pac
+<LI><a href="#[33f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_dev_id
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Send
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ParseResult
 </UL>
@@ -348,27 +347,28 @@ Global Symbols
 <LI><a href="#[273]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SGFX_SX1276_rx_config
 <LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_delay
 <LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_EEPROM_Init
-<LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
-<LI><a href="#[322]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
+<LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
+<LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Send
 </UL>
 
-<P><STRONG><a name="[355]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
+<P><STRONG><a name="[359]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
 
 <P><STRONG><a name="[82]"></a>__aeabi_memset</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, memseta.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_memset$wrapper
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
 
-<P><STRONG><a name="[356]"></a>__aeabi_memset4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
+<P><STRONG><a name="[35a]"></a>__aeabi_memset4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
 
-<P><STRONG><a name="[357]"></a>__aeabi_memset8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
+<P><STRONG><a name="[35b]"></a>__aeabi_memset8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
 
 <P><STRONG><a name="[81]"></a>__aeabi_memclr</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, memseta.o(.text))
 <BR><BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memset
 </UL>
 <BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STLL_TX_IRQHandler_CB
 <LI><a href="#[2c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TX_Start
+<LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearEnergyStruct
 </UL>
 
 <P><STRONG><a name="[ca]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
@@ -389,17 +389,22 @@ Global Symbols
 <LI><a href="#[2c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STLL_Radio_DeInit
 <LI><a href="#[2d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_secure_uplink_message
 <LI><a href="#[32a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;user_button_init
-<LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
-<LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<LI><a href="#[331]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendEnergyStruct
+<LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Send
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ReceiveToBuffer
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IoDeInit
 </UL>
 
-<P><STRONG><a name="[358]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
+<P><STRONG><a name="[35c]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
 
 <P><STRONG><a name="[83]"></a>_memset$wrapper</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, memseta.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memset
+</UL>
+
+<P><STRONG><a name="[32f]"></a>strcat</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, strcat.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
 <P><STRONG><a name="[ec]"></a>strchr</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, strchr.o(.text))
@@ -418,12 +423,12 @@ Global Symbols
 
 <P><STRONG><a name="[fb]"></a>__aeabi_uread4</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, uread4.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ComputeCmac
-<LI><a href="#[342]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_DECODE_dewhitening
+<LI><a href="#[346]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_DECODE_dewhitening
 </UL>
 
-<P><STRONG><a name="[359]"></a>__rt_uread4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, uread4.o(.text), UNUSED)
+<P><STRONG><a name="[35d]"></a>__rt_uread4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, uread4.o(.text), UNUSED)
 
-<P><STRONG><a name="[35a]"></a>_uread4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, uread4.o(.text), UNUSED)
+<P><STRONG><a name="[35e]"></a>_uread4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, uread4.o(.text), UNUSED)
 
 <P><STRONG><a name="[84]"></a>__aeabi_fadd</STRONG> (Thumb, 162 bytes, Stack size 24 bytes, fadd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = __aeabi_fadd &rArr; _float_epilogue
@@ -455,12 +460,12 @@ Global Symbols
 <P><STRONG><a name="[1c9]"></a>__aeabi_fmul</STRONG> (Thumb, 122 bytes, Stack size 16 bytes, fmul.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_fmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
-<LI><a href="#[32f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
+<BR>[Called By]<UL><LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
+<LI><a href="#[31c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
 <LI><a href="#[14]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_Done
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurement
-<LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
-<LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
+<LI><a href="#[319]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
+<LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
 <LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_GetmAh
 </UL>
 
@@ -538,7 +543,7 @@ Global Symbols
 <LI><a href="#[28b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RegionCommonComputeRxWindowParameters
 </UL>
 
-<P><STRONG><a name="[35b]"></a>scalbn</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, dscalb.o(.text), UNUSED)
+<P><STRONG><a name="[35f]"></a>scalbn</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, dscalb.o(.text), UNUSED)
 
 <P><STRONG><a name="[91]"></a>__aeabi_ui2f</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, ffltui.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = __aeabi_ui2f &rArr; _float_epilogue
@@ -547,8 +552,8 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessMacCommands
 <LI><a href="#[290]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RegionCommonComputeTxPower
-<LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
-<LI><a href="#[32f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
+<LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
+<LI><a href="#[31c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
 <LI><a href="#[14]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_Done
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurement
 <LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_GetmAh
@@ -578,11 +583,11 @@ Global Symbols
 <LI><a href="#[1e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_GetVoltage
 </UL>
 
-<P><STRONG><a name="[31e]"></a>__aeabi_f2uiz</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, ffixui.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[32f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
+<P><STRONG><a name="[324]"></a>__aeabi_f2uiz</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, ffixui.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[31c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurement
-<LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
-<LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
+<LI><a href="#[319]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
+<LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
 </UL>
 
 <P><STRONG><a name="[94]"></a>__aeabi_d2iz</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, dfixi.o(.text))
@@ -607,7 +612,7 @@ Global Symbols
 
 <P><STRONG><a name="[1ca]"></a>__aeabi_f2d</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, f2d.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[290]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RegionCommonComputeTxPower
-<LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
+<LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
 <LI><a href="#[14]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_Done
 <LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_GetmAh
 </UL>
@@ -639,7 +644,7 @@ Global Symbols
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2ulz
 </UL>
 
-<P><STRONG><a name="[35c]"></a>_ll_shift_l</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, llshl.o(.text), UNUSED)
+<P><STRONG><a name="[360]"></a>_ll_shift_l</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, llshl.o(.text), UNUSED)
 
 <P><STRONG><a name="[7f]"></a>__aeabi_llsr</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, llushr.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_llsr
@@ -652,7 +657,7 @@ Global Symbols
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2ulz
 </UL>
 
-<P><STRONG><a name="[35d]"></a>_ll_ushift_r</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, llushr.o(.text), UNUSED)
+<P><STRONG><a name="[361]"></a>_ll_ushift_r</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, llushr.o(.text), UNUSED)
 
 <P><STRONG><a name="[8a]"></a>__aeabi_lasr</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, llsshr.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_lasr
@@ -660,9 +665,9 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
 
-<P><STRONG><a name="[35e]"></a>_ll_sshift_r</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, llsshr.o(.text), UNUSED)
+<P><STRONG><a name="[362]"></a>_ll_sshift_r</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, llsshr.o(.text), UNUSED)
 
-<P><STRONG><a name="[35f]"></a>__I$use$fp</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, iusefp.o(.text), UNUSED)
+<P><STRONG><a name="[363]"></a>__I$use$fp</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, iusefp.o(.text), UNUSED)
 
 <P><STRONG><a name="[86]"></a>_float_round</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, fepilogue.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
@@ -716,9 +721,9 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[315]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 </UL>
 
-<P><STRONG><a name="[360]"></a>__aeabi_cdcmpeq</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, cdcmple.o(.text), UNUSED)
+<P><STRONG><a name="[364]"></a>__aeabi_cdcmpeq</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, cdcmple.o(.text), UNUSED)
 
-<P><STRONG><a name="[32e]"></a>__aeabi_cdcmple</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, cdcmple.o(.text))
+<P><STRONG><a name="[330]"></a>__aeabi_cdcmple</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, cdcmple.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[2fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;round
 </UL>
 
@@ -728,11 +733,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_main_scatterload
 </UL>
 
-<P><STRONG><a name="[361]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
+<P><STRONG><a name="[365]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
 
-<P><STRONG><a name="[362]"></a>__decompress</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
+<P><STRONG><a name="[366]"></a>__decompress</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
 
-<P><STRONG><a name="[363]"></a>__decompress1</STRONG> (Thumb, 86 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
+<P><STRONG><a name="[367]"></a>__decompress1</STRONG> (Thumb, 86 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
 
 <P><STRONG><a name="[9e]"></a>AES_CMAC_Final</STRONG> (Thumb, 316 bytes, Stack size 56 bytes, cmac.o(i.AES_CMAC_Final))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = AES_CMAC_Final &rArr; aes_encrypt &rArr; mix_sub_columns
@@ -798,7 +803,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<BR>[Called By]<UL><LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
 <P><STRONG><a name="[b2]"></a>BG96_ConfigureURCIndication</STRONG> (Thumb, 30 bytes, Stack size 40 bytes, bg96.o(i.BG96_ConfigureURCIndication))
@@ -807,7 +812,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<BR>[Called By]<UL><LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
 </UL>
 
 <P><STRONG><a name="[b3]"></a>BG96_ConnectToOperator</STRONG> (Thumb, 126 bytes, Stack size 56 bytes, bg96.o(i.BG96_ConnectToOperator))
@@ -822,7 +827,7 @@ Global Symbols
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 </UL>
-<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<BR>[Called By]<UL><LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
 <P><STRONG><a name="[b5]"></a>BG96_DeInit</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, bg96.o(i.BG96_DeInit))
@@ -830,7 +835,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_LPUART_DeInit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<BR>[Called By]<UL><LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
 <P><STRONG><a name="[b7]"></a>BG96_DeactivateContext</STRONG> (Thumb, 32 bytes, Stack size 24 bytes, bg96.o(i.BG96_DeactivateContext))
@@ -839,7 +844,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<BR>[Called By]<UL><LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
 <P><STRONG><a name="[b8]"></a>BG96_Dma_IRQHandler</STRONG> (Thumb, 90 bytes, Stack size 16 bytes, bg96.o(i.BG96_Dma_IRQHandler))
@@ -858,7 +863,7 @@ Global Symbols
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 </UL>
-<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<BR>[Called By]<UL><LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
 <P><STRONG><a name="[bb]"></a>BG96_GetEDRXConfiguration</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, bg96.o(i.BG96_GetEDRXConfiguration))
@@ -867,7 +872,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 </UL>
-<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<BR>[Called By]<UL><LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
 <P><STRONG><a name="[bc]"></a>BG96_GetNetworkStatus</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, bg96.o(i.BG96_GetNetworkStatus))
@@ -876,7 +881,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 </UL>
-<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<BR>[Called By]<UL><LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
 <P><STRONG><a name="[d3]"></a>BG96_GetNewChar</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, bg96.o(i.BG96_GetNewChar))
@@ -889,7 +894,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 </UL>
-<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<BR>[Called By]<UL><LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
 <P><STRONG><a name="[be]"></a>BG96_IRQHandler</STRONG> (Thumb, 196 bytes, Stack size 24 bytes, bg96.o(i.BG96_IRQHandler))
@@ -912,8 +917,8 @@ Global Symbols
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_LPUART_Init
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_RegTask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
-<LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<BR>[Called By]<UL><LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
 <P><STRONG><a name="[c9]"></a>BG96_IoDeInit</STRONG> (Thumb, 52 bytes, Stack size 32 bytes, bg96.o(i.BG96_IoDeInit))
@@ -922,7 +927,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<BR>[Called By]<UL><LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
 <P><STRONG><a name="[d4]"></a>BG96_IsNewCharReceived</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, bg96.o(i.BG96_IsNewCharReceived))
@@ -934,7 +939,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
 </UL>
-<BR>[Called By]<UL><LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<BR>[Called By]<UL><LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WakeFromPSMToSend
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WakeFromPSM
 <LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WaitForPowerDown
@@ -959,7 +964,7 @@ Global Symbols
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IsPoweredDown
 </UL>
-<BR>[Called By]<UL><LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<BR>[Called By]<UL><LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
 <P><STRONG><a name="[d0]"></a>BG96_PowerOn</STRONG> (Thumb, 232 bytes, Stack size 48 bytes, bg96.o(i.BG96_PowerOn))
@@ -973,7 +978,7 @@ Global Symbols
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ResetParameters
 </UL>
-<BR>[Called By]<UL><LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<BR>[Called By]<UL><LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
 </UL>
 
 <P><STRONG><a name="[3c]"></a>BG96_ReceiveToBuffer</STRONG> (Thumb, 106 bytes, Stack size 24 bytes, bg96.o(i.BG96_ReceiveToBuffer))
@@ -1000,7 +1005,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<BR>[Called By]<UL><LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
 <P><STRONG><a name="[d6]"></a>BG96_Send</STRONG> (Thumb, 244 bytes, Stack size 168 bytes, bg96.o(i.BG96_Send))
@@ -1021,8 +1026,8 @@ Global Symbols
 <P><STRONG><a name="[da]"></a>BG96_SendATCommand</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, bg96.o(i.BG96_SendATCommand))
 <BR><BR>[Stack]<UL><LI>Max Depth = 364<LI>Call Chain = BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
-<BR>[Calls]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Send
+<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Send
+<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_SendData
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
@@ -1074,11 +1079,11 @@ Global Symbols
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_Run
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_GetTimerValue
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommand
+<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
-<LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<BR>[Called By]<UL><LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WaitForConnection
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_Start
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PowerOn
@@ -1097,8 +1102,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
-<LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<BR>[Called By]<UL><LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
 </UL>
 
 <P><STRONG><a name="[df]"></a>BG96_SetErrorFormat</STRONG> (Thumb, 30 bytes, Stack size 40 bytes, bg96.o(i.BG96_SetErrorFormat))
@@ -1107,7 +1112,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<BR>[Called By]<UL><LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
 </UL>
 
 <P><STRONG><a name="[e0]"></a>BG96_SetMode</STRONG> (Thumb, 126 bytes, Stack size 8 bytes, bg96.o(i.BG96_SetMode))
@@ -1115,7 +1120,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 </UL>
-<BR>[Called By]<UL><LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<BR>[Called By]<UL><LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
 </UL>
 
 <P><STRONG><a name="[e1]"></a>BG96_SetModemOptimization</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, bg96.o(i.BG96_SetModemOptimization))
@@ -1123,8 +1128,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 </UL>
-<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
-<LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<BR>[Called By]<UL><LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
 </UL>
 
 <P><STRONG><a name="[e2]"></a>BG96_SetNetworkReporting</STRONG> (Thumb, 30 bytes, Stack size 40 bytes, bg96.o(i.BG96_SetNetworkReporting))
@@ -1133,7 +1138,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<BR>[Called By]<UL><LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
 </UL>
 
 <P><STRONG><a name="[e3]"></a>BG96_SetPDPContext</STRONG> (Thumb, 30 bytes, Stack size 56 bytes, bg96.o(i.BG96_SetPDPContext))
@@ -1142,7 +1147,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<BR>[Called By]<UL><LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
 <P><STRONG><a name="[e4]"></a>BG96_SetPowerSavingMode</STRONG> (Thumb, 40 bytes, Stack size 120 bytes, bg96.o(i.BG96_SetPowerSavingMode))
@@ -1151,8 +1156,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
-<LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<BR>[Called By]<UL><LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
 </UL>
 
 <P><STRONG><a name="[e5]"></a>BG96_SetPowerSavingModeImmediately</STRONG> (Thumb, 28 bytes, Stack size 40 bytes, bg96.o(i.BG96_SetPowerSavingModeImmediately))
@@ -1161,8 +1166,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
-<LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<BR>[Called By]<UL><LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
 <P><STRONG><a name="[e6]"></a>BG96_SetPowerSavingModeSettings</STRONG> (Thumb, 32 bytes, Stack size 40 bytes, bg96.o(i.BG96_SetPowerSavingModeSettings))
@@ -1171,7 +1175,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<BR>[Called By]<UL><LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
 <P><STRONG><a name="[e8]"></a>BG96_UDP_SendData</STRONG> (Thumb, 124 bytes, Stack size 88 bytes, bg96.o(i.BG96_UDP_SendData))
@@ -1185,7 +1189,7 @@ Global Symbols
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommand
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<BR>[Called By]<UL><LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
 <P><STRONG><a name="[e9]"></a>BG96_UDP_Start</STRONG> (Thumb, 208 bytes, Stack size 144 bytes, bg96.o(i.BG96_UDP_Start))
@@ -1201,7 +1205,7 @@ Global Symbols
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<BR>[Called By]<UL><LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
 <P><STRONG><a name="[ea]"></a>BG96_UDP_Stop</STRONG> (Thumb, 32 bytes, Stack size 64 bytes, bg96.o(i.BG96_UDP_Stop))
@@ -1210,7 +1214,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<BR>[Called By]<UL><LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
 <P><STRONG><a name="[eb]"></a>BG96_WaitForConnection</STRONG> (Thumb, 174 bytes, Stack size 120 bytes, bg96.o(i.BG96_WaitForConnection))
@@ -1234,7 +1238,7 @@ Global Symbols
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IsPoweredDown
 </UL>
-<BR>[Called By]<UL><LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<BR>[Called By]<UL><LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
 <P><STRONG><a name="[ee]"></a>BG96_WakeFromPSM</STRONG> (Thumb, 136 bytes, Stack size 24 bytes, bg96.o(i.BG96_WakeFromPSM))
@@ -1260,7 +1264,7 @@ Global Symbols
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_CheckIfContextActivated
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ActivateContext
 </UL>
-<BR>[Called By]<UL><LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<BR>[Called By]<UL><LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
 <P><STRONG><a name="[f0]"></a>BSP_LED_Init</STRONG> (Thumb, 88 bytes, Stack size 32 bytes, b-l072z-lrwan1.o(i.BSP_LED_Init))
@@ -1475,7 +1479,7 @@ Global Symbols
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_Lp
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
-<LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 <LI><a href="#[1e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_GetVoltage
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WakeFromPSM
 <LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WaitForPowerDown
@@ -1533,7 +1537,7 @@ Global Symbols
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DBG_Init
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_MspInit
-<LI><a href="#[331]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_IoInit
+<LI><a href="#[335]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_IoInit
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
 </UL>
 
@@ -2033,7 +2037,7 @@ Global Symbols
 <LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_CheckIdleState
 <LI><a href="#[176]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_AdvFeatureConfig
 </UL>
-<BR>[Called By]<UL><LI><a href="#[324]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Init
+<BR>[Called By]<UL><LI><a href="#[328]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Init
 </UL>
 
 <P><STRONG><a name="[175]"></a>HAL_UART_MspInit</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32l0xx_hal_uart.o(i.HAL_UART_MspInit))
@@ -2089,8 +2093,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_set
 <LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STLL_RadioPowerSetEeprom
 <LI><a href="#[24a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_set_nv_mem
-<LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
-<LI><a href="#[322]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
+<LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
+<LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
 </UL>
 
 <P><STRONG><a name="[183]"></a>HW_EEPROM_Unlock</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, hw_eeprom.o(i.HW_EEPROM_Unlock))
@@ -2102,8 +2106,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_set
 <LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STLL_RadioPowerSetEeprom
 <LI><a href="#[24a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_set_nv_mem
-<LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
-<LI><a href="#[322]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
+<LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
+<LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
 </UL>
 
 <P><STRONG><a name="[c8]"></a>HW_GPIO_Init</STRONG> (Thumb, 80 bytes, Stack size 16 bytes, hw_gpio.o(i.HW_GPIO_Init))
@@ -2523,8 +2527,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> lorawan.o(.data)
 </UL>
-<P><STRONG><a name="[14]"></a>LORA_Done</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, lorawan.o(i.LORA_Done))
-<BR><BR>[Stack]<UL><LI>Max Depth = 364<LI>Call Chain = LORA_Done &rArr; vcom2_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
+<P><STRONG><a name="[14]"></a>LORA_Done</STRONG> (Thumb, 58 bytes, Stack size 24 bytes, lorawan.o(i.LORA_Done))
+<BR><BR>[Stack]<UL><LI>Max Depth = 372<LI>Call Chain = LORA_Done &rArr; vcom2_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
@@ -2542,11 +2546,10 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> lorawan.o(.data)
 </UL>
-<P><STRONG><a name="[10]"></a>LORA_HasJoined</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, lorawan.o(i.LORA_HasJoined))
+<P><STRONG><a name="[10]"></a>LORA_HasJoined</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, lorawan.o(i.LORA_HasJoined))
 <BR><BR>[Stack]<UL><LI>Max Depth = 412<LI>Call Chain = LORA_HasJoined &rArr; LORA_RequestClass &rArr; vcom2_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_RequestClass
-<LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurement
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> lorawan.o(.data)
 </UL>
@@ -2559,7 +2562,7 @@ Global Symbols
 <LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LoRaMacMibSetRequestConfirm
 <LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LoRaMacInitialization
 </UL>
-<BR>[Called By]<UL><LI><a href="#[31f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initLoRaWAN
+<BR>[Called By]<UL><LI><a href="#[325]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initLoRaWAN
 </UL>
 
 <P><STRONG><a name="[1d1]"></a>LORA_Join</STRONG> (Thumb, 156 bytes, Stack size 24 bytes, lora.o(i.LORA_Join))
@@ -2569,7 +2572,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MlmeConfirm
 <LI><a href="#[2b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendLoRaWAN
-<LI><a href="#[329]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerLoRaWAN
+<LI><a href="#[32e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerLoRaWAN
 </UL>
 
 <P><STRONG><a name="[1d2]"></a>LORA_JoinStatus</STRONG> (Thumb, 28 bytes, Stack size 40 bytes, lora.o(i.LORA_JoinStatus))
@@ -2680,7 +2683,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_EnterLowPower
 </UL>
 
-<P><STRONG><a name="[325]"></a>LPM_SetOffMode</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, low_power_manager.o(i.LPM_SetOffMode))
+<P><STRONG><a name="[329]"></a>LPM_SetOffMode</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, low_power_manager.o(i.LPM_SetOffMode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = LPM_SetOffMode
 </UL>
 <BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -2710,7 +2713,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_ReadReg
 </UL>
-<BR>[Called By]<UL><LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
+<BR>[Called By]<UL><LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
 </UL>
 
 <P><STRONG><a name="[1e4]"></a>LTC2942_GetVoltage</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, ltc2942.o(i.LTC2942_GetVoltage))
@@ -2725,7 +2728,7 @@ Global Symbols
 <LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_ReadReg
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurement
-<LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
+<LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
 </UL>
 
 <P><STRONG><a name="[1e6]"></a>LTC2942_GetmAh</STRONG> (Thumb, 142 bytes, Stack size 24 bytes, ltc2942.o(i.LTC2942_GetmAh))
@@ -2740,7 +2743,7 @@ Global Symbols
 <LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_GetAccumulatedCharge
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurement
-<LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
+<LI><a href="#[319]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
 </UL>
 
 <P><STRONG><a name="[1e7]"></a>LTC2942_Init</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, ltc2942.o(i.LTC2942_Init))
@@ -2748,7 +2751,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
+<BR>[Called By]<UL><LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
 </UL>
 
 <P><STRONG><a name="[1e2]"></a>LTC2942_ReadReg</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, ltc2942.o(i.LTC2942_ReadReg))
@@ -2775,8 +2778,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_WriteReg
 </UL>
-<BR>[Called By]<UL><LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
-<LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
+<BR>[Called By]<UL><LI><a href="#[319]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
+<LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
 </UL>
 
 <P><STRONG><a name="[1eb]"></a>LTC2942_SetAlertConfig</STRONG> (Thumb, 18 bytes, Stack size 16 bytes, ltc2942.o(i.LTC2942_SetAlertConfig))
@@ -2784,7 +2787,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_UpdateReg
 </UL>
-<BR>[Called By]<UL><LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
+<BR>[Called By]<UL><LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
 </UL>
 
 <P><STRONG><a name="[1ec]"></a>LTC2942_SetPrescaler</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, ltc2942.o(i.LTC2942_SetPrescaler))
@@ -2792,7 +2795,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_UpdateReg
 </UL>
-<BR>[Called By]<UL><LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
+<BR>[Called By]<UL><LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
 </UL>
 
 <P><STRONG><a name="[1ed]"></a>LTC2942_SetShutdown</STRONG> (Thumb, 20 bytes, Stack size 16 bytes, ltc2942.o(i.LTC2942_SetShutdown))
@@ -2800,10 +2803,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_UpdateReg
 </UL>
-<BR>[Called By]<UL><LI><a href="#[32f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
+<BR>[Called By]<UL><LI><a href="#[31c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurement
-<LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
-<LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
+<LI><a href="#[319]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
+<LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
 </UL>
 
 <P><STRONG><a name="[1e8]"></a>LTC2942_UpdateReg</STRONG> (Thumb, 56 bytes, Stack size 48 bytes, ltc2942.o(i.LTC2942_UpdateReg))
@@ -4271,6 +4274,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_EvtIdle
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 </UL>
@@ -4299,15 +4303,15 @@ Global Symbols
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_Lp
 </UL>
 
-<P><STRONG><a name="[33e]"></a>SE_NVM_get</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, se_nvm.o(i.SE_NVM_get))
-<BR><BR>[Called By]<UL><LI><a href="#[340]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_encrypt_decrypt_frame
-<LI><a href="#[342]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_DECODE_dewhitening
+<P><STRONG><a name="[342]"></a>SE_NVM_get</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, se_nvm.o(i.SE_NVM_get))
+<BR><BR>[Called By]<UL><LI><a href="#[344]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_encrypt_decrypt_frame
+<LI><a href="#[346]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_DECODE_dewhitening
 <LI><a href="#[2e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_verify_downlink_message
 <LI><a href="#[2d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_secure_uplink_message
 </UL>
 
-<P><STRONG><a name="[333]"></a>SE_NVM_get_key_type</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, se_nvm.o(i.SE_NVM_get_key_type))
-<BR><BR>[Called By]<UL><LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt
+<P><STRONG><a name="[337]"></a>SE_NVM_get_key_type</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, se_nvm.o(i.SE_NVM_get_key_type))
+<BR><BR>[Called By]<UL><LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt
 </UL>
 
 <P><STRONG><a name="[2b7]"></a>SE_NVM_set</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, se_nvm.o(i.SE_NVM_set))
@@ -4361,7 +4365,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STLL_RadioPowerSetEeprom
 </UL>
-<BR>[Called By]<UL><LI><a href="#[322]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
+<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
 </UL>
 
 <P><STRONG><a name="[278]"></a>SGFX_SX1276_stop</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, sgfxsx1276modulation-lib.o(i.SGFX_SX1276_stop))
@@ -4403,7 +4407,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[2c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_free
 <LI><a href="#[2c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RETURN_CODE
 </UL>
-<BR>[Called By]<UL><LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
+<BR>[Called By]<UL><LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
 </UL>
 
 <P><STRONG><a name="[2c9]"></a>SIGFOX_API_get_device_id</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, sigfox_api.o(i.SIGFOX_API_get_device_id))
@@ -4411,7 +4415,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_get_device_id
 </UL>
-<BR>[Called By]<UL><LI><a href="#[322]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
+<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
 </UL>
 
 <P><STRONG><a name="[2cb]"></a>SIGFOX_API_get_initial_pac</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, sigfox_api.o(i.SIGFOX_API_get_initial_pac))
@@ -4422,7 +4426,7 @@ Global Symbols
 <LI><a href="#[2ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_close
 <LI><a href="#[2c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RETURN_CODE
 </UL>
-<BR>[Called By]<UL><LI><a href="#[322]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
+<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
 </UL>
 
 <P><STRONG><a name="[2cf]"></a>SIGFOX_API_open</STRONG> (Thumb, 322 bytes, Stack size 32 bytes, sigfox_api.o(i.SIGFOX_API_open))
@@ -4434,7 +4438,7 @@ Global Symbols
 <LI><a href="#[2ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_get_device_id
 <LI><a href="#[2c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RETURN_CODE
 </UL>
-<BR>[Called By]<UL><LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st_sigfox_open
+<BR>[Called By]<UL><LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st_sigfox_open
 </UL>
 
 <P><STRONG><a name="[2d2]"></a>SIGFOX_API_send_frame</STRONG> (Thumb, 66 bytes, Stack size 24 bytes, sigfox_api.o(i.SIGFOX_API_send_frame))
@@ -4442,7 +4446,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_execute_communication_sequence
 </UL>
-<BR>[Called By]<UL><LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
+<BR>[Called By]<UL><LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
 </UL>
 
 <P><STRONG><a name="[2d4]"></a>SIGFOX_API_set_std_config</STRONG> (Thumb, 114 bytes, Stack size 16 bytes, sigfox_api.o(i.SIGFOX_API_set_std_config))
@@ -4450,7 +4454,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_get_max_micro_channel
 </UL>
-<BR>[Called By]<UL><LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st_sigfox_open
+<BR>[Called By]<UL><LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st_sigfox_open
 </UL>
 
 <P><STRONG><a name="[2d6]"></a>SIGFOX_INT_build_frame</STRONG> (Thumb, 324 bytes, Stack size 48 bytes, sigfox_internal.o(i.SIGFOX_INT_build_frame))
@@ -5340,7 +5344,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Write
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[322]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
+<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> mlm32l07x01.o(.data)
 </UL>
@@ -5814,12 +5818,15 @@ Global Symbols
 <LI><a href="#[314]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
 </UL>
 
-<P><STRONG><a name="[364]"></a>__1sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0sprintf), UNUSED)
+<P><STRONG><a name="[368]"></a>__1sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0sprintf), UNUSED)
 
 <P><STRONG><a name="[a9]"></a>__2sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0sprintf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_Stop
+<BR>[Called By]<UL><LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
+<LI><a href="#[331]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendEnergyStruct
+<LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_Stop
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_Start
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_SendData
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPowerSavingModeSettings
@@ -5837,9 +5844,9 @@ Global Symbols
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ActivateContext
 </UL>
 
-<P><STRONG><a name="[365]"></a>__c89sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0sprintf), UNUSED)
+<P><STRONG><a name="[369]"></a>__c89sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0sprintf), UNUSED)
 
-<P><STRONG><a name="[366]"></a>sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0sprintf), UNUSED)
+<P><STRONG><a name="[36a]"></a>sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0sprintf), UNUSED)
 
 <P><STRONG><a name="[97]"></a>__ARM_clz</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, depilogue.o(i.__ARM_clz))
 <BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
@@ -5868,19 +5875,45 @@ Global Symbols
 <LI><a href="#[2d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_build_frame
 </UL>
 
-<P><STRONG><a name="[367]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
+<P><STRONG><a name="[36b]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
 
-<P><STRONG><a name="[368]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
+<P><STRONG><a name="[36c]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
 
-<P><STRONG><a name="[369]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
+<P><STRONG><a name="[36d]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
+
+<P><STRONG><a name="[318]"></a>_sendNBIoT</STRONG> (Thumb, 300 bytes, Stack size 24 bytes, nbiot.o(i._sendNBIoT))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1136<LI>Call Chain = _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
+<LI><a href="#[31c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
+<LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<LI><a href="#[319]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
+<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WakeFromPSMToSend
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WaitForPowerDown
+<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_Stop
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_Start
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_SendData
+<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPowerSavingModeImmediately
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PowerDown
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IsPoweredDown
+<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IoDeInit
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_DeactivateContext
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_DeInit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<LI><a href="#[331]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendEnergyStruct
+</UL>
 
 <P><STRONG><a name="[a0]"></a>aes_encrypt</STRONG> (Thumb, 84 bytes, Stack size 40 bytes, aes.o(i.aes_encrypt))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = aes_encrypt &rArr; mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xor_block
-<LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shift_sub_rows
-<LI><a href="#[319]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mix_sub_columns
-<LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copy_and_key
+<BR>[Calls]<UL><LI><a href="#[31f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xor_block
+<LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shift_sub_rows
+<LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mix_sub_columns
+<LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copy_and_key
 </UL>
 <BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SecureElementAesEncrypt
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AES_CMAC_Update
@@ -5937,6 +5970,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;McpsIndication
 </UL>
 
+<P><STRONG><a name="[321]"></a>clearEnergyStruct</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, energy.o(i.clearEnergyStruct))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = clearEnergyStruct
+</UL>
+<BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
+</UL>
+<BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+</UL>
+
 <P><STRONG><a name="[291]"></a>floor</STRONG> (Thumb, 180 bytes, Stack size 24 bytes, floor.o(i.floor))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = floor &rArr; __aeabi_drsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsr
 </UL>
@@ -5948,11 +5989,11 @@ Global Symbols
 <LI><a href="#[290]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RegionCommonComputeTxPower
 </UL>
 
-<P><STRONG><a name="[31d]"></a>initEnergyMeasurement</STRONG> (Thumb, 178 bytes, Stack size 8 bytes, energy.o(i.initEnergyMeasurement))
+<P><STRONG><a name="[323]"></a>initEnergyMeasurement</STRONG> (Thumb, 178 bytes, Stack size 8 bytes, energy.o(i.initEnergyMeasurement))
 <BR><BR>[Stack]<UL><LI>Max Depth = 356<LI>Call Chain = initEnergyMeasurement &rArr; vcom2_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
+<LI><a href="#[324]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[1ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_SetShutdown
 <LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_SetPrescaler
@@ -5965,23 +6006,19 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[31f]"></a>initLoRaWAN</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, lorawan.o(i.initLoRaWAN))
+<P><STRONG><a name="[325]"></a>initLoRaWAN</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, lorawan.o(i.initLoRaWAN))
 <BR><BR>[Stack]<UL><LI>Max Depth = 388<LI>Call Chain = initLoRaWAN &rArr; LORA_Init &rArr; vcom2_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_Init
-<LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurement
-<LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
+<LI><a href="#[319]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
 </UL>
-<BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR>[Called By]<UL><LI><a href="#[2b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendLoRaWAN
 </UL>
 
-<P><STRONG><a name="[321]"></a>initNBIoT</STRONG> (Thumb, 140 bytes, Stack size 48 bytes, nbiot.o(i.initNBIoT))
+<P><STRONG><a name="[31a]"></a>initNBIoT</STRONG> (Thumb, 108 bytes, Stack size 48 bytes, nbiot.o(i.initNBIoT))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1032<LI>Call Chain = initNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
-<LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurement
-<LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
+<BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPowerSavingMode
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetNetworkReporting
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetModemOptimization
@@ -5993,11 +6030,10 @@ Global Symbols
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConfigureURCIndication
 </UL>
-<BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<BR>[Called By]<UL><LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
-<P><STRONG><a name="[322]"></a>initSigfox</STRONG> (Thumb, 128 bytes, Stack size 72 bytes, sigfox.o(i.initSigfox))
+<P><STRONG><a name="[326]"></a>initSigfox</STRONG> (Thumb, 144 bytes, Stack size 72 bytes, sigfox.o(i.initSigfox))
 <BR><BR>[Stack]<UL><LI>Max Depth = 992<LI>Call Chain = initSigfox &rArr; st_sigfox_open &rArr; SIGFOX_API_open &rArr; SIGFOX_INT_get_device_id &rArr; SE_API_get_device_id &rArr; CREDENTIALS_get_dev_id &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
@@ -6008,15 +6044,20 @@ Global Symbols
 <LI><a href="#[2cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_API_get_initial_pac
 <LI><a href="#[2c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_API_get_device_id
 <LI><a href="#[2be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SGFX_SX1276_setPower
-<LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st_sigfox_open
+<LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st_sigfox_open
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurement
-<LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
+<LI><a href="#[319]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR>[Called By]<UL><LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
 </UL>
 
-<P><STRONG><a name="[39]"></a>main</STRONG> (Thumb, 480 bytes, Stack size 32 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1160<LI>Call Chain = main &rArr; sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<P><STRONG><a name="[334]"></a>isDoneLoRaWAN</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, lorawan.o(i.isDoneLoRaWAN))
+<BR><BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+</UL>
+
+<P><STRONG><a name="[39]"></a>main</STRONG> (Thumb, 360 bytes, Stack size 32 bytes, main.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1640<LI>Call Chain = main &rArr; sendTest &rArr; sendSigfox &rArr; SIGFOX_API_send_frame &rArr; SIGFOX_INT_execute_communication_sequence &rArr; SIGFOX_INT_prepare_transmission &rArr; SIGFOX_INT_build_frame &rArr; SE_API_secure_uplink_message &rArr; SIGFOX_encrypt_decrypt_frame &rArr; CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
@@ -6032,23 +6073,16 @@ Global Symbols
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_Run
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_RegTask
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetStopMode
-<LI><a href="#[325]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetOffMode
+<LI><a href="#[329]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetOffMode
 <LI><a href="#[30c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 <LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_Init
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DBG_Init
 <LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_EEPROM_Init
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 <LI><a href="#[32a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;user_button_init
-<LI><a href="#[328]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerSigfox
-<LI><a href="#[322]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
-<LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
-<LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
-<LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
-<LI><a href="#[329]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerLoRaWAN
-<LI><a href="#[31f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initLoRaWAN
-<LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
-<LI><a href="#[324]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Init
+<LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
+<LI><a href="#[328]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Init
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
@@ -6123,23 +6157,22 @@ Global Symbols
 <LI><a href="#[29c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RegionEU868GetPhyParam
 </UL>
 
-<P><STRONG><a name="[329]"></a>registerLoRaWAN</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, lorawan.o(i.registerLoRaWAN))
+<P><STRONG><a name="[32e]"></a>registerLoRaWAN</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, lorawan.o(i.registerLoRaWAN))
 <BR><BR>[Stack]<UL><LI>Max Depth = 328<LI>Call Chain = registerLoRaWAN &rArr; LORA_Join &rArr; LoRaMacMibSetRequestConfirm &rArr; SwitchClass &rArr; RegionComputeRxWindowParameters &rArr; RegionEU868ComputeRxWindowParameters &rArr; RegionCommonComputeRxWindowParameters &rArr; ceil &rArr; __aeabi_drsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsr
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_Join
-<LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
+<LI><a href="#[319]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
 </UL>
-<BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR>[Called By]<UL><LI><a href="#[2b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendLoRaWAN
 </UL>
 
-<P><STRONG><a name="[326]"></a>registerNBIoT</STRONG> (Thumb, 140 bytes, Stack size 120 bytes, nbiot.o(i.registerNBIoT))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1104<LI>Call Chain = registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<P><STRONG><a name="[31b]"></a>registerNBIoT</STRONG> (Thumb, 192 bytes, Stack size 128 bytes, nbiot.o(i.registerNBIoT))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1112<LI>Call Chain = registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
-<LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurement
-<LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
+<BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
+<LI><a href="#[32f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPowerSavingModeSettings
-<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPowerSavingModeImmediately
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPowerSavingMode
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPDPContext
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetModemOptimization
@@ -6152,13 +6185,9 @@ Global Symbols
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetCELevel
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConnectToOperator
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConfigureContext
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
-</UL>
-
-<P><STRONG><a name="[328]"></a>registerSigfox</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, sigfox.o(i.registerSigfox))
-<BR><BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR>[Called By]<UL><LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
 <P><STRONG><a name="[2fb]"></a>round</STRONG> (Thumb, 142 bytes, Stack size 32 bytes, round.o(i.round))
@@ -6168,50 +6197,45 @@ Global Symbols
 <LI><a href="#[2fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_drnd
-<LI><a href="#[32e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
+<LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276GetTimeOnAir
 </UL>
 
-<P><STRONG><a name="[2b6]"></a>sendLoRaWAN</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, lorawan.o(i.sendLoRaWAN))
-<BR><BR>[Stack]<UL><LI>Max Depth = 684<LI>Call Chain = sendLoRaWAN &rArr; LORA_send &rArr; LoRaMacMcpsRequest &rArr; Send &rArr; ScheduleTx &rArr; RegionNextChannel &rArr; RegionEU868NextChannel &rArr; vcom2_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
+<P><STRONG><a name="[331]"></a>sendEnergyStruct</STRONG> (Thumb, 126 bytes, Stack size 360 bytes, nbiot.o(i.sendEnergyStruct))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1496<LI>Call Chain = sendEnergyStruct &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+</UL>
+<BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+</UL>
+
+<P><STRONG><a name="[2b6]"></a>sendLoRaWAN</STRONG> (Thumb, 126 bytes, Stack size 16 bytes, lorawan.o(i.sendLoRaWAN))
+<BR><BR>[Stack]<UL><LI>Max Depth = 692<LI>Call Chain = sendLoRaWAN &rArr; LORA_send &rArr; LoRaMacMcpsRequest &rArr; Send &rArr; ScheduleTx &rArr; RegionNextChannel &rArr; RegionEU868NextChannel &rArr; vcom2_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_send
 <LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_JoinStatus
 <LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_Join
-<LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
+<LI><a href="#[32e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerLoRaWAN
+<LI><a href="#[325]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initLoRaWAN
+<LI><a href="#[319]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_Idle
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 </UL>
 
-<P><STRONG><a name="[327]"></a>sendNBIoT</STRONG> (Thumb, 244 bytes, Stack size 24 bytes, nbiot.o(i.sendNBIoT))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1128<LI>Call Chain = sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<P><STRONG><a name="[332]"></a>sendNBIoT</STRONG> (Thumb, 20 bytes, Stack size 16 bytes, nbiot.o(i.sendNBIoT))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1152<LI>Call Chain = sendNBIoT &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[32f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
-<LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
-<LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
-<LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WakeFromPSMToSend
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WaitForPowerDown
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_Stop
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_Start
-<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_SendData
-<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPowerSavingModeImmediately
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PowerDown
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IsPoweredDown
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IoDeInit
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_DeactivateContext
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_DeInit
+<BR>[Calls]<UL><LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
-<BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 </UL>
 
-<P><STRONG><a name="[330]"></a>sendSigfox</STRONG> (Thumb, 238 bytes, Stack size 104 bytes, sigfox.o(i.sendSigfox))
+<P><STRONG><a name="[333]"></a>sendSigfox</STRONG> (Thumb, 276 bytes, Stack size 104 bytes, sigfox.o(i.sendSigfox))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1592<LI>Call Chain = sendSigfox &rArr; SIGFOX_API_send_frame &rArr; SIGFOX_INT_execute_communication_sequence &rArr; SIGFOX_INT_prepare_transmission &rArr; SIGFOX_INT_build_frame &rArr; SE_API_secure_uplink_message &rArr; SIGFOX_encrypt_decrypt_frame &rArr; CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
 <BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
@@ -6223,9 +6247,10 @@ Global Symbols
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 <LI><a href="#[2d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_API_send_frame
 <LI><a href="#[2c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_API_close
-<LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st_sigfox_open
+<LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
+<LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st_sigfox_open
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurement
-<LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
+<LI><a href="#[319]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 </UL>
@@ -6250,23 +6275,21 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LoRaMacInitialization
 </UL>
 
-<P><STRONG><a name="[320]"></a>startEnergyMeasurement</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, energy.o(i.startEnergyMeasurement))
+<P><STRONG><a name="[319]"></a>startEnergyMeasurement</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, energy.o(i.startEnergyMeasurement))
 <BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = startEnergyMeasurement &rArr; LTC2942_SetShutdown &rArr; LTC2942_UpdateReg &rArr; LTC2942_WriteReg &rArr; I2C_WriteData &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite &rArr; I2C_WaitOnTXISFlagUntilTimeout &rArr; I2C_IsAcknowledgeFailed
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
+<LI><a href="#[324]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
 <LI><a href="#[1ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_SetShutdown
 <LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_SetAccumulatedCharge
 <LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_GetmAh
 </UL>
-<BR>[Called By]<UL><LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
-<LI><a href="#[322]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
-<LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
-<LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
-<LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<BR>[Called By]<UL><LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
+<LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
+<LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 <LI><a href="#[2b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendLoRaWAN
-<LI><a href="#[329]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerLoRaWAN
-<LI><a href="#[31f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initLoRaWAN
+<LI><a href="#[32e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerLoRaWAN
+<LI><a href="#[325]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initLoRaWAN
 </UL>
 
 <P><STRONG><a name="[1c8]"></a>stopEnergyMeasurement</STRONG> (Thumb, 76 bytes, Stack size 16 bytes, energy.o(i.stopEnergyMeasurement))
@@ -6274,39 +6297,35 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
+<LI><a href="#[324]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 <LI><a href="#[1ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_SetShutdown
 <LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_GetmAh
 <LI><a href="#[1e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_GetVoltage
 </UL>
-<BR>[Called By]<UL><LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
-<LI><a href="#[322]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
-<LI><a href="#[32f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
-<LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
-<LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
-<LI><a href="#[31f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initLoRaWAN
-<LI><a href="#[10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_HasJoined
+<BR>[Called By]<UL><LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
+<LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
+<LI><a href="#[31c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
 <LI><a href="#[14]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_Done
 </UL>
 
-<P><STRONG><a name="[32f]"></a>stopEnergyMeasurementNBIoT</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, nbiot.o(i.stopEnergyMeasurementNBIoT))
+<P><STRONG><a name="[31c]"></a>stopEnergyMeasurementNBIoT</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, nbiot.o(i.stopEnergyMeasurementNBIoT))
 <BR><BR>[Stack]<UL><LI>Max Depth = 364<LI>Call Chain = stopEnergyMeasurementNBIoT &rArr; vcom2_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
+<LI><a href="#[324]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurement
 <LI><a href="#[1ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_SetShutdown
 </UL>
-<BR>[Called By]<UL><LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<BR>[Called By]<UL><LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
 <P><STRONG><a name="[d8]"></a>tiny_vsnprintf_like</STRONG> (Thumb, 338 bytes, Stack size 56 bytes, tiny_vsnprintf.o(i.tiny_vsnprintf_like))
 <BR><BR>[Stack]<UL><LI>Max Depth = 188<LI>Call Chain = tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
-<BR>[Calls]<UL><LI><a href="#[31c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ee_number
+<BR>[Calls]<UL><LI><a href="#[322]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ee_number
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
@@ -6323,21 +6342,21 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[324]"></a>vcom2_Init</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, vcom2.o(i.vcom2_Init))
+<P><STRONG><a name="[328]"></a>vcom2_Init</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, vcom2.o(i.vcom2_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = vcom2_Init &rArr; HAL_UART_Init &rArr; UART_SetConfig &rArr; __aeabi_uldivmod &rArr; __aeabi_llsr
 </UL>
 <BR>[Calls]<UL><LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Init
-<LI><a href="#[331]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_IoInit
+<LI><a href="#[335]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_IoInit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[331]"></a>vcom2_IoInit</STRONG> (Thumb, 50 bytes, Stack size 32 bytes, vcom2.o(i.vcom2_IoInit))
+<P><STRONG><a name="[335]"></a>vcom2_IoInit</STRONG> (Thumb, 50 bytes, Stack size 32 bytes, vcom2.o(i.vcom2_IoInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = vcom2_IoInit &rArr; HAL_GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[324]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Init
+<BR>[Called By]<UL><LI><a href="#[328]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Init
 </UL>
 
 <P><STRONG><a name="[b4]"></a>vcom2_Send</STRONG> (Thumb, 104 bytes, Stack size 160 bytes, vcom2.o(i.vcom2_Send))
@@ -6370,14 +6389,15 @@ Global Symbols
 <LI><a href="#[249]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_report_test_result
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
-<LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
-<LI><a href="#[322]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
-<LI><a href="#[32f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
-<LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
-<LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
+<LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
+<LI><a href="#[31c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
+<LI><a href="#[331]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendEnergyStruct
+<LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
+<LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 <LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_RxData
 <LI><a href="#[14]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_Done
-<LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
+<LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WakeFromPSMToSend
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WakeFromPSM
 <LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WaitForPowerDown
@@ -6390,61 +6410,61 @@ Global Symbols
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConnectToOperator
 </UL>
 
-<P><STRONG><a name="[332]"></a>CREDENTIALS_aes_128_cbc_encrypt</STRONG> (Thumb, 72 bytes, Stack size 304 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_aes_128_cbc_encrypt))
+<P><STRONG><a name="[336]"></a>CREDENTIALS_aes_128_cbc_encrypt</STRONG> (Thumb, 72 bytes, Stack size 304 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_aes_128_cbc_encrypt))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1144<LI>Call Chain = CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_get_key_type
-<LI><a href="#[335]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_set_key
-<LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
-<LI><a href="#[334]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_key
+<BR>[Calls]<UL><LI><a href="#[337]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_get_key_type
+<LI><a href="#[339]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_set_key
+<LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
+<LI><a href="#[338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_key
 </UL>
-<BR>[Called By]<UL><LI><a href="#[340]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_encrypt_decrypt_frame
-<LI><a href="#[341]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_HMAC_compute_aes
+<BR>[Called By]<UL><LI><a href="#[344]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_encrypt_decrypt_frame
+<LI><a href="#[345]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_HMAC_compute_aes
 <LI><a href="#[2e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_verify_downlink_message
 </UL>
 
-<P><STRONG><a name="[337]"></a>CREDENTIALS_aes_128_cbc_encrypt_with_session_key</STRONG> (Thumb, 52 bytes, Stack size 280 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_aes_128_cbc_encrypt_with_session_key))
+<P><STRONG><a name="[33b]"></a>CREDENTIALS_aes_128_cbc_encrypt_with_session_key</STRONG> (Thumb, 52 bytes, Stack size 280 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_aes_128_cbc_encrypt_with_session_key))
 <BR><BR>[Stack]<UL><LI>Max Depth = 368<LI>Call Chain = CREDENTIALS_aes_128_cbc_encrypt_with_session_key &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[335]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_set_key
-<LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
+<BR>[Calls]<UL><LI><a href="#[339]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_set_key
+<LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
 </UL>
-<BR>[Called By]<UL><LI><a href="#[340]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_encrypt_decrypt_frame
+<BR>[Called By]<UL><LI><a href="#[344]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_encrypt_decrypt_frame
 </UL>
 
-<P><STRONG><a name="[33b]"></a>CREDENTIALS_get_dev_id</STRONG> (Thumb, 30 bytes, Stack size 56 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_get_dev_id))
+<P><STRONG><a name="[33f]"></a>CREDENTIALS_get_dev_id</STRONG> (Thumb, 30 bytes, Stack size 56 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_get_dev_id))
 <BR><BR>[Stack]<UL><LI>Max Depth = 840<LI>Call Chain = CREDENTIALS_get_dev_id &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
-<LI><a href="#[338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_cra
+<LI><a href="#[33c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_cra
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_verify_downlink_message
 <LI><a href="#[2d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_secure_uplink_message
 <LI><a href="#[2e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_get_device_id
 </UL>
 
-<P><STRONG><a name="[33c]"></a>CREDENTIALS_get_initial_pac</STRONG> (Thumb, 30 bytes, Stack size 56 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_get_initial_pac))
+<P><STRONG><a name="[340]"></a>CREDENTIALS_get_initial_pac</STRONG> (Thumb, 30 bytes, Stack size 56 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_get_initial_pac))
 <BR><BR>[Stack]<UL><LI>Max Depth = 840<LI>Call Chain = CREDENTIALS_get_initial_pac &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
-<LI><a href="#[338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_cra
+<LI><a href="#[33c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_cra
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_get_initial_pac
 </UL>
 
-<P><STRONG><a name="[33f]"></a>CREDENTIALS_get_payload_encryption_flag</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_get_payload_encryption_flag))
+<P><STRONG><a name="[343]"></a>CREDENTIALS_get_payload_encryption_flag</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_get_payload_encryption_flag))
 <BR><BR>[Called By]<UL><LI><a href="#[2e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_verify_downlink_message
 <LI><a href="#[2d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_secure_uplink_message
 </UL>
 
-<P><STRONG><a name="[33d]"></a>CREDENTIALS_wrap_session_key</STRONG> (Thumb, 66 bytes, Stack size 296 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_wrap_session_key))
+<P><STRONG><a name="[341]"></a>CREDENTIALS_wrap_session_key</STRONG> (Thumb, 66 bytes, Stack size 296 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_wrap_session_key))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1136<LI>Call Chain = CREDENTIALS_wrap_session_key &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[335]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_set_key
-<LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
-<LI><a href="#[334]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_key
+<BR>[Calls]<UL><LI><a href="#[339]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_set_key
+<LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
+<LI><a href="#[338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_key
 </UL>
-<BR>[Called By]<UL><LI><a href="#[340]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_encrypt_decrypt_frame
+<BR>[Called By]<UL><LI><a href="#[344]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_encrypt_decrypt_frame
 </UL>
 
 <P><STRONG><a name="[2ce]"></a>SE_API_close</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, sgfx_cmac_lib.o(i.SE_API_close))
@@ -6457,7 +6477,7 @@ Global Symbols
 <P><STRONG><a name="[2e5]"></a>SE_API_get_device_id</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, sgfx_cmac_lib.o(i.SE_API_get_device_id))
 <BR><BR>[Stack]<UL><LI>Max Depth = 848<LI>Call Chain = SE_API_get_device_id &rArr; CREDENTIALS_get_dev_id &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[33b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_dev_id
+<BR>[Calls]<UL><LI><a href="#[33f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_dev_id
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_get_device_id
 </UL>
@@ -6465,7 +6485,7 @@ Global Symbols
 <P><STRONG><a name="[2cd]"></a>SE_API_get_initial_pac</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, sgfx_cmac_lib.o(i.SE_API_get_initial_pac))
 <BR><BR>[Stack]<UL><LI>Max Depth = 848<LI>Call Chain = SE_API_get_initial_pac &rArr; CREDENTIALS_get_initial_pac &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[33c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_initial_pac
+<BR>[Calls]<UL><LI><a href="#[340]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_initial_pac
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_API_get_initial_pac
 </UL>
@@ -6481,13 +6501,13 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 1360<LI>Call Chain = SE_API_secure_uplink_message &rArr; SIGFOX_encrypt_decrypt_frame &rArr; CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_set
-<LI><a href="#[33e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_get
+<LI><a href="#[342]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_get
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
-<LI><a href="#[33f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_payload_encryption_flag
-<LI><a href="#[33b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_dev_id
-<LI><a href="#[340]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_encrypt_decrypt_frame
-<LI><a href="#[341]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_HMAC_compute_aes
+<LI><a href="#[343]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_payload_encryption_flag
+<LI><a href="#[33f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_dev_id
+<LI><a href="#[344]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_encrypt_decrypt_frame
+<LI><a href="#[345]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_HMAC_compute_aes
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_build_frame
 </UL>
@@ -6495,12 +6515,12 @@ Global Symbols
 <P><STRONG><a name="[2e7]"></a>SE_API_verify_downlink_message</STRONG> (Thumb, 292 bytes, Stack size 88 bytes, sgfx_cmac_lib.o(i.SE_API_verify_downlink_message))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1312<LI>Call Chain = SE_API_verify_downlink_message &rArr; SIGFOX_encrypt_decrypt_frame &rArr; CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[33e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_get
-<LI><a href="#[33f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_payload_encryption_flag
-<LI><a href="#[33b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_dev_id
-<LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt
-<LI><a href="#[340]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_encrypt_decrypt_frame
-<LI><a href="#[342]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_DECODE_dewhitening
+<BR>[Calls]<UL><LI><a href="#[342]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_get
+<LI><a href="#[343]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_payload_encryption_flag
+<LI><a href="#[33f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_dev_id
+<LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt
+<LI><a href="#[344]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_encrypt_decrypt_frame
+<LI><a href="#[346]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_DECODE_dewhitening
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_get_received_frames
 </UL>
@@ -7297,17 +7317,17 @@ Local Symbols
 <LI><a href="#[296]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RegionEU868ChannelAdd
 </UL>
 
-<P><STRONG><a name="[318]"></a>copy_and_key</STRONG> (Thumb, 132 bytes, Stack size 8 bytes, aes.o(i.copy_and_key))
+<P><STRONG><a name="[31d]"></a>copy_and_key</STRONG> (Thumb, 132 bytes, Stack size 8 bytes, aes.o(i.copy_and_key))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = copy_and_key
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_encrypt
 </UL>
 
 <P><STRONG><a name="[32b]"></a>copy_block</STRONG> (Thumb, 66 bytes, Stack size 0 bytes, aes.o(i.copy_block))
-<BR><BR>[Called By]<UL><LI><a href="#[319]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mix_sub_columns
+<BR><BR>[Called By]<UL><LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mix_sub_columns
 </UL>
 
-<P><STRONG><a name="[319]"></a>mix_sub_columns</STRONG> (Thumb, 532 bytes, Stack size 32 bytes, aes.o(i.mix_sub_columns))
+<P><STRONG><a name="[31e]"></a>mix_sub_columns</STRONG> (Thumb, 532 bytes, Stack size 32 bytes, aes.o(i.mix_sub_columns))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = mix_sub_columns
 </UL>
 <BR>[Calls]<UL><LI><a href="#[32b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copy_block
@@ -7315,11 +7335,11 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_encrypt
 </UL>
 
-<P><STRONG><a name="[31b]"></a>shift_sub_rows</STRONG> (Thumb, 100 bytes, Stack size 0 bytes, aes.o(i.shift_sub_rows))
+<P><STRONG><a name="[320]"></a>shift_sub_rows</STRONG> (Thumb, 100 bytes, Stack size 0 bytes, aes.o(i.shift_sub_rows))
 <BR><BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_encrypt
 </UL>
 
-<P><STRONG><a name="[31a]"></a>xor_block</STRONG> (Thumb, 130 bytes, Stack size 0 bytes, aes.o(i.xor_block))
+<P><STRONG><a name="[31f]"></a>xor_block</STRONG> (Thumb, 130 bytes, Stack size 0 bytes, aes.o(i.xor_block))
 <BR><BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_encrypt
 </UL>
 
@@ -7456,7 +7476,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[1dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_EnterOffMode
 </UL>
 
-<P><STRONG><a name="[31c]"></a>ee_number</STRONG> (Thumb, 254 bytes, Stack size 120 bytes, tiny_vsnprintf.o(i.ee_number))
+<P><STRONG><a name="[322]"></a>ee_number</STRONG> (Thumb, 254 bytes, Stack size 120 bytes, tiny_vsnprintf.o(i.ee_number))
 <BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
@@ -7573,14 +7593,14 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_WriteReg
 </UL>
 
-<P><STRONG><a name="[323]"></a>st_sigfox_open</STRONG> (Thumb, 104 bytes, Stack size 32 bytes, sigfox.o(i.st_sigfox_open))
+<P><STRONG><a name="[327]"></a>st_sigfox_open</STRONG> (Thumb, 104 bytes, Stack size 32 bytes, sigfox.o(i.st_sigfox_open))
 <BR><BR>[Stack]<UL><LI>Max Depth = 920<LI>Call Chain = st_sigfox_open &rArr; SIGFOX_API_open &rArr; SIGFOX_INT_get_device_id &rArr; SE_API_get_device_id &rArr; CREDENTIALS_get_dev_id &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_API_set_std_config
 <LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_API_open
 </UL>
-<BR>[Called By]<UL><LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
-<LI><a href="#[322]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
+<BR>[Called By]<UL><LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
+<LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
 </UL>
 
 <P><STRONG><a name="[5e]"></a>onTimerEvent</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, main.o(i.onTimerEvent))
@@ -7590,17 +7610,23 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
 </UL>
-<P><STRONG><a name="[5d]"></a>sendTest</STRONG> (Thumb, 86 bytes, Stack size 8 bytes, main.o(i.sendTest))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1600<LI>Call Chain = sendTest &rArr; sendSigfox &rArr; SIGFOX_API_send_frame &rArr; SIGFOX_INT_execute_communication_sequence &rArr; SIGFOX_INT_prepare_transmission &rArr; SIGFOX_INT_build_frame &rArr; SE_API_secure_uplink_message &rArr; SIGFOX_encrypt_decrypt_frame &rArr; CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
+<P><STRONG><a name="[5d]"></a>sendTest</STRONG> (Thumb, 114 bytes, Stack size 16 bytes, main.o(i.sendTest))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1608<LI>Call Chain = sendTest &rArr; sendSigfox &rArr; SIGFOX_API_send_frame &rArr; SIGFOX_INT_execute_communication_sequence &rArr; SIGFOX_INT_prepare_transmission &rArr; SIGFOX_INT_build_frame &rArr; SE_API_secure_uplink_message &rArr; SIGFOX_encrypt_decrypt_frame &rArr; CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerStart
 <LI><a href="#[185]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_SetIrq
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_Run
 <LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LoRaMacInitializationReset
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
-<LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
+<LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<LI><a href="#[331]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendEnergyStruct
 <LI><a href="#[2b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendLoRaWAN
+<LI><a href="#[334]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isDoneLoRaWAN
+<LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearEnergyStruct
+</UL>
+<BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
 </UL>
@@ -7629,168 +7655,168 @@ Local Symbols
 <P><STRONG><a name="[5a]"></a>TX_read_Bit</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, sgfxsx1276modulation-lib.o(i.TX_read_Bit))
 <BR>[Address Reference Count : 1]<UL><LI> sgfxsx1276modulation-lib.o(i.TX_Start)
 </UL>
-<P><STRONG><a name="[342]"></a>SIGFOX_DECODE_dewhitening</STRONG> (Thumb, 152 bytes, Stack size 32 bytes, sgfx_cmac_lib.o(i.SIGFOX_DECODE_dewhitening))
+<P><STRONG><a name="[346]"></a>SIGFOX_DECODE_dewhitening</STRONG> (Thumb, 152 bytes, Stack size 32 bytes, sgfx_cmac_lib.o(i.SIGFOX_DECODE_dewhitening))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = SIGFOX_DECODE_dewhitening &rArr; SIGFOX_DECODE_dewhitening_pn
 </UL>
-<BR>[Calls]<UL><LI><a href="#[33e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_get
-<LI><a href="#[343]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_DECODE_dewhitening_pn
+<BR>[Calls]<UL><LI><a href="#[342]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_get
+<LI><a href="#[347]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_DECODE_dewhitening_pn
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uread4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_verify_downlink_message
 </UL>
 
-<P><STRONG><a name="[343]"></a>SIGFOX_DECODE_dewhitening_pn</STRONG> (Thumb, 40 bytes, Stack size 12 bytes, sgfx_cmac_lib.o(i.SIGFOX_DECODE_dewhitening_pn))
+<P><STRONG><a name="[347]"></a>SIGFOX_DECODE_dewhitening_pn</STRONG> (Thumb, 40 bytes, Stack size 12 bytes, sgfx_cmac_lib.o(i.SIGFOX_DECODE_dewhitening_pn))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = SIGFOX_DECODE_dewhitening_pn
 </UL>
-<BR>[Called By]<UL><LI><a href="#[342]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_DECODE_dewhitening
+<BR>[Called By]<UL><LI><a href="#[346]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_DECODE_dewhitening
 </UL>
 
-<P><STRONG><a name="[341]"></a>SIGFOX_HMAC_compute_aes</STRONG> (Thumb, 70 bytes, Stack size 56 bytes, sgfx_cmac_lib.o(i.SIGFOX_HMAC_compute_aes))
+<P><STRONG><a name="[345]"></a>SIGFOX_HMAC_compute_aes</STRONG> (Thumb, 70 bytes, Stack size 56 bytes, sgfx_cmac_lib.o(i.SIGFOX_HMAC_compute_aes))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1200<LI>Call Chain = SIGFOX_HMAC_compute_aes &rArr; CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt
+<BR>[Calls]<UL><LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_secure_uplink_message
 </UL>
 
-<P><STRONG><a name="[340]"></a>SIGFOX_encrypt_decrypt_frame</STRONG> (Thumb, 234 bytes, Stack size 80 bytes, sgfx_cmac_lib.o(i.SIGFOX_encrypt_decrypt_frame))
+<P><STRONG><a name="[344]"></a>SIGFOX_encrypt_decrypt_frame</STRONG> (Thumb, 234 bytes, Stack size 80 bytes, sgfx_cmac_lib.o(i.SIGFOX_encrypt_decrypt_frame))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1224<LI>Call Chain = SIGFOX_encrypt_decrypt_frame &rArr; CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[33e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_get
-<LI><a href="#[33d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_wrap_session_key
-<LI><a href="#[337]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt_with_session_key
-<LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt
+<BR>[Calls]<UL><LI><a href="#[342]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_get
+<LI><a href="#[341]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_wrap_session_key
+<LI><a href="#[33b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt_with_session_key
+<LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_verify_downlink_message
 <LI><a href="#[2d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_secure_uplink_message
 </UL>
 
-<P><STRONG><a name="[338]"></a>CREDENTIALS_get_cra</STRONG> (Thumb, 208 bytes, Stack size 384 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_get_cra))
+<P><STRONG><a name="[33c]"></a>CREDENTIALS_get_cra</STRONG> (Thumb, 208 bytes, Stack size 384 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_get_cra))
 <BR><BR>[Stack]<UL><LI>Max Depth = 784<LI>Call Chain = CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
-<LI><a href="#[335]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_set_key
-<LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
-<LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_decrypt
-<LI><a href="#[339]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_signature
+<LI><a href="#[339]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_set_key
+<LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
+<LI><a href="#[33e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_decrypt
+<LI><a href="#[33d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_signature
 </UL>
-<BR>[Called By]<UL><LI><a href="#[334]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_key
-<LI><a href="#[33c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_initial_pac
-<LI><a href="#[33b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_dev_id
+<BR>[Called By]<UL><LI><a href="#[338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_key
+<LI><a href="#[340]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_initial_pac
+<LI><a href="#[33f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_dev_id
 </UL>
 
-<P><STRONG><a name="[334]"></a>CREDENTIALS_get_key</STRONG> (Thumb, 58 bytes, Stack size 56 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_get_key))
+<P><STRONG><a name="[338]"></a>CREDENTIALS_get_key</STRONG> (Thumb, 58 bytes, Stack size 56 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_get_key))
 <BR><BR>[Stack]<UL><LI>Max Depth = 840<LI>Call Chain = CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
-<LI><a href="#[338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_cra
+<LI><a href="#[33c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_cra
 </UL>
-<BR>[Called By]<UL><LI><a href="#[33d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_wrap_session_key
-<LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt
+<BR>[Called By]<UL><LI><a href="#[341]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_wrap_session_key
+<LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt
 </UL>
 
-<P><STRONG><a name="[339]"></a>CREDENTIALS_get_signature</STRONG> (Thumb, 92 bytes, Stack size 312 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_get_signature))
+<P><STRONG><a name="[33d]"></a>CREDENTIALS_get_signature</STRONG> (Thumb, 92 bytes, Stack size 312 bytes, sgfx_credentials_lib.o(i.CREDENTIALS_get_signature))
 <BR><BR>[Stack]<UL><LI>Max Depth = 400<LI>Call Chain = CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[335]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_set_key
-<LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
+<BR>[Calls]<UL><LI><a href="#[339]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_set_key
+<LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
 </UL>
-<BR>[Called By]<UL><LI><a href="#[338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_cra
+<BR>[Called By]<UL><LI><a href="#[33c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_cra
 </UL>
 
-<P><STRONG><a name="[344]"></a>add_round_key</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, sgfx_credentials_lib.o(i.add_round_key))
+<P><STRONG><a name="[348]"></a>add_round_key</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, sgfx_credentials_lib.o(i.add_round_key))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = add_round_key
 </UL>
-<BR>[Calls]<UL><LI><a href="#[345]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xor_block
+<BR>[Calls]<UL><LI><a href="#[349]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xor_block
 </UL>
-<BR>[Called By]<UL><LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
-<LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_decrypt
+<BR>[Called By]<UL><LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
+<LI><a href="#[33e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_decrypt
 </UL>
 
-<P><STRONG><a name="[33a]"></a>aes_cbc_decrypt</STRONG> (Thumb, 130 bytes, Stack size 72 bytes, sgfx_credentials_lib.o(i.aes_cbc_decrypt))
+<P><STRONG><a name="[33e]"></a>aes_cbc_decrypt</STRONG> (Thumb, 130 bytes, Stack size 72 bytes, sgfx_credentials_lib.o(i.aes_cbc_decrypt))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = aes_cbc_decrypt &rArr; inv_mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[345]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xor_block
-<LI><a href="#[348]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inv_shift_sub_rows
-<LI><a href="#[349]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inv_mix_sub_columns
-<LI><a href="#[346]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copy_block
-<LI><a href="#[347]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copy_and_key
-<LI><a href="#[344]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_round_key
+<BR>[Calls]<UL><LI><a href="#[349]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xor_block
+<LI><a href="#[34c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inv_shift_sub_rows
+<LI><a href="#[34d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inv_mix_sub_columns
+<LI><a href="#[34a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copy_block
+<LI><a href="#[34b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copy_and_key
+<LI><a href="#[348]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_round_key
 </UL>
-<BR>[Called By]<UL><LI><a href="#[338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_cra
+<BR>[Called By]<UL><LI><a href="#[33c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_cra
 </UL>
 
-<P><STRONG><a name="[336]"></a>aes_cbc_encrypt</STRONG> (Thumb, 120 bytes, Stack size 56 bytes, sgfx_credentials_lib.o(i.aes_cbc_encrypt))
+<P><STRONG><a name="[33a]"></a>aes_cbc_encrypt</STRONG> (Thumb, 120 bytes, Stack size 56 bytes, sgfx_credentials_lib.o(i.aes_cbc_encrypt))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[345]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xor_block
-<LI><a href="#[34b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shift_sub_rows
-<LI><a href="#[34a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mix_sub_columns
-<LI><a href="#[346]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copy_block
-<LI><a href="#[347]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copy_and_key
-<LI><a href="#[344]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_round_key
+<BR>[Calls]<UL><LI><a href="#[349]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xor_block
+<LI><a href="#[34f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shift_sub_rows
+<LI><a href="#[34e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mix_sub_columns
+<LI><a href="#[34a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copy_block
+<LI><a href="#[34b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copy_and_key
+<LI><a href="#[348]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_round_key
 </UL>
-<BR>[Called By]<UL><LI><a href="#[339]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_signature
-<LI><a href="#[338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_cra
-<LI><a href="#[33d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_wrap_session_key
-<LI><a href="#[337]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt_with_session_key
-<LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt
+<BR>[Called By]<UL><LI><a href="#[33d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_signature
+<LI><a href="#[33c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_cra
+<LI><a href="#[341]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_wrap_session_key
+<LI><a href="#[33b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt_with_session_key
+<LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt
 </UL>
 
-<P><STRONG><a name="[335]"></a>aes_set_key</STRONG> (Thumb, 248 bytes, Stack size 56 bytes, sgfx_credentials_lib.o(i.aes_set_key))
+<P><STRONG><a name="[339]"></a>aes_set_key</STRONG> (Thumb, 248 bytes, Stack size 56 bytes, sgfx_credentials_lib.o(i.aes_set_key))
 <BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = aes_set_key &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
-<BR>[Called By]<UL><LI><a href="#[339]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_signature
-<LI><a href="#[338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_cra
-<LI><a href="#[33d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_wrap_session_key
-<LI><a href="#[337]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt_with_session_key
-<LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt
+<BR>[Called By]<UL><LI><a href="#[33d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_signature
+<LI><a href="#[33c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_cra
+<LI><a href="#[341]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_wrap_session_key
+<LI><a href="#[33b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt_with_session_key
+<LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_aes_128_cbc_encrypt
 </UL>
 
-<P><STRONG><a name="[347]"></a>copy_and_key</STRONG> (Thumb, 132 bytes, Stack size 8 bytes, sgfx_credentials_lib.o(i.copy_and_key))
+<P><STRONG><a name="[34b]"></a>copy_and_key</STRONG> (Thumb, 132 bytes, Stack size 8 bytes, sgfx_credentials_lib.o(i.copy_and_key))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = copy_and_key
 </UL>
-<BR>[Called By]<UL><LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
-<LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_decrypt
+<BR>[Called By]<UL><LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
+<LI><a href="#[33e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_decrypt
 </UL>
 
-<P><STRONG><a name="[346]"></a>copy_block</STRONG> (Thumb, 66 bytes, Stack size 0 bytes, sgfx_credentials_lib.o(i.copy_block))
-<BR><BR>[Called By]<UL><LI><a href="#[34a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mix_sub_columns
-<LI><a href="#[349]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inv_mix_sub_columns
-<LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
-<LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_decrypt
+<P><STRONG><a name="[34a]"></a>copy_block</STRONG> (Thumb, 66 bytes, Stack size 0 bytes, sgfx_credentials_lib.o(i.copy_block))
+<BR><BR>[Called By]<UL><LI><a href="#[34e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mix_sub_columns
+<LI><a href="#[34d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inv_mix_sub_columns
+<LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
+<LI><a href="#[33e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_decrypt
 </UL>
 
-<P><STRONG><a name="[349]"></a>inv_mix_sub_columns</STRONG> (Thumb, 628 bytes, Stack size 40 bytes, sgfx_credentials_lib.o(i.inv_mix_sub_columns))
+<P><STRONG><a name="[34d]"></a>inv_mix_sub_columns</STRONG> (Thumb, 628 bytes, Stack size 40 bytes, sgfx_credentials_lib.o(i.inv_mix_sub_columns))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = inv_mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[346]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copy_block
+<BR>[Calls]<UL><LI><a href="#[34a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copy_block
 </UL>
-<BR>[Called By]<UL><LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_decrypt
-</UL>
-
-<P><STRONG><a name="[348]"></a>inv_shift_sub_rows</STRONG> (Thumb, 100 bytes, Stack size 0 bytes, sgfx_credentials_lib.o(i.inv_shift_sub_rows))
-<BR><BR>[Called By]<UL><LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_decrypt
+<BR>[Called By]<UL><LI><a href="#[33e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_decrypt
 </UL>
 
-<P><STRONG><a name="[34a]"></a>mix_sub_columns</STRONG> (Thumb, 530 bytes, Stack size 32 bytes, sgfx_credentials_lib.o(i.mix_sub_columns))
+<P><STRONG><a name="[34c]"></a>inv_shift_sub_rows</STRONG> (Thumb, 100 bytes, Stack size 0 bytes, sgfx_credentials_lib.o(i.inv_shift_sub_rows))
+<BR><BR>[Called By]<UL><LI><a href="#[33e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_decrypt
+</UL>
+
+<P><STRONG><a name="[34e]"></a>mix_sub_columns</STRONG> (Thumb, 530 bytes, Stack size 32 bytes, sgfx_credentials_lib.o(i.mix_sub_columns))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[346]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copy_block
+<BR>[Calls]<UL><LI><a href="#[34a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copy_block
 </UL>
-<BR>[Called By]<UL><LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
-</UL>
-
-<P><STRONG><a name="[34b]"></a>shift_sub_rows</STRONG> (Thumb, 100 bytes, Stack size 0 bytes, sgfx_credentials_lib.o(i.shift_sub_rows))
-<BR><BR>[Called By]<UL><LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
+<BR>[Called By]<UL><LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
 </UL>
 
-<P><STRONG><a name="[345]"></a>xor_block</STRONG> (Thumb, 130 bytes, Stack size 0 bytes, sgfx_credentials_lib.o(i.xor_block))
-<BR><BR>[Called By]<UL><LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
-<LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_decrypt
-<LI><a href="#[344]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_round_key
+<P><STRONG><a name="[34f]"></a>shift_sub_rows</STRONG> (Thumb, 100 bytes, Stack size 0 bytes, sgfx_credentials_lib.o(i.shift_sub_rows))
+<BR><BR>[Called By]<UL><LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
+</UL>
+
+<P><STRONG><a name="[349]"></a>xor_block</STRONG> (Thumb, 130 bytes, Stack size 0 bytes, sgfx_credentials_lib.o(i.xor_block))
+<BR><BR>[Called By]<UL><LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_encrypt
+<LI><a href="#[33e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_cbc_decrypt
+<LI><a href="#[348]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_round_key
 </UL>
 
 <P><STRONG><a name="[315]"></a>_fp_digits</STRONG> (Thumb, 344 bytes, Stack size 64 bytes, printfa.o(i._fp_digits), UNUSED)

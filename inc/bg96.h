@@ -183,8 +183,8 @@ typedef enum BG96_statuses{
 
 typedef enum BG96_powerdown{
 	BG96_POWERDOWN, 
-	BG96_PSM,
 	BG96_ACTIVE,
+	BG96_PSM,
 	BG96_POWERDOWN_ERROR
 }BG96_Powerdown_t;
 

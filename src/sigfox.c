@@ -2,6 +2,8 @@
 
 #include "sigfox.h"
 
+bool sigfoxInitialised = false; 
+
 void initSigfox( void ){
 	startEnergyMeasurement(LTC2942_LRWAN);
 	
@@ -24,8 +26,10 @@ void initSigfox( void ){
 
   SIGFOX_API_get_device_id(dev_id);
   SIGFOX_API_get_initial_pac(dev_pac);
-	SGFX_SX1276_setPower(14); // power between 10 and 20dBm
-		
+	SGFX_SX1276_setPower(SIGFOX_POWER); // power between 10 and 20dBm
+	
+	sprintf(energyStruct.sigfox_conditions, "%d|", SIGFOX_POWER);
+	
 	PRINTF_LN("- Initialised");
 	
 	SX1276SetXO(0);
@@ -38,6 +42,8 @@ void initSigfox( void ){
 	
 	initEnergyStruct.packetType = INIT;
 	initEnergyStruct.sigfoxEnergy = stopEnergyMeasurement(LTC2942_LRWAN);
+	
+	sigfoxInitialised = true;
 }
 
 void registerSigfox( void ){
@@ -45,27 +51,29 @@ void registerSigfox( void ){
 }
 
 void sendSigfox( void ){
-	
 	startEnergyMeasurement(LTC2942_LRWAN);
+	
+	if(!sigfoxInitialised){
+		energyStruct.sigfox_initStatus = 0;
+		initSigfox();
+	}else{
+		energyStruct.sigfox_initStatus = 1; 
+	}
+	
 	
   uint8_t ul_msg[12] = {0x00, 0x01, 0x02, 0x03,0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10, 0x11}; 
   uint8_t dl_msg[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
   uint32_t  ul_size =0;
   uint32_t nbTxRepeatFlag=1;
   int i=0;
-  uint16_t pressure = 0;
-  int16_t temperature = 0;
-  uint16_t humidity = 0;
-  uint32_t batteryLevel=0; // HW_GetBatteryLevel( );                       // in mV
 
-
-  ul_msg[ul_size++] = (uint8_t) ((batteryLevel*100)/3300);
-  ul_msg[ul_size++] = ( pressure >> 8 ) & 0xFF;
-  ul_msg[ul_size++] = pressure & 0xFF;
-  ul_msg[ul_size++] = ( temperature >> 8 ) & 0xFF;
-  ul_msg[ul_size++] = temperature & 0xFF;
-  ul_msg[ul_size++] = ( humidity >> 8 ) & 0xFF;
-  ul_msg[ul_size++] = humidity & 0xFF;
+  ul_msg[ul_size++] = energyStruct.general_deviceID;
+  ul_msg[ul_size++] = energyStruct.general_bootID;
+  ul_msg[ul_size++] = (energyStruct.lorawan_packetNumber >> 8) & 0xFF;;
+  ul_msg[ul_size++] = energyStruct.lorawan_packetNumber  & 0xFF;
+  ul_msg[ul_size++] = 0;
+  ul_msg[ul_size++] = 0;
+  ul_msg[ul_size++] = 0;
 
 	SIGFOX_API_close(); // Make sure sigfox api is closed before opening
 	
@@ -101,9 +109,10 @@ void sendSigfox( void ){
   //BSP_LED_Off( LED_BLUE );
 	
 	uint16_t uwh = stopEnergyMeasurement(LTC2942_LRWAN);
-	energyStruct.sigfoxPacketType = SEND;
-	energyStruct.sigfoxEnergy = uwh;
+	energyStruct.sigfox_energy = uwh;
 	PRINTF("\r\n||Sigfox energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ)||\r\n", energy, uwh, uwh*3.6f);
+	
+	energyStruct.sigfox_packetNumber++; 
 }
 
 #ifndef STDBY_ON 

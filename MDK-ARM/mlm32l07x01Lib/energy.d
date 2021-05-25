@@ -2,6 +2,7 @@
 .\mlm32l07x01lib\energy.o: ..\inc\energy.h
 .\mlm32l07x01lib\energy.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\mlm32l07x01lib\energy.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\mlm32l07x01lib\energy.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\mlm32l07x01lib\energy.o: ..\inc\ltc2942.h
 .\mlm32l07x01lib\energy.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_hal.h
 .\mlm32l07x01lib\energy.o: ..\inc\stm32l0xx_hal_conf.h

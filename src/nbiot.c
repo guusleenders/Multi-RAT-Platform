@@ -2,10 +2,9 @@
 
 #include "nbiot.h"
 
-BG96_Powerdown_t powerStatus = BG96_ACTIVE;
+BG96_Powerdown_t powerStatus = BG96_POWERDOWN;
 
 void initNBIoT(void){
-	startEnergyMeasurement(LTC2942_NBIOT);
 
 	BG96_Init();
 	BG96_PowerOn();
@@ -26,33 +25,22 @@ void initNBIoT(void){
 	BG96_SetEDRXConfiguration(1,5,"\"0010\"");
 	BG96_SetMode(BG96_NBIOT_MODE);
 	
-	// These are previous settings
-	// BG96_CheckSIMPIN(buffer);
-	// BG96_EnablePSMIndication();
-	// BG96_SendATCommandGetReply("AT+CFUN=0\r\n", buffer, 300);
-	// BG96_SetPowerSavingModeImmediately(); // Not available in current firmware
-	
-	PRINTF_LN("- Initialised");
-
-	uint16_t uwh = stopEnergyMeasurement(LTC2942_NBIOT);
-	initEnergyStruct.packetType = INIT;
-	initEnergyStruct.nbiotEnergy = uwh;
 	#ifdef DEBUG
-	PRINTF("\r\n||NB-IoT init energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ )||\r\n", energy, uwh, uwh*3.6f);
+	PRINTF_LN("- Initialised");
 	#endif
+	
 }
 
 void registerNBIoT(void){
-	startEnergyMeasurement(LTC2942_NBIOT);
-	
+
 	// ---------- Configure/select network ---------- 
 	BG96_ConfigureContext();
 	BG96_SetPDPContext("\"m2minternet.proximus.be\"");
 	BG96_SelectNetwork(20601, BG96_NETWORK_NBIOT);
 	
-	char buffer[30];
-	memset(buffer, '\0', 30);
-	BG96_SendATCommandGetReply("AT+CPIN?\r\n", buffer, 1000);
+	char pinbuffer[30];
+	memset(pinbuffer, '\0', 30);
+	BG96_SendATCommandGetReply("AT+CPIN?\r\n", pinbuffer, 1000);
 	
 	#ifdef DEBUG
 	PRINTF_LN("- Network selected");
@@ -80,33 +68,33 @@ void registerNBIoT(void){
 	PRINTF_LN("- CE Level: %d", celevel);
 	#endif
 	
-	char buffertest[70];
+	char* seperator = "|\0";
+	sprintf(energyStruct.nbiot_conditions, "%d|", celevel);
+	
+	char buffer[70];
 
-	BG96_GetNetworkStatus(buffertest);
+	BG96_GetNetworkStatus(buffer);
+	strcat(energyStruct.nbiot_conditions, buffer);
+	strcat(energyStruct.nbiot_conditions, seperator);
 	#ifdef DEBUG
-	PRINTF_LN("- Network status: %s", buffertest);
+	PRINTF_LN("- Network status: %s", buffer);
 	#endif
 	
-	BG96_GetPowerSavingMode(buffertest);
+	BG96_GetPowerSavingMode(buffer);
+	strcat(energyStruct.nbiot_conditions, buffer);
+	strcat(energyStruct.nbiot_conditions, seperator);
 	#ifdef DEBUG
-	PRINTF_LN("- Power saving mode settings: %s\r\n", buffertest);
+	PRINTF_LN("- Power saving mode settings: %s\r\n", buffer);
 	#endif
 	
-	BG96_GetEDRXConfiguration(buffertest);
+	BG96_GetEDRXConfiguration(buffer);
+	strcat(energyStruct.nbiot_conditions, buffer);
+	strcat(energyStruct.nbiot_conditions, seperator);
 	#ifdef DEBUG
-	PRINTF_LN("- Edrx mode settings: %s\r\n", buffertest);
+	PRINTF_LN("- Edrx mode settings: %s\r\n", buffer);
 	#endif
 	
-	uint16_t uwh = stopEnergyMeasurement(LTC2942_NBIOT);
-	energyStruct.nbiotPacketType = REGISTRATION;
-	energyStruct.nbiotEnergy = uwh;
-	#ifdef DEBUG
-	PRINTF("\r\n||NB-IoT registration energy used: %d uAh/10 (%d uWh/10, %d/10 mJ )||\r\n", energy, uwh, uwh*3.6f);
-	#endif
-	
-	// ---------- Go to PSM ---------- 
-	//BG96_Sleep();
-	BG96_SetPowerSavingModeImmediately();
+	PRINTF_LN("- Total conditions: %s", energyStruct.nbiot_conditions);
 	
 	#ifdef DEBUG
 	PRINTF_LN("- Register procedure complete");
@@ -114,17 +102,28 @@ void registerNBIoT(void){
 
 }
 
-int8_t sendNBIoT(void){
+int8_t _sendNBIoT(bool sendingMeasuredEnergy, char * payload){
 	
+	PRINTF_LN("- Start sending NB-IoT");
 	
-	BG96_Init();
+	// ---------- Register power status for energystruct ---------- 
+	if(!sendingMeasuredEnergy){	
+		PRINTF_LN("- Power status: %d", powerStatus);
+		energyStruct.nbiot_initStatus = powerStatus;
+	}
+	
+	// ---------- Start energy measurement ----------
+  if(!sendingMeasuredEnergy){	
+		startEnergyMeasurement(LTC2942_NBIOT);
+	}
 	
 	if(powerStatus == BG96_POWERDOWN){
 		initNBIoT();
 		registerNBIoT();
+	}else{
+		BG96_Init();
 	}
 	
-	startEnergyMeasurement(LTC2942_NBIOT);
 	
 	// ---------- Wake from psm and connect to network ---------- 
 	if(BG96_WakeFromPSMToSend() == BG96_OK){
@@ -140,9 +139,8 @@ int8_t sendNBIoT(void){
 		if(BG96_UDP_Start("62.235.63.122",8891) != BG96_OK){
 			PRINTF_LN("- UDP Start failed, going back to psm");
 		}else{		
-			char buffer[] = "hallo"; 
-			
-			BG96_UDP_SendData(buffer, 30000);
+
+			BG96_UDP_SendData(payload, 30000);
 			BG96_UDP_Stop();
 			BG96_DeactivateContext();
 			
@@ -170,22 +168,51 @@ int8_t sendNBIoT(void){
 		}else{
 			powerStatus = pd;
 		}
-		// Do nothing if in psm 
 	}
 	
-	stopEnergyMeasurementNBIoT();
-	
+	// ---------- Stop everything ----------
+	if(!sendingMeasuredEnergy){	
+		stopEnergyMeasurementNBIoT();
+	}
 	BG96_DeInit();
 	BG96_IoDeInit();
 	PRINTF_LN("- Send done.");
+	
+	// ---------- Increase packet number ----------
+	if(!sendingMeasuredEnergy){	
+		energyStruct.nbiot_packetNumber++;
+	}
 	return 0; 
+}
+
+int8_t sendNBIoT(){
+	char buffer[] = "hallo"; 
+	return _sendNBIoT(false, buffer);
+}
+
+void sendEnergyStruct( void ){
+	char buffer[300];
+	memset(buffer, '\0', sizeof(buffer));
+	sprintf(	buffer, 
+					"%d,%d,"
+					"%d,%d,%s,%d,"
+					"%d,%d,%s,%d,"
+					"%d,%d,%s,%d,",
+					energyStruct.general_deviceID, energyStruct.general_bootID,
+					energyStruct.nbiot_packetNumber, energyStruct.nbiot_energy, energyStruct.nbiot_conditions, energyStruct.nbiot_initStatus, 
+					energyStruct.sigfox_packetNumber, energyStruct.sigfox_energy, energyStruct.sigfox_conditions, energyStruct.sigfox_initStatus,
+					energyStruct.lorawan_packetNumber, energyStruct.lorawan_energy, energyStruct.lorawan_conditions, energyStruct.lorawan_initStatus);
+	
+	PRINTF_LN("Sending report: %s", buffer);
+	PRINTF_LN("Now sending");
+	_sendNBIoT(true, buffer);
 }
 
 void stopEnergyMeasurementNBIoT( void ){
 	uint16_t uwh = stopEnergyMeasurement(LTC2942_NBIOT);
-	energyStruct.nbiotPacketType = SEND;
-	energyStruct.nbiotEnergy = uwh;
+	energyStruct.nbiot_energy = uwh;
 	uint32_t mj = uwh * 3.6f;
 	LTC2942_SetShutdown(LTC2942_NBIOT, 1);
 	PRINTF("\r\n||NB-IoT packet energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ )||\r\n", energy, uwh, mj);
 }
+

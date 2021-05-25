@@ -36,7 +36,7 @@ extern "C" {
 void initLoRaWAN(void);													// Init lora modem
 void registerLoRaWAN(void);											// Register to LoRaWAN network (join mechanism)
 void sendLoRaWAN(void); 													// Send LoRaWAN data
-
+bool isDoneLoRaWAN(void);
 void LORA_RxData(lora_AppData_t *AppData);				// Callback when LoRa endNode has received a frame
 void LORA_HasJoined(void);												// Callback when LoRa endNode has just joined
 void LORA_ConfirmClass(DeviceClass_t Class);			// Callback when LoRa endNode has just switch the class
