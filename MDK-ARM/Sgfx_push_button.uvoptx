@@ -720,7 +720,7 @@
       <GroupNumber>5</GroupNumber>
       <FileNumber>17</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Drivers\BSP\B-L072Z-LRWAN1\b-l072z-lrwan1.c</PathWithFileName>
@@ -1280,7 +1280,7 @@
 
   <Group>
     <GroupName>Middlewares/LoRaWAN/Mac</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1384,7 +1384,7 @@
 
   <Group>
     <GroupName>Middlewares/LoRaWAN/Mac/Regions</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1536,7 +1536,7 @@
 
   <Group>
     <GroupName>Middlewares/LoRaWAN/Crypto</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1580,7 +1580,7 @@
 
   <Group>
     <GroupName>Middlewares/LoRaWAN/Patterns/Basic</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1908,7 +1908,7 @@
       <GroupNumber>17</GroupNumber>
       <FileNumber>108</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\src\lorawan.c</PathWithFileName>
@@ -1932,7 +1932,7 @@
       <GroupNumber>17</GroupNumber>
       <FileNumber>110</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\src\sigfox.c</PathWithFileName>

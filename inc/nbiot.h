@@ -8,6 +8,7 @@
 
 #include "energy.h"
 
+extern BG96_Powerdown_t powerStatus;
 
 // ---------------------------- NBIOT FUNCTIONS ---------------------------------
 void initNBIoT(void);														// Init NB-IoT modem

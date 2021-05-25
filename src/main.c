@@ -203,6 +203,7 @@ int main( void ){
 	#ifdef NBIOT
 	PRINTF_LN("1. NB-IoT");
 	registerNBIoT();
+	sendNBIoT();
 	#endif
 	//PRINTF_LN("- Done, now Sigfox");
 	

@@ -79,10 +79,7 @@ float LTC2942_GetVoltage(LTC2942_SENSOR sensor){
 	LTC2942_ReadReg(sensor, LINEAR_LTC2942_ADDRESS, LTC2942_VOLTAGE_LSB_REG, 1, &data[1]);
 	uint16_t result =  (data[0] << 8) | data[1];
 	float voltage = 6.0*result/65535.0;
-	
-	if(sensor == LTC2942_NBIOT)
-		voltage = 4.0;
-		
+			
 	return voltage;
 }
 

@@ -515,18 +515,34 @@ BG96_Status_t BG96_PowerOn( void ){
 	HAL_Delay(20000);
 	BG96_SetBaudRate(9600);
 	BG96_SendATCommandCheckReply("ATE0\r\n", "ATE0", 1000);
+	BG96_SendATCommandCheckReply("AT+QURCCFG=\"urcport\",\"uart1\"\r\n", "OK", 200);
 	BG96_SaveConfiguration();
 	#endif
+	
 	
 	//char powerOnBuffer[10];
 	BG96_Status_t status = BG96_SendATCommandGetReply("", "", 2000); // POWERED DOWN? 
 	PRINTF_LN("POWERED DOWN");
 	status = BG96_SendATCommandCheckReply("", "RDY", 10000); // RDY
 	PRINTF_LN("RDY");
-	status = BG96_SendATCommandGetReply("", "APP RDY", 2000); // APP RDY // TODO: if this is RDY again, wait for APP RDY (!) Is this optional? 
+	status = BG96_SendATCommandGetReply("", "APP RDY", 40000); // APP RDY, ONLY FOR NEW FIRMWARE
 	PRINTF_LN("APP RDY");
+	
+	/*status = BG96_SendATCommandCheckReply("AT&X2\r\n", "OK", 1000);
+	char settings[200];
+	BG96_SendATCommandGetReply("AT&V\r\n", settings, 2000);
+	PRINTF_LN("settings: %s", settings);
+	while(BG96_SendATCommandGetReply("", settings, 200) != BG96_TIMEOUT){
+		PRINTF_LN("settings: %s", settings);
+	}
+	*/
+	//status = BG96_SendATCommandGetReply("", "APP RDY", 2000); // APP RDY // TODO: if this is RDY again, wait for APP RDY (!) Is this optional? 
+	//PRINTF_LN("APP RDY");
 	//status = BG96_SendATCommandCheckReply("ATE0\r\n", "ATE0", 1000);
+	//BG96_SendATCommandCheckReply("", "OK", 1000);
 	//BG96_SaveConfiguration();
+	status = BG96_SendATCommandCheckReply("AT+CMEE=1\r\n", "OK", 1000);
+	
 	if(status != BG96_OK)
 		return status;
 	status = BG96_SendATCommandCheckReply("AT\r\n", "OK", 1000);
@@ -535,14 +551,11 @@ BG96_Status_t BG96_PowerOn( void ){
 	status = BG96_ResetParameters();
 	if(status != BG96_OK)
 		return status;
-	status = BG96_SendATCommandCheckReply("ATE0\r\n", "ATE0", 1000);
-	BG96_SendATCommandCheckReply("", "OK", 1000);
-	
-		
-	#ifdef FIRSTBOOT
-	BG96_Status_t BG96_SetBaudRate( uint16_t baud );
-	#endif
-	
+	char buffer[30];
+	status = BG96_SendATCommandGetReply("ATE0\r\n", buffer, 1000);
+	if(StringStartsWith(buffer, "ATE0"))
+			status = BG96_SendATCommandGetReply("", buffer, 1000);
+			
 	return status;
 }
 
@@ -554,12 +567,30 @@ BG96_Status_t BG96_SetBaudRate( uint16_t baud ){
 	// TODO: Auto save via BG96_SaveConfiguration (but with new baud rate)
 }
 
-BG96_Status_t BG96_PowerDown( void ){
-	BG96_Status_t status  = BG96_SendATCommandCheckReply("AT+QPOWD=1\r\n", "OK", 300);
+BG96_Powerdown_t BG96_PowerDown( void ){
+	/*BG96_Status_t status  = BG96_SendATCommandCheckReply("AT+QPOWD=1\r\n", "OK", 300);
 	if(status != BG96_OK)
 		return status;
-  status = BG96_SendATCommandCheckReply("", "POWERED DOWN", 60000);
-	return status;
+  status = BG96_SendATCommandCheckReply("", "POWERED DOWN", 60000);*/
+	uint8_t counter = 0;
+	char powerdownbuffer[30];
+	if(!BG96_IsPoweredDown() && counter < 3){
+		HAL_Delay(10);
+		HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_SET); 
+		HAL_Delay(700);
+		HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_RESET); 
+		BG96_Status_t status = BG96_SendATCommandGetReply("", powerdownbuffer, 1000);
+		PRINTF_LN("- Power down string: %s", powerdownbuffer);
+		counter ++; 
+		HAL_Delay(2500); // It takes >1.8s for module to shut down
+	}
+	if(StringStartsWith(powerdownbuffer, "PSM POWER DOWN")){
+		return BG96_PSM;
+	}else if(StringStartsWith(powerdownbuffer, "NORMAL POWER DOWN")){
+		return BG96_PSM;
+	}else{
+		return BG96_POWERDOWN_ERROR;
+	}
 }
 
 BG96_Status_t BG96_SaveConfiguration( void ){
@@ -816,7 +847,6 @@ BG96_Status_t BG96_Wake( void ){
 }
 
 BG96_Status_t BG96_WakeFromPSM( uint32_t timeout ){
-	BG96_Status_t status = BG96_ERROR;
 	uint32_t tickstart = HW_RTC_GetTimerValue();
 	uint32_t tickNow = HW_RTC_GetTimerValue();
 	while(BG96_IsPoweredDown() && ( ( tickNow - tickstart ) ) < timeout){
@@ -827,9 +857,9 @@ BG96_Status_t BG96_WakeFromPSM( uint32_t timeout ){
 		//HAL_Delay(4000); // Let reconnection establish
 		tickNow = HW_RTC_GetTimerValue();
 	}
-	status = BG96_SendATCommandCheckReply("", "RDY", 7000);
+	BG96_SendATCommandCheckReply("", "RDY", 7000);
 	PRINTF_LN("Got RDY");
-	status = BG96_SendATCommandCheckReply("", "APP RDY", 7000);
+	BG96_SendATCommandCheckReply("", "APP RDY", 7000);
 	PRINTF_LN("GOT APPRDY");
 	if(BG96_IsPoweredDown()){
 		return BG96_TIMEOUT;
@@ -939,7 +969,7 @@ BG96_Status_t BG96_WaitForPowerDown( uint32_t timeout ){
 	uint32_t tickNow = HW_RTC_GetTimerValue();
 	PRINTF_LN("- Ticks started at %08x", tickstart);
 	while(!BG96_IsPoweredDown() && ( ( tickNow - tickstart ) ) < timeout){
-		HAL_Delay(50);
+		HAL_Delay(10);
 		tickNow = HW_RTC_GetTimerValue();
 	}
 	if(( tickNow - tickstart ) >= timeout){

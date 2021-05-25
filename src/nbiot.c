@@ -2,11 +2,15 @@
 
 #include "nbiot.h"
 
+BG96_Powerdown_t powerStatus = BG96_ACTIVE;
+
 void initNBIoT(void){
 	startEnergyMeasurement(LTC2942_NBIOT);
 
 	BG96_Init();
 	BG96_PowerOn();
+	
+	powerStatus = BG96_ACTIVE; 
 	
 	char buffer[30];
 	memset(buffer, '\0', 30);
@@ -45,6 +49,11 @@ void registerNBIoT(void){
 	BG96_ConfigureContext();
 	BG96_SetPDPContext("\"m2minternet.proximus.be\"");
 	BG96_SelectNetwork(20601, BG96_NETWORK_NBIOT);
+	
+	char buffer[30];
+	memset(buffer, '\0', 30);
+	BG96_SendATCommandGetReply("AT+CPIN?\r\n", buffer, 1000);
+	
 	#ifdef DEBUG
 	PRINTF_LN("- Network selected");
 	#endif
@@ -99,7 +108,6 @@ void registerNBIoT(void){
 	//BG96_Sleep();
 	BG96_SetPowerSavingModeImmediately();
 	
-	sendNBIoT();
 	#ifdef DEBUG
 	PRINTF_LN("- Register procedure complete");
 	#endif
@@ -107,7 +115,14 @@ void registerNBIoT(void){
 }
 
 int8_t sendNBIoT(void){
+	
+	
 	BG96_Init();
+	
+	if(powerStatus == BG96_POWERDOWN){
+		initNBIoT();
+		registerNBIoT();
+	}
 	
 	startEnergyMeasurement(LTC2942_NBIOT);
 	
@@ -138,25 +153,31 @@ int8_t sendNBIoT(void){
 	}
 	
 	// ---------- Wait for PSM ---------- 
-	while(!BG96_IsPoweredDown()){ // TODO: add timer for shutdown; BG96 needs to be shut down before Sigfox
-		BG96_WaitForPowerDown(60000);
-		PRINTF_LN("- PSM failed again, try again.");
+	uint8_t counter = 0;
+	while(!BG96_IsPoweredDown() && counter < 3){ 
+		BG96_WaitForPowerDown(10000);
+		PRINTF_LN("- PSM failed again, try again (%i).", counter);
 		if(!BG96_IsPoweredDown())
 			BG96_SetPowerSavingModeImmediately();
+	  counter ++; 
 	}
-	if(BG96_IsPoweredDown()){
-		PRINTF_LN("- Entered PSM after 1 retries");
-		// Maybe reset controller after power down not happened for timeout?
-	}else{
-		PRINTF_LN("- PSM failed");
-		BG96_SetPowerSavingModeImmediately();
+	if(!BG96_IsPoweredDown() && counter >= 3){
+		PRINTF_LN("- Shutting down completely.");
+		BG96_Powerdown_t pd = BG96_PowerDown();
+		if (pd == BG96_POWERDOWN_ERROR){
+			powerStatus = BG96_ACTIVE; 
+			PRINTF_LN("- (PSM) Shutdown fail");
+		}else{
+			powerStatus = pd;
+		}
+		// Do nothing if in psm 
 	}
 	
 	stopEnergyMeasurementNBIoT();
 	
 	BG96_DeInit();
 	BG96_IoDeInit();
-	
+	PRINTF_LN("- Send done.");
 	return 0; 
 }
 

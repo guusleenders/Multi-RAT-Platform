@@ -75,8 +75,8 @@ extern "C" {
 
 #define LTC2942_BATTERY_MAX         						5570 // mAh
 
-#define LTC2942_LRWAN_RSENSE										0.07676406896 // Calibrated using results (BETA)
-#define LTC2942_NBIOT_RSENSE										0.01532807302 // Calibrated using results (BETA)
+#define LTC2942_LRWAN_RSENSE										0.01731275 // Calibrated using results (BETA); including /10 scale
+#define LTC2942_NBIOT_RSENSE										0.01357882 // Calibrated using results (BETA); including /10 scale
 
 typedef enum {
     VBAT_ALERT_OFF = 0,

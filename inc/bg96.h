@@ -181,6 +181,13 @@ typedef enum BG96_statuses{
 	BG96_TIMEOUT
 }BG96_Status_t;
 
+typedef enum BG96_powerdown{
+	BG96_POWERDOWN, 
+	BG96_PSM,
+	BG96_ACTIVE,
+	BG96_POWERDOWN_ERROR
+}BG96_Powerdown_t;
+
 // Inits
 void BG96_Init( void );
 void BG96_DeInit(void);
@@ -205,7 +212,7 @@ BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint
 // General AT commands
 BG96_Status_t BG96_PowerOn( void );
 BG96_Status_t BG96_SetBaudRate( uint16_t baud );
-BG96_Status_t BG96_PowerDown( void );
+BG96_Powerdown_t BG96_PowerDown( void );
 BG96_Status_t BG96_SaveConfiguration( void );
 BG96_Status_t BG96_ResetConfiguration( void );
 BG96_Status_t BG96_ResetParameters( void );
