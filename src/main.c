@@ -94,12 +94,13 @@
 // ---------------------------- GENERAL FUNCTIONS ---------------------------------
 static void sendTest(void);
 static void onTimerEvent(void *context);
-
+static void onTimerResult(void *context);
+void send_data_request_result( void );
+static void sendResult(void);
 
 // -------------------------- GENERAL VARIABLES ---------------------------------
 static TimerEvent_t TxTimer;
-bool sendTestHappened = false; 
-
+static TimerEvent_t ResultTimer;
 
 RNG_HandleTypeDef hrng;
 WWDG_HandleTypeDef   WwdgHandle;
@@ -188,13 +189,16 @@ int main( void ){
 	LPM_SetStopMode(LPM_APPLI_Id, LPM_Enable);
 	
 	SCH_RegTask(SEND_TASK, sendTest);		  // Record send data task
+	SCH_RegTask(RESULT_TASK, sendResult);		  // Record send data task
 	
 	// Init button 
   user_button_init();										// Initialise user button
   
 	// Set timers for every 30 seconds (defined by SEND_DELAY in ms)
 	TimerInit(&TxTimer, onTimerEvent);
+	TimerInit(&ResultTimer, onTimerResult);
 	TimerSetValue(&TxTimer,  SEND_DELAY);
+	TimerSetValue(&ResultTimer,  SEND_DELAY/4);
 	
 	sendTest();
 	
@@ -252,11 +256,26 @@ static void sendTest(void){
 	
 	
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, send_data_request_from_irq ); // Enable user to press button after transmittion
+	TimerStart(&ResultTimer); // Schedule next testing cycle
 	TimerStart(&TxTimer); // Schedule next testing cycle
 
+}
+
+static void sendResult(void){
+	sendEnergyStruct();
 }
 
 static void onTimerEvent(void *context){
 	send_data_request(); 
 	
+}
+
+static void onTimerResult(void *context){
+	send_data_request_result(); 
+	
+}
+
+void send_data_request_result( void ){
+  /* send task to background*/
+  SCH_SetTask( RESULT_TASK );
 }
