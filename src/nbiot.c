@@ -204,7 +204,7 @@ void sendEnergyStruct( void ){
 					energyStruct.lorawan_packetNumber, energyStruct.lorawan_energy, energyStruct.lorawan_conditions, energyStruct.lorawan_initStatus);
 	
 	PRINTF_LN("Sending report: %s", buffer);
-	PRINTF_LN("Now sending");
+	PRINTF_LN("Now sending"); // Hier loopt hij vast; energy daalt niet onder lorawan send
 	_sendNBIoT(true, buffer);
 }
 

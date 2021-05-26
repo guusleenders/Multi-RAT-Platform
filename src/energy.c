@@ -3,7 +3,6 @@
 #include "energy.h"
 
 uint16_t energy = 0;
-InitEnergy_t initEnergyStruct; 
 Energy_t energyStruct; 
 
 void initEnergyMeasurement(void){

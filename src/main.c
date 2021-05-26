@@ -169,7 +169,7 @@ int main( void ){
 	
 	HAL_RNG_DeInit(&hrng);
 	
-	energyStruct.general_bootID = initEnergyStruct.bootID;
+	energyStruct.general_bootID = bootID;
 	energyStruct.general_deviceID = DEVICE_ID;
 	
 	#ifdef DEBUG
@@ -247,13 +247,9 @@ static void sendTest(void){
 	sendLoRaWAN();
 	#endif
 	
-	while(!isDoneLoRaWAN()){
-		SCH_Run( ); 
-	}
+	//HAL_Delay(1000);
+	//sendEnergyStruct();
 	
-	HAL_Delay(500);
-	
-	sendEnergyStruct();
 	
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, send_data_request_from_irq ); // Enable user to press button after transmittion
 	TimerStart(&TxTimer); // Schedule next testing cycle

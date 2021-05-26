@@ -18,18 +18,6 @@ typedef enum {
 extern "C" {
 #endif
 
-typedef struct InitEnergy_t {
-	 uint8_t deviceID; 
-	 uint16_t bootID;
-	 uint16_t packetNumber;
-	 MESSAGE_TYPE packetType; 
-   uint16_t  nbiotEnergy;
-   uint16_t  sigfoxEnergy;
-	 uint16_t lorawanEnergy;
-} InitEnergy_t;  
-
-
-
 typedef struct Energy_t {
 	uint8_t 	general_deviceID; 
 	uint16_t 	general_bootID;
@@ -50,8 +38,6 @@ typedef struct Energy_t {
 	uint8_t 	lorawan_initStatus;
 } Energy_t;  
 
-
-extern InitEnergy_t initEnergyStruct; 
 extern Energy_t energyStruct; 
 
 extern uint16_t energy;
