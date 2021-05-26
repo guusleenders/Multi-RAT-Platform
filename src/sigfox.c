@@ -40,9 +40,6 @@ void initSigfox( void ){
   PRINTF("devPac="); for(int i =0; i<PAC_LEN; i++) {PRINTF("%02X",dev_pac[i]);} PRINTF("\n\r");
 	#endif
 	
-	initEnergyStruct.packetType = INIT;
-	initEnergyStruct.sigfoxEnergy = stopEnergyMeasurement(LTC2942_LRWAN);
-	
 	sigfoxInitialised = true;
 }
 

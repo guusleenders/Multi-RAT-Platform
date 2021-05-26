@@ -182,7 +182,6 @@ int main( void ){
 	
 	initEnergyMeasurement();
 	
-	sendTest();
 	
 	// Set low power mode: stop mode (timers on)
 	LPM_SetOffMode(LPM_APPLI_Id, LPM_Disable);
@@ -196,7 +195,8 @@ int main( void ){
 	// Set timers for every 30 seconds (defined by SEND_DELAY in ms)
 	TimerInit(&TxTimer, onTimerEvent);
 	TimerSetValue(&TxTimer,  SEND_DELAY);
-	TimerStart(&TxTimer);
+	
+	sendTest();
 	
   /* main loop*/
   while( 1 ){

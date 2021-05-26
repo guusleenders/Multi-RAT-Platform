@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\mlm32l07x01Lib\DISCO_CUBE_SGFX_WLIB.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\mlm32l07x01Lib\DISCO_CUBE_SGFX_WLIB.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue May 25 21:28:37 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed May 26 09:34:06 2021
 <BR><P>
 <H3>Maximum Stack Usage =       1640 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -283,6 +283,7 @@ Global Symbols
 <LI><a href="#[2d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_build_frame
 <LI><a href="#[2c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TX_Start
 <LI><a href="#[2dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_compute_uplink_frequency
+<LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_GetBatteryLevel
 <LI><a href="#[314]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
 </UL>
@@ -5744,7 +5745,6 @@ Global Symbols
 <LI><a href="#[24c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_timer_start_carrier_sense
 <LI><a href="#[24b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_timer_start
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_Lp
-<LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 </UL>
 
@@ -6029,7 +6029,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
-<P><STRONG><a name="[326]"></a>initSigfox</STRONG> (Thumb, 144 bytes, Stack size 72 bytes, sigfox.o(i.initSigfox))
+<P><STRONG><a name="[326]"></a>initSigfox</STRONG> (Thumb, 132 bytes, Stack size 72 bytes, sigfox.o(i.initSigfox))
 <BR><BR>[Stack]<UL><LI>Max Depth = 992<LI>Call Chain = initSigfox &rArr; st_sigfox_open &rArr; SIGFOX_API_open &rArr; SIGFOX_INT_get_device_id &rArr; SE_API_get_device_id &rArr; CREDENTIALS_get_dev_id &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
@@ -6041,19 +6041,17 @@ Global Symbols
 <LI><a href="#[2c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_API_get_device_id
 <LI><a href="#[2be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SGFX_SX1276_setPower
 <LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st_sigfox_open
-<LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurement
 <LI><a href="#[319]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
 </UL>
 
-<P><STRONG><a name="[39]"></a>main</STRONG> (Thumb, 360 bytes, Stack size 32 bytes, main.o(i.main))
+<P><STRONG><a name="[39]"></a>main</STRONG> (Thumb, 366 bytes, Stack size 32 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1640<LI>Call Chain = main &rArr; sendTest &rArr; sendSigfox &rArr; SIGFOX_API_send_frame &rArr; SIGFOX_INT_execute_communication_sequence &rArr; SIGFOX_INT_prepare_transmission &rArr; SIGFOX_INT_build_frame &rArr; SE_API_secure_uplink_message &rArr; SIGFOX_encrypt_decrypt_frame &rArr; CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerStart
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerSetValue
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerInit
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
@@ -6071,6 +6069,7 @@ Global Symbols
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DBG_Init
 <LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_EEPROM_Init
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 <LI><a href="#[32a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;user_button_init
 <LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
@@ -6285,7 +6284,6 @@ Global Symbols
 <LI><a href="#[1e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_GetVoltage
 </UL>
 <BR>[Called By]<UL><LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
-<LI><a href="#[326]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
 <LI><a href="#[31c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
 <LI><a href="#[14]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_Done
 </UL>
