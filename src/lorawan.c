@@ -26,6 +26,7 @@ bool loradone = false;
 																							
 static uint8_t AppLedStateOn = RESET; 		// Specifies the state of the application LED
 
+																							
 //static TimerEvent_t TxTimer;
 #ifdef USE_B_L072Z_LRWAN1
 TimerEvent_t TxLedTimer; 					// Timer to handle the application Tx Led to toggle
@@ -38,6 +39,27 @@ void OnTimerLedEvent(void *context);
                                      LORAWAN_PUBLIC_NETWORK
                                     };
 
+// Total payload size = Lookuptable + 4 (overhead deviceID, bootID and packageNumber)
+const uint8_t lorawan_payloadsize_lt[] ={0,
+																		1,
+																		2,
+																		4,
+																		8,
+																		12,
+																		16,
+																		20,
+																		24,
+																		32,
+																		48,
+																		64,
+																		96,
+																		128,
+																		144,
+																		160,
+																		176,
+																		192,
+																		222
+};
 void initLoRaWAN(void){
 	startEnergyMeasurement(LTC2942_LRWAN);
 	
@@ -95,9 +117,10 @@ void sendLoRaWAN(void){
   AppData.Buff[i++] = (energyStruct.lorawan_packetNumber >> 8) & 0xFF;;
 	AppData.Buff[i++] = energyStruct.lorawan_packetNumber  & 0xFF;
 	
-	for(uint8_t p = 0; p < LORAWAN_PAYLOAD_SIZE-4; p++){
+	for(uint8_t p = 0; p < lorawan_payloadsize_lt[energyStruct.lorawan_packetNumber%19]; p++){
 		AppData.Buff[i++] = 0x00;
 	}
+	energyStruct.nbiot_payloadSize = i;
   AppData.BuffSize = i;
 	
 	// ---------- Send message ---------- 

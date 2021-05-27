@@ -11,6 +11,7 @@
 
 extern BG96_Powerdown_t powerStatus;
 
+										
 // ---------------------------- NBIOT FUNCTIONS ---------------------------------
 void initNBIoT(void);														// Init NB-IoT modem
 void registerNBIoT(void);												// Register to NB-IoT network

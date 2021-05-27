@@ -68,9 +68,9 @@ void sendSigfox( void ){
   ul_msg[ul_size++] = energyStruct.general_bootID;
   ul_msg[ul_size++] = (energyStruct.lorawan_packetNumber >> 8) & 0xFF;;
   ul_msg[ul_size++] = energyStruct.lorawan_packetNumber  & 0xFF;
-  ul_msg[ul_size++] = 0;
-  ul_msg[ul_size++] = 0;
-  ul_msg[ul_size++] = 0;
+	for(uint8_t p = 0; p < energyStruct.lorawan_packetNumber%8; p++){
+		ul_msg[ul_size++] = 0;
+	}
 
 	SIGFOX_API_close(); // Make sure sigfox api is closed before opening
 	

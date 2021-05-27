@@ -3,7 +3,7 @@
 #ifdef TRACE
 #define BUFSIZE_TX 512
 #else
-#define BUFSIZE_TX 128
+#define BUFSIZE_TX 1600//128
 #endif
 
 #define BUFSIZE_RX 8
@@ -163,7 +163,7 @@ void BG96_Send( const char *format, ... ){
   va_list args;
   va_start(args, format);
  
-  uint8_t lenTop;
+  uint16_t lenTop;
   char tempBuff[BUFSIZE_TX];
   
   int32_t freebuff;
@@ -853,7 +853,7 @@ BG96_Status_t BG96_WakeFromPSM( uint32_t timeout ){
 		HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_SET); // Wake module
 		HAL_Delay(80);
 		HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_RESET); // Wake module
-		
+		HAL_Delay(1000);
 		//HAL_Delay(4000); // Let reconnection establish
 		tickNow = HW_RTC_GetTimerValue();
 	}

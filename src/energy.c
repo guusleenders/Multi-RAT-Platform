@@ -52,19 +52,28 @@ uint16_t stopEnergyMeasurement(LTC2942_SENSOR sensor){
 	//return 0;
 }
 
-void clearEnergyStruct(){
-	energyStruct.nbiot_packetNumber			= 0;
+void clearEnergyStruct(bool totalClear){
+	if(totalClear)
+		energyStruct.nbiot_packetNumber			= 0;
   energyStruct.nbiot_energy						= 0;
-	memset(energyStruct.nbiot_conditions, '\0', sizeof energyStruct.nbiot_conditions);
+	if(totalClear)
+		memset(energyStruct.nbiot_conditions, '\0', sizeof energyStruct.nbiot_conditions);
 	energyStruct.nbiot_initStatus				= 0; 
+	energyStruct.nbiot_payloadSize			= 0; 
 	
-	energyStruct.sigfox_packetNumber		= 0;
+	if(totalClear)
+		energyStruct.sigfox_packetNumber		= 0;
   energyStruct.sigfox_energy					= 0;
-	memset(energyStruct.sigfox_conditions, '\0', sizeof energyStruct.sigfox_conditions);
+	if(totalClear)
+		memset(energyStruct.sigfox_conditions, '\0', sizeof energyStruct.sigfox_conditions);
 	energyStruct.sigfox_initStatus			= 0;
-
-	energyStruct.lorawan_packetNumber		= 0;
+	energyStruct.sigfox_payloadSize			= 0; 
+	
+	if(totalClear)
+		energyStruct.lorawan_packetNumber		= 0;
   energyStruct.lorawan_energy					= 0;
-	memset(energyStruct.lorawan_conditions, '\0', sizeof energyStruct.sigfox_conditions);
+	if(totalClear)
+		memset(energyStruct.lorawan_conditions, '\0', sizeof energyStruct.sigfox_conditions);
 	energyStruct.lorawan_initStatus			= 0;
+	energyStruct.lorawan_payloadSize		= 0; 
 }

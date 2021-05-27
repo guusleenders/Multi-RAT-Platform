@@ -59,7 +59,7 @@
 #ifdef TRACE
 #define BUFSIZE_TX 512
 #else
-#define BUFSIZE_TX 128
+#define BUFSIZE_TX 128 
 #endif
 
 #define BUFSIZE_RX 8

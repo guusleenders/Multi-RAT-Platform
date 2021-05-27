@@ -26,16 +26,20 @@ typedef struct Energy_t {
   uint16_t  nbiot_energy;
 	char 			nbiot_conditions[150];
 	uint8_t 	nbiot_initStatus; 
+	uint8_t		nbiot_closeStatus;
+	uint16_t	nbiot_payloadSize;
 	
 	uint16_t  sigfox_packetNumber;
   uint16_t  sigfox_energy;
 	char 			sigfox_conditions[10];
 	uint8_t 	sigfox_initStatus;
-
+	uint16_t	sigfox_payloadSize;
+	
 	uint16_t  lorawan_packetNumber;
   uint16_t  lorawan_energy;
 	char 			lorawan_conditions[10];
 	uint8_t 	lorawan_initStatus;
+	uint16_t	lorawan_payloadSize;
 } Energy_t;  
 
 extern Energy_t energyStruct; 
@@ -47,7 +51,7 @@ void initEnergyMeasurement(void);
 void startEnergyMeasurement(LTC2942_SENSOR sensor);
 uint16_t stopEnergyMeasurement(LTC2942_SENSOR sensor);
 
-void clearEnergyStruct( void );
+void clearEnergyStruct(bool totalClear);
 
 #ifdef __cplusplus
 }

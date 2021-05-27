@@ -165,7 +165,7 @@ int main( void ){
 	
 	
 	if(HAL_RNG_GenerateRandomNumber(&hrng, &random) == HAL_OK){
-		bootID = random % 999;
+		bootID = random % 255;
   }
 	
 	HAL_RNG_DeInit(&hrng);
@@ -188,8 +188,6 @@ int main( void ){
 	LPM_SetOffMode(LPM_APPLI_Id, LPM_Disable);
 	LPM_SetStopMode(LPM_APPLI_Id, LPM_Enable);
 	
-	SCH_RegTask(SEND_TASK, sendTest);		  // Record send data task
-	SCH_RegTask(RESULT_TASK, sendResult);		  // Record send data task
 	
 	// Init button 
   user_button_init();										// Initialise user button
@@ -199,6 +197,8 @@ int main( void ){
 	TimerInit(&ResultTimer, onTimerResult);
 	TimerSetValue(&TxTimer,  SEND_DELAY);
 	TimerSetValue(&ResultTimer,  SEND_DELAY/4);
+	
+	clearEnergyStruct(true);
 	
 	sendTest();
 	
@@ -229,7 +229,7 @@ static void sendTest(void){
 	
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, NULL ); // Disable irq to forbidd user to press button while transmitting
 	
-	clearEnergyStruct();
+	clearEnergyStruct(false);
 	
 	#ifdef NBIOT
 	PRINTF("1. NB-IoT \n");
@@ -256,13 +256,23 @@ static void sendTest(void){
 	
 	
 	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, send_data_request_from_irq ); // Enable user to press button after transmittion
+	
+	SCH_RegTask(RESULT_TASK, sendResult);		  // Record send data task
+	TimerInit(&ResultTimer, onTimerResult);
+	TimerSetValue(&ResultTimer,  SEND_DELAY/4);
 	TimerStart(&ResultTimer); // Schedule next testing cycle
-	TimerStart(&TxTimer); // Schedule next testing cycle
 
 }
 
 static void sendResult(void){
+	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, NULL ); // Disable irq to forbidd user to press button while transmitting
 	sendEnergyStruct();
+	HW_GPIO_SetIrq( USER_BUTTON_GPIO_PORT, USER_BUTTON_PIN, 1, send_data_request_from_irq ); // Enable user to press button after transmittion
+	
+	SCH_RegTask(SEND_TASK, sendTest);		  // Record send data task
+	TimerInit(&TxTimer, onTimerEvent);
+	TimerSetValue(&TxTimer,  SEND_DELAY);
+	TimerStart(&TxTimer); // Schedule next testing cycle
 }
 
 static void onTimerEvent(void *context){

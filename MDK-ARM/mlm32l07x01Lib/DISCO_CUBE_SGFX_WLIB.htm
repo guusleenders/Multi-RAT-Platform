@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\mlm32l07x01Lib\DISCO_CUBE_SGFX_WLIB.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\mlm32l07x01Lib\DISCO_CUBE_SGFX_WLIB.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed May 26 09:53:53 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu May 27 12:21:31 2021
 <BR><P>
-<H3>Maximum Stack Usage =       1640 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =       3812 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-main &rArr; sendTest &rArr; sendSigfox &rArr; SIGFOX_API_send_frame &rArr; SIGFOX_INT_execute_communication_sequence &rArr; SIGFOX_INT_prepare_transmission &rArr; SIGFOX_INT_build_frame &rArr; SE_API_secure_uplink_message &rArr; SIGFOX_encrypt_decrypt_frame &rArr; CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
+main &rArr; sendTest &rArr; sendNBIoT &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 <P>
 <H3>
 Mutually Recursive functions
@@ -147,12 +147,15 @@ Function Pointers
  <LI><a href="#[3b]">__main</a> from entry.o(.ARM.Collect$$$$00000000) referenced from startup_stm32l072xx.o(.text)
  <LI><a href="#[5b]">_sputc</a> from printfa.o(i._sputc) referenced from printfa.o(i.__0sprintf)
  <LI><a href="#[39]">main</a> from main.o(i.main) referenced from entry9a.o(.ARM.Collect$$$$0000000B)
- <LI><a href="#[5f]">onTimerEvent</a> from main.o(i.onTimerEvent) referenced from main.o(i.main)
- <LI><a href="#[60]">onTimerResult</a> from main.o(i.onTimerResult) referenced from main.o(i.main)
- <LI><a href="#[5e]">sendResult</a> from main.o(i.sendResult) referenced from main.o(i.main)
- <LI><a href="#[5d]">sendTest</a> from main.o(i.sendTest) referenced from main.o(i.main)
- <LI><a href="#[61]">send_data_request_from_irq</a> from sigfox.o(i.send_data_request_from_irq) referenced from main.o(i.sendTest)
- <LI><a href="#[61]">send_data_request_from_irq</a> from sigfox.o(i.send_data_request_from_irq) referenced from sigfox.o(i.user_button_init)
+ <LI><a href="#[5d]">onTimerEvent</a> from main.o(i.onTimerEvent) referenced from main.o(i.main)
+ <LI><a href="#[5d]">onTimerEvent</a> from main.o(i.onTimerEvent) referenced from main.o(i.sendResult)
+ <LI><a href="#[5e]">onTimerResult</a> from main.o(i.onTimerResult) referenced from main.o(i.main)
+ <LI><a href="#[5e]">onTimerResult</a> from main.o(i.onTimerResult) referenced from main.o(i.sendTest)
+ <LI><a href="#[61]">sendResult</a> from main.o(i.sendResult) referenced from main.o(i.sendTest)
+ <LI><a href="#[60]">sendTest</a> from main.o(i.sendTest) referenced from main.o(i.sendResult)
+ <LI><a href="#[5f]">send_data_request_from_irq</a> from sigfox.o(i.send_data_request_from_irq) referenced from main.o(i.sendResult)
+ <LI><a href="#[5f]">send_data_request_from_irq</a> from sigfox.o(i.send_data_request_from_irq) referenced from main.o(i.sendTest)
+ <LI><a href="#[5f]">send_data_request_from_irq</a> from sigfox.o(i.send_data_request_from_irq) referenced from sigfox.o(i.user_button_init)
 </UL>
 <P>
 <H3>
@@ -286,6 +289,8 @@ Global Symbols
 <LI><a href="#[2c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TX_Start
 <LI><a href="#[2df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_compute_uplink_frequency
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[334]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
+<LI><a href="#[2b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendLoRaWAN
 <LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_GetBatteryLevel
 <LI><a href="#[316]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
 </UL>
@@ -300,10 +305,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[29f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;randr
 <LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GetTemperatureLevel
 <LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RF_API_wait_for_clear_channel
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Dma_IRQHandler
 <LI><a href="#[2e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_get_macro_channel_index
 <LI><a href="#[2d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_build_frame
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_Start
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_SendData
+<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Send
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConnectToOperator
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ActivateContext
 </UL>
@@ -358,8 +365,8 @@ Global Symbols
 <P><STRONG><a name="[35a]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
 
 <P><STRONG><a name="[84]"></a>__aeabi_memset</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, memseta.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_memset$wrapper
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
+<BR><BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_memset$wrapper
 </UL>
 
 <P><STRONG><a name="[35b]"></a>__aeabi_memset4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
@@ -392,6 +399,7 @@ Global Symbols
 <LI><a href="#[2c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STLL_Radio_DeInit
 <LI><a href="#[2d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_secure_uplink_message
 <LI><a href="#[32c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;user_button_init
+<LI><a href="#[334]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
 <LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendEnergyStruct
 <LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 <LI><a href="#[31c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
@@ -416,6 +424,7 @@ Global Symbols
 
 <P><STRONG><a name="[dd]"></a>strlen</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, strlen.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tiny_vsnprintf_like
+<LI><a href="#[334]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StringStartsWith
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommand
 </UL>
@@ -778,7 +787,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[aa]"></a>BG96_ActivateContext</STRONG> (Thumb, 96 bytes, Stack size 40 bytes, bg96.o(i.BG96_ActivateContext))
-<BR><BR>[Stack]<UL><LI>Max Depth = 904<LI>Call Chain = BG96_ActivateContext &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1908<LI>Call Chain = BG96_ActivateContext &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_GetTimerValue
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
@@ -791,7 +800,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b0]"></a>BG96_CheckIfContextActivated</STRONG> (Thumb, 46 bytes, Stack size 136 bytes, bg96.o(i.BG96_CheckIfContextActivated))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1000<LI>Call Chain = BG96_CheckIfContextActivated &rArr; BG96_SendATCommandGetReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 2004<LI>Call Chain = BG96_CheckIfContextActivated &rArr; BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StringStartsWith
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
@@ -801,7 +810,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b3]"></a>BG96_ConfigureContext</STRONG> (Thumb, 32 bytes, Stack size 64 bytes, bg96.o(i.BG96_ConfigureContext))
-<BR><BR>[Stack]<UL><LI>Max Depth = 928<LI>Call Chain = BG96_ConfigureContext &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1932<LI>Call Chain = BG96_ConfigureContext &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
@@ -810,7 +819,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b4]"></a>BG96_ConfigureURCIndication</STRONG> (Thumb, 30 bytes, Stack size 40 bytes, bg96.o(i.BG96_ConfigureURCIndication))
-<BR><BR>[Stack]<UL><LI>Max Depth = 904<LI>Call Chain = BG96_ConfigureURCIndication &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1908<LI>Call Chain = BG96_ConfigureURCIndication &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
@@ -819,7 +828,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b5]"></a>BG96_ConnectToOperator</STRONG> (Thumb, 126 bytes, Stack size 56 bytes, bg96.o(i.BG96_ConnectToOperator))
-<BR><BR>[Stack]<UL><LI>Max Depth = 920<LI>Call Chain = BG96_ConnectToOperator &rArr; BG96_SendATCommandGetReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1924<LI>Call Chain = BG96_ConnectToOperator &rArr; BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_GetTimerValue
@@ -842,7 +851,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b9]"></a>BG96_DeactivateContext</STRONG> (Thumb, 32 bytes, Stack size 24 bytes, bg96.o(i.BG96_DeactivateContext))
-<BR><BR>[Stack]<UL><LI>Max Depth = 888<LI>Call Chain = BG96_DeactivateContext &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1892<LI>Call Chain = BG96_DeactivateContext &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
@@ -850,17 +859,18 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
-<P><STRONG><a name="[ba]"></a>BG96_Dma_IRQHandler</STRONG> (Thumb, 90 bytes, Stack size 16 bytes, bg96.o(i.BG96_Dma_IRQHandler))
+<P><STRONG><a name="[ba]"></a>BG96_Dma_IRQHandler</STRONG> (Thumb, 88 bytes, Stack size 16 bytes, bg96.o(i.BG96_Dma_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = BG96_Dma_IRQHandler &rArr; BG96_PrintDMA &rArr; BG96_StartDMA &rArr; LL_DMA_Init &rArr; LL_DMA_SetPeriphRequest
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PrintDMA
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel4_5_6_7_IRQHandler
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Send
 </UL>
 
 <P><STRONG><a name="[bc]"></a>BG96_GetCELevel</STRONG> (Thumb, 58 bytes, Stack size 64 bytes, bg96.o(i.BG96_GetCELevel))
-<BR><BR>[Stack]<UL><LI>Max Depth = 928<LI>Call Chain = BG96_GetCELevel &rArr; BG96_SendATCommandGetReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1932<LI>Call Chain = BG96_GetCELevel &rArr; BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StringStartsWith
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
@@ -870,7 +880,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[bd]"></a>BG96_GetEDRXConfiguration</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, bg96.o(i.BG96_GetEDRXConfiguration))
-<BR><BR>[Stack]<UL><LI>Max Depth = 872<LI>Call Chain = BG96_GetEDRXConfiguration &rArr; BG96_SendATCommandGetReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1876<LI>Call Chain = BG96_GetEDRXConfiguration &rArr; BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
@@ -879,7 +889,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[be]"></a>BG96_GetNetworkStatus</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, bg96.o(i.BG96_GetNetworkStatus))
-<BR><BR>[Stack]<UL><LI>Max Depth = 880<LI>Call Chain = BG96_GetNetworkStatus &rArr; BG96_SendATCommandGetReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1884<LI>Call Chain = BG96_GetNetworkStatus &rArr; BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
@@ -892,7 +902,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[bf]"></a>BG96_GetPowerSavingMode</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, bg96.o(i.BG96_GetPowerSavingMode))
-<BR><BR>[Stack]<UL><LI>Max Depth = 872<LI>Call Chain = BG96_GetPowerSavingMode &rArr; BG96_SendATCommandGetReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1876<LI>Call Chain = BG96_GetPowerSavingMode &rArr; BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
@@ -958,7 +968,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[d1]"></a>BG96_PowerDown</STRONG> (Thumb, 116 bytes, Stack size 48 bytes, bg96.o(i.BG96_PowerDown))
-<BR><BR>[Stack]<UL><LI>Max Depth = 912<LI>Call Chain = BG96_PowerDown &rArr; BG96_SendATCommandGetReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1916<LI>Call Chain = BG96_PowerDown &rArr; BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
@@ -971,7 +981,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[d2]"></a>BG96_PowerOn</STRONG> (Thumb, 232 bytes, Stack size 48 bytes, bg96.o(i.BG96_PowerOn))
-<BR><BR>[Stack]<UL><LI>Max Depth = 920<LI>Call Chain = BG96_PowerOn &rArr; BG96_ResetParameters &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1924<LI>Call Chain = BG96_PowerOn &rArr; BG96_ResetParameters &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
@@ -987,15 +997,15 @@ Global Symbols
 <P><STRONG><a name="[3c]"></a>BG96_ReceiveToBuffer</STRONG> (Thumb, 106 bytes, Stack size 24 bytes, bg96.o(i.BG96_ReceiveToBuffer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = BG96_ReceiveToBuffer &rArr; BG96_ParseResult
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ParseResult
+<BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ParseResult
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IsNewCharReceived
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetNewChar
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> bg96.o(i.BG96_Init)
 </UL>
 <P><STRONG><a name="[d3]"></a>BG96_ResetParameters</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, bg96.o(i.BG96_ResetParameters))
-<BR><BR>[Stack]<UL><LI>Max Depth = 872<LI>Call Chain = BG96_ResetParameters &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1876<LI>Call Chain = BG96_ResetParameters &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 </UL>
@@ -1003,7 +1013,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[d7]"></a>BG96_SelectNetwork</STRONG> (Thumb, 30 bytes, Stack size 56 bytes, bg96.o(i.BG96_SelectNetwork))
-<BR><BR>[Stack]<UL><LI>Max Depth = 920<LI>Call Chain = BG96_SelectNetwork &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1924<LI>Call Chain = BG96_SelectNetwork &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
@@ -1011,23 +1021,24 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
-<P><STRONG><a name="[d8]"></a>BG96_Send</STRONG> (Thumb, 244 bytes, Stack size 168 bytes, bg96.o(i.BG96_Send))
-<BR><BR>[Stack]<UL><LI>Max Depth = 356<LI>Call Chain = BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
+<P><STRONG><a name="[d8]"></a>BG96_Send</STRONG> (Thumb, 248 bytes, Stack size 1640 bytes, bg96.o(i.BG96_Send))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1828<LI>Call Chain = BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_GetPendingIRQ
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tiny_vsnprintf_like
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PrintDMA
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Dma_IRQHandler
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommand
 </UL>
 
 <P><STRONG><a name="[dc]"></a>BG96_SendATCommand</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, bg96.o(i.BG96_SendATCommand))
-<BR><BR>[Stack]<UL><LI>Max Depth = 364<LI>Call Chain = BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
+<BR><BR>[Stack]<UL><LI>Max Depth = 1836<LI>Call Chain = BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Send
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
@@ -1038,7 +1049,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[ac]"></a>BG96_SendATCommandCheckReply</STRONG> (Thumb, 114 bytes, Stack size 32 bytes, bg96.o(i.BG96_SendATCommandCheckReply))
-<BR><BR>[Stack]<UL><LI>Max Depth = 864<LI>Call Chain = BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1868<LI>Call Chain = BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_Run
@@ -1076,7 +1087,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b1]"></a>BG96_SendATCommandGetReply</STRONG> (Thumb, 84 bytes, Stack size 32 bytes, bg96.o(i.BG96_SendATCommandGetReply))
-<BR><BR>[Stack]<UL><LI>Max Depth = 864<LI>Call Chain = BG96_SendATCommandGetReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1868<LI>Call Chain = BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_Run
@@ -1100,7 +1111,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[e0]"></a>BG96_SetEDRXConfiguration</STRONG> (Thumb, 34 bytes, Stack size 40 bytes, bg96.o(i.BG96_SetEDRXConfiguration))
-<BR><BR>[Stack]<UL><LI>Max Depth = 904<LI>Call Chain = BG96_SetEDRXConfiguration &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1908<LI>Call Chain = BG96_SetEDRXConfiguration &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
@@ -1110,7 +1121,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[e1]"></a>BG96_SetErrorFormat</STRONG> (Thumb, 30 bytes, Stack size 40 bytes, bg96.o(i.BG96_SetErrorFormat))
-<BR><BR>[Stack]<UL><LI>Max Depth = 904<LI>Call Chain = BG96_SetErrorFormat &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1908<LI>Call Chain = BG96_SetErrorFormat &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
@@ -1119,7 +1130,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[e2]"></a>BG96_SetMode</STRONG> (Thumb, 126 bytes, Stack size 8 bytes, bg96.o(i.BG96_SetMode))
-<BR><BR>[Stack]<UL><LI>Max Depth = 872<LI>Call Chain = BG96_SetMode &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1876<LI>Call Chain = BG96_SetMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 </UL>
@@ -1127,7 +1138,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[e3]"></a>BG96_SetModemOptimization</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, bg96.o(i.BG96_SetModemOptimization))
-<BR><BR>[Stack]<UL><LI>Max Depth = 872<LI>Call Chain = BG96_SetModemOptimization &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1876<LI>Call Chain = BG96_SetModemOptimization &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 </UL>
@@ -1136,7 +1147,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[e4]"></a>BG96_SetNetworkReporting</STRONG> (Thumb, 30 bytes, Stack size 40 bytes, bg96.o(i.BG96_SetNetworkReporting))
-<BR><BR>[Stack]<UL><LI>Max Depth = 904<LI>Call Chain = BG96_SetNetworkReporting &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1908<LI>Call Chain = BG96_SetNetworkReporting &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
@@ -1145,7 +1156,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[e5]"></a>BG96_SetPDPContext</STRONG> (Thumb, 30 bytes, Stack size 56 bytes, bg96.o(i.BG96_SetPDPContext))
-<BR><BR>[Stack]<UL><LI>Max Depth = 920<LI>Call Chain = BG96_SetPDPContext &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1924<LI>Call Chain = BG96_SetPDPContext &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
@@ -1154,7 +1165,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[e6]"></a>BG96_SetPowerSavingMode</STRONG> (Thumb, 40 bytes, Stack size 120 bytes, bg96.o(i.BG96_SetPowerSavingMode))
-<BR><BR>[Stack]<UL><LI>Max Depth = 984<LI>Call Chain = BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1988<LI>Call Chain = BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
@@ -1164,7 +1175,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[e7]"></a>BG96_SetPowerSavingModeImmediately</STRONG> (Thumb, 28 bytes, Stack size 40 bytes, bg96.o(i.BG96_SetPowerSavingModeImmediately))
-<BR><BR>[Stack]<UL><LI>Max Depth = 904<LI>Call Chain = BG96_SetPowerSavingModeImmediately &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1908<LI>Call Chain = BG96_SetPowerSavingModeImmediately &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
@@ -1173,7 +1184,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[e8]"></a>BG96_SetPowerSavingModeSettings</STRONG> (Thumb, 32 bytes, Stack size 40 bytes, bg96.o(i.BG96_SetPowerSavingModeSettings))
-<BR><BR>[Stack]<UL><LI>Max Depth = 904<LI>Call Chain = BG96_SetPowerSavingModeSettings &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1908<LI>Call Chain = BG96_SetPowerSavingModeSettings &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
@@ -1182,7 +1193,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[ea]"></a>BG96_UDP_SendData</STRONG> (Thumb, 124 bytes, Stack size 88 bytes, bg96.o(i.BG96_UDP_SendData))
-<BR><BR>[Stack]<UL><LI>Max Depth = 952<LI>Call Chain = BG96_UDP_SendData &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1956<LI>Call Chain = BG96_UDP_SendData &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_GetTimerValue
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
@@ -1196,7 +1207,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[eb]"></a>BG96_UDP_Start</STRONG> (Thumb, 208 bytes, Stack size 144 bytes, bg96.o(i.BG96_UDP_Start))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1008<LI>Call Chain = BG96_UDP_Start &rArr; BG96_SendATCommandGetReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 2012<LI>Call Chain = BG96_UDP_Start &rArr; BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_GetTimerValue
@@ -1212,7 +1223,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[ec]"></a>BG96_UDP_Stop</STRONG> (Thumb, 32 bytes, Stack size 64 bytes, bg96.o(i.BG96_UDP_Stop))
-<BR><BR>[Stack]<UL><LI>Max Depth = 928<LI>Call Chain = BG96_UDP_Stop &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1932<LI>Call Chain = BG96_UDP_Stop &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
@@ -1221,7 +1232,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[ed]"></a>BG96_WaitForConnection</STRONG> (Thumb, 174 bytes, Stack size 120 bytes, bg96.o(i.BG96_WaitForConnection))
-<BR><BR>[Stack]<UL><LI>Max Depth = 984<LI>Call Chain = BG96_WaitForConnection &rArr; BG96_SendATCommandGetReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 1988<LI>Call Chain = BG96_WaitForConnection &rArr; BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_GetTimerValue
@@ -1244,8 +1255,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
-<P><STRONG><a name="[f0]"></a>BG96_WakeFromPSM</STRONG> (Thumb, 136 bytes, Stack size 24 bytes, bg96.o(i.BG96_WakeFromPSM))
-<BR><BR>[Stack]<UL><LI>Max Depth = 888<LI>Call Chain = BG96_WakeFromPSM &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<P><STRONG><a name="[f0]"></a>BG96_WakeFromPSM</STRONG> (Thumb, 144 bytes, Stack size 24 bytes, bg96.o(i.BG96_WakeFromPSM))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1892<LI>Call Chain = BG96_WakeFromPSM &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
@@ -1258,7 +1269,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[f1]"></a>BG96_WakeFromPSMToSend</STRONG> (Thumb, 140 bytes, Stack size 8 bytes, bg96.o(i.BG96_WakeFromPSMToSend))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1008<LI>Call Chain = BG96_WakeFromPSMToSend &rArr; BG96_CheckIfContextActivated &rArr; BG96_SendATCommandGetReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 2012<LI>Call Chain = BG96_WakeFromPSMToSend &rArr; BG96_CheckIfContextActivated &rArr; BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WakeFromPSM
@@ -1481,7 +1492,7 @@ Global Symbols
 <LI><a href="#[24b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_report_test_result
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_Lp
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 <LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 <LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTC2942_GetVoltage
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WakeFromPSM
@@ -2148,7 +2159,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276IoIrqInit
 <LI><a href="#[2bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STLL_Radio_IoInit
 <LI><a href="#[2c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STLL_Radio_IoDeInit
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendResult
 <LI><a href="#[32c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;user_button_init
 </UL>
 
@@ -3292,7 +3304,7 @@ Global Symbols
 <LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276SetOpMode
 <LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276SetLoRaBoardCallbacks
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 </UL>
 
 <P><STRONG><a name="[229]"></a>LoRaMacIsBusy</STRONG> (Thumb, 104 bytes, Stack size 8 bytes, loramac.o(i.LoRaMacIsBusy))
@@ -4266,7 +4278,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c8]"></a>SCH_RegTask</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, scheduler.o(i.SCH_RegTask))
-<BR><BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR><BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendResult
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
 </UL>
 
@@ -4290,8 +4303,8 @@ Global Symbols
 
 <P><STRONG><a name="[c2]"></a>SCH_SetTask</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, scheduler.o(i.SCH_SetTask))
 <BR><BR>[Called By]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IRQHandler
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;onTimerResult
-<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_data_request_from_irq
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;onTimerResult
+<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_data_request_from_irq
 <LI><a href="#[32e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_data_request
 </UL>
 
@@ -5699,6 +5712,8 @@ Global Symbols
 <LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_timer_start
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_Lp
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendResult
 </UL>
 
 <P><STRONG><a name="[154]"></a>TimerIrqHandler</STRONG> (Thumb, 122 bytes, Stack size 16 bytes, timeserver.o(i.TimerIrqHandler))
@@ -5729,6 +5744,8 @@ Global Symbols
 <LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_timer_start
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_Lp
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendResult
 </UL>
 
 <P><STRONG><a name="[10c]"></a>TimerStart</STRONG> (Thumb, 112 bytes, Stack size 24 bytes, timeserver.o(i.TimerStart))
@@ -5749,7 +5766,8 @@ Global Symbols
 <LI><a href="#[24e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_timer_start_carrier_sense
 <LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_timer_start
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_Lp
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendResult
 </UL>
 
 <P><STRONG><a name="[218]"></a>TimerStop</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, timeserver.o(i.TimerStop))
@@ -5826,6 +5844,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[328]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
+<LI><a href="#[334]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
 <LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendEnergyStruct
 <LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_Stop
@@ -5883,8 +5902,8 @@ Global Symbols
 
 <P><STRONG><a name="[36e]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[31a]"></a>_sendNBIoT</STRONG> (Thumb, 300 bytes, Stack size 24 bytes, nbiot.o(i._sendNBIoT))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1136<LI>Call Chain = _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<P><STRONG><a name="[31a]"></a>_sendNBIoT</STRONG> (Thumb, 306 bytes, Stack size 24 bytes, nbiot.o(i._sendNBIoT))
+<BR><BR>[Stack]<UL><LI>Max Depth = 2140<LI>Call Chain = _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
@@ -5972,12 +5991,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;McpsIndication
 </UL>
 
-<P><STRONG><a name="[323]"></a>clearEnergyStruct</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, energy.o(i.clearEnergyStruct))
+<P><STRONG><a name="[323]"></a>clearEnergyStruct</STRONG> (Thumb, 100 bytes, Stack size 16 bytes, energy.o(i.clearEnergyStruct))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = clearEnergyStruct
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 </UL>
 
 <P><STRONG><a name="[293]"></a>floor</STRONG> (Thumb, 180 bytes, Stack size 24 bytes, floor.o(i.floor))
@@ -6018,10 +6038,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[31c]"></a>initNBIoT</STRONG> (Thumb, 108 bytes, Stack size 48 bytes, nbiot.o(i.initNBIoT))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1032<LI>Call Chain = initNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 2036<LI>Call Chain = initNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
-<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPowerSavingMode
+<BR>[Calls]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPowerSavingMode
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetNetworkReporting
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetModemOptimization
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetMode
@@ -6031,6 +6050,7 @@ Global Symbols
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PowerOn
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConfigureURCIndication
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
@@ -6053,8 +6073,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[335]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
 </UL>
 
-<P><STRONG><a name="[39]"></a>main</STRONG> (Thumb, 394 bytes, Stack size 32 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1640<LI>Call Chain = main &rArr; sendTest &rArr; sendSigfox &rArr; SIGFOX_API_send_frame &rArr; SIGFOX_INT_execute_communication_sequence &rArr; SIGFOX_INT_prepare_transmission &rArr; SIGFOX_INT_build_frame &rArr; SE_API_secure_uplink_message &rArr; SIGFOX_encrypt_decrypt_frame &rArr; CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
+<P><STRONG><a name="[39]"></a>main</STRONG> (Thumb, 384 bytes, Stack size 32 bytes, main.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 3812<LI>Call Chain = main &rArr; sendTest &rArr; sendNBIoT &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
@@ -6067,7 +6087,6 @@ Global Symbols
 <LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RNG_GenerateRandomNumber
 <LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RNG_DeInit
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_Run
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_RegTask
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetStopMode
 <LI><a href="#[32b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetOffMode
 <LI><a href="#[30e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
@@ -6076,9 +6095,10 @@ Global Symbols
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DBG_Init
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_EEPROM_Init
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 <LI><a href="#[32c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;user_button_init
 <LI><a href="#[325]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
+<LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearEnergyStruct
 <LI><a href="#[32a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Init
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
@@ -6164,10 +6184,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[31d]"></a>registerNBIoT</STRONG> (Thumb, 192 bytes, Stack size 128 bytes, nbiot.o(i.registerNBIoT))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1112<LI>Call Chain = registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<BR><BR>[Stack]<UL><LI>Max Depth = 2116<LI>Call Chain = registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPowerSavingModeSettings
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPowerSavingMode
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPDPContext
@@ -6183,6 +6202,7 @@ Global Symbols
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConfigureContext
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[331]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
@@ -6199,41 +6219,47 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276GetTimeOnAir
 </UL>
 
-<P><STRONG><a name="[333]"></a>sendEnergyStruct</STRONG> (Thumb, 112 bytes, Stack size 360 bytes, nbiot.o(i.sendEnergyStruct))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1496<LI>Call Chain = sendEnergyStruct &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<P><STRONG><a name="[333]"></a>sendEnergyStruct</STRONG> (Thumb, 124 bytes, Stack size 376 bytes, nbiot.o(i.sendEnergyStruct))
+<BR><BR>[Stack]<UL><LI>Max Depth = 2516<LI>Call Chain = sendEnergyStruct &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendResult
+<BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendResult
 </UL>
 
-<P><STRONG><a name="[2b8]"></a>sendLoRaWAN</STRONG> (Thumb, 126 bytes, Stack size 16 bytes, lorawan.o(i.sendLoRaWAN))
-<BR><BR>[Stack]<UL><LI>Max Depth = 692<LI>Call Chain = sendLoRaWAN &rArr; LORA_send &rArr; LoRaMacMcpsRequest &rArr; Send &rArr; ScheduleTx &rArr; RegionNextChannel &rArr; RegionEU868NextChannel &rArr; vcom2_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
+<P><STRONG><a name="[2b8]"></a>sendLoRaWAN</STRONG> (Thumb, 146 bytes, Stack size 24 bytes, lorawan.o(i.sendLoRaWAN))
+<BR><BR>[Stack]<UL><LI>Max Depth = 700<LI>Call Chain = sendLoRaWAN &rArr; LORA_send &rArr; LoRaMacMcpsRequest &rArr; Send &rArr; ScheduleTx &rArr; RegionNextChannel &rArr; RegionEU868NextChannel &rArr; vcom2_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_send
 <LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_JoinStatus
 <LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_Join
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 <LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerLoRaWAN
 <LI><a href="#[327]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initLoRaWAN
 <LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_Idle
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 </UL>
 
-<P><STRONG><a name="[334]"></a>sendNBIoT</STRONG> (Thumb, 20 bytes, Stack size 16 bytes, nbiot.o(i.sendNBIoT))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1152<LI>Call Chain = sendNBIoT &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<P><STRONG><a name="[334]"></a>sendNBIoT</STRONG> (Thumb, 130 bytes, Stack size 1624 bytes, nbiot.o(i.sendNBIoT))
+<BR><BR>[Stack]<UL><LI>Max Depth = 3764<LI>Call Chain = sendNBIoT &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
-<BR>[Calls]<UL><LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
+<BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+<LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 </UL>
 
-<P><STRONG><a name="[335]"></a>sendSigfox</STRONG> (Thumb, 276 bytes, Stack size 104 bytes, sigfox.o(i.sendSigfox))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1592<LI>Call Chain = sendSigfox &rArr; SIGFOX_API_send_frame &rArr; SIGFOX_INT_execute_communication_sequence &rArr; SIGFOX_INT_prepare_transmission &rArr; SIGFOX_INT_build_frame &rArr; SE_API_secure_uplink_message &rArr; SIGFOX_encrypt_decrypt_frame &rArr; CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
+<P><STRONG><a name="[335]"></a>sendSigfox</STRONG> (Thumb, 288 bytes, Stack size 88 bytes, sigfox.o(i.sendSigfox))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1576<LI>Call Chain = sendSigfox &rArr; SIGFOX_API_send_frame &rArr; SIGFOX_INT_execute_communication_sequence &rArr; SIGFOX_INT_prepare_transmission &rArr; SIGFOX_INT_build_frame &rArr; SE_API_secure_uplink_message &rArr; SIGFOX_encrypt_decrypt_frame &rArr; CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
 </UL>
 <BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
@@ -6249,7 +6275,7 @@ Global Symbols
 <LI><a href="#[1ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurement
 <LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 </UL>
 
 <P><STRONG><a name="[32e]"></a>send_data_request</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, sigfox.o(i.send_data_request))
@@ -6257,15 +6283,16 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_SetTask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;onTimerEvent
+<BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;onTimerEvent
 </UL>
 
-<P><STRONG><a name="[61]"></a>send_data_request_from_irq</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, sigfox.o(i.send_data_request_from_irq))
+<P><STRONG><a name="[5f]"></a>send_data_request_from_irq</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, sigfox.o(i.send_data_request_from_irq))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = send_data_request_from_irq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_SetTask
 </UL>
-<BR>[Address Reference Count : 2]<UL><LI> sigfox.o(i.user_button_init)
+<BR>[Address Reference Count : 3]<UL><LI> sigfox.o(i.user_button_init)
+<LI> main.o(i.sendResult)
 <LI> main.o(i.sendTest)
 </UL>
 <P><STRONG><a name="[223]"></a>srand1</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, utilities.o(i.srand1))
@@ -6360,8 +6387,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tiny_vsnprintf_like
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276Send
 <LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ScheduleTx
@@ -6384,10 +6411,11 @@ Global Symbols
 <LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_Init
 <LI><a href="#[24b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_report_test_result
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 <LI><a href="#[335]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
 <LI><a href="#[328]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
 <LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
+<LI><a href="#[334]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
 <LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendEnergyStruct
 <LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 <LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
@@ -6498,12 +6526,12 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_set
 <LI><a href="#[343]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_get
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 <LI><a href="#[344]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_payload_encryption_flag
 <LI><a href="#[340]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_dev_id
 <LI><a href="#[345]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_encrypt_decrypt_frame
 <LI><a href="#[346]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_HMAC_compute_aes
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_build_frame
 </UL>
@@ -7599,33 +7627,43 @@ Local Symbols
 <LI><a href="#[328]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
 </UL>
 
-<P><STRONG><a name="[5f]"></a>onTimerEvent</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, main.o(i.onTimerEvent))
+<P><STRONG><a name="[5d]"></a>onTimerEvent</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, main.o(i.onTimerEvent))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = onTimerEvent &rArr; send_data_request
 </UL>
 <BR>[Calls]<UL><LI><a href="#[32e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_data_request
 </UL>
-<BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
+<BR>[Address Reference Count : 2]<UL><LI> main.o(i.main)
+<LI> main.o(i.sendResult)
 </UL>
-<P><STRONG><a name="[60]"></a>onTimerResult</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, main.o(i.onTimerResult))
+<P><STRONG><a name="[5e]"></a>onTimerResult</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, main.o(i.onTimerResult))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = onTimerResult
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_SetTask
 </UL>
-<BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
+<BR>[Address Reference Count : 2]<UL><LI> main.o(i.main)
+<LI> main.o(i.sendTest)
 </UL>
-<P><STRONG><a name="[5e]"></a>sendResult</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, main.o(i.sendResult))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1504<LI>Call Chain = sendResult &rArr; sendEnergyStruct &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; SCH_Run &rArr; SCH_Idle &rArr; LoRaMacProcess &rArr; ProcessRadioRxDone &rArr; LoRaMacCryptoUnsecureMessage &rArr; VerifyCmacB0 &rArr; SecureElementVerifyAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
+<P><STRONG><a name="[61]"></a>sendResult</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, main.o(i.sendResult))
+<BR><BR>[Stack]<UL><LI>Max Depth = 2524<LI>Call Chain = sendResult &rArr; sendEnergyStruct &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
-<BR>[Calls]<UL><LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendEnergyStruct
+<BR>[Calls]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerStart
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerSetValue
+<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerInit
+<LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_SetIrq
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_RegTask
+<LI><a href="#[333]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendEnergyStruct
 </UL>
-<BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
+<BR>[Address Reference Count : 1]<UL><LI> main.o(i.sendTest)
 </UL>
-<P><STRONG><a name="[5d]"></a>sendTest</STRONG> (Thumb, 98 bytes, Stack size 16 bytes, main.o(i.sendTest))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1608<LI>Call Chain = sendTest &rArr; sendSigfox &rArr; SIGFOX_API_send_frame &rArr; SIGFOX_INT_execute_communication_sequence &rArr; SIGFOX_INT_prepare_transmission &rArr; SIGFOX_INT_build_frame &rArr; SE_API_secure_uplink_message &rArr; SIGFOX_encrypt_decrypt_frame &rArr; CREDENTIALS_aes_128_cbc_encrypt &rArr; CREDENTIALS_get_key &rArr; CREDENTIALS_get_cra &rArr; CREDENTIALS_get_signature &rArr; aes_cbc_encrypt &rArr; mix_sub_columns
+<P><STRONG><a name="[60]"></a>sendTest</STRONG> (Thumb, 116 bytes, Stack size 16 bytes, main.o(i.sendTest))
+<BR><BR>[Stack]<UL><LI>Max Depth = 3780<LI>Call Chain = sendTest &rArr; sendNBIoT &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerStart
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerSetValue
+<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerInit
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_SetIrq
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_RegTask
 <LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LoRaMacInitializationReset
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[335]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
@@ -7635,7 +7673,7 @@ Local Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
-<BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
+<BR>[Address Reference Count : 1]<UL><LI> main.o(i.sendResult)
 </UL>
 <P><STRONG><a name="[30f]"></a>TX_SetPower</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, sgfxsx1276modulation-lib.o(i.TX_SetPower))
 <BR><BR>[Called By]<UL><LI><a href="#[2c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TX_Start

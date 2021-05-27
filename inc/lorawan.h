@@ -32,6 +32,7 @@ extern "C" {
 #define LORAWAN_DEFAULT_CONFIRM_MSG_STATE LORAWAN_UNCONFIRMED_MSG // LoRaWAN default confirm state
 #define LORAWAN_APP_DATA_BUFF_SIZE 				20 							// User application data buffer size
 
+
 // ---------------------------- LORA FUNCTIONS ---------------------------------
 void initLoRaWAN(void);													// Init lora modem
 void registerLoRaWAN(void);											// Register to LoRaWAN network (join mechanism)

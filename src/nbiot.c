@@ -4,6 +4,28 @@
 
 BG96_Powerdown_t powerStatus = BG96_POWERDOWN;
 
+// Total payload size = Lookuptable + 4 (overhead deviceID, bootID and packageNumber)
+const uint16_t nbiot_payloadsize_lt[] ={0,
+																	1,
+																	2,
+																	4,
+																	8,
+																	16,
+																	24,
+																	32,
+																	48,
+																	64,
+																	96,
+																	128,
+																	192,
+																	256,
+																	384,
+																	512,
+																	768,
+																	1024,
+																	1536
+};
+
 void initNBIoT(void){
 
 	BG96_Init();
@@ -136,7 +158,7 @@ int8_t _sendNBIoT(bool sendingMeasuredEnergy, char * payload){
 		
 		// ---------- Connect to server ---------- 
 		HAL_Delay(200);
-		if(BG96_UDP_Start("62.235.63.122",8891) != BG96_OK){
+		if(BG96_UDP_Start("62.235.36.244",8891) != BG96_OK){
 			PRINTF_LN("- UDP Start failed, going back to psm");
 		}else{		
 
@@ -162,12 +184,13 @@ int8_t _sendNBIoT(bool sendingMeasuredEnergy, char * payload){
 	if(!BG96_IsPoweredDown() && counter >= 3){
 		PRINTF_LN("- Shutting down completely.");
 		BG96_Powerdown_t pd = BG96_PowerDown();
-		if (pd == BG96_POWERDOWN_ERROR){
-			powerStatus = BG96_ACTIVE; 
+		while(pd == BG96_POWERDOWN_ERROR){
+			pd = BG96_PowerDown();
 			PRINTF_LN("- (PSM) Shutdown fail");
-		}else{
-			powerStatus = pd;
+			powerStatus = BG96_ACTIVE; 
 		}
+		powerStatus = pd;
+		energyStruct.nbiot_closeStatus = powerStatus;
 	}
 	
 	// ---------- Stop everything ----------
@@ -186,7 +209,15 @@ int8_t _sendNBIoT(bool sendingMeasuredEnergy, char * payload){
 }
 
 int8_t sendNBIoT(){
-	char buffer[] = "hallo"; 
+	char buffer[1600]; 
+	memset(buffer, '\0', sizeof(buffer));
+	sprintf(buffer, "%d,%d,%d,", energyStruct.general_deviceID, energyStruct.general_bootID, energyStruct.lorawan_packetNumber);
+	uint16_t i;
+	PRINTF_LN("Packet number: %d, %d, %d", energyStruct.nbiot_packetNumber, energyStruct.nbiot_packetNumber%19, nbiot_payloadsize_lt[energyStruct.nbiot_packetNumber%19]);
+	for(i = 0; i < nbiot_payloadsize_lt[energyStruct.nbiot_packetNumber%19]; i++){
+		buffer[strlen(buffer)] = 'a';
+	}
+	energyStruct.nbiot_payloadSize = strlen(buffer);
 	return _sendNBIoT(false, buffer);
 }
 
@@ -195,13 +226,13 @@ void sendEnergyStruct( void ){
 	memset(buffer, '\0', sizeof(buffer));
 	sprintf(	buffer, 
 					"%d,%d,"
-					"%d,%d,%s,%d,"
-					"%d,%d,%s,%d,"
-					"%d,%d,%s,%d,",
+					"%d,%d,%s,%d,%d,%d,"
+					"%d,%d,%s,%d,%d,"
+					"%d,%d,%s,%d,%d,",
 					energyStruct.general_deviceID, energyStruct.general_bootID,
-					energyStruct.nbiot_packetNumber, energyStruct.nbiot_energy, energyStruct.nbiot_conditions, energyStruct.nbiot_initStatus, 
-					energyStruct.sigfox_packetNumber, energyStruct.sigfox_energy, energyStruct.sigfox_conditions, energyStruct.sigfox_initStatus,
-					energyStruct.lorawan_packetNumber, energyStruct.lorawan_energy, energyStruct.lorawan_conditions, energyStruct.lorawan_initStatus);
+					energyStruct.nbiot_packetNumber, energyStruct.nbiot_energy, energyStruct.nbiot_conditions, energyStruct.nbiot_initStatus, energyStruct.nbiot_closeStatus, energyStruct.nbiot_payloadSize, 
+					energyStruct.sigfox_packetNumber, energyStruct.sigfox_energy, energyStruct.sigfox_conditions, energyStruct.sigfox_initStatus, energyStruct.sigfox_payloadSize, 
+					energyStruct.lorawan_packetNumber, energyStruct.lorawan_energy, energyStruct.lorawan_conditions, energyStruct.lorawan_initStatus, energyStruct.lorawan_payloadSize);
 	
 	//PRINTF_LN("Sending report: %s", buffer); // Too long for print (?) 
 	PRINTF_LN("Now sending");
