@@ -484,7 +484,7 @@ BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint
 	uint32_t tickstart = HW_RTC_GetTimerValue();
 	uint32_t tickNow = HW_RTC_GetTimerValue();
 	while(!totalReplyBufferDone && ( ( tickNow - tickstart ) ) < timeout){
-    SCH_Run(); 
+    //SCH_Run(); 
 		tickNow = HW_RTC_GetTimerValue();
   }
 	HAL_Delay(2);
@@ -577,17 +577,35 @@ BG96_Powerdown_t BG96_PowerDown( void ){
 	if(!BG96_IsPoweredDown() && counter < 3){
 		HAL_Delay(10);
 		HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_SET); 
-		HAL_Delay(700);
+		
+		BG96_SendATCommand("");
+		waitingForReply = true;
+		uint32_t tickstart = HW_RTC_GetTimerValue();
+		uint32_t tickNow = HW_RTC_GetTimerValue();
+		while(!totalReplyBufferDone && ( ( tickNow - tickstart ) ) < 700){
+			tickNow = HW_RTC_GetTimerValue();
+			PRINTF(".");
+		}
+		HAL_Delay(2);
+		totalReplyBufferDone = false;
+		waitingForReply = false;
+		if(( tickNow - tickstart )  >= 700){
+			PRINTF("STOP");
+		}else{
+			strcpy(powerdownbuffer, totalReplyBuffer);
+		}
 		HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_RESET); 
-		BG96_Status_t status = BG96_SendATCommandGetReply("", powerdownbuffer, 1000);
+		
+		//HAL_Delay(400);
+		BG96_Status_t status = BG96_SendATCommandGetReply("", powerdownbuffer, 600);
 		PRINTF_LN("- Power down string: %s", powerdownbuffer);
 		counter ++; 
 		HAL_Delay(2500); // It takes >1.8s for module to shut down
 	}
 	if(StringStartsWith(powerdownbuffer, "PSM POWER DOWN")){
 		return BG96_PSM;
-	}else if(StringStartsWith(powerdownbuffer, "NORMAL POWER DOWN")){
-		return BG96_PSM;
+	}else if(StringStartsWith(powerdownbuffer, "NORMAL POWER DOWN") || BG96_IsPoweredDown()){
+		return BG96_POWERDOWN;
 	}else{
 		return BG96_POWERDOWN_ERROR;
 	}

@@ -184,7 +184,7 @@ int8_t _sendNBIoT(bool sendingMeasuredEnergy, char * payload){
 	if(!BG96_IsPoweredDown() && counter >= 3){
 		PRINTF_LN("- Shutting down completely.");
 		BG96_Powerdown_t pd = BG96_PowerDown();
-		while(pd == BG96_POWERDOWN_ERROR){
+		while(pd == BG96_POWERDOWN_ERROR && !BG96_IsPoweredDown()){
 			pd = BG96_PowerDown();
 			PRINTF_LN("- (PSM) Shutdown fail");
 			powerStatus = BG96_ACTIVE; 
