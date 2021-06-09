@@ -642,7 +642,7 @@ LoraFlagStatus LORA_JoinStatus( void)
 
 
 
-bool LORA_send(lora_AppData_t* AppData, LoraConfirm_t IsTxConfirmed)
+bool LORA_send(lora_AppData_t* AppData, LoraConfirm_t IsTxConfirmed, LoRaMacConditionsInfo_t* info)
 {
     McpsReq_t mcpsReq;
     LoRaMacTxInfo_t txInfo;
@@ -652,9 +652,11 @@ bool LORA_send(lora_AppData_t* AppData, LoraConfirm_t IsTxConfirmed)
     {
       return false;
     }
-    
-    if( LoRaMacQueryTxPossible( AppData->BuffSize, &txInfo ) != LORAMAC_STATUS_OK )
+		
+    if( LoRaMacQueryTxPossible( AppData->BuffSize, &txInfo, info ) != LORAMAC_STATUS_OK )
     {
+				PRINTF_LN("- LoRaWAN not possible");
+				return false;
         // Send empty frame in order to flush MAC commands
         mcpsReq.Type = MCPS_UNCONFIRMED;
         mcpsReq.Req.Unconfirmed.fBuffer = NULL;

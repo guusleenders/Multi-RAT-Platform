@@ -218,7 +218,7 @@ void LORA_Init (LoRaMainCallback_t *callbacks, LoRaParam_t* LoRaParam );
  * @param [IN] none
  * @retval none
  */
-bool LORA_send(lora_AppData_t* AppData, LoraConfirm_t IsTxConfirmed);
+bool LORA_send(lora_AppData_t* AppData, LoraConfirm_t IsTxConfirmed, LoRaMacConditionsInfo_t* info);
 
 /**
  * @brief Join a Lora Network in classA

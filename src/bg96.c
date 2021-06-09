@@ -477,16 +477,21 @@ BG96_Status_t BG96_SendATCommandCheckReply( char *buffer , char *replyBuffer, ui
 		return BG96_ERROR;
 	}
 }
-
-BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint32_t timeout){
+BG96_Status_t _BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint32_t timeout, bool run){
 	BG96_SendATCommand(buffer);
 	waitingForReply = true;
 	uint32_t tickstart = HW_RTC_GetTimerValue();
 	uint32_t tickNow = HW_RTC_GetTimerValue();
+	
 	while(!totalReplyBufferDone && ( ( tickNow - tickstart ) ) < timeout){
-    //SCH_Run(); 
+		if(run)
+			SCH_Run();
+		else
+			HAL_Delay(10);
 		tickNow = HW_RTC_GetTimerValue();
+		PRINTF("!");
   }
+	PRINTF_LN("*");
 	HAL_Delay(2);
 	totalReplyBufferDone = false;
 	waitingForReply = false;
@@ -497,6 +502,9 @@ BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint
 		strcpy(replyBuffer, totalReplyBuffer);
 		return BG96_OK;
 	}
+}
+BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint32_t timeout){
+	return _BG96_SendATCommandGetReply(buffer, replyBuffer, timeout, true);
 }
 	
 BG96_Status_t BG96_PowerOn( void ){
@@ -525,7 +533,7 @@ BG96_Status_t BG96_PowerOn( void ){
 	PRINTF_LN("POWERED DOWN");
 	status = BG96_SendATCommandCheckReply("", "RDY", 10000); // RDY
 	PRINTF_LN("RDY");
-	status = BG96_SendATCommandGetReply("", "APP RDY", 40000); // APP RDY, ONLY FOR NEW FIRMWARE
+	status = BG96_SendATCommandGetReply("", "APP RDY", 60000); // APP RDY, ONLY FOR NEW FIRMWARE
 	PRINTF_LN("APP RDY");
 	
 	/*status = BG96_SendATCommandCheckReply("AT&X2\r\n", "OK", 1000);
@@ -580,25 +588,27 @@ BG96_Powerdown_t BG96_PowerDown( void ){
 		
 		BG96_SendATCommand("");
 		waitingForReply = true;
+		
+		HAL_Delay(600);
 		uint32_t tickstart = HW_RTC_GetTimerValue();
 		uint32_t tickNow = HW_RTC_GetTimerValue();
-		while(!totalReplyBufferDone && ( ( tickNow - tickstart ) ) < 700){
+		while(!totalReplyBufferDone && ( ( tickNow - tickstart ) ) < 300 ){
 			tickNow = HW_RTC_GetTimerValue();
 			PRINTF(".");
 		}
-		HAL_Delay(2);
 		totalReplyBufferDone = false;
 		waitingForReply = false;
-		if(( tickNow - tickstart )  >= 700){
-			PRINTF("STOP");
+		if(( tickNow - tickstart )  >= 800){
+			//PRINTF("STOP");
 		}else{
 			strcpy(powerdownbuffer, totalReplyBuffer);
 		}
 		HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_RESET); 
-		
+		PRINTF_LN("- Done");
 		//HAL_Delay(400);
-		BG96_Status_t status = BG96_SendATCommandGetReply("", powerdownbuffer, 600);
-		PRINTF_LN("- Power down string: %s", powerdownbuffer);
+		HAL_Delay(3);
+		BG96_Status_t status = BG96_SendATCommandGetReply("", powerdownbuffer, 30);
+		PRINTF_LN("- Power down string 2: %s", powerdownbuffer);
 		counter ++; 
 		HAL_Delay(2500); // It takes >1.8s for module to shut down
 	}
@@ -807,8 +817,8 @@ BG96_Status_t BG96_ConnectToOperator( uint32_t timeout ){
 	BG96_Status_t status  =  BG96_ERROR; 
 	char buffer[30];
 	while(status != BG96_OK  && ( ( tickNow - tickstart ) ) < timeout){
-		status = BG96_SendATCommandCheckReply("AT+CGATT?\r\n", "+CGATT: 1", 300);
-		BG96_SendATCommandGetReply("", buffer, 300); // Check out last (closing) OK\r\n
+		status = BG96_SendATCommandCheckReply("AT+CGATT?\r\n", "+CGATT: 1", 600);
+		BG96_SendATCommandGetReply("", buffer, 600); // Check out last (closing) OK\r\n
 		if(StringStartsWith(buffer, "+CGATT: 1")){ // If cgat 1 is detected instead of OK, then is connected!
 			status = BG96_OK;
 		}

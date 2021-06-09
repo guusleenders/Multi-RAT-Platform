@@ -3465,7 +3465,7 @@ LoRaMacStatus_t LoRaMacStop( void )
     return LORAMAC_STATUS_BUSY;
 }
 
-LoRaMacStatus_t LoRaMacQueryTxPossible( uint8_t size, LoRaMacTxInfo_t* txInfo )
+LoRaMacStatus_t LoRaMacQueryTxPossible( uint8_t size, LoRaMacTxInfo_t* txInfo, LoRaMacConditionsInfo_t* info )
 {
     CalcNextAdrParams_t adrNext;
     uint32_t adrAckCounter = MacCtx.NvmCtx->AdrAckCounter;
@@ -3494,8 +3494,15 @@ LoRaMacStatus_t LoRaMacQueryTxPossible( uint8_t size, LoRaMacTxInfo_t* txInfo )
     // apply the datarate, the tx power and the ADR ack counter.
     LoRaMacAdrCalcNext( &adrNext, &datarate, &txPower, &adrAckCounter );
 
+		PRINTF_LN("- LoRaWAN DR: %d", datarate);
     txInfo->CurrentPossiblePayloadSize = GetMaxAppPayloadWithoutFOptsLength( datarate );
-
+		PRINTF_LN("- Possible payload size: %d", txInfo->CurrentPossiblePayloadSize);
+		
+		info->datarate = datarate;
+		info->power = txPower;
+		info->maxPayloadSize = txInfo->CurrentPossiblePayloadSize;
+		info->adrEnabled = MacCtx.NvmCtx->AdrCtrlOn;
+		
     if( LoRaMacCommandsGetSizeSerializedCmds( &macCmdsSize ) != LORAMAC_COMMANDS_SUCCESS )
     {
         return LORAMAC_STATUS_MAC_COMMAD_ERROR;

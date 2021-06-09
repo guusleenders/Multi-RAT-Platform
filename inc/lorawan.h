@@ -24,13 +24,13 @@ extern "C" {
 #define LPP_DATATYPE_BAROMETER      0x73
 #define LPP_APP_PORT 99
 
-#define LORAWAN_PAYLOAD_SIZE							15
+#define LORAWAN_PAYLOAD_SIZE							255
 #define LORAWAN_ADR_STATE 								LORAWAN_ADR_ON 	// LoRaWAN Adaptive Data Rate; Please note that when ADR is enabled the end-device should be static
-#define LORAWAN_DEFAULT_DATA_RATE 				DR_0 						// LoRaWAN Default data Rate Data Rate; Please note that LORAWAN_DEFAULT_DATA_RATE is used only when ADR is disabled
+#define LORAWAN_DEFAULT_DATA_RATE 				DR_5 						// LoRaWAN Default data Rate Data Rate; Please note that LORAWAN_DEFAULT_DATA_RATE is used only when ADR is disabled
 #define LORAWAN_APP_PORT 									2 							// LoRaWAN application port; do not use 224. It is reserved for certification
 #define LORAWAN_DEFAULT_CLASS 						CLASS_A 				// LoRaWAN default endNode class port
 #define LORAWAN_DEFAULT_CONFIRM_MSG_STATE LORAWAN_UNCONFIRMED_MSG // LoRaWAN default confirm state
-#define LORAWAN_APP_DATA_BUFF_SIZE 				20 							// User application data buffer size
+#define LORAWAN_APP_DATA_BUFF_SIZE 				255 							// User application data buffer size
 
 
 // ---------------------------- LORA FUNCTIONS ---------------------------------

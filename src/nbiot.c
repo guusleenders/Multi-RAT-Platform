@@ -5,25 +5,25 @@
 BG96_Powerdown_t powerStatus = BG96_POWERDOWN;
 
 // Total payload size = Lookuptable + 4 (overhead deviceID, bootID and packageNumber)
-const uint16_t nbiot_payloadsize_lt[] ={0,
-																	1,
-																	2,
-																	4,
-																	8,
-																	16,
-																	24,
-																	32,
-																	48,
-																	64,
-																	96,
-																	128,
-																	192,
-																	256,
-																	384,
-																	512,
-																	768,
-																	1024,
-																	1536
+const uint16_t nbiot_payloadsize_lt[] ={0,	//4
+																				1,	//5
+																				2,	//6
+																				4,	//8
+																				8,	//12
+																				16,	//20
+																				24,	//28
+																				32,	//36
+																				48,	//52
+																				64,	//68
+																				96,	//100
+																				128,	//132
+																				192,	//196
+																				256,	
+																				384,
+																				512,
+																				768,
+																				1024,
+																				1536
 };
 
 void initNBIoT(void){
@@ -116,7 +116,12 @@ void registerNBIoT(void){
 	PRINTF_LN("- Edrx mode settings: %s\r\n", buffer);
 	#endif
 	
-	PRINTF_LN("- Total conditions: %s", energyStruct.nbiot_conditions);
+	BG96_GetSignalStength(buffer);
+	strcat(energyStruct.nbiot_conditions, buffer);
+	strcat(energyStruct.nbiot_conditions, seperator);
+	#ifdef DEBUG
+	PRINTF_LN("- Signal strength: %s\r\n", buffer);
+	#endif
 	
 	#ifdef DEBUG
 	PRINTF_LN("- Register procedure complete");
@@ -146,7 +151,7 @@ int8_t _sendNBIoT(bool sendingMeasuredEnergy, char * payload){
 		BG96_Init();
 	}
 	
-	
+	PRINTF_LN("TEST");
 	// ---------- Wake from psm and connect to network ---------- 
 	if(BG96_WakeFromPSMToSend() == BG96_OK){
 		// ---------- Get network info ---------- 
@@ -211,7 +216,7 @@ int8_t _sendNBIoT(bool sendingMeasuredEnergy, char * payload){
 int8_t sendNBIoT(){
 	char buffer[1600]; 
 	memset(buffer, '\0', sizeof(buffer));
-	sprintf(buffer, "%d,%d,%d,", energyStruct.general_deviceID, energyStruct.general_bootID, energyStruct.lorawan_packetNumber);
+	sprintf(buffer, "P%d;%d;%d;", energyStruct.general_deviceID, energyStruct.general_bootID, energyStruct.lorawan_packetNumber);
 	uint16_t i;
 	PRINTF_LN("Packet number: %d, %d, %d", energyStruct.nbiot_packetNumber, energyStruct.nbiot_packetNumber%19, nbiot_payloadsize_lt[energyStruct.nbiot_packetNumber%19]);
 	for(i = 0; i < nbiot_payloadsize_lt[energyStruct.nbiot_packetNumber%19]; i++){
@@ -225,10 +230,10 @@ void sendEnergyStruct( void ){
 	char buffer[300];
 	memset(buffer, '\0', sizeof(buffer));
 	sprintf(	buffer, 
-					"%d,%d,"
-					"%d,%d,%s,%d,%d,%d,"
-					"%d,%d,%s,%d,%d,"
-					"%d,%d,%s,%d,%d,",
+					"%d;%d;"
+					"%d;%d;%s;%d;%d;%d;"
+					"%d;%d;%s;%d;%d;"
+					"%d;%d;%s;%d;%d;",
 					energyStruct.general_deviceID, energyStruct.general_bootID,
 					energyStruct.nbiot_packetNumber, energyStruct.nbiot_energy, energyStruct.nbiot_conditions, energyStruct.nbiot_initStatus, energyStruct.nbiot_closeStatus, energyStruct.nbiot_payloadSize, 
 					energyStruct.sigfox_packetNumber, energyStruct.sigfox_energy, energyStruct.sigfox_conditions, energyStruct.sigfox_initStatus, energyStruct.sigfox_payloadSize, 

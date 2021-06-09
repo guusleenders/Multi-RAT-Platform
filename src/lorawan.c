@@ -40,7 +40,7 @@ void OnTimerLedEvent(void *context);
                                     };
 
 // Total payload size = Lookuptable + 4 (overhead deviceID, bootID and packageNumber)
-const uint8_t lorawan_payloadsize_lt[] ={0,
+/*const uint8_t lorawan_payloadsize_lt[] ={0,
 																		1,
 																		2,
 																		4,
@@ -53,6 +53,29 @@ const uint8_t lorawan_payloadsize_lt[] ={0,
 																		48,
 																		64,
 																		96,
+																		128,
+																		144,
+																		160,
+																		176,
+																		192,
+																		222
+};*/
+
+//{ 51, 51, 51, 115, 242, 242, 242, 242 };
+
+const uint8_t lorawan_payloadsize_lt[] ={32,
+																		48,
+																		128,
+																		128,
+																		128,
+																		128,
+																		128,
+																		128,
+																		128,
+																		128,
+																		128,
+																		128,
+																		128,
 																		128,
 																		144,
 																		160,
@@ -120,14 +143,26 @@ void sendLoRaWAN(void){
 	for(uint8_t p = 0; p < lorawan_payloadsize_lt[energyStruct.lorawan_packetNumber%19]; p++){
 		AppData.Buff[i++] = 0x00;
 	}
-	energyStruct.nbiot_payloadSize = i;
+	energyStruct.lorawan_payloadSize = i;
   AppData.BuffSize = i;
+	
 	
 	// ---------- Send message ---------- 
 	#ifdef DEBUG
 	PRINTF_LN("- Sending packet");
 	#endif
-  LORA_send(&AppData, LORAWAN_DEFAULT_CONFIRM_MSG_STATE);
+	LoRaMacConditionsInfo_t info;
+	
+  if(!LORA_send(&AppData, LORAWAN_DEFAULT_CONFIRM_MSG_STATE, &info) && info.maxPayloadSize > AppData.BuffSize){
+			energyStruct.lorawan_payloadSize = i;
+			AppData.BuffSize = i;
+			LORA_send(&AppData, LORAWAN_DEFAULT_CONFIRM_MSG_STATE, &info);
+	}
+
+	sprintf(energyStruct.lorawan_conditions, "%d|%d|%d", info.datarate, info.power, info.adrEnabled);
+	
+	PRINTF_LN("- Conditions: %s", energyStruct.lorawan_conditions);
+	
 	#ifdef DEBUG
 	PRINTF_LN("- LoRaWAN send command done");
 	#endif
@@ -228,8 +263,7 @@ void LORA_ConfirmClass(DeviceClass_t Class){
   // Optional: informs the server that switch has occurred ASAP
   AppData.BuffSize = 0;
   AppData.Port = LORAWAN_APP_PORT;
-
-  LORA_send(&AppData, LORAWAN_UNCONFIRMED_MSG);
+  LORA_send(&AppData, LORAWAN_UNCONFIRMED_MSG, NULL);
 }
 
 void LORA_TxNeeded(void){
@@ -241,7 +275,7 @@ void LORA_TxNeeded(void){
   AppData.BuffSize = 0;
   AppData.Port = LORAWAN_APP_PORT;
 
-  LORA_send(&AppData, LORAWAN_UNCONFIRMED_MSG);
+  LORA_send(&AppData, LORAWAN_UNCONFIRMED_MSG, NULL);
 }
 
 bool isDoneLoRaWAN(void){

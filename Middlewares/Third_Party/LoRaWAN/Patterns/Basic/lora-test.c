@@ -116,7 +116,7 @@ static bool certif_tx( void )
     }
   }
     
-  if( LoRaMacQueryTxPossible( certifParam.DataBufferSize, &txInfo ) != LORAMAC_STATUS_OK )
+  if( LoRaMacQueryTxPossible( certifParam.DataBufferSize, &txInfo, NULL  ) != LORAMAC_STATUS_OK )
   {
       // Send empty frame in order to flush MAC commands
       mcpsReq.Type = MCPS_UNCONFIRMED;

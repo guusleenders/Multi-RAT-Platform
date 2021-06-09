@@ -208,6 +208,7 @@ void BG96_ParseResult( char *buffer );
 void BG96_SendATCommand( char *buffer );
 BG96_Status_t BG96_SendATCommandCheckReply( char *buffer , char *replyBuffer, uint32_t timeout);
 BG96_Status_t BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint32_t timeout);
+BG96_Status_t _BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uint32_t timeout, bool run);
 
 // General AT commands
 BG96_Status_t BG96_PowerOn( void );

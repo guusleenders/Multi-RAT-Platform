@@ -2139,6 +2139,8 @@ typedef struct sLoRaMacTxInfo
     uint8_t CurrentPossiblePayloadSize;
 }LoRaMacTxInfo_t;
 
+
+
 /*!
  * LoRaMAC Status
  */
@@ -2396,6 +2398,13 @@ typedef struct sLoRaMacCallback
 		void ( *LORA_Done )( void );
 }LoRaMacCallback_t;
 
+typedef struct sLoRaMacConditionsInfo
+{
+    int8_t power; 
+		int8_t datarate;
+		uint8_t maxPayloadSize;
+	  bool adrEnabled;
+}LoRaMacConditionsInfo_t;
 
 /*!
  * LoRaMAC Max EIRP (dBm) table
@@ -2483,7 +2492,7 @@ void LoRaMacProcess( void );
  *          In case the query is valid, and the LoRaMAC is able to send the frame,
  *          the function returns \ref LORAMAC_STATUS_OK.
  */
-LoRaMacStatus_t LoRaMacQueryTxPossible( uint8_t size, LoRaMacTxInfo_t* txInfo );
+LoRaMacStatus_t LoRaMacQueryTxPossible( uint8_t size, LoRaMacTxInfo_t* txInfo,  LoRaMacConditionsInfo_t* info );
 
 /*!
  * \brief   LoRaMAC channel add service
@@ -2700,6 +2709,8 @@ LoRaMacStatus_t LoRaMacMlmeRequest( MlmeReq_t* mlmeRequest );
 LoRaMacStatus_t LoRaMacMcpsRequest( McpsReq_t* mcpsRequest );
 
 void LoRaMacInitializationReset(void);
+
+
 
 /*!
  * Automatically add the Region.h file at the end of LoRaMac.h file.
