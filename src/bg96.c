@@ -484,12 +484,14 @@ BG96_Status_t _BG96_SendATCommandGetReply( char *buffer , char *replyBuffer, uin
 	uint32_t tickNow = HW_RTC_GetTimerValue();
 	
 	while(!totalReplyBufferDone && ( ( tickNow - tickstart ) ) < timeout){
-		if(run)
+		PRINTF("!");
+		if(run){
 			SCH_Run();
+		}
 		else
 			HAL_Delay(10);
 		tickNow = HW_RTC_GetTimerValue();
-		PRINTF("!");
+		
   }
 	PRINTF_LN("*");
 	HAL_Delay(2);
@@ -589,20 +591,8 @@ BG96_Powerdown_t BG96_PowerDown( void ){
 		BG96_SendATCommand("");
 		waitingForReply = true;
 		
-		HAL_Delay(600);
-		uint32_t tickstart = HW_RTC_GetTimerValue();
-		uint32_t tickNow = HW_RTC_GetTimerValue();
-		while(!totalReplyBufferDone && ( ( tickNow - tickstart ) ) < 300 ){
-			tickNow = HW_RTC_GetTimerValue();
-			PRINTF(".");
-		}
-		totalReplyBufferDone = false;
-		waitingForReply = false;
-		if(( tickNow - tickstart )  >= 800){
-			//PRINTF("STOP");
-		}else{
-			strcpy(powerdownbuffer, totalReplyBuffer);
-		}
+		HAL_Delay(900);
+		
 		HAL_GPIO_WritePin(BG96_POWERKEY_PORT, BG96_POWERKEY_PIN, GPIO_PIN_RESET); 
 		PRINTF_LN("- Done");
 		//HAL_Delay(400);

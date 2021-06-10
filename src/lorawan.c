@@ -40,7 +40,7 @@ void OnTimerLedEvent(void *context);
                                     };
 
 // Total payload size = Lookuptable + 4 (overhead deviceID, bootID and packageNumber)
-/*const uint8_t lorawan_payloadsize_lt[] ={0,
+const uint8_t lorawan_payloadsize_lt[] ={0,
 																		1,
 																		2,
 																		4,
@@ -59,30 +59,8 @@ void OnTimerLedEvent(void *context);
 																		176,
 																		192,
 																		222
-};*/
-
-//{ 51, 51, 51, 115, 242, 242, 242, 242 };
-
-const uint8_t lorawan_payloadsize_lt[] ={32,
-																		48,
-																		128,
-																		128,
-																		128,
-																		128,
-																		128,
-																		128,
-																		128,
-																		128,
-																		128,
-																		128,
-																		128,
-																		128,
-																		144,
-																		160,
-																		176,
-																		192,
-																		222
 };
+
 void initLoRaWAN(void){
 	startEnergyMeasurement(LTC2942_LRWAN);
 	
@@ -153,9 +131,11 @@ void sendLoRaWAN(void){
 	#endif
 	LoRaMacConditionsInfo_t info;
 	
-  if(!LORA_send(&AppData, LORAWAN_DEFAULT_CONFIRM_MSG_STATE, &info) && info.maxPayloadSize > AppData.BuffSize){
-			energyStruct.lorawan_payloadSize = i;
-			AppData.BuffSize = i;
+	PRINTF_LN("- Package payload to %d", i);
+  if(!LORA_send(&AppData, LORAWAN_DEFAULT_CONFIRM_MSG_STATE, &info) && info.maxPayloadSize <= AppData.BuffSize){
+			PRINTF_LN("- Adjusting payload to %d", info.maxPayloadSize);
+			energyStruct.lorawan_payloadSize = info.maxPayloadSize;
+			AppData.BuffSize = info.maxPayloadSize;
 			LORA_send(&AppData, LORAWAN_DEFAULT_CONFIRM_MSG_STATE, &info);
 	}
 

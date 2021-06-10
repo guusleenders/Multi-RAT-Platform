@@ -47,6 +47,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "hw.h"
 #include "scheduler.h"
+#include "vcom.h"
 
 #define CFG_SCH_TASK_NBR 16
 
@@ -78,6 +79,7 @@ void SCH_Run( void )
 
   while( TaskSet &  TaskMask )
   {
+		PRINTF("$");
 #if( __CORTEX_M == 0) 
    bit_nbr = CountLeadZero( TaskSet &  TaskMask );
 #else
@@ -93,6 +95,7 @@ void SCH_Run( void )
 
     TaskCb[31 - bit_nbr]();
   }
+	PRINTF("£");
 
   BACKUP_PRIMASK();
   

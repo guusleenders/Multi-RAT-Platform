@@ -66,12 +66,14 @@ void sendSigfox( void ){
 
   ul_msg[ul_size++] = energyStruct.general_deviceID;
   ul_msg[ul_size++] = energyStruct.general_bootID;
-  ul_msg[ul_size++] = (energyStruct.lorawan_packetNumber >> 8) & 0xFF;;
-  ul_msg[ul_size++] = energyStruct.lorawan_packetNumber  & 0xFF;
-	for(uint8_t p = 0; p < energyStruct.lorawan_packetNumber%8; p++){
+  ul_msg[ul_size++] = (energyStruct.sigfox_packetNumber >> 8) & 0xFF;;
+  ul_msg[ul_size++] = energyStruct.sigfox_packetNumber  & 0xFF;
+	for(uint8_t p = 0; p < energyStruct.sigfox_packetNumber%8; p++){
 		ul_msg[ul_size++] = 0;
 	}
 
+	energyStruct.sigfox_payloadSize = ul_size;
+	
 	SIGFOX_API_close(); // Make sure sigfox api is closed before opening
 	
 	st_sfx_rc_t SgfxRc=APPLI_RC;
