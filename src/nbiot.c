@@ -178,6 +178,7 @@ int8_t _sendNBIoT(bool sendingMeasuredEnergy, char * payload){
 	}
 	
 	// ---------- Wait for PSM ---------- 
+	uint32_t tick = HW_RTC_GetTimerValue();
 	uint8_t counter = 0;
 	while(!BG96_IsPoweredDown() && counter < 3){ 
 		BG96_WaitForPowerDown(10000);
@@ -204,6 +205,9 @@ int8_t _sendNBIoT(bool sendingMeasuredEnergy, char * payload){
 	}
 	BG96_DeInit();
 	BG96_IoDeInit();
+	tick = HW_RTC_GetTimerValue() - tick;
+	energyStruct.nbiot_closeTime = tick;
+	PRINTF_LN("- Took %d to shut down.", tick);
 	PRINTF_LN("- Send done.");
 	
 	// ---------- Increase packet number ----------

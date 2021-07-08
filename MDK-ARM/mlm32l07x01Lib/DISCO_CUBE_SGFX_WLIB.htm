@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\mlm32l07x01Lib\DISCO_CUBE_SGFX_WLIB.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\mlm32l07x01Lib\DISCO_CUBE_SGFX_WLIB.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Jun 10 14:19:28 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Jul 08 14:30:29 2021
 <BR><P>
 <H3>Maximum Stack Usage =       3812 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2309,6 +2309,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerGetElapsedTime
 <LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerGetCurrentTime
 <LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_DelayMs
+<LI><a href="#[31c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BG96_SendATCommandGetReply
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WakeFromPSM
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WaitForPowerDown
@@ -5926,10 +5927,11 @@ Global Symbols
 
 <P><STRONG><a name="[370]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[31c]"></a>_sendNBIoT</STRONG> (Thumb, 326 bytes, Stack size 24 bytes, nbiot.o(i._sendNBIoT))
+<P><STRONG><a name="[31c]"></a>_sendNBIoT</STRONG> (Thumb, 358 bytes, Stack size 24 bytes, nbiot.o(i._sendNBIoT))
 <BR><BR>[Stack]<UL><LI>Max Depth = 2140<LI>Call Chain = _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_GetTimerValue
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
 <LI><a href="#[31f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
@@ -6243,7 +6245,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276GetTimeOnAir
 </UL>
 
-<P><STRONG><a name="[335]"></a>sendEnergyStruct</STRONG> (Thumb, 124 bytes, Stack size 376 bytes, nbiot.o(i.sendEnergyStruct))
+<P><STRONG><a name="[335]"></a>sendEnergyStruct</STRONG> (Thumb, 122 bytes, Stack size 376 bytes, nbiot.o(i.sendEnergyStruct))
 <BR><BR>[Stack]<UL><LI>Max Depth = 2516<LI>Call Chain = sendEnergyStruct &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
