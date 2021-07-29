@@ -6,6 +6,7 @@
 #include "bg96.h"
 #include "vcom2.h"
 #include "string.h"
+#include "timeServer.h"
 
 #include "energy.h"
 

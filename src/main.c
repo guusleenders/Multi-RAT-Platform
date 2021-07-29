@@ -88,7 +88,7 @@
 #define USER_BUTTON_ALT_GPIO_PORT                   GPIOA
 //#define STDBY_ON
 #define DEBUG	
-#define SEND_DELAY																	120*1000
+#define SEND_DELAY																	300*1000
 
 
 // ---------------------------- GENERAL FUNCTIONS ---------------------------------

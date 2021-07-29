@@ -40,7 +40,7 @@ void OnTimerLedEvent(void *context);
                                     };
 
 // Total payload size = Lookuptable + 4 (overhead deviceID, bootID and packageNumber)
-const uint8_t lorawan_payloadsize_lt[] ={0,
+/*const uint8_t lorawan_payloadsize_lt[] ={0,
 																		1,
 																		2,
 																		4,
@@ -59,8 +59,27 @@ const uint8_t lorawan_payloadsize_lt[] ={0,
 																		176,
 																		192,
 																		222
+};*/
+const uint8_t lorawan_payloadsize_lt[] ={48,
+																		48,
+																		48,
+																		48,
+																		48,
+																		48,
+																		48,
+																		48,
+																		24,
+																		32,
+																		48,
+																		64,
+																		96,
+																		128,
+																		144,
+																		160,
+																		176,
+																		192,
+																		222
 };
-
 void initLoRaWAN(void){
 	startEnergyMeasurement(LTC2942_LRWAN);
 	
@@ -114,7 +133,9 @@ void sendLoRaWAN(void){
   //batteryLevel = LORA_GetBatteryLevel();                      /* 1 (very low) to 254 (fully charged) */
   AppData.Port = LORAWAN_APP_PORT;
   AppData.Buff[i++] = energyStruct.general_deviceID;
+	PRINTF_LN("- Device id: %i", AppData.Buff[i-1]);
   AppData.Buff[i++] = energyStruct.general_bootID;
+  PRINTF_LN("- Boot id: %i", AppData.Buff[i-1]);
   AppData.Buff[i++] = (energyStruct.lorawan_packetNumber >> 8) & 0xFF;;
 	AppData.Buff[i++] = energyStruct.lorawan_packetNumber  & 0xFF;
 	
@@ -133,9 +154,10 @@ void sendLoRaWAN(void){
 	
 	PRINTF_LN("- Package payload to %d", i);
   if(!LORA_send(&AppData, LORAWAN_DEFAULT_CONFIRM_MSG_STATE, &info) && info.maxPayloadSize <= AppData.BuffSize){
-			PRINTF_LN("- Adjusting payload to %d", info.maxPayloadSize);
-			energyStruct.lorawan_payloadSize = info.maxPayloadSize;
-			AppData.BuffSize = info.maxPayloadSize;
+			PRINTF_LN("- Adjusting payload to %d", info.maxPayloadSize-4);
+			energyStruct.lorawan_payloadSize = info.maxPayloadSize-4;
+			AppData.BuffSize = info.maxPayloadSize-4;
+			PRINTF_LN("- Package payload is now %d", AppData.BuffSize);
 			LORA_send(&AppData, LORAWAN_DEFAULT_CONFIRM_MSG_STATE, &info);
 	}
 
@@ -236,10 +258,8 @@ void LORA_RxData(lora_AppData_t *AppData){
 }
 
 void LORA_ConfirmClass(DeviceClass_t Class){
-	#ifdef DEBUG
-  PRINTF("- Switching to class %c done\n\r", "ABC"[Class]);
-	#endif
-
+	PRINTF("- Switching to class %c done\n\r", "ABC"[Class]);
+	
   // Optional: informs the server that switch has occurred ASAP
   AppData.BuffSize = 0;
   AppData.Port = LORAWAN_APP_PORT;
@@ -248,14 +268,12 @@ void LORA_ConfirmClass(DeviceClass_t Class){
 
 void LORA_TxNeeded(void){
 	// ---------- LoRa TX Needed ---------- 
-	#ifdef DEBUG
-	PRINTF_LN("- LoRa TX Needed");
-	#endif
+  PRINTF_LN("- LoRa TX Needed");
 	
-  AppData.BuffSize = 0;
+  /*AppData.BuffSize = 0;
   AppData.Port = LORAWAN_APP_PORT;
 
-  LORA_send(&AppData, LORAWAN_UNCONFIRMED_MSG, NULL);
+  LORA_send(&AppData, LORAWAN_UNCONFIRMED_MSG, NULL);*/
 }
 
 bool isDoneLoRaWAN(void){

@@ -652,16 +652,22 @@ bool LORA_send(lora_AppData_t* AppData, LoraConfirm_t IsTxConfirmed, LoRaMacCond
     {
       return false;
     }
-		
-    if( LoRaMacQueryTxPossible( AppData->BuffSize, &txInfo, info ) != LORAMAC_STATUS_OK )
+		LoRaMacStatus_t possible = LoRaMacQueryTxPossible( AppData->BuffSize, &txInfo, info );
+    PRINTF_LN("- LoRaWAN possible status %i", possible);
+		if( possible != LORAMAC_STATUS_OK )
     {
-				PRINTF_LN("- LoRaWAN not possible");
-				return false;
+			PRINTF_LN("- LoRaWAN not possible: %i", info->maxPayloadSize);
+				//return false;
         // Send empty frame in order to flush MAC commands
+			  if(txInfo.MaxPossibleApplicationDataSize > 0){
+					PRINTF_LN("- AppDataSize > 0");
+					info->maxPayloadSize = txInfo.MaxPossibleApplicationDataSize;
+				}
         mcpsReq.Type = MCPS_UNCONFIRMED;
         mcpsReq.Req.Unconfirmed.fBuffer = NULL;
         mcpsReq.Req.Unconfirmed.fBufferSize = 0;
         mcpsReq.Req.Unconfirmed.Datarate = LoRaParamInit->TxDatarate;
+				return false;
     }
     else
     {

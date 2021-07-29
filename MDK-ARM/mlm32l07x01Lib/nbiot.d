@@ -75,5 +75,6 @@
 .\mlm32l07x01lib\nbiot.o: ..\inc\tiny_vsnprintf.h
 .\mlm32l07x01lib\nbiot.o: ..\Middlewares\Utilities\scheduler.h
 .\mlm32l07x01lib\nbiot.o: ..\inc\util.h
+.\mlm32l07x01lib\nbiot.o: ..\Middlewares\Utilities\timeServer.h
 .\mlm32l07x01lib\nbiot.o: ..\inc\energy.h
 .\mlm32l07x01lib\nbiot.o: ..\inc\ltc2942.h

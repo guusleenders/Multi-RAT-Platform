@@ -3511,20 +3511,30 @@ LoRaMacStatus_t LoRaMacQueryTxPossible( uint8_t size, LoRaMacTxInfo_t* txInfo, L
     // Verify if the MAC commands fit into the FOpts and into the maximum payload.
     if( ( LORA_MAC_COMMAND_MAX_FOPTS_LENGTH >= macCmdsSize ) && ( txInfo->CurrentPossiblePayloadSize >= macCmdsSize ) )
     {
+				
         txInfo->MaxPossibleApplicationDataSize = txInfo->CurrentPossiblePayloadSize - macCmdsSize;
 
         // Verify if the application data together with MAC command fit into the maximum payload.
         if( txInfo->CurrentPossiblePayloadSize >= ( macCmdsSize + size ) )
         {
+						PRINTF_LN("- Max payload success");
+					PRINTF_LN("- Mac command size: %i", macCmdsSize);
+					
             return LORAMAC_STATUS_OK;
         }
         else
         {
+					 PRINTF_LN("- Max payload error 2");
+					PRINTF_LN("- CurrentPossiblePayloadSize: %i", txInfo->CurrentPossiblePayloadSize);
+					uint16_t test = ( macCmdsSize + size );
+					PRINTF_LN("- Mac command size: %i", macCmdsSize);
+					PRINTF_LN("- Trying size: %i", test);
            return LORAMAC_STATUS_LENGTH_ERROR;
         }
     }
     else
     {
+				PRINTF_LN("- Max payload error 1");
         txInfo->MaxPossibleApplicationDataSize = 0;
         return LORAMAC_STATUS_LENGTH_ERROR;
     }

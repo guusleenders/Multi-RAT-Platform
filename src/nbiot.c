@@ -26,6 +26,14 @@ const uint16_t nbiot_payloadsize_lt[] ={0,	//4
 																				1536
 };
 
+
+// Statics
+static void onTimerWd(void *context);
+void send_data_request_wd( void );
+static void checkPowerDown(void);
+
+static TimerEvent_t WdTimer;
+	
 void initNBIoT(void){
 
 	BG96_Init();
@@ -178,6 +186,13 @@ int8_t _sendNBIoT(bool sendingMeasuredEnergy, char * payload){
 	}
 	
 	// ---------- Wait for PSM ---------- 
+	SCH_RegTask(WD_TASK, checkPowerDown);		  // Record send data task
+	TimerInit(&WdTimer, onTimerWd);
+	TimerSetValue(&WdTimer,  1000);
+	TimerStart(&WdTimer); // Schedule next testing cycle
+	
+	SCH_ResumeTask(WD_TASK);
+	
 	uint32_t tick = HW_RTC_GetTimerValue();
 	uint8_t counter = 0;
 	while(!BG96_IsPoweredDown() && counter < 3){ 
@@ -207,8 +222,11 @@ int8_t _sendNBIoT(bool sendingMeasuredEnergy, char * payload){
 	BG96_IoDeInit();
 	tick = HW_RTC_GetTimerValue() - tick;
 	energyStruct.nbiot_closeTime = tick;
-	PRINTF_LN("- Took %d to shut down.", tick);
+	PRINTF_LN("- Took %d to shut down.", energyStruct.nbiot_closeTime);
 	PRINTF_LN("- Send done.");
+	
+	TimerStop(&WdTimer);
+	SCH_PauseTask(WD_TASK);
 	
 	// ---------- Increase packet number ----------
 	if(!sendingMeasuredEnergy){	
@@ -235,11 +253,11 @@ void sendEnergyStruct( void ){
 	memset(buffer, '\0', sizeof(buffer));
 	sprintf(	buffer, 
 					"%d;%d;"
-					"%d;%d;%s;%d;%d;%d;"
+					"%d;%d;%s;%d;%d;%d;%d;"
 					"%d;%d;%s;%d;%d;"
 					"%d;%d;%s;%d;%d;",
 					energyStruct.general_deviceID, energyStruct.general_bootID,
-					energyStruct.nbiot_packetNumber, energyStruct.nbiot_energy, energyStruct.nbiot_conditions, energyStruct.nbiot_initStatus, energyStruct.nbiot_closeStatus, energyStruct.nbiot_payloadSize, 
+					energyStruct.nbiot_packetNumber, energyStruct.nbiot_energy, energyStruct.nbiot_conditions, energyStruct.nbiot_initStatus, energyStruct.nbiot_closeStatus, energyStruct.nbiot_closeTime, energyStruct.nbiot_payloadSize, 
 					energyStruct.sigfox_packetNumber, energyStruct.sigfox_energy, energyStruct.sigfox_conditions, energyStruct.sigfox_initStatus, energyStruct.sigfox_payloadSize, 
 					energyStruct.lorawan_packetNumber, energyStruct.lorawan_energy, energyStruct.lorawan_conditions, energyStruct.lorawan_initStatus, energyStruct.lorawan_payloadSize);
 	
@@ -254,5 +272,23 @@ void stopEnergyMeasurementNBIoT( void ){
 	uint32_t mj = uwh * 3.6f;
 	LTC2942_SetShutdown(LTC2942_NBIOT, 1);
 	PRINTF("\r\n||NB-IoT packet energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ )||\r\n", energy, uwh, mj);
+	
 }
 
+
+
+//-------Timer testing stuff
+void send_data_request_wd( void ){
+  /* send task to background*/
+  SCH_SetTask( WD_TASK );
+}
+
+static void onTimerWd(void *context){
+	send_data_request_wd(); 
+	
+}
+
+static void checkPowerDown(void){
+	PRINTF_LN("WD");
+	TimerStart(&WdTimer);
+}

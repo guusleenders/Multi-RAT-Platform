@@ -27,7 +27,7 @@ typedef struct Energy_t {
 	char 			nbiot_conditions[150];
 	uint8_t 	nbiot_initStatus; 
 	uint8_t		nbiot_closeStatus;
-	uint16_t	nbiot_closeTime;
+	uint32_t	nbiot_closeTime;
 	uint16_t	nbiot_payloadSize;
 	
 	uint16_t  sigfox_packetNumber;

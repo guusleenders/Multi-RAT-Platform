@@ -91,7 +91,8 @@ typedef enum
 
 #define  VCOM_TASK     0
 #define  SEND_TASK     1
-#define  RESULT_TASK     1
+#define  RESULT_TASK   2
+#define  WD_TASK     	 3
 #ifdef __cplusplus
 }
 #endif

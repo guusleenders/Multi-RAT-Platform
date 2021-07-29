@@ -132,7 +132,7 @@
 /*!
  * Enabled or disabled the duty cycle
  */
-#define EU868_DUTY_CYCLE_ENABLED                    1
+#define EU868_DUTY_CYCLE_ENABLED                    0//1
 
 /*!
  * Maximum RX window duration
@@ -235,13 +235,15 @@
  * Band 0 definition
  * { DutyCycle, TxMaxPower, LastJoinTxDoneTime, LastTxDoneTime, TimeOff }
  */
-#define EU868_BAND0                                 { 100 , EU868_MAX_TX_POWER, 0, 0, 0 } //  1.0 %
+//#define EU868_BAND0                                 { 100 , EU868_MAX_TX_POWER, 0, 0, 0 } //  1.0 %
+#define EU868_BAND0                                 { 1000 , EU868_MAX_TX_POWER, 0, 0, 0 } //  1.0 %
 
 /*!
  * Band 1 definition
  * { DutyCycle, TxMaxPower, LastJoinTxDoneTime, LastTxDoneTime, TimeOff }
  */
-#define EU868_BAND1                                 { 100 , EU868_MAX_TX_POWER, 0, 0, 0 } //  1.0 %
+//#define EU868_BAND1                                 { 100 , EU868_MAX_TX_POWER, 0, 0, 0 } //  1.0 %
+#define EU868_BAND1                                 { 1000 , EU868_MAX_TX_POWER, 0, 0, 0 } //  1.0 %
 
 /*!
  * Band 2 definition
@@ -253,13 +255,15 @@
  * Band 3 definition
  * Band = { DutyCycle, TxMaxPower, LastJoinTxDoneTime, LastTxDoneTime, TimeOff }
  */
-#define EU868_BAND3                                 { 10  , EU868_MAX_TX_POWER, 0, 0, 0 } // 10.0 %
+//#define EU868_BAND3                                 { 10  , EU868_MAX_TX_POWER, 0, 0, 0 } // 10.0 %
+#define EU868_BAND3                                 { 1000  , EU868_MAX_TX_POWER, 0, 0, 0 } // 10.0 %
 
 /*!
  * Band 4 definition
  * Band = { DutyCycle, TxMaxPower, LastJoinTxDoneTime, LastTxDoneTime, TimeOff }
  */
-#define EU868_BAND4                                 { 100 , EU868_MAX_TX_POWER, 0, 0, 0 } //  1.0 %
+//#define EU868_BAND4                                 { 100 , EU868_MAX_TX_POWER, 0, 0, 0 } //  1.0 %
+#define EU868_BAND4                                 { 1000 , EU868_MAX_TX_POWER, 0, 0, 0 } //  1.0 %
 
 /*!
  * Band 5 definition

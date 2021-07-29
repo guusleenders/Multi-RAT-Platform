@@ -987,7 +987,8 @@ BG96_Status_t BG96_WaitForPowerDown( uint32_t timeout ){
 	uint32_t tickNow = HW_RTC_GetTimerValue();
 	PRINTF_LN("- Ticks started at %08x", tickstart);
 	while(!BG96_IsPoweredDown() && ( ( tickNow - tickstart ) ) < timeout){
-		HAL_Delay(10);
+		//HAL_Delay(10);
+		SCH_Run();
 		tickNow = HW_RTC_GetTimerValue();
 	}
 	if(( tickNow - tickstart ) >= timeout){
