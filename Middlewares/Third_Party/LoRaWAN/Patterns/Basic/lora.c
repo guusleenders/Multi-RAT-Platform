@@ -656,7 +656,7 @@ bool LORA_send(lora_AppData_t* AppData, LoraConfirm_t IsTxConfirmed, LoRaMacCond
     PRINTF_LN("- LoRaWAN possible status %i", possible);
 		if( possible != LORAMAC_STATUS_OK )
     {
-			PRINTF_LN("- LoRaWAN not possible: %i", info->maxPayloadSize);
+			PRINTF_LN("- LoRaWAN not possible: max: %i, got: %i", info->maxPayloadSize, AppData->BuffSize);
 				//return false;
         // Send empty frame in order to flush MAC commands
 			  if(txInfo.MaxPossibleApplicationDataSize > 0){

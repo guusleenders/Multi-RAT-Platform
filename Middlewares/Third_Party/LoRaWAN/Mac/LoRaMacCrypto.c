@@ -41,6 +41,8 @@
 #include "LoRaMacSerializer.h"
 #include "LoRaMacCrypto.h"
 
+#include "hw.h"
+
 /*!
  * Indicates if LoRaWAN 1.1.x crypto scheme is enabled
  */
@@ -911,7 +913,7 @@ static void UpdateFCntDown( FCntIdentifier_t fCntID, uint32_t currentDown )
 static void ResetFCnts( void )
 {
 
-    CryptoCtx.NvmCtx->FCntList.FCntUp = 0;
+    CryptoCtx.NvmCtx->FCntList.FCntUp = E2pData.FrameCounter; //0
     CryptoCtx.NvmCtx->FCntList.NFCntDown = FCNT_DOWN_INITAL_VALUE;
     CryptoCtx.NvmCtx->FCntList.AFCntDown = FCNT_DOWN_INITAL_VALUE;
     CryptoCtx.NvmCtx->FCntList.FCntDown = FCNT_DOWN_INITAL_VALUE;
@@ -1477,7 +1479,7 @@ LoRaMacCryptoStatus_t LoRaMacCryptoSecureMessage( uint32_t fCntUp, uint8_t txDr,
     }
     CryptoCtx.NvmCtx->FCntList.FCntUp = fCntUp;
     CryptoCtx.EventCryptoNvmCtxChanged( );
-
+	HW_EEPROM_WRITE( E2pData.FrameCounter, fCntUp) ;
     // Serialize message
     if( LoRaMacSerializerData( macMsg ) != LORAMAC_SERIALIZER_SUCCESS )
     {

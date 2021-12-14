@@ -40,6 +40,7 @@
 
 #include "timeServer.h"
 #include "vcom2.h"
+
 /*
 #include "scheduler.h"
 #include "st_sigfox_api.h"
@@ -82,13 +83,14 @@
 #define SIGFOX
 #define LORAWAN
 
+#define SHOW_SIGFOX_ID
 #define DEVICE_ID 0
 
 #define USER_BUTTON_ALT_PIN                         GPIO_PIN_0
 #define USER_BUTTON_ALT_GPIO_PORT                   GPIOA
 //#define STDBY_ON
 #define DEBUG	
-#define SEND_DELAY																	300*1000
+#define SEND_DELAY																	300*1000//300*1000
 
 
 // ---------------------------- GENERAL FUNCTIONS ---------------------------------
@@ -104,7 +106,28 @@ static TimerEvent_t ResultTimer;
 
 RNG_HandleTypeDef hrng;
 WWDG_HandleTypeDef   WwdgHandle;
-																		
+
+#define EEPROM_BASE_ADDRESS     ((uint32_t)(FLASH_BASE + 0x80000U))
+
+HAL_StatusTypeDef writeEEPROMByte(uint32_t address, uint8_t data){
+	HAL_StatusTypeDef status;
+	uint32_t eepromAddress = address + EEPROM_BASE_ADDRESS;
+	HAL_FLASHEx_DATAEEPROM_Unlock();
+	HAL_FLASHEx_DATAEEPROM_EnableFixedTimeProgram(); 
+	status = HAL_FLASHEx_DATAEEPROM_Program(TYPEPROGRAMDATA_BYTE, eepromAddress, data);
+	HAL_FLASHEx_DATAEEPROM_Lock();
+ 
+	return status;
+}
+ 
+uint8_t readEEPROMByte(uint32_t address){
+	uint8_t data = 0;
+	uint32_t eepromAddress = address + EEPROM_BASE_ADDRESS;
+	data = *(__IO uint8_t *)eepromAddress; // Read byte at address
+	return data;
+}
+
+
 // -------------------------------- MAIN ---------------------------------------
 int main( void ){
 
@@ -177,6 +200,15 @@ int main( void ){
 	PRINTF_LN("- Boot ID: %d", energyStruct.general_bootID);
 	#endif
 	
+	#ifdef SHOW_SIGFOX_ID
+	uint8_t dev_id[ID_LEN];
+  uint8_t dev_pac[PAC_LEN];
+	SIGFOX_API_get_device_id(dev_id);
+  SIGFOX_API_get_initial_pac(dev_pac);
+  PRINTF("devId=") ; for(int i =0; i<ID_LEN; i++) {PRINTF("%02X",dev_id[ID_LEN-1-i]);} PRINTF("\n\r");
+  PRINTF("devPac="); for(int i =0; i<PAC_LEN; i++) {PRINTF("%02X",dev_pac[i]);} PRINTF("\n\r");
+	#endif
+	
 	#ifdef DEBUG
 	PRINTF_LN("Initializing...");
 	#endif
@@ -200,8 +232,12 @@ int main( void ){
 	
 	clearEnergyStruct(true);
 	
-	sendTest();
+	#ifdef DEBUG
+	PRINTF_LN("EEPROM VAL: %d", E2pData.FrameCounter);
+	#endif
 	
+	sendTest();
+	 
   /* main loop*/
   while( 1 ){
     SCH_Run( ); 
@@ -251,6 +287,11 @@ static void sendTest(void){
 	sendLoRaWAN();
 	#endif
 	
+	#ifdef DEBUG
+	PRINTF_LN("EEPROM TEST");
+	PRINTF_LN("EEPROM VAL: %d", E2pData.FrameCounter);
+	#endif
+	
 	//HAL_Delay(1000);
 	//sendEnergyStruct();
 	
@@ -273,6 +314,8 @@ static void sendResult(void){
 	TimerInit(&TxTimer, onTimerEvent);
 	TimerSetValue(&TxTimer,  SEND_DELAY);
 	TimerStart(&TxTimer); // Schedule next testing cycle
+	
+	PRINTF_LN("- Waiting for next schedule");
 }
 
 static void onTimerEvent(void *context){

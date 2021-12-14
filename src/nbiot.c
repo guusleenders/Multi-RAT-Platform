@@ -4,26 +4,26 @@
 
 BG96_Powerdown_t powerStatus = BG96_POWERDOWN;
 
-// Total payload size = Lookuptable + 4 (overhead deviceID, bootID and packageNumber)
-const uint16_t nbiot_payloadsize_lt[] ={0,	//4
-																				1,	//5
-																				2,	//6
-																				4,	//8
-																				8,	//12
-																				16,	//20
-																				24,	//28
-																				32,	//36
-																				48,	//52
-																				64,	//68
-																				96,	//100
-																				128,	//132
-																				192,	//196
+// Total payload size = Lookuptable + overhead 'P', deviceID, bootID, packageNumber and commas
+const uint16_t nbiot_payloadsize_lt[] ={0,	
+																				1,	
+																				2,	
+																				4,	
+																				8,	
+																				16,	
+																				24,	
+																				32,	
+																				48,	
+																				64,	
+																				96,	
+																				128,	
+																				192,	
 																				256,	
 																				384,
 																				512,
 																				768,
 																				1024,
-																				1536
+																				1449 // Max payload for BG96=1460, minus max meta data=11
 };
 
 
@@ -47,7 +47,7 @@ void initNBIoT(void){
 	// ---------- Configure NB-IoT ---------- 
 	BG96_SendATCommandGetReply("ATX1\r\n", buffer, 300); // Important for edrx?
 	BG96_SendATCommandGetReply("AT+QCFG=\"psm/urc\",1\r\n", buffer, 300);
-	BG96_SetErrorFormat(BG96_ERROR_VERBOSE);
+	//BG96_SetErrorFormat(BG96_ERROR_VERBOSE);
 	BG96_ConfigureURCIndication(BG96_URCINDICATION_USBAT);
 	BG96_SetNetworkReporting(BG96_NETWORK_REPORTING_STAT);
 	BG96_SetModemOptimization();
@@ -65,13 +65,13 @@ void registerNBIoT(void){
 
 	// ---------- Configure/select network ---------- 
 	BG96_ConfigureContext();
-	BG96_SetPDPContext("\"m2minternet.proximus.be\"");
-	BG96_SelectNetwork(20601, BG96_NETWORK_NBIOT);
+	BG96_SetPDPContext("\"m2minternet.proximus.be\""); // Orange: nbiot.iot, Proximus: m2minternet.proximus.be
+	BG96_SelectNetwork(20601, BG96_NETWORK_NBIOT); // Proximus: 20601, Telenet: 20605, Orange: 20610, Base: 20620
 	
+	//BG96_SetSIMPIN("03092574\",\"7146");
 	char pinbuffer[30];
 	memset(pinbuffer, '\0', 30);
-	BG96_SendATCommandGetReply("AT+CPIN?\r\n", pinbuffer, 1000);
-	
+	//BG96_SendATCommandGetReply("AT+CPIN?\r\n", pinbuffer, 1000);
 	#ifdef DEBUG
 	PRINTF_LN("- Network selected");
 	#endif
@@ -102,7 +102,7 @@ void registerNBIoT(void){
 	sprintf(energyStruct.nbiot_conditions, "%d|", celevel);
 	
 	char buffer[70];
-
+	BG96_SetErrorFormat(BG96_ERROR_VERBOSE);
 	BG96_GetNetworkStatus(buffer);
 	strcat(energyStruct.nbiot_conditions, buffer);
 	strcat(energyStruct.nbiot_conditions, seperator);
@@ -171,7 +171,7 @@ int8_t _sendNBIoT(bool sendingMeasuredEnergy, char * payload){
 		
 		// ---------- Connect to server ---------- 
 		HAL_Delay(200);
-		if(BG96_UDP_Start("62.235.36.244",8891) != BG96_OK){
+		if(BG96_UDP_Start("213.49.33.40",8891) != BG96_OK){
 			PRINTF_LN("- UDP Start failed, going back to psm");
 		}else{		
 
@@ -257,9 +257,9 @@ void sendEnergyStruct( void ){
 					"%d;%d;%s;%d;%d;"
 					"%d;%d;%s;%d;%d;",
 					energyStruct.general_deviceID, energyStruct.general_bootID,
-					energyStruct.nbiot_packetNumber, energyStruct.nbiot_energy, energyStruct.nbiot_conditions, energyStruct.nbiot_initStatus, energyStruct.nbiot_closeStatus, energyStruct.nbiot_closeTime, energyStruct.nbiot_payloadSize, 
-					energyStruct.sigfox_packetNumber, energyStruct.sigfox_energy, energyStruct.sigfox_conditions, energyStruct.sigfox_initStatus, energyStruct.sigfox_payloadSize, 
-					energyStruct.lorawan_packetNumber, energyStruct.lorawan_energy, energyStruct.lorawan_conditions, energyStruct.lorawan_initStatus, energyStruct.lorawan_payloadSize);
+					energyStruct.nbiot_packetNumber-1, energyStruct.nbiot_energy, energyStruct.nbiot_conditions, energyStruct.nbiot_initStatus, energyStruct.nbiot_closeStatus, energyStruct.nbiot_closeTime, energyStruct.nbiot_payloadSize, 
+					energyStruct.sigfox_packetNumber-1, energyStruct.sigfox_energy, energyStruct.sigfox_conditions, energyStruct.sigfox_initStatus, energyStruct.sigfox_payloadSize, 
+					energyStruct.lorawan_packetNumber-1, energyStruct.lorawan_energy, energyStruct.lorawan_conditions, energyStruct.lorawan_initStatus, energyStruct.lorawan_payloadSize);
 	
 	//PRINTF_LN("Sending report: %s", buffer); // Too long for print (?) 
 	PRINTF_LN("Now sending");

@@ -40,7 +40,7 @@ void OnTimerLedEvent(void *context);
                                     };
 
 // Total payload size = Lookuptable + 4 (overhead deviceID, bootID and packageNumber)
-/*const uint8_t lorawan_payloadsize_lt[] ={0,
+const uint8_t lorawan_payloadsize_lt[] ={0,
 																		1,
 																		2,
 																		4,
@@ -59,8 +59,8 @@ void OnTimerLedEvent(void *context);
 																		176,
 																		192,
 																		222
-};*/
-const uint8_t lorawan_payloadsize_lt[] ={48,
+};
+/*const uint8_t lorawan_payloadsize_lt[] ={48,
 																		48,
 																		48,
 																		48,
@@ -79,7 +79,7 @@ const uint8_t lorawan_payloadsize_lt[] ={48,
 																		176,
 																		192,
 																		222
-};
+};*/
 void initLoRaWAN(void){
 	startEnergyMeasurement(LTC2942_LRWAN);
 	

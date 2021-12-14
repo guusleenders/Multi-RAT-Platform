@@ -62,7 +62,7 @@
 /*!
  * Maximum length of the fOpts field
  */
-#define LORA_MAC_COMMAND_MAX_FOPTS_LENGTH           15
+#define LORA_MAC_COMMAND_MAX_FOPTS_LENGTH           16 //15
 
 /*!
  * LoRaMac duty cycle for the back-off procedure during the first hour.
@@ -3509,6 +3509,8 @@ LoRaMacStatus_t LoRaMacQueryTxPossible( uint8_t size, LoRaMacTxInfo_t* txInfo, L
     }
 
     // Verify if the MAC commands fit into the FOpts and into the maximum payload.
+		PRINTF_LN("- macCmdsSize: %i", macCmdsSize);
+		PRINTF_LN("- CurrentPossiblePayloadSize: %i", txInfo->CurrentPossiblePayloadSize);
     if( ( LORA_MAC_COMMAND_MAX_FOPTS_LENGTH >= macCmdsSize ) && ( txInfo->CurrentPossiblePayloadSize >= macCmdsSize ) )
     {
 				

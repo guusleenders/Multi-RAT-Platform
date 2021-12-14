@@ -8,7 +8,6 @@
 
 #define BUFSIZE_RX 8
 
-#define FIRSTBOOT
 
 static UART_HandleTypeDef BG96_UARTHandle;
 
@@ -467,7 +466,9 @@ BG96_Status_t BG96_SendATCommandCheckReply( char *buffer , char *replyBuffer, ui
 	HAL_Delay(2);
 	totalReplyBufferDone = false;
 	waitingForReply = false;
+	
 	if(StringStartsWith(totalReplyBuffer, replyBuffer)){
+		PRINTF_LN("String: %s", totalReplyBuffer);
 		return BG96_OK;
 	}else if(( tickNow - tickstart )  >= timeout){
 		PRINTF_LN("TIMEOUT");
@@ -535,7 +536,7 @@ BG96_Status_t BG96_PowerOn( void ){
 	PRINTF_LN("POWERED DOWN");
 	status = BG96_SendATCommandCheckReply("", "RDY", 10000); // RDY
 	PRINTF_LN("RDY");
-	status = BG96_SendATCommandGetReply("", "APP RDY", 60000); // APP RDY, ONLY FOR NEW FIRMWARE
+	status = BG96_SendATCommandCheckReply("", "APP RDY", 60000); // APP RDY, ONLY FOR NEW FIRMWARE
 	PRINTF_LN("APP RDY");
 	
 	/*status = BG96_SendATCommandCheckReply("AT&X2\r\n", "OK", 1000);
@@ -664,7 +665,7 @@ BG96_Status_t BG96_CheckSIMPIN( char* reply ){
 
 BG96_Status_t BG96_SetSIMPIN( char* pin ){
 	char buffer[5]; 
-	sprintf(buffer, "AT+CPIN=%s\r\n", pin);
+	sprintf(buffer, "AT+CPIN=\"%s\"\r\n", pin);
 	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
 }
 
@@ -750,7 +751,7 @@ BG96_Status_t BG96_GetNetworkInfo(char * buffer){
 }
 
 BG96_Status_t BG96_GetNetworkStatus(char * buffer){
-	BG96_Status_t status  =  BG96_SendATCommandCheckReply("AT+CEREG=4\r\n", "OK", 300);
+	BG96_Status_t status  =  BG96_SendATCommandCheckReply("AT+CEREG=4\r\n", "OK", 300);//2
 	if(status != BG96_OK)
 			return status;
 	status = BG96_SendATCommandGetReply("AT+CEREG?\r\n", buffer, 300);
@@ -806,16 +807,20 @@ BG96_Status_t BG96_ConnectToOperator( uint32_t timeout ){
 	uint32_t tickNow = HW_RTC_GetTimerValue();
 	BG96_Status_t status  =  BG96_ERROR; 
 	char buffer[30];
-	while(status != BG96_OK  && ( ( tickNow - tickstart ) ) < timeout){
+	uint8_t count = 0;
+	while(count < 5 && (status != BG96_OK  && ( ( tickNow - tickstart ) ) < timeout)){
 		status = BG96_SendATCommandCheckReply("AT+CGATT?\r\n", "+CGATT: 1", 600);
 		BG96_SendATCommandGetReply("", buffer, 600); // Check out last (closing) OK\r\n
 		if(StringStartsWith(buffer, "+CGATT: 1")){ // If cgat 1 is detected instead of OK, then is connected!
 			status = BG96_OK;
+			PRINTF_LN("- Connected");
 		}
-		if(status != BG96_OK)
+		if(count < 5 || status != BG96_OK)
 			HAL_Delay(100+rand()%200); // Wait for random amount of time (100-299ms)
 		tickNow = HW_RTC_GetTimerValue();
+		count++;
 	}
+	memset(totalReplyBuffer, '\0', sizeof(totalReplyBuffer));
 	if(( tickNow - tickstart ) >= timeout){
 		return BG96_TIMEOUT;
 	}
@@ -849,7 +854,7 @@ BG96_Status_t BG96_ConfigureURCIndication( char* indication ){
 }
 
 BG96_Status_t BG96_SetModemOptimization( void ){
-	return BG96_SendATCommandCheckReply("AT+QPSMEXTCFG=6,1,120,2,1,1\r\n\r\n", "OK", 300);
+	return BG96_SendATCommandCheckReply("AT+QPSMEXTCFG=6,1,120,2,1,1\r\n", "OK", 300);
 }
 
 
@@ -1146,7 +1151,7 @@ BG96_Status_t BG96_ResetPacketCounters( void ){
 
 BG96_Status_t BG96_ConfigureContext( void ){
 	char buffer[60]; 
-	sprintf(buffer, "AT+QICSGP=%d,1,\"m2minternet.proximus.be\",\"\",\"\",1\r\n", _contextID);
+	sprintf(buffer, "AT+QICSGP=%d,1,\"m2minternet.proximus.be\",\"\",\"\",1\r\n", _contextID); // Orange: nbiot.iot, Proximus: m2minternet.proximus.be
 	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
 }	
 

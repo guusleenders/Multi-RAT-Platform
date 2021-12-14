@@ -80,6 +80,7 @@ typedef struct {
  sfx_u32 macroch_config_words_rc4[3];
  uint8_t lib_sgfx_se_nvm[SFX_SE_NVMEM_BLOCK_SIZE];
  uint8_t lib_sgfx_mcu_nvm[SFX_NVMEM_BLOCK_SIZE];
+ uint32_t FrameCounter;
 } restorable_eeprom_t;
 
 /* Exported constants --------------------------------------------------------*/
@@ -92,7 +93,8 @@ typedef struct {
                                    RC3C_CONFIG, \
                                    {RC4_SET_STD_CONFIG_SM_WORD_0, RC4_SET_STD_CONFIG_SM_WORD_1, RC4_SET_STD_CONFIG_SM_WORD_2 }, \
                                    {0xFF,0,0,0x0F,0xFF},  \
-                                   {0,0,0,0} }
+                                   {0,0,0,0},\
+																	 0 }
 
 /* External variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */

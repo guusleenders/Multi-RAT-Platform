@@ -68,6 +68,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32l0xx_hal.h"
 
+#include "vcom.h"
+
 /** @addtogroup STM32L0xx_HAL_Driver
   * @{
   */
@@ -741,9 +743,10 @@ HAL_StatusTypeDef   HAL_FLASHEx_DATAEEPROM_Program(uint32_t TypeProgram, uint32_
 
   /* Wait for last operation to be completed */
   status = FLASH_WaitForLastOperation(FLASH_TIMEOUT_VALUE);
-  
+  PRINTF_LN("%d",status);
   if(status == HAL_OK)
   {
+		PRINTF_LN("in%d",status);
     /* Clean the error context */
     pFlash.ErrorCode = HAL_FLASH_ERROR_NONE;
 

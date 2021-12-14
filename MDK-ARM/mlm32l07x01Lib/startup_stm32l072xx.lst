@@ -405,9 +405,9 @@ ARM Macro Assembler    Page 7
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0+ --apcs=inter
 work --depend=.\mlm32l07x01lib\startup_stm32l072xx.d -o.\mlm32l07x01lib\startup
 _stm32l072xx.o -I.\RTE\_mlm32l07x01 -IC:\Users\guusl\AppData\Local\Arm\Packs\Ke
-il\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include -IC:\Keil_v5\A
+il\STM32L0xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include -IC:\Keil_v5\A
 RM\CMSIS\Include -IC:\Users\guusl\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.
-0.1\Device\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSI
+1.0\Device\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSI
 ON SETA 530" --predefine="STM32L072xx SETA 1" --predefine="_RTE_ SETA 1" --list
 =.\mlm32l07x01lib\startup_stm32l072xx.lst startup_stm32l072xx.s
 

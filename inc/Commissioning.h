@@ -88,7 +88,7 @@ extern "C" {
  * When using ABP activation the MAC layer must know in advance to which server
  * version it will be connected.
  */
-#define ABP_ACTIVATION_LRWAN_VERSION_V10x                  0x01000300 // 1.0.3.0
+#define ABP_ACTIVATION_LRWAN_VERSION_V10x                  0x01000400 // 1.0.3.0
 
 #define ABP_ACTIVATION_LRWAN_VERSION                       ABP_ACTIVATION_LRWAN_VERSION_V10x
 
@@ -143,7 +143,7 @@ extern "C" {
 /*!
  * Current network ID
  */
-#define LORAWAN_NETWORK_ID                                 ( uint32_t )0x13
+#define LORAWAN_NETWORK_ID                                 ( uint32_t )0x03
 
 /*!
  * When set to 1 DevAdd is LORAWAN_DEVICE_ADDRESS
@@ -158,30 +158,30 @@ extern "C" {
  *
  * \remark see STATIC_DEVICE_ADDRESS comments
  */
-#define LORAWAN_DEVICE_ADDRESS                             ( uint32_t )0x260B40CC
+#define LORAWAN_DEVICE_ADDRESS                             ( uint32_t )0x06100F23
 
 /*!
  * Forwarding Network session integrity key = Network Session Key
  * WARNING: NWK_S_KEY FOR 1.0.x DEVICES
  */
-#define LORAWAN_F_NWK_S_INT_KEY                            { 0x01, 0xCD, 0x21, 0x7E, 0x90, 0x2D, 0xA5, 0xE4, 0x0A, 0xA9, 0x39, 0x52, 0x37, 0x8A, 0xD0, 0xA5 }
+#define LORAWAN_F_NWK_S_INT_KEY                            { 0xee, 0x34, 0x8c, 0x1e, 0x68, 0xc6, 0xc5, 0x0c, 0x4b, 0x65, 0x15, 0x29, 0x41, 0xca, 0xe3, 0x49 }
 
 /*!
  * Serving Network session integrity key
  * WARNING: NOT USED FOR 1.0.x DEVICES. MUST BE THE SAME AS \ref LORAWAN_F_NWK_S_INT_KEY = Network Session Key
  */
-#define LORAWAN_S_NWK_S_INT_KEY                            { 0x01, 0xCD, 0x21, 0x7E, 0x90, 0x2D, 0xA5, 0xE4, 0x0A, 0xA9, 0x39, 0x52, 0x37, 0x8A, 0xD0, 0xA5 }
+#define LORAWAN_S_NWK_S_INT_KEY                            { 0xee, 0x34, 0x8c, 0x1e, 0x68, 0xc6, 0xc5, 0x0c, 0x4b, 0x65, 0x15, 0x29, 0x41, 0xca, 0xe3, 0x49 }
 
 /*!
  * Network session encryption key
  * WARNING: NOT USED FOR 1.0.x DEVICES. MUST BE THE SAME AS \ref LORAWAN_F_NWK_S_INT_KEY = Network Session Key
  */
-#define LORAWAN_NWK_S_ENC_KEY                              { 0x01, 0xCD, 0x21, 0x7E, 0x90, 0x2D, 0xA5, 0xE4, 0x0A, 0xA9, 0x39, 0x52, 0x37, 0x8A, 0xD0, 0xA5 }
+#define LORAWAN_NWK_S_ENC_KEY                              { 0xee, 0x34, 0x8c, 0x1e, 0x68, 0xc6, 0xc5, 0x0c, 0x4b, 0x65, 0x15, 0x29, 0x41, 0xca, 0xe3, 0x49 }
 
 /*!
  * Application session key = App Session key
  */
-#define LORAWAN_APP_S_KEY                                  { 0xCF, 0x92, 0x79, 0x1A, 0xB0, 0x8A, 0x5A, 0xD5, 0x5F, 0xB1, 0x5C, 0x1C, 0xB7, 0xD0, 0x78, 0x35 }
+#define LORAWAN_APP_S_KEY                                  { 0x6a, 0xfc, 0x7e, 0x96, 0xa6, 0xf4, 0x5c, 0x25, 0x54, 0x82, 0x6f, 0xe7, 0x8c, 0xb7, 0xbb, 0x48 }
 
 #ifdef __cplusplus
 }

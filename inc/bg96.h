@@ -23,6 +23,7 @@
 extern "C" {
 #endif
 
+//#define BG96_FIRSTBOOT 1
 
 #define BG96_RX_PORT GPIOA
 #define BG96_RX_PIN GPIO_PIN_13

@@ -37,3 +37,11 @@
 .\mlm32l07x01lib\stm32l0xx_hal_flash_ex.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_hal_tim_ex.h
 .\mlm32l07x01lib\stm32l0xx_hal_flash_ex.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_hal_uart.h
 .\mlm32l07x01lib\stm32l0xx_hal_flash_ex.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_hal_uart_ex.h
+.\mlm32l07x01lib\stm32l0xx_hal_flash_ex.o: ..\inc\vcom.h
+.\mlm32l07x01lib\stm32l0xx_hal_flash_ex.o: ..\inc\hw_conf.h
+.\mlm32l07x01lib\stm32l0xx_hal_flash_ex.o: ..\inc\mlm32l0xx_hw_conf.h
+.\mlm32l07x01lib\stm32l0xx_hal_flash_ex.o: ..\Drivers\BSP\B-L072Z-LRWAN1\b-l072z-lrwan1.h
+.\mlm32l07x01lib\stm32l0xx_hal_flash_ex.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\mlm32l07x01lib\stm32l0xx_hal_flash_ex.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_ll_bus.h
+.\mlm32l07x01lib\stm32l0xx_hal_flash_ex.o: ..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_ll_spi.h
+.\mlm32l07x01lib\stm32l0xx_hal_flash_ex.o: ..\inc\vcom2.h

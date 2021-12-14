@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\mlm32l07x01Lib\DISCO_CUBE_SGFX_WLIB.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\mlm32l07x01Lib\DISCO_CUBE_SGFX_WLIB.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Jul 16 13:00:23 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Dec 14 12:52:30 2021
 <BR><P>
-<H3>Maximum Stack Usage =       3812 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =       3828 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 main &rArr; sendTest &rArr; sendNBIoT &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 <P>
@@ -281,7 +281,6 @@ Global Symbols
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GetBatteryLevel
 <LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_StartWakeUpAlarm
 <LI><a href="#[32a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ee_number
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
 <LI><a href="#[340]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aes_set_key
 <LI><a href="#[2dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_secure_uplink_message
 <LI><a href="#[2e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_process_uplink
@@ -295,6 +294,7 @@ Global Symbols
 <LI><a href="#[2bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendLoRaWAN
 <LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_GetBatteryLevel
 <LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
 </UL>
 
 <P><STRONG><a name="[35e]"></a>__aeabi_idiv</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, idiv.o(.text), UNUSED)
@@ -307,7 +307,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;randr
 <LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GetTemperatureLevel
 <LI><a href="#[27e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RF_API_wait_for_clear_channel
-<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Dma_IRQHandler
+<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Dma_IRQHandler
 <LI><a href="#[2e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_get_macro_channel_index
 <LI><a href="#[2db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_build_frame
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_Start
@@ -324,7 +324,7 @@ Global Symbols
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsl
 </UL>
 <BR>[Called By]<UL><LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_SetConfig
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_LPUART_Init
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_LPUART_Init
 <LI><a href="#[1a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_ms2Tick
 <LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_DelayMs
 <LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
@@ -383,7 +383,7 @@ Global Symbols
 <LI><a href="#[329]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearEnergyStruct
 </UL>
 
-<P><STRONG><a name="[cf]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
+<P><STRONG><a name="[b9]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276SetRx
 <LI><a href="#[302]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276Reset
@@ -408,7 +408,8 @@ Global Symbols
 <LI><a href="#[329]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearEnergyStruct
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Send
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ReceiveToBuffer
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IoDeInit
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IoDeInit
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConnectToOperator
 </UL>
 
 <P><STRONG><a name="[363]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
@@ -653,10 +654,10 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_llsl
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_drnd
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2ulz
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
 
 <P><STRONG><a name="[367]"></a>_ll_shift_l</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, llshl.o(.text), UNUSED)
@@ -666,10 +667,10 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2uiz
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_drnd
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2ulz
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
 
 <P><STRONG><a name="[368]"></a>_ll_ushift_r</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, llushr.o(.text), UNUSED)
@@ -794,10 +795,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_GetTimerValue
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rand
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WakeFromPSMToSend
 </UL>
@@ -830,30 +831,31 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
 </UL>
 
-<P><STRONG><a name="[b7]"></a>BG96_ConnectToOperator</STRONG> (Thumb, 126 bytes, Stack size 56 bytes, bg96.o(i.BG96_ConnectToOperator))
+<P><STRONG><a name="[b7]"></a>BG96_ConnectToOperator</STRONG> (Thumb, 170 bytes, Stack size 56 bytes, bg96.o(i.BG96_ConnectToOperator))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1940<LI>Call Chain = BG96_ConnectToOperator &rArr; BG96_SendATCommandGetReply &rArr; _BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_GetTimerValue
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StringStartsWith
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rand
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
-<P><STRONG><a name="[b9]"></a>BG96_DeInit</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, bg96.o(i.BG96_DeInit))
+<P><STRONG><a name="[ba]"></a>BG96_DeInit</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, bg96.o(i.BG96_DeInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = BG96_DeInit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_LPUART_DeInit
+<BR>[Calls]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_LPUART_DeInit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
-<P><STRONG><a name="[bb]"></a>BG96_DeactivateContext</STRONG> (Thumb, 32 bytes, Stack size 24 bytes, bg96.o(i.BG96_DeactivateContext))
+<P><STRONG><a name="[bc]"></a>BG96_DeactivateContext</STRONG> (Thumb, 32 bytes, Stack size 24 bytes, bg96.o(i.BG96_DeactivateContext))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1892<LI>Call Chain = BG96_DeactivateContext &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
@@ -862,17 +864,17 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
-<P><STRONG><a name="[bc]"></a>BG96_Dma_IRQHandler</STRONG> (Thumb, 88 bytes, Stack size 16 bytes, bg96.o(i.BG96_Dma_IRQHandler))
+<P><STRONG><a name="[bd]"></a>BG96_Dma_IRQHandler</STRONG> (Thumb, 88 bytes, Stack size 16 bytes, bg96.o(i.BG96_Dma_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = BG96_Dma_IRQHandler &rArr; BG96_PrintDMA &rArr; BG96_StartDMA &rArr; LL_DMA_Init &rArr; LL_DMA_SetPeriphRequest
 </UL>
-<BR>[Calls]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PrintDMA
+<BR>[Calls]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PrintDMA
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel4_5_6_7_IRQHandler
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Send
 </UL>
 
-<P><STRONG><a name="[be]"></a>BG96_GetCELevel</STRONG> (Thumb, 58 bytes, Stack size 64 bytes, bg96.o(i.BG96_GetCELevel))
+<P><STRONG><a name="[bf]"></a>BG96_GetCELevel</STRONG> (Thumb, 58 bytes, Stack size 64 bytes, bg96.o(i.BG96_GetCELevel))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1948<LI>Call Chain = BG96_GetCELevel &rArr; BG96_SendATCommandGetReply &rArr; _BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StringStartsWith
@@ -882,7 +884,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
-<P><STRONG><a name="[bf]"></a>BG96_GetEDRXConfiguration</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, bg96.o(i.BG96_GetEDRXConfiguration))
+<P><STRONG><a name="[c0]"></a>BG96_GetEDRXConfiguration</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, bg96.o(i.BG96_GetEDRXConfiguration))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1892<LI>Call Chain = BG96_GetEDRXConfiguration &rArr; BG96_SendATCommandGetReply &rArr; _BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
@@ -891,7 +893,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
-<P><STRONG><a name="[c0]"></a>BG96_GetNetworkStatus</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, bg96.o(i.BG96_GetNetworkStatus))
+<P><STRONG><a name="[c1]"></a>BG96_GetNetworkStatus</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, bg96.o(i.BG96_GetNetworkStatus))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1900<LI>Call Chain = BG96_GetNetworkStatus &rArr; BG96_SendATCommandGetReply &rArr; _BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
@@ -904,7 +906,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ReceiveToBuffer
 </UL>
 
-<P><STRONG><a name="[c1]"></a>BG96_GetPowerSavingMode</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, bg96.o(i.BG96_GetPowerSavingMode))
+<P><STRONG><a name="[c2]"></a>BG96_GetPowerSavingMode</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, bg96.o(i.BG96_GetPowerSavingMode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1892<LI>Call Chain = BG96_GetPowerSavingMode &rArr; BG96_SendATCommandGetReply &rArr; _BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
@@ -913,7 +915,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
-<P><STRONG><a name="[c2]"></a>BG96_GetSignalStength</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, bg96.o(i.BG96_GetSignalStength))
+<P><STRONG><a name="[c3]"></a>BG96_GetSignalStength</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, bg96.o(i.BG96_GetSignalStength))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1892<LI>Call Chain = BG96_GetSignalStength &rArr; BG96_SendATCommandGetReply &rArr; _BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
@@ -922,35 +924,35 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
-<P><STRONG><a name="[c3]"></a>BG96_IRQHandler</STRONG> (Thumb, 196 bytes, Stack size 24 bytes, bg96.o(i.BG96_IRQHandler))
+<P><STRONG><a name="[c4]"></a>BG96_IRQHandler</STRONG> (Thumb, 196 bytes, Stack size 24 bytes, bg96.o(i.BG96_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = BG96_IRQHandler &rArr; LPM_SetStopMode
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_SetTask
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetStopMode
+<BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_SetTask
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetStopMode
 </UL>
 <BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RNG_LPUART1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[c6]"></a>BG96_Init</STRONG> (Thumb, 306 bytes, Stack size 88 bytes, bg96.o(i.BG96_Init))
+<P><STRONG><a name="[c7]"></a>BG96_Init</STRONG> (Thumb, 306 bytes, Stack size 88 bytes, bg96.o(i.BG96_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = BG96_Init &rArr; LL_LPUART_Init &rArr; __aeabi_uldivmod &rArr; __aeabi_llsr
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_EnableIRQ
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_LPUART_Init
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_RegTask
+<BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_EnableIRQ
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
+<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_LPUART_Init
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_RegTask
 </UL>
 <BR>[Called By]<UL><LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
 <LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
-<P><STRONG><a name="[ce]"></a>BG96_IoDeInit</STRONG> (Thumb, 52 bytes, Stack size 32 bytes, bg96.o(i.BG96_IoDeInit))
+<P><STRONG><a name="[cf]"></a>BG96_IoDeInit</STRONG> (Thumb, 52 bytes, Stack size 32 bytes, bg96.o(i.BG96_IoDeInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = BG96_IoDeInit &rArr; HW_GPIO_Init &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
@@ -983,7 +985,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 1932<LI>Call Chain = BG96_PowerDown &rArr; BG96_SendATCommandGetReply &rArr; _BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StringStartsWith
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
@@ -997,7 +999,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 1932<LI>Call Chain = BG96_PowerOn &rArr; BG96_SendATCommandGetReply &rArr; _BG96_SendATCommandGetReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StringStartsWith
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
@@ -1013,7 +1015,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ParseResult
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IsNewCharReceived
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetNewChar
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> bg96.o(i.BG96_Init)
 </UL>
@@ -1040,12 +1042,12 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_GetPendingIRQ
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tiny_vsnprintf_like
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PrintDMA
-<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Dma_IRQHandler
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PrintDMA
+<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Dma_IRQHandler
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommand
 </UL>
@@ -1062,7 +1064,7 @@ Global Symbols
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PowerDown
 </UL>
 
-<P><STRONG><a name="[ae]"></a>BG96_SendATCommandCheckReply</STRONG> (Thumb, 114 bytes, Stack size 32 bytes, bg96.o(i.BG96_SendATCommandCheckReply))
+<P><STRONG><a name="[ae]"></a>BG96_SendATCommandCheckReply</STRONG> (Thumb, 128 bytes, Stack size 32 bytes, bg96.o(i.BG96_SendATCommandCheckReply))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1868<LI>Call Chain = BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
@@ -1089,12 +1091,12 @@ Global Symbols
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SelectNetwork
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ResetParameters
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PowerOn
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetSignalStength
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetPowerSavingMode
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetNetworkStatus
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetEDRXConfiguration
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetCELevel
-<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_DeactivateContext
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetSignalStength
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetPowerSavingMode
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetNetworkStatus
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetEDRXConfiguration
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetCELevel
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_DeactivateContext
 <LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConnectToOperator
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConfigureURCIndication
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConfigureContext
@@ -1106,17 +1108,16 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BG96_SendATCommandGetReply
 </UL>
-<BR>[Called By]<UL><LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
-<LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<BR>[Called By]<UL><LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WaitForConnection
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_UDP_Start
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PowerOn
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PowerDown
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetSignalStength
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetPowerSavingMode
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetNetworkStatus
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetEDRXConfiguration
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetCELevel
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetSignalStength
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetPowerSavingMode
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetNetworkStatus
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetEDRXConfiguration
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetCELevel
 <LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConnectToOperator
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_CheckIfContextActivated
 </UL>
@@ -1137,7 +1138,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initNBIoT
+<BR>[Called By]<UL><LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerNBIoT
 </UL>
 
 <P><STRONG><a name="[e5]"></a>BG96_SetMode</STRONG> (Thumb, 126 bytes, Stack size 8 bytes, bg96.o(i.BG96_SetMode))
@@ -1208,11 +1209,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_GetTimerValue
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommand
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rand
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
@@ -1223,12 +1224,12 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_GetTimerValue
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StringStartsWith
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rand
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
@@ -1270,7 +1271,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 1892<LI>Call Chain = BG96_WakeFromPSM &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_GetTimerValue
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
@@ -1295,7 +1296,7 @@ Global Symbols
 <P><STRONG><a name="[f5]"></a>BSP_LED_Init</STRONG> (Thumb, 88 bytes, Stack size 32 bytes, b-l072z-lrwan1.o(i.BSP_LED_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = BSP_LED_Init &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1303,7 +1304,7 @@ Global Symbols
 <P><STRONG><a name="[f6]"></a>BSP_LED_Off</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, b-l072z-lrwan1.o(i.BSP_LED_Off))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = BSP_LED_Off
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[27e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RF_API_wait_for_clear_channel
 <LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RF_API_send
@@ -1314,7 +1315,7 @@ Global Symbols
 <P><STRONG><a name="[f7]"></a>BSP_LED_On</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, b-l072z-lrwan1.o(i.BSP_LED_On))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = BSP_LED_On
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[27e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RF_API_wait_for_clear_channel
 <LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RF_API_send
@@ -1329,11 +1330,11 @@ Global Symbols
 <P><STRONG><a name="[106]"></a>DBG_Init</STRONG> (Thumb, 92 bytes, Stack size 40 bytes, debug.o(i.DBG_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = DBG_Init &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DBGMCU_DisableDBGStopMode
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DBGMCU_DisableDBGStandbyMode
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DBGMCU_DisableDBGSleepMode
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1349,7 +1350,7 @@ Global Symbols
 <P><STRONG><a name="[26]"></a>DMA1_Channel4_5_6_7_IRQHandler</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, mlm32l0xx_it.o(i.DMA1_Channel4_5_6_7_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = DMA1_Channel4_5_6_7_IRQHandler &rArr; BG96_Dma_IRQHandler &rArr; BG96_PrintDMA &rArr; BG96_StartDMA &rArr; LL_DMA_Init &rArr; LL_DMA_SetPeriphRequest
 </UL>
-<BR>[Calls]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Dma_IRQHandler
+<BR>[Calls]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Dma_IRQHandler
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l072xx.o(RESET)
 </UL>
@@ -1551,10 +1552,10 @@ Global Symbols
 <LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI0_1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[c7]"></a>HAL_GPIO_Init</STRONG> (Thumb, 356 bytes, Stack size 24 bytes, stm32l0xx_hal_gpio.o(i.HAL_GPIO_Init))
+<P><STRONG><a name="[c8]"></a>HAL_GPIO_Init</STRONG> (Thumb, 356 bytes, Stack size 24 bytes, stm32l0xx_hal_gpio.o(i.HAL_GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = HAL_GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
+<BR>[Called By]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_LED_Init
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_IoDeInitAll
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GpioInit
@@ -1562,14 +1563,14 @@ Global Symbols
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[1c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_MspInit
 <LI><a href="#[33c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_IoInit
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
 </UL>
 
 <P><STRONG><a name="[d1]"></a>HAL_GPIO_ReadPin</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32l0xx_hal_gpio.o(i.HAL_GPIO_ReadPin))
 <BR><BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IsPoweredDown
 </UL>
 
-<P><STRONG><a name="[cc]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32l0xx_hal_gpio.o(i.HAL_GPIO_WritePin))
+<P><STRONG><a name="[cd]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32l0xx_hal_gpio.o(i.HAL_GPIO_WritePin))
 <BR><BR>[Called By]<UL><LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Write
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_LED_On
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_LED_Off
@@ -1577,7 +1578,7 @@ Global Symbols
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_WakeFromPSM
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PowerOn
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PowerDown
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
 </UL>
 
 <P><STRONG><a name="[a1]"></a>HAL_GetTick</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32l0xx_hal.o(i.HAL_GetTick))
@@ -1689,20 +1690,20 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
 </UL>
 
-<P><STRONG><a name="[c9]"></a>HAL_NVIC_EnableIRQ</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, stm32l0xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ))
+<P><STRONG><a name="[ca]"></a>HAL_NVIC_EnableIRQ</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, stm32l0xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ))
 <BR><BR>[Called By]<UL><LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_SetIrq
 <LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_MspInit
 <LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RTC_MspInit
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_StartDMA
 <LI><a href="#[1c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_MspInit
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
 </UL>
 
 <P><STRONG><a name="[df]"></a>HAL_NVIC_GetPendingIRQ</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32l0xx_hal_cortex.o(i.HAL_NVIC_GetPendingIRQ))
 <BR><BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Send
 </UL>
 
-<P><STRONG><a name="[c8]"></a>HAL_NVIC_SetPriority</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, stm32l0xx_hal_cortex.o(i.HAL_NVIC_SetPriority))
+<P><STRONG><a name="[c9]"></a>HAL_NVIC_SetPriority</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, stm32l0xx_hal_cortex.o(i.HAL_NVIC_SetPriority))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HAL_NVIC_SetPriority
 </UL>
 <BR>[Calls]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_SetPriority
@@ -1712,7 +1713,7 @@ Global Symbols
 <LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RTC_MspInit
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_StartDMA
 <LI><a href="#[1c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_MspInit
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
 </UL>
 
 <P><STRONG><a name="[146]"></a>HAL_PWREx_EnableFastWakeUp</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32l0xx_hal_pwr_ex.o(i.HAL_PWREx_EnableFastWakeUp))
@@ -1905,8 +1906,8 @@ Global Symbols
 <P><STRONG><a name="[161]"></a>HAL_RTC_MspInit</STRONG> (Thumb, 86 bytes, Stack size 96 bytes, mlm32l0xx_hal_msp.o(i.HAL_RTC_MspInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = HAL_RTC_MspInit &rArr; HAL_RCC_OscConfig &rArr; RCC_SetFlashLatencyFromMSIRange
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_EnableIRQ
+<BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_EnableIRQ
 <LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCCEx_PeriphCLKConfig
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Error_Handler
@@ -1980,8 +1981,8 @@ Global Symbols
 <P><STRONG><a name="[168]"></a>HAL_SPI_MspInit</STRONG> (Thumb, 114 bytes, Stack size 16 bytes, mlm32l0xx_hal_msp.o(i.HAL_SPI_MspInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = HAL_SPI_MspInit &rArr; HW_SPI_IoInit &rArr; HW_GPIO_Init &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_EnableIRQ
+<BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_EnableIRQ
 <LI><a href="#[16a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Init
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_SPI_IoInit
 </UL>
@@ -2115,6 +2116,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FLASHEx_DATAEEPROM_Lock
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_set
+<LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LoRaMacCryptoSecureMessage
 <LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STLL_RadioPowerSetEeprom
 <LI><a href="#[24f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_set_nv_mem
 <LI><a href="#[33b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
@@ -2128,16 +2130,17 @@ Global Symbols
 <LI><a href="#[185]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FLASHEx_DATAEEPROM_EnableFixedTimeProgram
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_set
+<LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LoRaMacCryptoSecureMessage
 <LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STLL_RadioPowerSetEeprom
 <LI><a href="#[24f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_set_nv_mem
 <LI><a href="#[33b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
 <LI><a href="#[32e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
 </UL>
 
-<P><STRONG><a name="[cd]"></a>HW_GPIO_Init</STRONG> (Thumb, 80 bytes, Stack size 16 bytes, hw_gpio.o(i.HW_GPIO_Init))
+<P><STRONG><a name="[ce]"></a>HW_GPIO_Init</STRONG> (Thumb, 80 bytes, Stack size 16 bytes, hw_gpio.o(i.HW_GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = HW_GPIO_Init &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[302]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276Reset
 <LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276SetAntSwLowPower
@@ -2146,8 +2149,8 @@ Global Symbols
 <LI><a href="#[1df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_EnterStopMode
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_SPI_IoInit
 <LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;user_button_init
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IoDeInit
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IoDeInit
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
 </UL>
 
 <P><STRONG><a name="[134]"></a>HW_GPIO_IrqHandler</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, hw_gpio.o(i.HW_GPIO_IrqHandler))
@@ -2161,8 +2164,8 @@ Global Symbols
 <P><STRONG><a name="[18a]"></a>HW_GPIO_SetIrq</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, hw_gpio.o(i.HW_GPIO_SetIrq))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = HW_GPIO_SetIrq &rArr; HAL_NVIC_SetPriority
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_EnableIRQ
+<BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_EnableIRQ
 <LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MSP_GetIRQn
 <LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_GetBitPos
 </UL>
@@ -2177,7 +2180,7 @@ Global Symbols
 <P><STRONG><a name="[18c]"></a>HW_GPIO_Write</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, hw_gpio.o(i.HW_GPIO_Write))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HW_GPIO_Write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276WriteBuffer
 <LI><a href="#[302]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276Reset
@@ -2218,8 +2221,8 @@ Global Symbols
 <P><STRONG><a name="[147]"></a>HW_GpioInit</STRONG> (Thumb, 150 bytes, Stack size 48 bytes, mlm32l0xx_hw.o(i.HW_GpioInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = HW_GpioInit &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_MspInit
 </UL>
@@ -2235,7 +2238,7 @@ Global Symbols
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_AdcInit
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_SPI_Init
 <LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_Init
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -2336,7 +2339,7 @@ Global Symbols
 <P><STRONG><a name="[19f]"></a>HW_RTC_IrqHandler</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, hw_rtc.o(i.HW_RTC_IrqHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = HW_RTC_IrqHandler &rArr; HAL_RTC_AlarmAEventCallback &rArr; TimerIrqHandler &rArr; TimerSetTimeout &rArr; HW_RTC_SetAlarm &rArr; HW_RTC_StartWakeUpAlarm &rArr; HAL_RTC_SetAlarm_IT
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetStopMode
+<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetStopMode
 <LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RTC_AlarmAEventCallback
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_IRQHandler
@@ -2346,7 +2349,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = HW_RTC_SetAlarm &rArr; HW_RTC_StartWakeUpAlarm &rArr; HAL_RTC_SetAlarm_IT
 </UL>
 <BR>[Calls]<UL><LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_GetTimerElapsedTime
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetStopMode
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetStopMode
 <LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_StartWakeUpAlarm
 </UL>
 <BR>[Called By]<UL><LI><a href="#[315]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerSetTimeout
@@ -2418,8 +2421,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = HW_SPI_IoInit &rArr; HW_GPIO_Init &rArr; HAL_GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Write
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_ExitStopMode
 <LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_MspInit
@@ -2521,17 +2524,17 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_StartDMA
 </UL>
 
-<P><STRONG><a name="[ba]"></a>LL_LPUART_DeInit</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32l0xx_ll_lpuart.o(i.LL_LPUART_DeInit))
-<BR><BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_DeInit
+<P><STRONG><a name="[bb]"></a>LL_LPUART_DeInit</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32l0xx_ll_lpuart.o(i.LL_LPUART_DeInit))
+<BR><BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_DeInit
 </UL>
 
-<P><STRONG><a name="[ca]"></a>LL_LPUART_Init</STRONG> (Thumb, 106 bytes, Stack size 16 bytes, stm32l0xx_ll_lpuart.o(i.LL_LPUART_Init))
+<P><STRONG><a name="[cb]"></a>LL_LPUART_Init</STRONG> (Thumb, 106 bytes, Stack size 16 bytes, stm32l0xx_ll_lpuart.o(i.LL_LPUART_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = LL_LPUART_Init &rArr; __aeabi_uldivmod &rArr; __aeabi_llsr
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_RCC_GetLPUARTClockFreq
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
+<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
 </UL>
 
 <P><STRONG><a name="[1c6]"></a>LL_RCC_GetLPUARTClockFreq</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, stm32l0xx_ll_rcc.o(i.LL_RCC_GetLPUARTClockFreq))
@@ -2543,7 +2546,7 @@ Global Symbols
 <LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_RCC_LSE_IsReady
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_RCC_HSI_IsReady
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_LPUART_Init
+<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_LPUART_Init
 </UL>
 
 <P><STRONG><a name="[11]"></a>LORA_ConfirmClass</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, lorawan.o(i.LORA_ConfirmClass))
@@ -2592,7 +2595,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[32d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initLoRaWAN
 </UL>
 
-<P><STRONG><a name="[1d6]"></a>LORA_Join</STRONG> (Thumb, 156 bytes, Stack size 24 bytes, lora.o(i.LORA_Join))
+<P><STRONG><a name="[1d6]"></a>LORA_Join</STRONG> (Thumb, 154 bytes, Stack size 24 bytes, lora.o(i.LORA_Join))
 <BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = LORA_Join &rArr; LoRaMacMibSetRequestConfirm &rArr; SwitchClass &rArr; RegionComputeRxWindowParameters &rArr; RegionEU868ComputeRxWindowParameters &rArr; RegionCommonComputeRxWindowParameters &rArr; ceil &rArr; __aeabi_drsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsr
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LoRaMacMibSetRequestConfirm
@@ -2638,7 +2641,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> lorawan.o(.data)
 </UL>
-<P><STRONG><a name="[1cc]"></a>LORA_send</STRONG> (Thumb, 180 bytes, Stack size 56 bytes, lora.o(i.LORA_send))
+<P><STRONG><a name="[1cc]"></a>LORA_send</STRONG> (Thumb, 204 bytes, Stack size 56 bytes, lora.o(i.LORA_send))
 <BR><BR>[Stack]<UL><LI>Max Depth = 700<LI>Call Chain = LORA_send &rArr; LoRaMacMcpsRequest &rArr; Send &rArr; ScheduleTx &rArr; RegionNextChannel &rArr; RegionEU868NextChannel &rArr; vcom2_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
@@ -2684,10 +2687,10 @@ Global Symbols
 <P><STRONG><a name="[1df]"></a>LPM_EnterStopMode</STRONG> (Thumb, 102 bytes, Stack size 32 bytes, mlm32l0xx_hw.o(i.LPM_EnterStopMode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = LPM_EnterStopMode &rArr; SX1276IoDeInit &rArr; HW_GPIO_Init &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276IoDeInit
 <LI><a href="#[1e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PWR_EnterSTOPMode
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_EnterLowPower
 </UL>
@@ -2715,14 +2718,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[c4]"></a>LPM_SetStopMode</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, low_power_manager.o(i.LPM_SetStopMode))
+<P><STRONG><a name="[c5]"></a>LPM_SetStopMode</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, low_power_manager.o(i.LPM_SetStopMode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = LPM_SetStopMode
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_SetAlarm
 <LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_IrqHandler
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PrintDMA
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PrintDMA
 <LI><a href="#[2f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STLL_LowPower
-<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IRQHandler
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IRQHandler
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -3240,10 +3243,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RestoreCtxs
 </UL>
 
-<P><STRONG><a name="[20f]"></a>LoRaMacCryptoSecureMessage</STRONG> (Thumb, 328 bytes, Stack size 104 bytes, loramaccrypto.o(i.LoRaMacCryptoSecureMessage))
+<P><STRONG><a name="[20f]"></a>LoRaMacCryptoSecureMessage</STRONG> (Thumb, 342 bytes, Stack size 104 bytes, loramaccrypto.o(i.LoRaMacCryptoSecureMessage))
 <BR><BR>[Stack]<UL><LI>Max Depth = 368<LI>Call Chain = LoRaMacCryptoSecureMessage &rArr; ComputeCmacB0 &rArr; SecureElementComputeAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Update &rArr; aes_encrypt &rArr; mix_sub_columns
 </UL>
-<BR>[Calls]<UL><LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PrepareB1
+<BR>[Calls]<UL><LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_EEPROM_Unlock
+<LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_EEPROM_Lock
+<LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PrepareB1
 <LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PayloadEncrypt
 <LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FOptsEncrypt
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ComputeCmacB0
@@ -3446,7 +3451,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_Idle
 </UL>
 
-<P><STRONG><a name="[1da]"></a>LoRaMacQueryTxPossible</STRONG> (Thumb, 334 bytes, Stack size 72 bytes, loramac.o(i.LoRaMacQueryTxPossible))
+<P><STRONG><a name="[1da]"></a>LoRaMacQueryTxPossible</STRONG> (Thumb, 362 bytes, Stack size 72 bytes, loramac.o(i.LoRaMacQueryTxPossible))
 <BR><BR>[Stack]<UL><LI>Max Depth = 420<LI>Call Chain = LoRaMacQueryTxPossible &rArr; vcom2_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
@@ -3717,7 +3722,7 @@ Global Symbols
 <P><STRONG><a name="[37]"></a>RNG_LPUART1_IRQHandler</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, mlm32l0xx_it.o(i.RNG_LPUART1_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = RNG_LPUART1_IRQHandler &rArr; BG96_IRQHandler &rArr; LPM_SetStopMode
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IRQHandler
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IRQHandler
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l072xx.o(RESET)
 </UL>
@@ -4293,11 +4298,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
 
-<P><STRONG><a name="[cb]"></a>SCH_RegTask</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, scheduler.o(i.SCH_RegTask))
+<P><STRONG><a name="[cc]"></a>SCH_RegTask</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, scheduler.o(i.SCH_RegTask))
 <BR><BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendResult
 <LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
 </UL>
 
 <P><STRONG><a name="[322]"></a>SCH_ResumeTask</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, scheduler.o(i.SCH_ResumeTask))
@@ -4324,8 +4329,8 @@ Global Symbols
 <LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OnTimerDelayEvt
 </UL>
 
-<P><STRONG><a name="[c5]"></a>SCH_SetTask</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, scheduler.o(i.SCH_SetTask))
-<BR><BR>[Called By]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IRQHandler
+<P><STRONG><a name="[c6]"></a>SCH_SetTask</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, scheduler.o(i.SCH_SetTask))
+<BR><BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IRQHandler
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;onTimerResult
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_data_request_from_irq
 <LI><a href="#[334]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_data_request
@@ -4455,7 +4460,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_get_device_id
 </UL>
-<BR>[Called By]<UL><LI><a href="#[32e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
+<BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[32e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
 </UL>
 
 <P><STRONG><a name="[2d0]"></a>SIGFOX_API_get_initial_pac</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, sigfox_api.o(i.SIGFOX_API_get_initial_pac))
@@ -4466,7 +4472,8 @@ Global Symbols
 <LI><a href="#[2d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_close
 <LI><a href="#[2cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RETURN_CODE
 </UL>
-<BR>[Called By]<UL><LI><a href="#[32e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
+<BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[32e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
 </UL>
 
 <P><STRONG><a name="[2d4]"></a>SIGFOX_API_open</STRONG> (Thumb, 322 bytes, Stack size 32 bytes, sigfox_api.o(i.SIGFOX_API_open))
@@ -4502,11 +4509,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_common_switch8
 <LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_get_voltage_temperature
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 <LI><a href="#[2dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_secure_uplink_message
 <LI><a href="#[2d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_open
 <LI><a href="#[2d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_API_close
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_prepare_transmission
 </UL>
@@ -4529,8 +4536,8 @@ Global Symbols
 <P><STRONG><a name="[2e2]"></a>SIGFOX_INT_compute_uplink_frequency</STRONG> (Thumb, 118 bytes, Stack size 24 bytes, sigfox_internal.o(i.SIGFOX_INT_compute_uplink_frequency))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = SIGFOX_INT_compute_uplink_frequency &rArr; SIGFOX_INT_get_macro_channel_index &rArr; __aeabi_idivmod &rArr; __aeabi_uidivmod
 </UL>
-<BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
-<LI><a href="#[2e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_get_macro_channel_index
+<BR>[Calls]<UL><LI><a href="#[2e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_get_macro_channel_index
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_process_uplink
 </UL>
@@ -4652,11 +4659,11 @@ Global Symbols
 <LI><a href="#[251]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_timer_start_carrier_sense
 <LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_timer_start
 <LI><a href="#[24c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_delay
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 <LI><a href="#[2e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_execute_carrier_sense
 <LI><a href="#[2ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_compute_carrier_sense_frequency
 <LI><a href="#[2ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_send_single_frame
 <LI><a href="#[2e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_compute_uplink_frequency
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_execute_communication_sequence
 </UL>
@@ -4700,7 +4707,7 @@ Global Symbols
 <P><STRONG><a name="[2f3]"></a>STLL_LowPower</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, st_lowlevel.o(i.STLL_LowPower))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = STLL_LowPower &rArr; LPM_SetStopMode
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetStopMode
+<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetStopMode
 </UL>
 <BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STLL_TX_IRQHandler_CB
 <LI><a href="#[2c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TX_Start
@@ -4733,7 +4740,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276Write
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276Init
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SGFX_SX1276_stop
 </UL>
@@ -4742,7 +4749,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = STLL_Radio_Init &rArr; SX1276Init &rArr; RxChainCalibration &rArr; SX1276SetChannel &rArr; SX1276Write &rArr; SX1276WriteBuffer &rArr; HW_SPI_InOut &rArr; HAL_SPI_TransmitReceive &rArr; SPI_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276Init
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[277]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SGFX_SX1276_tx_config
 <LI><a href="#[278]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SGFX_SX1276_rx_config
@@ -4984,8 +4991,8 @@ Global Symbols
 <P><STRONG><a name="[65]"></a>SX1276IoDeInit</STRONG> (Thumb, 80 bytes, Stack size 32 bytes, mlm32l07x01.o(i.SX1276IoDeInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = SX1276IoDeInit &rArr; HW_GPIO_Init &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_EnterStopMode
 <LI><a href="#[2c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STLL_Radio_IoDeInit
@@ -4995,9 +5002,9 @@ Global Symbols
 <P><STRONG><a name="[64]"></a>SX1276IoInit</STRONG> (Thumb, 112 bytes, Stack size 32 bytes, mlm32l07x01.o(i.SX1276IoInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = SX1276IoInit &rArr; HW_GPIO_Init &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
 <LI><a href="#[303]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276BoardInit
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_ExitStopMode
 <LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_Init
@@ -5158,9 +5165,9 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = SX1276Reset &rArr; HAL_Delay &rArr; HW_RTC_DelayMs &rArr; HW_RTC_GetTimerValue &rArr; HW_RTC_GetCalendarValue &rArr; HAL_RTC_GetTime
 </UL>
 <BR>[Calls]<UL><LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Write
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
+<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276OnTimeoutIrq
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276Init
@@ -5192,8 +5199,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = SX1276SetAntSwLowPower &rArr; HW_GPIO_Init &rArr; HAL_GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Write
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> mlm32l07x01.o(.data)
 </UL>
@@ -5298,7 +5305,7 @@ Global Symbols
 <LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276SetOpMode
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276SetChannel
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276Read
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> mlm32l07x01.o(.constdata)
 </UL>
@@ -5625,7 +5632,7 @@ Global Symbols
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandCheckReply
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PowerOn
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PowerDown
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetCELevel
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetCELevel
 <LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConnectToOperator
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_CheckIfContextActivated
 </UL>
@@ -5678,7 +5685,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
 <LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Error_Handler
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -5694,10 +5701,10 @@ Global Symbols
 <LI><a href="#[2f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STLL_TIM2_SetPeriod
 <LI><a href="#[2f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STLL_SetClockSource
 <LI><a href="#[2f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STLL_LowPower
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 <LI><a href="#[313]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TX_Write_RampUp_Buffer
 <LI><a href="#[312]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TX_SetPower
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SGFX_SX1276_tx
 </UL>
@@ -5901,7 +5908,7 @@ Global Symbols
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetErrorFormat
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetEDRXConfiguration
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SelectNetwork
-<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_DeactivateContext
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_DeactivateContext
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConfigureURCIndication
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConfigureContext
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_CheckIfContextActivated
@@ -5954,7 +5961,7 @@ Global Symbols
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerSetValue
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerInit
 <LI><a href="#[322]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_ResumeTask
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_RegTask
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_RegTask
 <LI><a href="#[324]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_PauseTask
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_GetTimerValue
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
@@ -5970,10 +5977,10 @@ Global Symbols
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPowerSavingModeImmediately
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PowerDown
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IsPoweredDown
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IoDeInit
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
-<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_DeactivateContext
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_DeInit
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_IoDeInit
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_DeactivateContext
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_DeInit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[33a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendNBIoT
 <LI><a href="#[339]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendEnergyStruct
@@ -6045,7 +6052,7 @@ Global Symbols
 <P><STRONG><a name="[329]"></a>clearEnergyStruct</STRONG> (Thumb, 100 bytes, Stack size 16 bytes, energy.o(i.clearEnergyStruct))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = clearEnergyStruct
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -6089,20 +6096,19 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendLoRaWAN
 </UL>
 
-<P><STRONG><a name="[320]"></a>initNBIoT</STRONG> (Thumb, 108 bytes, Stack size 48 bytes, nbiot.o(i.initNBIoT))
+<P><STRONG><a name="[320]"></a>initNBIoT</STRONG> (Thumb, 102 bytes, Stack size 48 bytes, nbiot.o(i.initNBIoT))
 <BR><BR>[Stack]<UL><LI>Max Depth = 2036<LI>Call Chain = initNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPowerSavingMode
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetNetworkReporting
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetModemOptimization
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetMode
-<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetErrorFormat
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetEDRXConfiguration
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PowerOn
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Init
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConfigureURCIndication
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
@@ -6125,33 +6131,35 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[33b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
 </UL>
 
-<P><STRONG><a name="[39]"></a>main</STRONG> (Thumb, 384 bytes, Stack size 32 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 3812<LI>Call Chain = main &rArr; sendTest &rArr; sendNBIoT &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
+<P><STRONG><a name="[39]"></a>main</STRONG> (Thumb, 476 bytes, Stack size 48 bytes, main.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 3828<LI>Call Chain = main &rArr; sendTest &rArr; sendNBIoT &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerSetValue
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerInit
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_LED_Init
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RNG_Init
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RNG_GenerateRandomNumber
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RNG_DeInit
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_Run
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetStopMode
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetStopMode
 <LI><a href="#[331]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetOffMode
 <LI><a href="#[311]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 <LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_Init
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DBG_Init
 <LI><a href="#[183]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_EEPROM_Init
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_API_get_initial_pac
+<LI><a href="#[2ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_API_get_device_id
 <LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;user_button_init
 <LI><a href="#[32b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initEnergyMeasurement
 <LI><a href="#[329]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearEnergyStruct
 <LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Init
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
@@ -6235,26 +6243,26 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendLoRaWAN
 </UL>
 
-<P><STRONG><a name="[321]"></a>registerNBIoT</STRONG> (Thumb, 200 bytes, Stack size 128 bytes, nbiot.o(i.registerNBIoT))
+<P><STRONG><a name="[321]"></a>registerNBIoT</STRONG> (Thumb, 194 bytes, Stack size 128 bytes, nbiot.o(i.registerNBIoT))
 <BR><BR>[Stack]<UL><LI>Max Depth = 2116<LI>Call Chain = registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPowerSavingModeSettings
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPowerSavingMode
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetPDPContext
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetModemOptimization
+<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetErrorFormat
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SetEDRXConfiguration
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SendATCommandGetReply
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_SelectNetwork
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetSignalStength
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetPowerSavingMode
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetNetworkStatus
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetEDRXConfiguration
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetCELevel
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetSignalStength
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetPowerSavingMode
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetNetworkStatus
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetEDRXConfiguration
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_GetCELevel
 <LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConnectToOperator
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_ConfigureContext
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[337]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 </UL>
@@ -6271,13 +6279,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276GetTimeOnAir
 </UL>
 
-<P><STRONG><a name="[339]"></a>sendEnergyStruct</STRONG> (Thumb, 128 bytes, Stack size 376 bytes, nbiot.o(i.sendEnergyStruct))
+<P><STRONG><a name="[339]"></a>sendEnergyStruct</STRONG> (Thumb, 136 bytes, Stack size 376 bytes, nbiot.o(i.sendEnergyStruct))
 <BR><BR>[Stack]<UL><LI>Max Depth = 2516<LI>Call Chain = sendEnergyStruct &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
 <LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendResult
 </UL>
@@ -6289,11 +6297,11 @@ Global Symbols
 <LI><a href="#[1cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_send
 <LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_JoinStatus
 <LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA_Join
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 <LI><a href="#[336]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerLoRaWAN
 <LI><a href="#[32d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initLoRaWAN
 <LI><a href="#[31f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startEnergyMeasurement
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_Idle
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
@@ -6303,11 +6311,11 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 3764<LI>Call Chain = sendNBIoT &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 <LI><a href="#[31e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sendNBIoT
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
 </UL>
@@ -6335,7 +6343,7 @@ Global Symbols
 <P><STRONG><a name="[334]"></a>send_data_request</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, sigfox.o(i.send_data_request))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = send_data_request
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_SetTask
+<BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_SetTask
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;onTimerEvent
 </UL>
@@ -6343,7 +6351,7 @@ Global Symbols
 <P><STRONG><a name="[61]"></a>send_data_request_from_irq</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, sigfox.o(i.send_data_request_from_irq))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = send_data_request_from_irq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_SetTask
+<BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_SetTask
 </UL>
 <BR>[Address Reference Count : 3]<UL><LI> sigfox.o(i.user_button_init)
 <LI> main.o(i.sendResult)
@@ -6412,9 +6420,9 @@ Global Symbols
 <P><STRONG><a name="[332]"></a>user_button_init</STRONG> (Thumb, 52 bytes, Stack size 32 bytes, sigfox.o(i.user_button_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = user_button_init &rArr; HW_GPIO_Init &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_Init
 <LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_SetIrq
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -6431,7 +6439,7 @@ Global Symbols
 <P><STRONG><a name="[33c]"></a>vcom2_IoInit</STRONG> (Thumb, 50 bytes, Stack size 32 bytes, vcom2.o(i.vcom2_IoInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = vcom2_IoInit &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[330]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Init
 </UL>
@@ -6441,7 +6449,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tiny_vsnprintf_like
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SX1276Send
@@ -6468,6 +6476,7 @@ Global Symbols
 <LI><a href="#[24e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_API_report_test_result
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendTest
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendResult
 <LI><a href="#[33b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
 <LI><a href="#[32e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSigfox
 <LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopEnergyMeasurementNBIoT
@@ -6585,12 +6594,12 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_set
 <LI><a href="#[349]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SE_NVM_get
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 <LI><a href="#[34a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_payload_encryption_flag
 <LI><a href="#[346]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CREDENTIALS_get_dev_id
 <LI><a href="#[34b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_encrypt_decrypt_frame
 <LI><a href="#[34c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_HMAC_compute_aes
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SIGFOX_INT_build_frame
 </UL>
@@ -6674,7 +6683,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[148]"></a>NVIC_SetPriority</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, stm32l0xx_hal_cortex.o(i.NVIC_SetPriority))
-<BR><BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
+<BR><BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
 </UL>
 
 <P><STRONG><a name="[131]"></a>DMA_SetConfig</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, stm32l0xx_hal_dma.o(i.DMA_SetConfig))
@@ -7350,7 +7359,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LoRaMacCryptoSecureMessage
 </UL>
 
-<P><STRONG><a name="[20a]"></a>ResetFCnts</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, loramaccrypto.o(i.ResetFCnts))
+<P><STRONG><a name="[20a]"></a>ResetFCnts</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, loramaccrypto.o(i.ResetFCnts))
 <BR><BR>[Called By]<UL><LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LoRaMacCryptoInit
 </UL>
 
@@ -7523,8 +7532,8 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RTC_SetAlarm_IT
 <LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_StopAlarm
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_RTC_SetAlarm
 </UL>
@@ -7553,8 +7562,8 @@ Local Symbols
 <P><STRONG><a name="[193]"></a>HW_IoDeInitAll</STRONG> (Thumb, 146 bytes, Stack size 48 bytes, mlm32l0xx_hw.o(i.HW_IoDeInitAll))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = HW_IoDeInitAll &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_EnterOffMode
 </UL>
@@ -7607,24 +7616,24 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> st_lowlevel.o(i.STLL_Radio_IoInit)
 </UL>
-<P><STRONG><a name="[bd]"></a>BG96_PrintDMA</STRONG> (Thumb, 62 bytes, Stack size 24 bytes, bg96.o(i.BG96_PrintDMA))
+<P><STRONG><a name="[be]"></a>BG96_PrintDMA</STRONG> (Thumb, 62 bytes, Stack size 24 bytes, bg96.o(i.BG96_PrintDMA))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = BG96_PrintDMA &rArr; BG96_StartDMA &rArr; LL_DMA_Init &rArr; LL_DMA_SetPeriphRequest
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetStopMode
+<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPM_SetStopMode
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_StartDMA
 </UL>
-<BR>[Called By]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Dma_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Dma_IRQHandler
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_Send
 </UL>
 
 <P><STRONG><a name="[d8]"></a>BG96_StartDMA</STRONG> (Thumb, 126 bytes, Stack size 64 bytes, bg96.o(i.BG96_StartDMA))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = BG96_StartDMA &rArr; LL_DMA_Init &rArr; LL_DMA_SetPeriphRequest
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_EnableIRQ
+<BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_EnableIRQ
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_DMA_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PrintDMA
+<BR>[Called By]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BG96_PrintDMA
 </UL>
 
 <P><STRONG><a name="[1bd]"></a>I2C_Error</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, ltc2942.o(i.I2C_Error))
@@ -7651,9 +7660,9 @@ Local Symbols
 <P><STRONG><a name="[1c0]"></a>I2C_MspInit</STRONG> (Thumb, 172 bytes, Stack size 40 bytes, ltc2942.o(i.I2C_MspInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = I2C_MspInit &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_EnableIRQ
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_EnableIRQ
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_Init
 </UL>
@@ -7687,7 +7696,7 @@ Local Symbols
 <P><STRONG><a name="[5d]"></a>onTimerWd</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, nbiot.o(i.onTimerWd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = onTimerWd
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_SetTask
+<BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_SetTask
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> nbiot.o(i._sendNBIoT)
 </UL>
@@ -7712,24 +7721,25 @@ Local Symbols
 <P><STRONG><a name="[60]"></a>onTimerResult</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, main.o(i.onTimerResult))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = onTimerResult
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_SetTask
+<BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_SetTask
 </UL>
 <BR>[Address Reference Count : 2]<UL><LI> main.o(i.main)
 <LI> main.o(i.sendTest)
 </UL>
-<P><STRONG><a name="[63]"></a>sendResult</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, main.o(i.sendResult))
+<P><STRONG><a name="[63]"></a>sendResult</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, main.o(i.sendResult))
 <BR><BR>[Stack]<UL><LI>Max Depth = 2524<LI>Call Chain = sendResult &rArr; sendEnergyStruct &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerStart
+<BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerStart
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerSetValue
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerInit
 <LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_SetIrq
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_RegTask
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_RegTask
 <LI><a href="#[339]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendEnergyStruct
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.sendTest)
 </UL>
-<P><STRONG><a name="[62]"></a>sendTest</STRONG> (Thumb, 116 bytes, Stack size 16 bytes, main.o(i.sendTest))
+<P><STRONG><a name="[62]"></a>sendTest</STRONG> (Thumb, 144 bytes, Stack size 16 bytes, main.o(i.sendTest))
 <BR><BR>[Stack]<UL><LI>Max Depth = 3780<LI>Call Chain = sendTest &rArr; sendNBIoT &rArr; _sendNBIoT &rArr; registerNBIoT &rArr; BG96_SetPowerSavingMode &rArr; BG96_SendATCommandCheckReply &rArr; BG96_SendATCommand &rArr; BG96_Send &rArr; tiny_vsnprintf_like &rArr; ee_number &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vcom2_Send
@@ -7737,7 +7747,7 @@ Local Symbols
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerSetValue
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerInit
 <LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_GPIO_SetIrq
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_RegTask
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCH_RegTask
 <LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LoRaMacInitializationReset
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[33b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSigfox
@@ -7943,18 +7953,18 @@ Local Symbols
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[301]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2ulz
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
 </UL>
 
 <P><STRONG><a name="[31a]"></a>_printf_core</STRONG> (Thumb, 1754 bytes, Stack size 128 bytes, printfa.o(i._printf_core), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
-<LI><a href="#[31c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
+<BR><BR>[Calls]<UL><LI><a href="#[31c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
 <LI><a href="#[31d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
 <LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[319]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0sprintf
 </UL>
