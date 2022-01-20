@@ -1665,7 +1665,7 @@ static void LoRaMacHandleMcpsRequest( void )
             }
         }
 
-        if( stopRetransmission == true )
+        /*if( stopRetransmission == true )
         {// Stop retransmission
             TimerStop( &MacCtx.TxDelayedTimer );
             MacCtx.MacState &= ~LORAMAC_TX_DELAYED;
@@ -1676,9 +1676,14 @@ static void LoRaMacHandleMcpsRequest( void )
             MacCtx.MacFlags.Bits.MacDone = 0;
             // Reset the state of the AckTimeout
             MacCtx.AckTimeoutRetry = false;
+						PRINTF("Sends the same frame again");
             // Sends the same frame again
             OnTxDelayedTimerEvent( NULL );
-        }
+        }*/
+				
+				TimerStop( &MacCtx.TxDelayedTimer );
+				MacCtx.MacState &= ~LORAMAC_TX_DELAYED;
+				StopRetransmission( );
     }
 }
 
@@ -1765,6 +1770,7 @@ void LoRaMacProcess( void )
 
 static void OnTxDelayedTimerEvent( void* context )
 {
+		PRINTF("Inside ontxdelayed");
     TimerStop( &MacCtx.TxDelayedTimer );
     MacCtx.MacState &= ~LORAMAC_TX_DELAYED;
 

@@ -525,8 +525,11 @@ BG96_Status_t BG96_PowerOn( void ){
 	#ifdef BG96_FIRSTBOOT
 	HAL_Delay(20000);
 	BG96_SetBaudRate(9600);
-	BG96_SendATCommandCheckReply("ATE0\r\n", "ATE0", 1000);
-	BG96_SendATCommandCheckReply("AT+QURCCFG=\"urcport\",\"uart1\"\r\n", "OK", 200);
+	HAL_Delay(10);
+	BG96_SendATCommand("ATE0\r\n");
+	HAL_Delay(10);
+	BG96_SendATCommand("AT+QURCCFG=\"urcport\",\"uart1\"\r\n");
+	HAL_Delay(10);
 	BG96_SaveConfiguration();
 	#endif
 	
@@ -573,8 +576,8 @@ BG96_Status_t BG96_PowerOn( void ){
 BG96_Status_t BG96_SetBaudRate( uint16_t baud ){
 	char buffer[30]; 
 	sprintf(buffer, "AT+IPR=%d\r\n", baud);
-	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
-	
+	BG96_SendATCommand(buffer);
+	return BG96_OK;
 	// TODO: Auto save via BG96_SaveConfiguration (but with new baud rate)
 }
 
@@ -738,6 +741,7 @@ BG96_Status_t BG96_GetSignalQuality(char * buffer){
 
 BG96_Status_t BG96_GetSignalStength(char * buffer){
 	BG96_Status_t status  =  BG96_SendATCommandGetReply("AT+QCSQ\r\n", buffer, 300);
+	PRINTF_LN("-QCSQ: %s", buffer);
 	if(status != BG96_OK)
 			return status;
 	return BG96_SendATCommandCheckReply("", "OK", 300); // Check out last (closing) OK\r\n
@@ -751,7 +755,7 @@ BG96_Status_t BG96_GetNetworkInfo(char * buffer){
 }
 
 BG96_Status_t BG96_GetNetworkStatus(char * buffer){
-	BG96_Status_t status  =  BG96_SendATCommandCheckReply("AT+CEREG=4\r\n", "OK", 300);//2
+	BG96_Status_t status  =  BG96_SendATCommandCheckReply("AT+CEREG=2\r\n", "OK", 300);//2
 	if(status != BG96_OK)
 			return status;
 	status = BG96_SendATCommandGetReply("AT+CEREG?\r\n", buffer, 300);
@@ -1003,10 +1007,11 @@ BG96_Status_t BG96_WaitForPowerDown( uint32_t timeout ){
 }
 
 bool BG96_IsPoweredDown(){
-	if(HAL_GPIO_ReadPin(BG96_STATUS_PORT, BG96_STATUS_PIN) == GPIO_PIN_SET)
-		return true;
-	else
+	if(HAL_GPIO_ReadPin(BG96_STATUS_PORT, BG96_STATUS_PIN) == GPIO_PIN_RESET){
 		return false;
+	}else{
+		return true;
+	}
 }
 
 BG96_Status_t BG96_WaitForConnection(uint32_t timeout){
@@ -1151,7 +1156,12 @@ BG96_Status_t BG96_ResetPacketCounters( void ){
 
 BG96_Status_t BG96_ConfigureContext( void ){
 	char buffer[60]; 
+	#ifdef NBIOT_PROXIMUS
 	sprintf(buffer, "AT+QICSGP=%d,1,\"m2minternet.proximus.be\",\"\",\"\",1\r\n", _contextID); // Orange: nbiot.iot, Proximus: m2minternet.proximus.be
+	#endif
+	#ifdef NBIOT_ORANGE
+	sprintf(buffer, "AT+QICSGP=%d,1,\"nbiot.iot\",\"\",\"\",1\r\n", _contextID); // Orange: nbiot.iot, Proximus: m2minternet.proximus.be
+	#endif
 	return BG96_SendATCommandCheckReply(buffer, "OK", 300);
 }	
 

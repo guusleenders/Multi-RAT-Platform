@@ -84,7 +84,7 @@
 #define LORAWAN
 
 #define SHOW_SIGFOX_ID
-#define DEVICE_ID 0
+#define DEVICE_ID 1
 
 #define USER_BUTTON_ALT_PIN                         GPIO_PIN_0
 #define USER_BUTTON_ALT_GPIO_PORT                   GPIOA
@@ -312,7 +312,7 @@ static void sendResult(void){
 	
 	SCH_RegTask(SEND_TASK, sendTest);		  // Record send data task
 	TimerInit(&TxTimer, onTimerEvent);
-	TimerSetValue(&TxTimer,  SEND_DELAY);
+	TimerSetValue(&TxTimer,  SEND_DELAY-SEND_DELAY/4);
 	TimerStart(&TxTimer); // Schedule next testing cycle
 	
 	PRINTF_LN("- Waiting for next schedule");

@@ -169,6 +169,7 @@ void sendLoRaWAN(void){
 	PRINTF_LN("- LoRaWAN send command done");
 	#endif
 	
+	energyStruct.lorawan_packetNumber++; 
 	// Stop energy measurement in loradone function
 }
 
@@ -289,7 +290,7 @@ void LORA_Done(void){
 	energyStruct.lorawan_energy = uwh;
 	PRINTF("\r\n||LoRa energy used: %d/10 uAh (%d/10 uWh, %d/10 mJ )||\r\n", energy, uwh, uwh*3.6f);
 	
-	energyStruct.lorawan_packetNumber++; 
+	
 }
 
 uint8_t LORA_GetBatteryLevel(void){

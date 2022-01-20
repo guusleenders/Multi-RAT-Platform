@@ -256,6 +256,7 @@ BG96_Status_t BG96_SetPowerSavingMode(uint8_t mode, char * requestedRAU, char * 
 BG96_Status_t BG96_GetPowerSavingMode(char * buffer);
 BG96_Status_t BG96_SetPowerSavingModeSettings(uint32_t threshold, uint8_t version);
 BG96_Status_t BG96_SetPowerSavingModeImmediately( void );
+BG96_Status_t BG96_AbortRRC( void );
 BG96_Status_t BG96_WaitForPowerDown( uint32_t timeout );
 bool BG96_IsPoweredDown( void );
 BG96_Status_t BG96_WaitForConnection(uint32_t timeout);

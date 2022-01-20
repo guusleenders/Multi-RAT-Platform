@@ -51,8 +51,8 @@ void initNBIoT(void){
 	BG96_ConfigureURCIndication(BG96_URCINDICATION_USBAT);
 	BG96_SetNetworkReporting(BG96_NETWORK_REPORTING_STAT);
 	BG96_SetModemOptimization();
-	BG96_SetPowerSavingMode(1, "", "", "\"00001010\"", "\"00001010\""); // set tau timer to 1h, active timer to 30s (seems to work best in network)//20s
-	BG96_SetEDRXConfiguration(1,5,"\"0010\"");
+	BG96_SetPowerSavingMode(1, "", "", "\"00001010\"", "\"00000000\""); // set tau timer to 1h, active timer to 30s (seems to work best in network)//20s
+	BG96_SetEDRXConfiguration(0,5,"\"0000\"");
 	BG96_SetMode(BG96_NBIOT_MODE);
 	
 	#ifdef DEBUG
@@ -65,13 +65,22 @@ void registerNBIoT(void){
 
 	// ---------- Configure/select network ---------- 
 	BG96_ConfigureContext();
+	#ifdef NBIOT_PROXIMUS
 	BG96_SetPDPContext("\"m2minternet.proximus.be\""); // Orange: nbiot.iot, Proximus: m2minternet.proximus.be
 	BG96_SelectNetwork(20601, BG96_NETWORK_NBIOT); // Proximus: 20601, Telenet: 20605, Orange: 20610, Base: 20620
-	
-	//BG96_SetSIMPIN("03092574\",\"7146");
-	char pinbuffer[30];
-	memset(pinbuffer, '\0', 30);
+	#endif
+	//char pinbuffer[30];
+	//memset(pinbuffer, '\0', 30);
 	//BG96_SendATCommandGetReply("AT+CPIN?\r\n", pinbuffer, 1000);
+	//char pinbuffer1[50];
+	//BG96_SendATCommandGetReply("AT+COPS=?\r\n", pinbuffer1, 10000);
+	
+	#ifdef NBIOT_ORANGE
+	BG96_SetPDPContext("\"nbiot.iot\""); // Orange: nbiot.iot, Proximus: m2minternet.proximus.be
+	BG96_SelectNetwork(20610, BG96_NETWORK_NBIOT); // Proximus: 20601, Telenet: 20605, Orange: 20610, Base: 20620
+	#endif
+	
+	
 	#ifdef DEBUG
 	PRINTF_LN("- Network selected");
 	#endif
@@ -83,10 +92,11 @@ void registerNBIoT(void){
 	#endif
 	
 	// ---------- Set power saving settings ---------- 
-	BG96_SetPowerSavingMode(1, "", "", "\"00001010\"", "\"00001010\""); // set tau timer to 1h, active timer to 30s (seems to work best in network)//20s
-	BG96_SetEDRXConfiguration(1,5,"\"0010\"");
-	BG96_SetPowerSavingModeSettings(20,12);
-	BG96_SetModemOptimization();
+	BG96_SetPowerSavingMode(1, "", "", "\"00001010\"", "\"00000000\""); // set tau timer to 1h, active timer to 30s (seems to work best in network)//20s
+	//BG96_SetEDRXConfiguration(1,5,"\"0000\"");
+	BG96_SetEDRXConfiguration(0,0,"\"0000\"");
+	//BG96_SetPowerSavingModeSettings(20,12);
+	//BG96_SetModemOptimization();
 	#ifdef DEBUG
 	PRINTF_LN("- Set power saving settings");
 	#endif
@@ -181,6 +191,8 @@ int8_t _sendNBIoT(bool sendingMeasuredEnergy, char * payload){
 			
 			PRINTF_LN("- Done sending NB-IoT");
 			BG96_SetPowerSavingModeImmediately();
+			BG96_AbortRRC();
+			BG96_SetPowerSavingModeImmediately();
 			PRINTF_LN("- Waiting for PSM");
 		}
 	}
@@ -198,8 +210,11 @@ int8_t _sendNBIoT(bool sendingMeasuredEnergy, char * payload){
 	while(!BG96_IsPoweredDown() && counter < 3){ 
 		BG96_WaitForPowerDown(10000);
 		PRINTF_LN("- PSM failed again, try again (%i).", counter);
-		if(!BG96_IsPoweredDown())
+		if(!BG96_IsPoweredDown()){
 			BG96_SetPowerSavingModeImmediately();
+			BG96_AbortRRC();
+			BG96_SetPowerSavingModeImmediately();
+		}
 	  counter ++; 
 	}
 	if(!BG96_IsPoweredDown() && counter >= 3){
@@ -238,7 +253,7 @@ int8_t _sendNBIoT(bool sendingMeasuredEnergy, char * payload){
 int8_t sendNBIoT(){
 	char buffer[1600]; 
 	memset(buffer, '\0', sizeof(buffer));
-	sprintf(buffer, "P%d;%d;%d;", energyStruct.general_deviceID, energyStruct.general_bootID, energyStruct.lorawan_packetNumber);
+	sprintf(buffer, "P%d;%d;%d;", energyStruct.general_deviceID, energyStruct.general_bootID, energyStruct.nbiot_packetNumber);
 	uint16_t i;
 	PRINTF_LN("Packet number: %d, %d, %d", energyStruct.nbiot_packetNumber, energyStruct.nbiot_packetNumber%19, nbiot_payloadsize_lt[energyStruct.nbiot_packetNumber%19]);
 	for(i = 0; i < nbiot_payloadsize_lt[energyStruct.nbiot_packetNumber%19]; i++){
