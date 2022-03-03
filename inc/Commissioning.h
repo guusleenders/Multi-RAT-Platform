@@ -88,7 +88,7 @@ extern "C" {
  * When using ABP activation the MAC layer must know in advance to which server
  * version it will be connected.
  */
-#define ABP_ACTIVATION_LRWAN_VERSION_V10x                  0x01000400 // 1.0.3.0
+#define ABP_ACTIVATION_LRWAN_VERSION_V10x                  0x01000400 // 1.0.4.0
 
 #define ABP_ACTIVATION_LRWAN_VERSION                       ABP_ACTIVATION_LRWAN_VERSION_V10x
 
@@ -162,13 +162,13 @@ extern "C" {
  *
  * \remark see STATIC_DEVICE_ADDRESS comments
  */
-#ifdef DEVICE_1
+#ifdef DEVICE_3
 #define LORAWAN_DEVICE_ADDRESS                             ( uint32_t )0x260BD4B5
 #else
 #define LORAWAN_DEVICE_ADDRESS                             ( uint32_t )0x06100F23
 #endif
 
-#ifdef DEVICE_1
+#ifdef DEVICE_3
 /*!
  * Forwarding Network session integrity key = Network Session Key
  * WARNING: NWK_S_KEY FOR 1.0.x DEVICES

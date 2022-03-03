@@ -80,7 +80,7 @@
             <nStopB2X>0</nStopB2X>
           </BeforeMake>
           <AfterMake>
-            <RunUserProg1>0</RunUserProg1>
+            <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
             <UserProg1Name>$K\ARM\ARMCC\bin\fromelf.exe --bincombined --output=@L.bin !L</UserProg1Name>
             <UserProg2Name></UserProg2Name>
@@ -337,7 +337,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>--C99</MiscControls>
-              <Define>STM32L072xx,USE_B_L072Z_LRWAN1, USE_FULL_LL_DRIVER, USE_RADIO_LL_DRIVER, USE_HAL_DRIVER, REGION_EU868, DEVICE_1, NBIOT_ORANGE, LORAWAN_TTN</Define>
+              <Define>STM32L072xx,USE_B_L072Z_LRWAN1, USE_FULL_LL_DRIVER, USE_RADIO_LL_DRIVER, USE_HAL_DRIVER, REGION_EU868, DEVICE_3, NBIOT_ORANGE, LORAWAN_TTN</Define>
               <Undefine></Undefine>
               <IncludePath>..\inc;..\Core\inc;..\Drivers\BSP\MLM32L07X01;..\Drivers\BSP\Components\sx1276;..\Drivers\STM32L0xx_HAL_Driver\Inc;..\Drivers\CMSIS\Device\ST\STM32L0xx\Include;..\Drivers\CMSIS\Include;..\Middlewares\Utilities;..\Middlewares\Third_Party\Sgfx\SigfoxLib;..\Middlewares\Third_Party\LoRaWAN\Crypto;..\Middlewares\Third_Party\LoRaWAN\Mac;..\Middlewares\Third_Party\LoRaWAN\Phy;..\Middlewares\Third_Party\LoRaWAN\Patterns\Basic;..\Divers\BSP\Components\Common;..\Middlewares\Third_Party\Sgfx\Crypto;..\Drivers\BSP\Components;..\Drivers\BSP\B-L072Z-LRWAN1;..\Drivers\BSP\X_NUCLEO_IKS01A2;..\Common\cwmx1zzabz\Radio_Sigfox_Driver;..\Common\cwmx1zzabz\Credentials_libs;..\Drivers\BSP\Components\Common;..\Drivers\BSP\Components\hts221;..\Drivers\BSP\Components\lps22hb;..\Drivers\BSP\Components\lps25hb;..\Drivers\BSP\B-L072Z-LRWAN1;..\Middlewares\Third_Party\LoRaWAN\Mac\Region;..\Middlewares\Third_Party\LoRaWAN\Utilities</IncludePath>
             </VariousControls>

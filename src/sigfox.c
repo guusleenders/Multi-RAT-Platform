@@ -68,7 +68,9 @@ void sendSigfox( void ){
   ul_msg[ul_size++] = energyStruct.general_bootID;
   ul_msg[ul_size++] = (energyStruct.sigfox_packetNumber >> 8) & 0xFF;;
   ul_msg[ul_size++] = energyStruct.sigfox_packetNumber  & 0xFF;
-	for(uint8_t p = 0; p < energyStruct.sigfox_packetNumber%8; p++){
+	// Incremental: energyStruct.sigfox_packetNumber%8
+	// Random: rand()%8
+	for(uint8_t p = 0; p < rand()%8; p++){
 		ul_msg[ul_size++] = 0;
 	}
 

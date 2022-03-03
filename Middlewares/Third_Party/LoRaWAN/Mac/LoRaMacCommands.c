@@ -332,6 +332,7 @@ void* LoRaMacCommandsGetNvmCtx( size_t* commandsNvmCtxSize )
 
 LoRaMacCommandStatus_t LoRaMacCommandsAddCmd( uint8_t cid, uint8_t* payload, size_t payloadSize )
 {
+	PRINTF_LN("- Added lora command: %i", cid);
     if( payload == 0 )
     {
         return LORAMAC_COMMANDS_ERROR_NPE;

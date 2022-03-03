@@ -84,7 +84,11 @@
 #define LORAWAN
 
 #define SHOW_SIGFOX_ID
+#ifdef DEVICE_3
 #define DEVICE_ID 1
+#else
+#define DEVICE_ID 0
+#endif
 
 #define USER_BUTTON_ALT_PIN                         GPIO_PIN_0
 #define USER_BUTTON_ALT_GPIO_PORT                   GPIOA
@@ -187,7 +191,9 @@ int main( void ){
   HAL_RNG_Init(&hrng);
 	
 	
+	
 	if(HAL_RNG_GenerateRandomNumber(&hrng, &random) == HAL_OK){
+		srand((uint16_t)random);
 		bootID = random % 255;
   }
 	

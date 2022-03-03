@@ -51,8 +51,13 @@ void initNBIoT(void){
 	BG96_ConfigureURCIndication(BG96_URCINDICATION_USBAT);
 	BG96_SetNetworkReporting(BG96_NETWORK_REPORTING_STAT);
 	BG96_SetModemOptimization();
+	#ifdef NBIOT_PROXIMUS
+	BG96_SetPowerSavingMode(1, "", "", "\"00001010\"", "\"00001010\"");
+	BG96_SetEDRXConfiguration(1,5,"\"0010\"");
+	#else
 	BG96_SetPowerSavingMode(1, "", "", "\"00001010\"", "\"00000000\""); // set tau timer to 1h, active timer to 30s (seems to work best in network)//20s
 	BG96_SetEDRXConfiguration(0,5,"\"0000\"");
+	#endif
 	BG96_SetMode(BG96_NBIOT_MODE);
 	
 	#ifdef DEBUG
@@ -92,10 +97,17 @@ void registerNBIoT(void){
 	#endif
 	
 	// ---------- Set power saving settings ---------- 
+	#ifdef NBIOT_PROXIMUS
+	BG96_SetPowerSavingMode(1, "", "", "\"00001010\"", "\"00001010\""); // set tau timer to 1h, active timer to 30s (seems to work best in network)//20s
+	BG96_SetEDRXConfiguration(1,5,"\"0010\"");
+	BG96_SetPowerSavingModeSettings(20,12);
+	BG96_SetModemOptimization();
+	#else
 	BG96_SetPowerSavingMode(1, "", "", "\"00001010\"", "\"00000000\""); // set tau timer to 1h, active timer to 30s (seems to work best in network)//20s
 	//BG96_SetEDRXConfiguration(1,5,"\"0000\"");
 	BG96_SetEDRXConfiguration(0,0,"\"0000\"");
-	//BG96_SetPowerSavingModeSettings(20,12);
+	#endif
+	//
 	//BG96_SetModemOptimization();
 	#ifdef DEBUG
 	PRINTF_LN("- Set power saving settings");
@@ -181,7 +193,7 @@ int8_t _sendNBIoT(bool sendingMeasuredEnergy, char * payload){
 		
 		// ---------- Connect to server ---------- 
 		HAL_Delay(200);
-		if(BG96_UDP_Start("213.49.33.40",8891) != BG96_OK){
+		if(BG96_UDP_Start("213.49.14.16",8891) != BG96_OK){
 			PRINTF_LN("- UDP Start failed, going back to psm");
 		}else{		
 
@@ -256,7 +268,10 @@ int8_t sendNBIoT(){
 	sprintf(buffer, "P%d;%d;%d;", energyStruct.general_deviceID, energyStruct.general_bootID, energyStruct.nbiot_packetNumber);
 	uint16_t i;
 	PRINTF_LN("Packet number: %d, %d, %d", energyStruct.nbiot_packetNumber, energyStruct.nbiot_packetNumber%19, nbiot_payloadsize_lt[energyStruct.nbiot_packetNumber%19]);
-	for(i = 0; i < nbiot_payloadsize_lt[energyStruct.nbiot_packetNumber%19]; i++){
+	
+	// Incremental sizes: energyStruct.nbiot_packetNumber%19
+	// Random sizes: rand()%19
+	for(i = 0; i < nbiot_payloadsize_lt[rand()%19]; i++){
 		buffer[strlen(buffer)] = 'a';
 	}
 	energyStruct.nbiot_payloadSize = strlen(buffer);

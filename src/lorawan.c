@@ -138,8 +138,9 @@ void sendLoRaWAN(void){
   PRINTF_LN("- Boot id: %i", AppData.Buff[i-1]);
   AppData.Buff[i++] = (energyStruct.lorawan_packetNumber >> 8) & 0xFF;;
 	AppData.Buff[i++] = energyStruct.lorawan_packetNumber  & 0xFF;
-	
-	for(uint8_t p = 0; p < lorawan_payloadsize_lt[energyStruct.lorawan_packetNumber%19]; p++){
+	// Incremental: lorawan_payloadsize_lt[energyStruct.lorawan_packetNumber%19]
+	// Random: lorawan_payloadsize_lt[rand()%19]
+	for(uint8_t p = 0; p < lorawan_payloadsize_lt[rand()%19]; p++){
 		AppData.Buff[i++] = 0x00;
 	}
 	energyStruct.lorawan_payloadSize = i;

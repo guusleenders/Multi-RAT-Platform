@@ -62,7 +62,7 @@
 /*!
  * Maximum length of the fOpts field
  */
-#define LORA_MAC_COMMAND_MAX_FOPTS_LENGTH           16 //15
+#define LORA_MAC_COMMAND_MAX_FOPTS_LENGTH           18//16 //15
 
 /*!
  * LoRaMac duty cycle for the back-off procedure during the first hour.
