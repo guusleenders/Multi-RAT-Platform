@@ -1,3 +1,3 @@
-# STM32-LoRaWAN-Sigfox-Send
+# Energy Profiling Platform for Multi-RAT
  
-Send packets over both LoRaWaWAN and Sigfox through the STM32 LRWAN1. 
+
